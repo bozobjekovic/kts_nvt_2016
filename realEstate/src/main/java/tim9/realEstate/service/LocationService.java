@@ -22,8 +22,8 @@ public class LocationService {
 		return locationRepositroy.findAll();
 	}
 
-	public Location save(Location course) {
-		return locationRepositroy.save(course);
+	public Location save(Location location) {
+		return locationRepositroy.save(location);
 	}
 
 	public void remove(Long id) {
