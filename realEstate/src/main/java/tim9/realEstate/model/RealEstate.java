@@ -16,7 +16,7 @@ public class RealEstate implements Serializable{
 	
 	@Id
 	@GeneratedValue
-	private int id;
+	private Long id;
 	private String name;
 	@ManyToOne
 	private Location location;
@@ -47,11 +47,11 @@ public class RealEstate implements Serializable{
 		this.type = type;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

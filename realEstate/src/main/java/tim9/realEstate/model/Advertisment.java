@@ -28,9 +28,9 @@ public class Advertisment implements Serializable{
 	private String phoneNumber;
 	@ManyToOne
 	private Verifier verifier;
-	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private User publisher;
-	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private User buyer;
 	@ManyToOne
 	private RealEstate realEstate;

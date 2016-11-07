@@ -13,7 +13,7 @@ public class Location implements Serializable{
 	
 	@Id
 	@GeneratedValue
-	private int id;
+	private Long id;
 	private String address;
 	private String city;
 	private int zipCode;
@@ -31,11 +31,11 @@ public class Location implements Serializable{
 		this.partOfTheCity = partOfTheCity;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

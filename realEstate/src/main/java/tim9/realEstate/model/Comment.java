@@ -17,7 +17,7 @@ public class Comment implements Serializable{
 	
 	@Id
 	@GeneratedValue
-	private int id;
+	private Long id;
 	private Date date;
 	private String title;
 	private String description;
@@ -30,9 +30,8 @@ public class Comment implements Serializable{
 		super();
 	}
 
-	public Comment(int id, Date date, String title, String description, User user, Advertisment advertisment) {
+	public Comment(Date date, String title, String description, User user, Advertisment advertisment) {
 		super();
-		this.id = id;
 		this.date = date;
 		this.title = title;
 		this.description = description;
@@ -40,13 +39,11 @@ public class Comment implements Serializable{
 		this.advertisment = advertisment;
 	}
 
-
-
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
