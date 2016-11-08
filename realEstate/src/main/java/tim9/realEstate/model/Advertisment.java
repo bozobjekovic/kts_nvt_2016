@@ -26,7 +26,7 @@ public class Advertisment implements Serializable{
 	private Date activeUntil;
 	private double rate;
 	private String phoneNumber;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Verifier verifier;
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private User publisher;
