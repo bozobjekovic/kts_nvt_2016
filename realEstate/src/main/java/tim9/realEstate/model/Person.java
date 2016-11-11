@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
@@ -23,6 +24,8 @@ public abstract class Person implements Serializable{
 	private String phoneNumber;
 	private String address;
 	private String city;
+	@ManyToOne
+	private Authority authority;
 	@Lob
 	private String image;
 	
@@ -31,7 +34,7 @@ public abstract class Person implements Serializable{
 	}
 
 	public Person(String email, String username, String password, String name, String surname, String phoneNumber,
-			String address, String city, String image) {
+			String address, String city, Authority authority, String image) {
 		super();
 		this.email = email;
 		this.username = username;
@@ -41,7 +44,15 @@ public abstract class Person implements Serializable{
 		this.phoneNumber = phoneNumber;
 		this.address = address;
 		this.city = city;
+		this.authority = authority;
 		this.image = image;
+	}
+
+	@Override
+	public String toString() {
+		return "Person [id=" + id + ", email=" + email + ", username=" + username + ", password=" + password + ", name="
+				+ name + ", surname=" + surname + ", phoneNumber=" + phoneNumber + ", address=" + address + ", city="
+				+ city + ", authority=" + authority + ", image=" + image + "]";
 	}
 
 	public Long getId() {
@@ -116,6 +127,14 @@ public abstract class Person implements Serializable{
 		this.city = city;
 	}
 
+	public Authority getAuthority() {
+		return authority;
+	}
+
+	public void setAuthority(Authority authority) {
+		this.authority = authority;
+	}
+
 	public String getImage() {
 		return image;
 	}
@@ -124,13 +143,4 @@ public abstract class Person implements Serializable{
 		this.image = image;
 	}
 
-	@Override
-	public String toString() {
-		return "Person [id=" + id + ", email=" + email + ", username=" + username + ", password=" + password + ", name="
-				+ name + ", surname=" + surname + ", phoneNumber=" + phoneNumber + ", address=" + address + ", city="
-				+ city + "]";
-	}
-	
-	
-	
 }

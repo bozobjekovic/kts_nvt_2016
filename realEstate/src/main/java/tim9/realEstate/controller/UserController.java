@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tim9.realEstate.dto.LoginUserDTO;
 import tim9.realEstate.model.User;
+import tim9.realEstate.security.TokenUtils;
 import tim9.realEstate.service.UserService;
 
 @RestController
@@ -33,7 +34,8 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
-	
+	@Autowired
+	TokenUtils tokenUtils;
 	
 	@RequestMapping(value="/users/all", method = RequestMethod.GET)
 	public ResponseEntity<List<User>> getAllUsers() {
@@ -49,12 +51,14 @@ public class UserController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<String> login(@RequestBody LoginUserDTO loginUser) {
+		System.out.println("DOSAO");
         try {
-        	UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginUser.getUsername(), loginUser.getPassword());
-        	Authentication authentication = authenticationManager.authenticate(token);
-        	SecurityContextHolder.getContext().setAuthentication(authentication);
-        	UserDetails details = userDetailsService.loadUserByUsername(loginUser.getUsername());
-            return new ResponseEntity<String>("", HttpStatus.OK);
+        	UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+        			loginUser.getUsername(), loginUser.getPassword());
+            Authentication authentication = authenticationManager.authenticate(token);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            UserDetails details = userDetailsService.loadUserByUsername(loginUser.getUsername());
+            return new ResponseEntity<String>(tokenUtils.generateToken(details), HttpStatus.OK);
         } catch (Exception ex) {
             return new ResponseEntity<String>("Invalid login", HttpStatus.BAD_REQUEST);
         }
