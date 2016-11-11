@@ -2,16 +2,12 @@ package tim9.realEstate.model;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Advertisment implements Serializable{
@@ -24,36 +20,37 @@ public class Advertisment implements Serializable{
 	private Date publicationDate;
 	private Date modificationDate;
 	private Date activeUntil;
+	private String purpose;
 	private double rate;
 	private String phoneNumber;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Verifier verifier;
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne
 	private User publisher;
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne
 	private User buyer;
 	@ManyToOne
 	private RealEstate realEstate;
-	@OneToMany(mappedBy = "advertisment", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	private Set<Comment> comments = new HashSet<Comment>();
+	//private Set<Comment> comments = new HashSet<Comment>();
 	
 	public Advertisment() {
 		super();
 	}
 
-	public Advertisment(Date publicationDate, Date modificationDate, Date activeUntil, double rate, String phoneNumber,
+	public Advertisment(Date publicationDate, Date modificationDate, Date activeUntil, String purpose, double rate, String phoneNumber,
 			Verifier verifier, User publisher, User buyer, RealEstate realEstate, Set<Comment> comments) {
 		super();
 		this.publicationDate = publicationDate;
 		this.modificationDate = modificationDate;
 		this.activeUntil = activeUntil;
+		this.purpose = purpose;
 		this.rate = rate;
 		this.phoneNumber = phoneNumber;
 		this.verifier = verifier;
 		this.publisher = publisher;
 		this.buyer = buyer;
 		this.realEstate = realEstate;
-		this.comments = comments;
+		//this.comments = comments;
 	}
 
 	public int getId() {
@@ -86,6 +83,14 @@ public class Advertisment implements Serializable{
 
 	public void setActiveUntil(Date activeUntil) {
 		this.activeUntil = activeUntil;
+	}
+
+	public String getPurpose() {
+		return purpose;
+	}
+
+	public void setPurpose(String purpose) {
+		this.purpose = purpose;
 	}
 
 	public double getRate() {
@@ -136,19 +141,20 @@ public class Advertisment implements Serializable{
 		this.realEstate = realEstate;
 	}
 
-	public Set<Comment> getComments() {
+/*	public Set<Comment> getComments() {
 		return comments;
 	}
 
 	public void setComments(Set<Comment> comments) {
 		this.comments = comments;
-	}
+	}*/
 
 	@Override
 	public String toString() {
 		return "Advertisment [id=" + id + ", publicationDate=" + publicationDate + ", modificationDate="
-				+ modificationDate + ", activeUntil=" + activeUntil + ", rate=" + rate + ", phoneNumber=" + phoneNumber
-				+ "]";
+				+ modificationDate + ", activeUntil=" + activeUntil + ", purpose=" + purpose + ", rate=" + rate
+				+ ", phoneNumber=" + phoneNumber + ", verifier=" + verifier + ", publisher=" + publisher + ", buyer="
+				+ buyer + ", realEstate=" + realEstate + ", comments="  + "]";
 	}
 
 }
