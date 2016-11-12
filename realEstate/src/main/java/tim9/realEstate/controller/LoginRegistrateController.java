@@ -1,5 +1,8 @@
 package tim9.realEstate.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,6 +48,15 @@ public class LoginRegistrateController {
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public ResponseEntity<Void> logout(HttpServletRequest request, HttpServletResponse response) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    if (auth != null){    
+	        new SecurityContextLogoutHandler().logout(request, response, auth);
+	    }
+	    return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<String> login(@RequestBody LoginUserDTO loginUser) {
         try {
@@ -63,10 +76,10 @@ public class LoginRegistrateController {
 		registrateUser.setPassword(passwordEncoder.encode(registrateUser.getPassword()));
         if (registrateUser.getAuthority().equals("user")) {
         	userService.save(new User(registrateUser, "user", authorityService.findByName("USER")));
-        	return new ResponseEntity<>(HttpStatus.OK);
+        	return new ResponseEntity<>(HttpStatus.CREATED);
 		} else {
 			userService.save(new User(registrateUser, "clerk", authorityService.findByName("USER")));
-			return new ResponseEntity<>(HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.CREATED);
 		}
 	}
 

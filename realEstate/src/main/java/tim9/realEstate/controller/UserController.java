@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import tim9.realEstate.model.User;
@@ -30,5 +31,14 @@ public class UserController {
 		user = userService.save(user);
 		return new ResponseEntity<>(user, HttpStatus.CREATED);
 	}
+	
+	@RequestMapping(value="/rate", method = RequestMethod.GET)
+    public ResponseEntity<Void> rateUser(@RequestParam Long id, @RequestParam double rate){
+    	User user = userService.findOne(id);
+    	user.setNumOfRates(user.getNumOfRates() + 1);
+    	user.setRate((user.getRate()*user.getNumOfRates() - 1 + rate) / user.getNumOfRates());
+    	userService.save(user);
+    	return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }
