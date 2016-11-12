@@ -58,7 +58,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and()
 			.authorizeRequests()
-				.antMatchers("/realEstate").permitAll();
+				.antMatchers("/realEstate").permitAll().and().csrf().disable();
 				//.antMatchers(HttpMethod.POST, "/api/**")
 				//	.hasAuthority("ROLE_ADMIN"); //only administrator can add and edit data
 				//.anyRequest().authenticated();

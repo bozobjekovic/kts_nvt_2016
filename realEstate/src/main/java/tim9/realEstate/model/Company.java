@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import tim9.realEstate.dto.RegistrateUserDTO;
+
 @Entity
 public class Company implements Serializable{
 
@@ -23,6 +25,12 @@ public class Company implements Serializable{
 	
 	public Company() {
 		super();
+	}
+	
+	public Company(RegistrateUserDTO regCompany) {
+		this(regCompany.getCompanyName(), new Location(regCompany.getCompanyAddress(), 
+				regCompany.getCompanyCity(), regCompany.getZipCode(), regCompany.getPartOfTheCity()), 
+				regCompany.getCompanyPhoneNumber(), regCompany.getSite());
 	}
 
 	public Company(String name, Location location, String phoneNumber, String site) {

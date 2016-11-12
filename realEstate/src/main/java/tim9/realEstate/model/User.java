@@ -5,14 +5,18 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
+import tim9.realEstate.dto.RegistrateUserDTO;
+
 @Entity
 public class User extends Person implements Serializable{
 
 	private static final long serialVersionUID = -9118880198314430296L;
 	
+	private int numOfRates;
 	private double rate;
 	private int bankAccount;
-	private boolean clerk;
+	private boolean isClerk;
+	private boolean isApproved;
 	/*@OneToMany(mappedBy = "publisher", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Advertisment> publishedAdvertisments = new HashSet<Advertisment>();
 	@OneToMany(mappedBy = "buyer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -23,21 +27,43 @@ public class User extends Person implements Serializable{
 	public User() {
 		super();
 	}
+	
+	public User(RegistrateUserDTO registrateUser, String type) {
+		this(registrateUser.getEmail(), registrateUser.getUsername(), registrateUser.getPassword(), 
+				registrateUser.getName(), registrateUser.getSurname(), registrateUser.getPhoneNumber(), 
+				registrateUser.getAddress(), registrateUser.getCity(), null, registrateUser.getImage(), 
+				0, 0, registrateUser.getBankAccount(), false, false, null);
+		if (type.equals("clerk")) {
+			this.setCompany(new Company(registrateUser.getCompanyName(), new Location(registrateUser.getCompanyAddress(), 
+				registrateUser.getCompanyCity(), registrateUser.getZipCode(), registrateUser.getPartOfTheCity()), 
+				registrateUser.getCompanyPhoneNumber(), registrateUser.getSite()));
+		}
+	}
 
 	public User(String email, String username, String password, String name, String surname, String phoneNumber,
-			String address, String city, Authority authority, String image, double rate, int bankAccount, boolean clerk,
-			Company company) {
+			String address, String city, Authority authority, String image, int numOfRates, double rate,
+			int bankAccount, boolean isClerk, boolean isApproved, Company company) {
 		super(email, username, password, name, surname, phoneNumber, address, city, authority, image);
+		this.numOfRates = numOfRates;
 		this.rate = rate;
 		this.bankAccount = bankAccount;
-		this.clerk = clerk;
+		this.isClerk = isClerk;
+		this.isApproved = isApproved;
 		this.company = company;
 	}
 
 	@Override
 	public String toString() {
-		return "User [rate=" + rate + ", bankAccount=" + bankAccount + ", clerk=" + clerk + ", company=" + company
-				+ "]";
+		return "User [numOfRates=" + numOfRates + ", rate=" + rate + ", bankAccount=" + bankAccount + ", clerk=" + isClerk
+				+ ", company=" + company + "]";
+	}
+
+	public int getNumOfRates() {
+		return numOfRates;
+	}
+
+	public void setNumOfRates(int numOfRates) {
+		this.numOfRates = numOfRates;
 	}
 
 	public double getRate() {
@@ -57,11 +83,19 @@ public class User extends Person implements Serializable{
 	}
 
 	public boolean isClerk() {
-		return clerk;
+		return isClerk;
 	}
 
-	public void setClerk(boolean clerk) {
-		this.clerk = clerk;
+	public void setClerk(boolean isClerk) {
+		this.isClerk = isClerk;
+	}
+
+	public boolean isApproved() {
+		return isApproved;
+	}
+
+	public void setApproved(boolean isApproved) {
+		this.isApproved = isApproved;
 	}
 
 	public Company getCompany() {

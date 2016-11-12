@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import tim9.realEstate.model.Person;
+import tim9.realEstate.model.User;
 import tim9.realEstate.repository.AdminRepository;
 import tim9.realEstate.repository.UserRepository;
 import tim9.realEstate.repository.VerifierRepository;
@@ -43,6 +44,10 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 			throw new UsernameNotFoundException(String.format("No person found with username '%s'.", username));
 		} else {
 			if (user != null) {
+				if (((User)user).isClerk() && !((User)user).isApproved()) {
+					System.out.println("Your account is not approved!");
+					throw new UsernameNotFoundException(String.format("Your account is not approved!"));
+				}
 				List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
 				grantedAuthorities.add(new SimpleGrantedAuthority(user.getAuthority().getName()));				
 				return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities.stream().collect(Collectors.toList()));
