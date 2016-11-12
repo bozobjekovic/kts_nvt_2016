@@ -2,6 +2,7 @@ package tim9.realEstate.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,7 +19,7 @@ public class Company implements Serializable{
 	@GeneratedValue
 	private Long id;
 	private String name;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Location location;
 	private String phoneNumber;
 	private String site;

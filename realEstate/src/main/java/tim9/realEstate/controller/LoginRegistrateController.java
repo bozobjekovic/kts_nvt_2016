@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +19,7 @@ import tim9.realEstate.dto.LoginUserDTO;
 import tim9.realEstate.dto.RegistrateUserDTO;
 import tim9.realEstate.model.User;
 import tim9.realEstate.security.TokenUtils;
+import tim9.realEstate.service.AuthorityService;
 import tim9.realEstate.service.UserService;
 
 @RestController
@@ -36,6 +38,12 @@ public class LoginRegistrateController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	AuthorityService authorityService;
+	
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<String> login(@RequestBody LoginUserDTO loginUser) {
         try {
@@ -51,13 +59,14 @@ public class LoginRegistrateController {
 	}
 	
 	@RequestMapping(value = "/registrate", method = RequestMethod.POST)
-	public ResponseEntity<String> registrate(@RequestBody RegistrateUserDTO registrateUser) {
+	public ResponseEntity<Void> registrate(@RequestBody RegistrateUserDTO registrateUser) {
+		registrateUser.setPassword(passwordEncoder.encode(registrateUser.getPassword()));
         if (registrateUser.getAuthority().equals("user")) {
-        	userService.save(new User(registrateUser, "user"));
-        	return new ResponseEntity<String>(HttpStatus.OK);
+        	userService.save(new User(registrateUser, "user", authorityService.findByName("USER")));
+        	return new ResponseEntity<>(HttpStatus.OK);
 		} else {
-			userService.save(new User(registrateUser, "clerk"));
-			return new ResponseEntity<String>(HttpStatus.OK);
+			userService.save(new User(registrateUser, "clerk", authorityService.findByName("USER")));
+			return new ResponseEntity<>(HttpStatus.OK);
 		}
 	}
 

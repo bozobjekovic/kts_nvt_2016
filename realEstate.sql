@@ -1,8 +1,10 @@
 select * from location;
 select * from user;
 select * from advertisment;
+select * from authority;
 select * from admin;
 select * from verifier;
+select * from company;
 
 drop table Admin;
 drop table Clerk;

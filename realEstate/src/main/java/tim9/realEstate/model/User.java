@@ -2,6 +2,7 @@ package tim9.realEstate.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -21,19 +22,20 @@ public class User extends Person implements Serializable{
 	private Set<Advertisment> publishedAdvertisments = new HashSet<Advertisment>();
 	@OneToMany(mappedBy = "buyer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Advertisment> buyedAdvertisments = new HashSet<Advertisment>();*/
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Company company;
 
 	public User() {
 		super();
 	}
 	
-	public User(RegistrateUserDTO registrateUser, String type) {
+	public User(RegistrateUserDTO registrateUser, String type, Authority authority) {
 		this(registrateUser.getEmail(), registrateUser.getUsername(), registrateUser.getPassword(), 
 				registrateUser.getName(), registrateUser.getSurname(), registrateUser.getPhoneNumber(), 
-				registrateUser.getAddress(), registrateUser.getCity(), null, registrateUser.getImage(), 
+				registrateUser.getAddress(), registrateUser.getCity(), authority, registrateUser.getImage(), 
 				0, 0, registrateUser.getBankAccount(), false, false, null);
 		if (type.equals("clerk")) {
+			this.setClerk(true);
 			this.setCompany(new Company(registrateUser.getCompanyName(), new Location(registrateUser.getCompanyAddress(), 
 				registrateUser.getCompanyCity(), registrateUser.getZipCode(), registrateUser.getPartOfTheCity()), 
 				registrateUser.getCompanyPhoneNumber(), registrateUser.getSite()));
