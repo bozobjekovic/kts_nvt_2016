@@ -2,7 +2,6 @@ package tim9.realEstate.model;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,12 +15,13 @@ public class Advertisment implements Serializable{
 	
 	@Id
 	@GeneratedValue
-	private int id;
+	private Long id;
 	private Date publicationDate;
 	private Date modificationDate;
 	private Date activeUntil;
 	private String purpose;
 	private double rate;
+	private int numberOfRates;
 	private String phoneNumber;
 	@ManyToOne
 	private Verifier verifier;
@@ -37,27 +37,28 @@ public class Advertisment implements Serializable{
 		super();
 	}
 
-	public Advertisment(Date publicationDate, Date modificationDate, Date activeUntil, String purpose, double rate, String phoneNumber,
-			Verifier verifier, User publisher, User buyer, RealEstate realEstate, Set<Comment> comments) {
+	public Advertisment(Date publicationDate, Date modificationDate, Date activeUntil, String purpose, double rate,
+			int numberOfRates, String phoneNumber, Verifier verifier, User publisher, User buyer,
+			RealEstate realEstate) {
 		super();
 		this.publicationDate = publicationDate;
 		this.modificationDate = modificationDate;
 		this.activeUntil = activeUntil;
 		this.purpose = purpose;
 		this.rate = rate;
+		this.numberOfRates = numberOfRates;
 		this.phoneNumber = phoneNumber;
 		this.verifier = verifier;
 		this.publisher = publisher;
 		this.buyer = buyer;
 		this.realEstate = realEstate;
-		//this.comments = comments;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -148,6 +149,14 @@ public class Advertisment implements Serializable{
 	public void setComments(Set<Comment> comments) {
 		this.comments = comments;
 	}*/
+
+	public int getNumberOfRates() {
+		return numberOfRates;
+	}
+
+	public void setNumberOfRates(int numberOfRates) {
+		this.numberOfRates = numberOfRates;
+	}
 
 	@Override
 	public String toString() {

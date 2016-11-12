@@ -61,8 +61,8 @@ INSERT INTO Real_Estate VALUES (2, 1, 'radijatori', 'image', '100m2', 'Stan na b
 INSERT INTO Real_Estate VALUES (3, 2, 'radijatori', 'image', '52m2', 'Kuca sa bazenom', 24034, 'TV,Klima,Bazen', 'Kuca', 3);
 INSERT INTO Real_Estate VALUES (4, 1, 'radijatori', 'image', '3506m2', 'Kancelarija u centru', 5434, 'Nista', 'Kancelarija', 4);
 
-INSERT INTO Advertisment VALUES (1, '2016-12-20', '2016-12-23', '+481924842', '2017-12-20', 'sell', '4', null, null, 2, 1);
-INSERT INTO Advertisment VALUES (2, '2016-12-20', '2016-12-23', '+3453535', '2017-12-20', 'sell', '5', null, null, 1, 2);
-INSERT INTO Advertisment VALUES (3, '2016-12-20', '2016-12-23', '+52432342', '2017-12-20', 'rent', '3.2', null, null, 4, 2);
+INSERT INTO Advertisment VALUES (1, '2016-12-20', '2016-12-23', 10, '+481924842', '2017-12-20', 'sell', '4', null, null, 2, 1);
+INSERT INTO Advertisment VALUES (2, '2016-12-20', '2016-12-23', 11,'+3453535', '2017-12-20', 'sell', '5', null, null, 1, 2);
+INSERT INTO Advertisment VALUES (3, '2016-12-20', '2016-12-23', 47,'+52432342', '2017-12-20', 'rent', '3.2', null, null, 4, 2);
 
 
