@@ -9,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import tim9.realEstate.model.Advertisment;
 import tim9.realEstate.model.Category;
+import tim9.realEstate.model.Verifier;
 import tim9.realEstate.service.AdvertismentService;
 
 @Controller
@@ -49,6 +51,23 @@ public class AdvertismentController {
     public ResponseEntity<List<Advertisment>> getAdvertismentsByType(@PathVariable String type){
     	List<Advertisment> advertisments = advertismentService.findByRealEstate_Type(type);
     	return new ResponseEntity<>(advertisments, HttpStatus.OK);
+    }
+    
+    @RequestMapping(value="/rate", method = RequestMethod.GET)
+    public ResponseEntity<Void> rate(@RequestParam Long id, @RequestParam double rate){
+    	Advertisment advertisment = advertismentService.findOne(id);
+    	advertisment.setNumberOfRates(advertisment.getNumberOfRates() + 1);
+    	advertisment.setRate((advertisment.getRate()*advertisment.getNumberOfRates() - 1 + rate) / advertisment.getNumberOfRates());
+    	advertismentService.save(advertisment);
+    	return new ResponseEntity<>(HttpStatus.OK);
+    }
+    
+    @RequestMapping(value="/verification", method = RequestMethod.GET)
+    public ResponseEntity<Void> verify(@RequestParam Long idAdvertisment, @RequestParam Verifier verifier){
+    	Advertisment advertisment = advertismentService.findOne(idAdvertisment);
+    	advertisment.setVerifier(verifier);
+    	advertismentService.save(advertisment);
+    	return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
