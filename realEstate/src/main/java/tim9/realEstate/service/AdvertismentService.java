@@ -42,5 +42,8 @@ public class AdvertismentService {
 	public List<Advertisment> findByRealEstate_Type(String type){
 		return advertismentRepository.findByRealEstate_Type(type);
 	}
-
+	
+	public List<Advertisment> orderByRate(){
+		return advertismentRepository.OrderByRateDesc();
+	}
 }

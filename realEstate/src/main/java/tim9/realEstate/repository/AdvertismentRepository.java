@@ -14,5 +14,7 @@ public interface AdvertismentRepository extends JpaRepository<Advertisment, Long
 	List<Advertisment> findByRealEstate_Category(Category category);
 	
 	List<Advertisment> findByRealEstate_Type(String type);
+	
+	List<Advertisment> OrderByRateDesc();
 
 }
