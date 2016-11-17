@@ -2,12 +2,14 @@ package tim9.realEstate.specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
 import tim9.realEstate.model.Advertisment;
+import tim9.realEstate.model.RealEstate;
 
 public class AdvertismentSpecification implements Specification<Advertisment>{
 	
@@ -28,12 +30,18 @@ public class AdvertismentSpecification implements Specification<Advertisment>{
               root.<String> get(criteria.getKey()), criteria.getValue().toString());
         } 
         else if (criteria.getOperation().equalsIgnoreCase(":")) {
-            if (root.get(criteria.getKey()).getJavaType() == String.class) {
-                return builder.like(
-                  root.<String>get(criteria.getKey()), "%" + criteria.getValue() + "%");
-            } else {
-                return builder.equal(root.get(criteria.getKey()), criteria.getValue());
-            }
+        	if (criteria.getKey().equals("type") || criteria.getKey().equals("heatingType")) {
+        		Join<Advertisment, RealEstate> country = root.join("realEstate");
+            	return builder.like(
+            			country.<String>get(criteria.getKey()), "%" + criteria.getValue() + "%");
+			} else {
+				if (root.get(criteria.getKey()).getJavaType() == String.class) {
+					return builder.like(
+			                  root.<String>get(criteria.getKey()), "%" + criteria.getValue() + "%");
+	            }  else {
+	                return builder.equal(root.get(criteria.getKey()), criteria.getValue());
+	            }
+			}
         }
         return null;
 	}
