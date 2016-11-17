@@ -3,6 +3,7 @@ package tim9.realEstate.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import tim9.realEstate.model.Advertisment;
@@ -21,6 +22,10 @@ public class AdvertismentService {
 
 	public List<Advertisment> findAll() {
 		return advertismentRepository.findAll();
+	}
+	
+	public List<Advertisment> findAllBySpecification(Specification<Advertisment> specifications) {
+		return advertismentRepository.findAll(specifications);
 	}
 
 	public Advertisment save(Advertisment advertisment) {

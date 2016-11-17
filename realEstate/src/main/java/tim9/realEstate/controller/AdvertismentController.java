@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import tim9.realEstate.model.Advertisment;
-import tim9.realEstate.model.Category;
 import tim9.realEstate.model.Verifier;
 import tim9.realEstate.service.AdvertismentService;
 
@@ -40,18 +39,6 @@ public class AdvertismentController {
     @RequestMapping(value="/purpose/{name}", method = RequestMethod.GET)
     public ResponseEntity<List<Advertisment>> getAdvertismentsByPurpose(@PathVariable String name){
     	List<Advertisment> advertisments = advertismentService.findByPurpose(name);
-    	return new ResponseEntity<>(advertisments, HttpStatus.OK);
-    }
-    
-    @RequestMapping(value="/category/{category}", method = RequestMethod.GET)
-    public ResponseEntity<List<Advertisment>> getAdvertismentsByCategory(@PathVariable Category category){
-    	List<Advertisment> advertisments = advertismentService.findByRealEstate_Category(category);
-    	return new ResponseEntity<>(advertisments, HttpStatus.OK);
-    }
-    
-    @RequestMapping(value="/type/{type}", method = RequestMethod.GET)
-    public ResponseEntity<List<Advertisment>> getAdvertismentsByType(@PathVariable String type){
-    	List<Advertisment> advertisments = advertismentService.findByRealEstate_Type(type);
     	return new ResponseEntity<>(advertisments, HttpStatus.OK);
     }
     
