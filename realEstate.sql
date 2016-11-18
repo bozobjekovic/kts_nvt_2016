@@ -16,6 +16,7 @@ drop table User;
 drop table Real_estate;
 drop table Verifier;
 drop table Location;
+drop table Authority;
 
 set foreign_key_checks = 0;
 
@@ -57,10 +58,10 @@ INSERT INTO Company VALUES (4, 'Kompanija DOO', '+3816456456', 'www.kompanijadoo
 INSERT INTO User VALUES (4, 'Balzakova', 'Novi Sad', 'clerk@gmail.com', 'image', 'Clerk', 'c', '+12331203', 'Clerkan', 'clerk', '21345411', false, true, 1, 2, 2, 1);
 INSERT INTO User VALUES (5, 'Novosadska', 'Novi Sad', 'clerk2@gmail.com', 'image', 'Clerk2', 'c', '+15232', 'Clerkan2', 'clerk2', '9678678', true, true, 2, 2, 2, 2);
 
-INSERT INTO Real_Estate VALUES (1, 0, 'radijatori', 'image', 456, 'Kuca velika', 324034, 'TV,Klima', 'Kuca', 1);
-INSERT INTO Real_Estate VALUES (2, 1, 'radijatori', 'image', 100, 'Stan na brdu', 31242, 'TV,Klima,Namestak', 'Stan', 2);
-INSERT INTO Real_Estate VALUES (3, 2, 'radijatori', 'image', 52, 'Kuca sa bazenom', 24034, 'TV,Klima,Bazen', 'Kuca', 3);
-INSERT INTO Real_Estate VALUES (4, 1, 'radijatori', 'image', 3506, 'Kancelarija u centru', 5434, 'Nista', 'Kancelarija', 4);
+INSERT INTO Real_Estate VALUES (1, 1890, 0, 'radijatori', 'image', 456, 'Kuca velika', 2, 3, 3, 324034, 'TV,Klima', 'Kuca', 1);
+INSERT INTO Real_Estate VALUES (2, 1950, 1, 'radijatori', 'image', 100, 'Stan na brdu', 3, 5, 4, 31242, 'TV,Klima,Namestak', 'Stan', 2);
+INSERT INTO Real_Estate VALUES (3, 1960, 2, 'radijatori', 'image', 52, 'Kuca sa bazenom', 2, 2, 2, 24034, 'TV,Klima,Bazen', 'Kuca', 3);
+INSERT INTO Real_Estate VALUES (4, 1994, 1, 'radijatori', 'image', 3506, 'Kancelarija u centru', 2, 3, 2, 5434, 'Nista', 'Kancelarija', 4);
 
 INSERT INTO Advertisment VALUES (1, '2016-12-20', '2016-12-23', 10, '+481924842', '2017-12-20', 'sell', '4', null, null, 2, 1);
 INSERT INTO Advertisment VALUES (2, '2016-12-20', '2016-12-23', 11,'+3453535', '2017-12-20', 'sell', '5', null, null, 1, 2);
