@@ -21,10 +21,14 @@ public class RealEstate implements Serializable{
 	@ManyToOne
 	private Location location;
 	private double price;
-	private String landSize;
+	private int landSize;
 	private String techEquipment;
 	private String heatingType;
 	private String image;
+	private int numOfBathRooms;
+	private int numOfBedRooms;
+	private int numOfFlors;
+	private int buildYear;
 	@Enumerated(EnumType.ORDINAL)
 	private Category category;
 	private String type;
@@ -33,8 +37,9 @@ public class RealEstate implements Serializable{
 		super();
 	}
 
-	public RealEstate(String name, Location location, double price, String landSize, String techEquipment, String heatingType,
-			String image, Category category, String type) {
+	public RealEstate(String name, Location location, double price, int landSize, String techEquipment,
+			String heatingType, String image, int numOfBathRooms, int numOfBedRooms, int numOfFlors, int buildYear,
+			Category category, String type) {
 		super();
 		this.name = name;
 		this.location = location;
@@ -43,9 +48,15 @@ public class RealEstate implements Serializable{
 		this.techEquipment = techEquipment;
 		this.heatingType = heatingType;
 		this.image = image;
+		this.numOfBathRooms = numOfBathRooms;
+		this.numOfBedRooms = numOfBedRooms;
+		this.numOfFlors = numOfFlors;
+		this.buildYear = buildYear;
 		this.category = category;
 		this.type = type;
 	}
+
+
 
 	public Long getId() {
 		return id;
@@ -79,11 +90,11 @@ public class RealEstate implements Serializable{
 		this.price = price;
 	}
 
-	public String getLandSize() {
+	public int getLandSize() {
 		return landSize;
 	}
 
-	public void setLandSize(String landSize) {
+	public void setLandSize(int landSize) {
 		this.landSize = landSize;
 	}
 
@@ -109,6 +120,38 @@ public class RealEstate implements Serializable{
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+	
+	public int getNumOfBathRooms() {
+		return numOfBathRooms;
+	}
+
+	public void setNumOfBathRooms(int numOfBathRooms) {
+		this.numOfBathRooms = numOfBathRooms;
+	}
+
+	public int getNumOfBedRooms() {
+		return numOfBedRooms;
+	}
+
+	public void setNumOfBedRooms(int numOfBedRooms) {
+		this.numOfBedRooms = numOfBedRooms;
+	}
+
+	public int getNumOfFlors() {
+		return numOfFlors;
+	}
+
+	public void setNumOfFlors(int numOfFlors) {
+		this.numOfFlors = numOfFlors;
+	}
+
+	public int getBuildYear() {
+		return buildYear;
+	}
+
+	public void setBuildYear(int buildYear) {
+		this.buildYear = buildYear;
 	}
 
 	public Category getCategory() {

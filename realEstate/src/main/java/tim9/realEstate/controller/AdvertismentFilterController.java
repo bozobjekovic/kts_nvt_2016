@@ -32,14 +32,14 @@ public class AdvertismentFilterController {
     	return new ResponseEntity<>(advertisments, HttpStatus.OK);
     }
     
-    @RequestMapping(value="/type/{type}", method = RequestMethod.GET)
-    public ResponseEntity<List<Advertisment>> getAdvertismentsByType(@PathVariable String type){
+    @RequestMapping(value="/category/{category}/{type}", method = RequestMethod.GET)
+    public ResponseEntity<List<Advertisment>> getAdvertismentsByType(@PathVariable Category category, @PathVariable String type){
     	List<Advertisment> advertisments = advertismentService.findByRealEstate_Type(type);
     	return new ResponseEntity<>(advertisments, HttpStatus.OK);
     }
     
-    @RequestMapping(value="/filters", method = RequestMethod.GET)
-    public ResponseEntity<List<Advertisment>> filters(@RequestParam(value = "filter") String filter){
+    @RequestMapping(value="/category/{category}/filters", method = RequestMethod.GET)
+    public ResponseEntity<List<Advertisment>> filters(@PathVariable Category category, @RequestParam(value = "filter") String filter){
     	AdvertismentSpecificationsBuilder builder = new AdvertismentSpecificationsBuilder();
     	
     	Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");
@@ -48,6 +48,7 @@ public class AdvertismentFilterController {
     	while (matcher.find()) {
             builder.with(matcher.group(1), matcher.group(2), matcher.group(3));
         }
+    	builder.with("category", ":", category);
     	
     	Specification<Advertisment> spec = builder.build();
     	return new ResponseEntity<>(advertismentService.findAllBySpecification(spec), HttpStatus.OK);
