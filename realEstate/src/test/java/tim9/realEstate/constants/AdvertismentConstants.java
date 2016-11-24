@@ -30,6 +30,6 @@ public class AdvertismentConstants {
     public static final int DB_COUNT_STUDENT_EXAMS = 2;
     
     public static final int DB_COUNT = 3;
-    public static final int PAGE_SIZE = 5;
+    public static final int PAGE_SIZE = 2;
 
 }

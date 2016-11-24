@@ -3,6 +3,8 @@ package tim9.realEstate.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +26,8 @@ public class AdvertismentService {
 		return advertismentRepository.findAll();
 	}
 	
-	public List<Advertisment> findAllBySpecification(Specification<Advertisment> specifications) {
-		return advertismentRepository.findAll(specifications);
+	public Page<Advertisment> findAll(Pageable page) {
+		return advertismentRepository.findAll(page);
 	}
 
 	public Advertisment save(Advertisment advertisment) {
@@ -34,6 +36,10 @@ public class AdvertismentService {
 
 	public void remove(Long id) {
 		advertismentRepository.delete(id);
+	}
+	
+	public List<Advertisment> findAllBySpecification(Specification<Advertisment> specifications) {
+		return advertismentRepository.findAll(specifications);
 	}
 	
 	public List<Advertisment> findByPurpose(String purpose){

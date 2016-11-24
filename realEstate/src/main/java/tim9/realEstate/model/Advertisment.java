@@ -3,6 +3,7 @@ package tim9.realEstate.model;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,12 +17,15 @@ public class Advertisment implements Serializable{
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Column(nullable = false)
 	private Date publicationDate;
 	private Date modificationDate;
 	private Date activeUntil;
+	@Column(nullable = false)
 	private String purpose;
 	private double rate;
 	private int numberOfRates;
+	@Column(unique = true)
 	private String phoneNumber;
 	@ManyToOne
 	private Verifier verifier;

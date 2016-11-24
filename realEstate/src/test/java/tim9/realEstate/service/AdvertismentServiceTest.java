@@ -14,6 +14,7 @@ import static tim9.realEstate.constants.AdvertismentConstants.NEW_NUM_OF_RATES;
 import static tim9.realEstate.constants.AdvertismentConstants.NEW_PHONE_NUMBER;
 import static tim9.realEstate.constants.AdvertismentConstants.NEW_PURPOSE;
 import static tim9.realEstate.constants.AdvertismentConstants.NEW_RATE;
+import static tim9.realEstate.constants.AdvertismentConstants.PAGE_SIZE;
 
 import java.util.List;
 
@@ -23,6 +24,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -47,12 +50,12 @@ public class AdvertismentServiceTest {
 		assertThat(advertisements).hasSize(DB_COUNT);
 	}
 	
-/*	@Test
+	@Test
 	public void testFindAllPageable() {
-		PageRequest pageRequest = new PageRequest(1, PAGE_SIZE); //second page
-		Page<Student> students = studentService.findAll(pageRequest);
-		assertThat(students).hasSize(PAGE_SIZE); 
-	}*/
+		PageRequest pageRequest = new PageRequest(0, PAGE_SIZE);
+		Page<Advertisment> advertisements = advertismentService.findAll(pageRequest);
+		assertThat(advertisements).hasSize(PAGE_SIZE); 
+	}
 	
 	@Test 
 	public void testFindOne() {
@@ -165,22 +168,51 @@ public class AdvertismentServiceTest {
 	 * Negative tests
 	 */
 	
-/*	@Test(expected = DataIntegrityViolationException.class)
+	@Test(expected = DataIntegrityViolationException.class)
     @Transactional
     @Rollback(true)
-	public void testAddExistingID() {
+	public void testAddUniquePhoneNumber() {
 		Advertisment advertisment = new Advertisment();
-		advertisment.setId(DB_ID);
 		advertisment.setPublicationDate(NEW_DATE);
 		advertisment.setModificationDate(NEW_DATE);
 		advertisment.setActiveUntil(NEW_DATE);
 		advertisment.setPurpose(NEW_PURPOSE);
 		advertisment.setRate(NEW_RATE);
 		advertisment.setNumberOfRates(NEW_NUM_OF_RATES);
-		advertisment.setPhoneNumber(NEW_PHONE_NUMBER);
+		advertisment.setPhoneNumber(DB_PHONE_NUMBER);
 		
 		advertismentService.save(advertisment);
-	}*/
+	}
+	
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testAddNullPurpose() {
+		Advertisment advertisment = new Advertisment();
+		advertisment.setPublicationDate(NEW_DATE);
+		advertisment.setModificationDate(NEW_DATE);
+		advertisment.setActiveUntil(NEW_DATE);
+		advertisment.setRate(NEW_RATE);
+		advertisment.setNumberOfRates(NEW_NUM_OF_RATES);
+		advertisment.setPhoneNumber(NEW_PHONE_NUMBER);;
+		
+		advertismentService.save(advertisment);
+	}
+	
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testAddNullPublicationDate() {
+		Advertisment advertisment = new Advertisment();
+		advertisment.setModificationDate(NEW_DATE);
+		advertisment.setActiveUntil(NEW_DATE);
+		advertisment.setPurpose(NEW_PURPOSE);
+		advertisment.setRate(NEW_RATE);
+		advertisment.setNumberOfRates(NEW_NUM_OF_RATES);
+		advertisment.setPhoneNumber(NEW_PHONE_NUMBER);;
+		
+		advertismentService.save(advertisment);
+	}
 	
 	@Test(expected = DataIntegrityViolationException.class)
 	@Transactional

@@ -1,9 +1,30 @@
 package tim9.realEstate.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static tim9.realEstate.constants.VerifierConstants.*;
+import static tim9.realEstate.constants.VerifierConstants.DB_ADDRESS;
+import static tim9.realEstate.constants.VerifierConstants.DB_CITY;
+import static tim9.realEstate.constants.VerifierConstants.DB_COUNT;
+import static tim9.realEstate.constants.VerifierConstants.DB_EMAIL;
+import static tim9.realEstate.constants.VerifierConstants.DB_ID;
+import static tim9.realEstate.constants.VerifierConstants.DB_ID_REFERENCED;
+import static tim9.realEstate.constants.VerifierConstants.DB_IMAGE;
+import static tim9.realEstate.constants.VerifierConstants.DB_NAME;
+import static tim9.realEstate.constants.VerifierConstants.DB_PASSWORD;
+import static tim9.realEstate.constants.VerifierConstants.DB_PHONE_NUMBER;
+import static tim9.realEstate.constants.VerifierConstants.DB_SURNAME;
+import static tim9.realEstate.constants.VerifierConstants.DB_USERNAME;
+import static tim9.realEstate.constants.VerifierConstants.NEW_ADDRESS;
+import static tim9.realEstate.constants.VerifierConstants.NEW_CITY;
+import static tim9.realEstate.constants.VerifierConstants.NEW_EMAIL;
+import static tim9.realEstate.constants.VerifierConstants.NEW_IMAGE;
+import static tim9.realEstate.constants.VerifierConstants.NEW_NAME;
+import static tim9.realEstate.constants.VerifierConstants.NEW_PASSWORD;
+import static tim9.realEstate.constants.VerifierConstants.NEW_PHONE_NUMBER;
+import static tim9.realEstate.constants.VerifierConstants.NEW_SURNAME;
+import static tim9.realEstate.constants.VerifierConstants.NEW_USERNAME;
 
 import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,7 +143,10 @@ public class VerifierServiceTest {
         assertThat(dbVerifier.getUsername()).isEqualTo(NEW_USERNAME);
 	}
 	
-	/*****   5. TEST REMOVE   *****/
+	/*
+	 * Negative tests
+	 */
+	
 	@Test(expected = DataIntegrityViolationException.class)
 	@Transactional
 	@Rollback(true)
@@ -135,5 +159,133 @@ public class VerifierServiceTest {
 		
 		Verifier dbVerifier = verifierService.findOne(DB_ID_REFERENCED);
 		assertThat(dbVerifier).isNull();
+	}
+	
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testAddNullEmail() {
+		Verifier verifier = new Verifier();
+		
+		verifier.setAddress(NEW_ADDRESS);
+		verifier.setCity(NEW_CITY);
+		verifier.setImage(NEW_IMAGE);
+		verifier.setName(NEW_NAME);
+		verifier.setPassword(NEW_PASSWORD);
+		verifier.setPhoneNumber(NEW_PHONE_NUMBER);
+		verifier.setSurname(NEW_SURNAME);
+		verifier.setUsername(NEW_USERNAME);
+		
+		verifierService.save(verifier);
+	}
+	
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testAddNullUsername() {
+		Verifier verifier = new Verifier();
+		
+		verifier.setEmail(NEW_EMAIL);
+		verifier.setAddress(NEW_ADDRESS);
+		verifier.setCity(NEW_CITY);
+		verifier.setImage(NEW_IMAGE);
+		verifier.setName(NEW_NAME);
+		verifier.setPassword(NEW_PASSWORD);
+		verifier.setPhoneNumber(NEW_PHONE_NUMBER);
+		verifier.setSurname(NEW_SURNAME);
+		
+		verifierService.save(verifier);
+	}
+	
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testAddNullPassword() {
+		Verifier verifier = new Verifier();
+		
+		verifier.setEmail(NEW_EMAIL);
+		verifier.setAddress(NEW_ADDRESS);
+		verifier.setCity(NEW_CITY);
+		verifier.setImage(NEW_IMAGE);
+		verifier.setName(NEW_NAME);
+		verifier.setPhoneNumber(NEW_PHONE_NUMBER);
+		verifier.setSurname(NEW_SURNAME);
+		verifier.setUsername(NEW_USERNAME);
+		
+		verifierService.save(verifier);
+	}
+	
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testAddNullName() {
+		Verifier verifier = new Verifier();
+		
+		verifier.setEmail(NEW_EMAIL);
+		verifier.setAddress(NEW_ADDRESS);
+		verifier.setCity(NEW_CITY);
+		verifier.setImage(NEW_IMAGE);
+		verifier.setSurname(NEW_SURNAME);
+		verifier.setPhoneNumber(NEW_PHONE_NUMBER);
+		verifier.setPassword(NEW_PASSWORD);
+		verifier.setUsername(NEW_USERNAME);
+		
+		verifierService.save(verifier);
+	}
+	
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testAddNullSurname() {
+		Verifier verifier = new Verifier();
+		
+		verifier.setEmail(NEW_EMAIL);
+		verifier.setAddress(NEW_ADDRESS);
+		verifier.setCity(NEW_CITY);
+		verifier.setImage(NEW_IMAGE);
+		verifier.setName(NEW_NAME);
+		verifier.setPhoneNumber(NEW_PHONE_NUMBER);
+		verifier.setPassword(NEW_PASSWORD);
+		verifier.setUsername(NEW_USERNAME);
+		
+		verifierService.save(verifier);
+	}
+	
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testAddUniqueEmail() {
+		Verifier verifier = new Verifier();
+		
+		verifier.setEmail(DB_EMAIL);
+		verifier.setAddress(NEW_ADDRESS);
+		verifier.setCity(NEW_CITY);
+		verifier.setImage(NEW_IMAGE);
+		verifier.setName(NEW_NAME);
+		verifier.setPhoneNumber(NEW_PHONE_NUMBER);
+		verifier.setPassword(NEW_PASSWORD);
+		verifier.setUsername(NEW_USERNAME);
+		verifier.setSurname(NEW_SURNAME);
+		
+		verifierService.save(verifier);
+	}
+	
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testAddUniqueUsername() {
+		Verifier verifier = new Verifier();
+		
+		verifier.setEmail(NEW_EMAIL);
+		verifier.setAddress(NEW_ADDRESS);
+		verifier.setCity(NEW_CITY);
+		verifier.setImage(NEW_IMAGE);
+		verifier.setName(NEW_NAME);
+		verifier.setPhoneNumber(NEW_PHONE_NUMBER);
+		verifier.setPassword(NEW_PASSWORD);
+		verifier.setUsername(DB_USERNAME);
+		verifier.setSurname(NEW_SURNAME);
+		
+		verifierService.save(verifier);
 	}
 }

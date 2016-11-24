@@ -2,6 +2,7 @@ package tim9.realEstate.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
@@ -16,10 +17,15 @@ public abstract class Person implements Serializable{
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Column(nullable = false, unique = true)
 	private String email;
+	@Column(nullable = false, unique = true)
 	private String username;
+	@Column(nullable = false)
 	private String password;
+	@Column(nullable = false)
 	private String name;
+	@Column(nullable = false)
 	private String surname;
 	private String phoneNumber;
 	private String address;

@@ -2,6 +2,7 @@ package tim9.realEstate.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -20,7 +21,9 @@ public class RealEstate implements Serializable{
 	private String name;
 	@ManyToOne
 	private Location location;
+	@Column(nullable = false)
 	private double price;
+	@Column(nullable = false)
 	private int landSize;
 	private String techEquipment;
 	private String heatingType;

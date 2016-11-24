@@ -1,5 +1,6 @@
 package tim9.realEstate.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,7 +11,7 @@ public class Authority {
 	@Id
 	@GeneratedValue
 	private Long id;
-	
+	@Column(nullable = false)
 	String name;
 
 	public Long getId() {

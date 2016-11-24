@@ -2,6 +2,7 @@ package tim9.realEstate.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,8 +15,11 @@ public class Location implements Serializable{
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Column(nullable = false)
 	private String address;
+	@Column(nullable = false)
 	private String city;
+	@Column(nullable = false)
 	private int zipCode;
 	private String partOfTheCity;
 	

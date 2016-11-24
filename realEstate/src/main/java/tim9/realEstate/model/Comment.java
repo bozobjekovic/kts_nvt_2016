@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ public class Comment implements Serializable{
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Column(nullable = false)
 	private Date date;
 	private String title;
 	private String description;

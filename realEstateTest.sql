@@ -13,7 +13,7 @@ INSERT INTO Location VALUES (4, 'Miselinova', 'Nis', 'Deo Nisa', 23560);
 
 INSERT INTO Admin VALUES (1, 'Balzakova', 'Novi Sad', 'admin@gmail.com', 'image', 'Admin', 'a', '+381412941', 'Adminovski', 'admin', 1);
 
-INSERT INTO Verifier VALUES (1, 'Balzakova', 'Novi Sad', 'verifier@gmail.com', '', 'Verifier', 'v', '+381594219', 'Vierifieric', 'verifier', 3);
+INSERT INTO Verifier VALUES (1, 'Balzakova', 'Novi Sad', 'verifier@gmail.com', 'i.jpg', 'Verifier', 'v', '+381594219', 'Vierifieric', 'verifier', 3);
 INSERT INTO Verifier VALUES (2, 'Beogradska', 'Beograd', 'verifier2@gmail.com', '', 'Verifier2', 'v', '+381242459', 'Vierifieric2', 'verifier2', 3);
 
 INSERT INTO Company VALUES (1, 'Kompanija Neka', '+3819214814', 'www.kompanijaneka.com', 1);
@@ -34,6 +34,3 @@ INSERT INTO Advertisment VALUES (2, '2016-12-20', '2016-12-23', 11,'+3453535', '
 INSERT INTO Advertisment VALUES (3, '2016-12-20', '2016-12-23', 47,'+52432342', '2017-12-20', 'rent', '3.2', null, null, 4, 2);
 
 INSERT INTO Inappropriate VALUES ('1', 'Inappropriate advertisement', 'Already exists', '1');
-
-
-
