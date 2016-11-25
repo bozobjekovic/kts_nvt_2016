@@ -11,6 +11,6 @@ public class CompanyConstants {
     public static final String DB_PHONE_NUMBER = "+38164564";
 	public static final String DB_SITE = "www.comany.com";
 	
-	public static final Long DB_ID_REFERENCED = 3L;
-    public static final int DB_COUNT = 4;
+	public static final Long DB_ID_REFERENCED = 5L;
+    public static final int DB_COUNT = 5;
 }

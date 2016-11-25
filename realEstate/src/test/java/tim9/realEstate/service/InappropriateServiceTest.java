@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -28,7 +29,14 @@ public class InappropriateServiceTest {
 	@Autowired
 	InappropriateService inappropriateService;
 	
-	/*****   1. TEST FIND ONE   *****/
+	/**
+	 * <h1> Positive tests </h1>
+	 */
+	
+	/**
+	 * <b>testFindOne()</b>
+	 * method tests if an certain element from the data base can be found
+	 **/
 	@Test
 	public void testFindOne() {
 		Inappropriate dbInappropriate = inappropriateService.findOne(DB_ID);
@@ -39,14 +47,20 @@ public class InappropriateServiceTest {
 		assertThat(dbInappropriate.getTitle()).isEqualTo(DB_TITLE);
 	}
 	
-	/*****   2. TEST FIND ALL   *****/
+	/**
+	 * <b>testFindAll()</b>
+	 * method test if all of certain elements from the data base can be found
+	 **/
 	@Test
 	public void testFindAll() {
 		List<Inappropriate> inappropriates = inappropriateService.findAll();
 		assertThat(inappropriates).hasSize(DB_COUNT);
 	}
 	
-	/*****   3. TEST SAVE   *****/
+	/**
+	 * <b>testSave()</b>
+	 * method tests if a new element can be saved into data base
+	 **/
 	@Test
 	@Transactional
 	@Rollback(true)
@@ -68,7 +82,10 @@ public class InappropriateServiceTest {
 		assertThat(dbInappropriate.getTitle()).isEqualTo(NEW_TITLE);
 	}
 	
-	/*****   4. TEST UPDATE   *****/
+	/**
+	 * <b>testUpdate()</b>
+	 * method tests if a certain element from the data base can be updated
+	 **/
 	@Test
     @Transactional
     @Rollback(true)
@@ -87,7 +104,10 @@ public class InappropriateServiceTest {
 		assertThat(dbInappropriate.getTitle()).isEqualTo(NEW_TITLE);
 	}
 	
-	/*****   5. TEST REMOVE   *****/
+	/**
+	 * <b>testRemove()</b>
+	 * method tests if a certain element from the data base can be removed
+	 **/
 	@Test
 	@Transactional
 	@Rollback(true)
@@ -100,5 +120,27 @@ public class InappropriateServiceTest {
 		
 		Inappropriate dbInappropriate = inappropriateService.findOne(DB_ID_REFERENCED);
 		assertThat(dbInappropriate).isNull();
+	}
+
+	/**
+	 * <h1> Negative tests </h1>
+	 */
+	
+	/**
+	 * <b>testAddNullDescription()</b>
+	 * method tests if an certain element can be added into data base
+	 * without field that is required,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testAddNullDescription() {
+		Inappropriate inappropriate = new Inappropriate();
+		
+		inappropriate.setTitle(NEW_TITLE);
+		
+		inappropriateService.save(inappropriate);
 	}
 }

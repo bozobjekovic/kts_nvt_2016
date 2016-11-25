@@ -23,6 +23,6 @@ public class VerifierConstants {
     public static final String DB_SURNAME = "Vierifieric";
 	public static final String DB_USERNAME = "verifier";
 
-	public static final Long DB_ID_REFERENCED = 1L;
-    public static final int DB_COUNT = 2;
+	public static final Long DB_ID_REFERENCED = 3L;
+    public static final int DB_COUNT = 3;
 }

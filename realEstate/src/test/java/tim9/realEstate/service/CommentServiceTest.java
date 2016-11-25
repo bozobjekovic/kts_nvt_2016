@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -28,7 +29,14 @@ public class CommentServiceTest {
 	@Autowired
 	CommentService commentService;
 	
-	/*****   1. TEST FIND ONE   *****/
+	/**
+	 * <h1> Positive tests </h1>
+	 */
+	
+	/**
+	 * <b>testFindOne()</b>
+	 * method tests if an certain element from the data base can be found
+	 **/
 	@Test
 	public void testFindOne() {
 		Comment dbComment = commentService.findOne(DB_ID);
@@ -39,36 +47,47 @@ public class CommentServiceTest {
 		assertThat(dbComment.getTitle()).isEqualTo(DB_TITLE);
 	}
 	
-	/*****   2. TEST FIND ALL   *****/
+	/**
+	 * <b>testFindAll()</b>
+	 * method test if all of certain elements from the data base can be found
+	 **/
 	@Test
 	public void testFindAll() {
 		List<Comment> comments = commentService.findAll();
 		assertThat(comments).hasSize(DB_COUNT);
 	}
 	
-	/*****   3. TEST SAVE   *****/
+	/**
+	 * <b>testSave()</b>
+	 * method tests if a new element can be saved into data base
+	 **/
 	@Test
 	@Transactional
 	@Rollback(true)
 	public void testSave() {
-		Comment inappropriate = new Comment();
-		inappropriate.setDescription(NEW_DESCRIPTION);
-		inappropriate.setTitle(NEW_TITLE);
+		Comment comment = new Comment();
+		comment.setDate(NEW_DATE);
+		comment.setDescription(NEW_DESCRIPTION);
+		comment.setTitle(NEW_TITLE);
 		
 		int dbSizeBeforeAdd = commentService.findAll().size();
 		
-		Comment dbComment = commentService.save(inappropriate);
+		Comment dbComment = commentService.save(comment);
 		assertThat(dbComment).isNotNull();
 		
 		List<Comment> comments = commentService.findAll();
 		assertThat(comments).hasSize(dbSizeBeforeAdd + 1);
 		
 		dbComment = comments.get(comments.size() - 1);
+		assertThat(dbComment.getDate()).isEqualTo(NEW_DATE);
 		assertThat(dbComment.getDescription()).isEqualTo(NEW_DESCRIPTION);
 		assertThat(dbComment.getTitle()).isEqualTo(NEW_TITLE);
 	}
 	
-	/*****   4. TEST UPDATE   *****/
+	/**
+	 * <b>testUpdate()</b>
+	 * method tests if a certain element from the data base can be updated
+	 **/
 	@Test
     @Transactional
     @Rollback(true)
@@ -87,7 +106,10 @@ public class CommentServiceTest {
 		assertThat(dbComment.getTitle()).isEqualTo(NEW_TITLE);
 	}
 	
-	/*****   5. TEST REMOVE   *****/
+	/**
+	 * <b>testRemove()</b>
+	 * method tests if a certain element from the data base can be removed
+	 **/
 	@Test
 	@Transactional
 	@Rollback(true)
@@ -100,5 +122,28 @@ public class CommentServiceTest {
 		
 		Comment dbComment = commentService.findOne(DB_ID_REFERENCED);
 		assertThat(dbComment).isNull();
+	}
+
+	/**
+	 * <h1> Negative tests </h1>
+	 */
+	
+	/**
+	 * <b>testAddNullDate()</b>
+	 * method tests if an certain element can be added into data base
+	 * without field that is required,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testAddNullDate() {
+		Comment comment = new Comment();
+		
+		comment.setDescription(NEW_DESCRIPTION);
+		comment.setTitle(NEW_TITLE);
+		
+		commentService.save(comment);
 	}
 }

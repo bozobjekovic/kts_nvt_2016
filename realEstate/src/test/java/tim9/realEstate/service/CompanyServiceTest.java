@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static tim9.realEstate.constants.CompanyConstants.*;
 
 import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.junit.Test;
@@ -30,7 +29,14 @@ public class CompanyServiceTest {
 	@Autowired
 	CompanyService companyService;
 	
-	/*****   1. TEST FIND ONE   *****/
+	/**
+	 * <h1> Positive tests </h1>
+	 */
+	
+	/**
+	 * <b>testFindOne()</b>
+	 * method tests if an certain element from the data base can be found
+	 **/
 	@Test
 	public void testFindOne() {
 		Company dbCompany = companyService.findOne(DB_ID);
@@ -42,14 +48,20 @@ public class CompanyServiceTest {
 		assertThat(dbCompany.getSite()).isEqualTo(DB_SITE);
 	}
 	
-	/*****   2. TEST FIND ALL   *****/
+	/**
+	 * <b>testFindAll()</b>
+	 * method test if all of certain elements from the data base can be found
+	 **/
 	@Test
 	public void testFindAll() {
 		List<Company> companies = companyService.findAll();
 		assertThat(companies).hasSize(DB_COUNT);
 	}
 	
-	/*****   3. TEST SAVE   *****/
+	/**
+	 * <b>testSave()</b>
+	 * method tests if a new element can be saved into data base
+	 **/
 	@Test
 	@Transactional
 	@Rollback(true)
@@ -73,7 +85,10 @@ public class CompanyServiceTest {
 		assertThat(dbCompany.getSite()).isEqualTo(NEW_SITE);
 	}
 	
-	/*****   4. TEST UPDATE   *****/
+	/**
+	 * <b>testUpdate()</b>
+	 * method tests if a certain element from the data base can be updated
+	 **/
 	@Test
     @Transactional
     @Rollback(true)
@@ -94,8 +109,11 @@ public class CompanyServiceTest {
 		assertThat(dbCompany.getSite()).isEqualTo(NEW_SITE);
 	}
 	
-	/*****   5. TEST REMOVE   *****/
-	@Test(expected = DataIntegrityViolationException.class)
+	/**
+	 * <b>testRemove()</b>
+	 * method tests if a certain element from the data base can be removed
+	 **/
+	@Test
 	@Transactional
 	@Rollback(true)
 	public void testRemove() {
@@ -107,5 +125,89 @@ public class CompanyServiceTest {
 		
 		Company dbCompany = companyService.findOne(DB_ID_REFERENCED);
 		assertThat(dbCompany).isNull();
+	}
+	
+	/**
+	 * <h1> Negative tests </h1>
+	 */
+	
+	/**
+	 * <b>testNegativeRemove()</b>
+	 * method tests if an certain element from data base,
+	 * that should not be removed, can be removed,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testNegativeRemove() {
+		int dbSizeBeforeRemove = companyService.findAll().size();
+		companyService.remove(DB_ID);
+		
+		List<Company> companies = companyService.findAll();
+		assertThat(companies).hasSize(dbSizeBeforeRemove - 1);
+		
+		Company dbCompany = companyService.findOne(DB_ID);
+		assertThat(dbCompany).isNull();
+	}
+	
+	/**
+	 * <b>testAddNullName()</b>
+	 * method tests if an certain element can be added into data base
+	 * without field that is required,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testAddNullName() {
+		Company company = new Company();
+		
+		company.setPhoneNumber(NEW_PHONE_NUMBER);
+		company.setSite(NEW_SITE);
+		
+		companyService.save(company);
+	}
+	
+	/**
+	 * <b>testAddUniqueName()</b>
+	 * method tests if an certain element, that must be unique,
+	 * can be added into data base with value that already exist,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testAddUniqueName() {
+		Company company = new Company();
+		
+		company.setName(DB_NAME);
+		company.setPhoneNumber(NEW_PHONE_NUMBER);
+		company.setSite(NEW_SITE);
+		
+		companyService.save(company);
+	}
+	
+	/**
+	 * <b>testAddUniquePhoneNumber()</b>
+	 * method tests if an certain element, that must be unique,
+	 * can be added into data base with value that already exist,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testAddUniquePhoneNumber() {
+		Company company = new Company();
+		
+		company.setName(NEW_NAME);
+		company.setPhoneNumber(DB_PHONE_NUMBER);
+		company.setSite(NEW_SITE);
+		
+		companyService.save(company);
 	}
 }

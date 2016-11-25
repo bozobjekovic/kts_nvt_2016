@@ -7,6 +7,6 @@ public class AuthorityConstants {
 	public static final Long DB_ID = 2L;
 	public static final String DB_NAME = "USER";
 
-	public static final Long DB_ID_REFERENCED = 2L; 
-	public static final int DB_COUNT = 3;
+	public static final Long DB_ID_REFERENCED = 4L; 
+	public static final int DB_COUNT = 4;
 }

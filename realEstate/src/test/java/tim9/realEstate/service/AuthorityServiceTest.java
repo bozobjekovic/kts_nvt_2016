@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static tim9.realEstate.constants.AuthorityConstants.*;
 
 import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.junit.Test;
@@ -30,7 +29,14 @@ public class AuthorityServiceTest {
 	@Autowired
 	AuthorityService authorityService;
 	
-	/*****   1. TEST FIND ONE   *****/
+	/**
+	 * <h1> Positive tests </h1>
+	 */
+	
+	/**
+	 * <b>testFindOne()</b>
+	 * method tests if an certain element from the data base can be found
+	 **/
 	@Test
 	public void testFindOne() {
 		Authority dbAuthority = authorityService.findOne(DB_ID);
@@ -40,14 +46,20 @@ public class AuthorityServiceTest {
 		assertThat(dbAuthority.getName()).isEqualTo(DB_NAME);
 	}
 	
-	/*****   2. TEST FIND ALL   *****/
+	/**
+	 * <b>testFindAll()</b>
+	 * method test if all of certain elements from the data base can be found
+	 **/
 	@Test
 	public void testFindAll() {
 		List<Authority> authorities = authorityService.findAll();
 		assertThat(authorities).hasSize(DB_COUNT);
 	}
 	
-	/*****   3. TEST SAVE   *****/
+	/**
+	 * <b>testSave()</b>
+	 * method tests if a new element can be saved into data base
+	 **/
 	@Test
 	@Transactional
 	@Rollback(true)
@@ -67,7 +79,10 @@ public class AuthorityServiceTest {
 		assertThat(dbAuthority.getName()).isEqualTo(NEW_NAME);
 	}
 	
-	/*****   4. TEST UPDATE   *****/
+	/**
+	 * <b>testUpdate()</b>
+	 * method tests if a certain element from the data base can be updated
+	 **/
 	@Test
     @Transactional
     @Rollback(true)
@@ -84,8 +99,11 @@ public class AuthorityServiceTest {
 		assertThat(dbAuthority.getName()).isEqualTo(NEW_NAME);
 	}
 	
-	/*****   5. TEST REMOVE   *****/
-	@Test(expected = DataIntegrityViolationException.class)
+	/**
+	 * <b>testRemove()</b>
+	 * method tests if a certain element from the data base can be removed
+	 **/
+	@Test
 	@Transactional
 	@Rollback(true)
 	public void testRemove() {
@@ -97,5 +115,46 @@ public class AuthorityServiceTest {
 		
 		Authority dbAuthority = authorityService.findOne(DB_ID_REFERENCED);
 		assertThat(dbAuthority).isNull();
+	}
+	
+	/**
+	 * <h1> Negative tests </h1>
+	 */
+	
+	/**
+	 * <b>testNegativeRemove()</b>
+	 * method tests if an certain element from data base,
+	 * that should not be removed, can be removed,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testNegativeRemove() {
+		int dbSizeBeforeRemove = authorityService.findAll().size();
+		authorityService.remove(DB_ID);
+		
+		List<Authority> authorities = authorityService.findAll();
+		assertThat(authorities).hasSize(dbSizeBeforeRemove - 1);
+		
+		Authority dbAuthority = authorityService.findOne(DB_ID);
+		assertThat(dbAuthority).isNull();
+	}
+	
+	/**
+	 * <b>testAddNullName()</b>
+	 * method tests if an certain element can be added into data base
+	 * without field that is required,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testAddNullName() {
+		Authority authority = new Authority();
+		
+		authorityService.save(authority);
 	}
 }

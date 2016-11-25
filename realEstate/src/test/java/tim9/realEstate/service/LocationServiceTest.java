@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static tim9.realEstate.constants.LocationConstants.*;
 
 import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.junit.Test;
@@ -30,7 +29,14 @@ public class LocationServiceTest {
 	@Autowired
 	LocationService locationService;
 	
-	/*****   1. TEST FIND ONE   *****/
+	/**
+	 * <h1> Positive tests </h1>
+	 */
+	
+	/**
+	 * <b>testFindOne()</b>
+	 * method tests if an certain element from the data base can be found
+	 **/
 	@Test
 	public void testFindOne() {
 		Location dbLocation = locationService.findOne(DB_ID);
@@ -43,14 +49,20 @@ public class LocationServiceTest {
 		assertThat(dbLocation.getZipCode()).isEqualTo(DB_ZIP_CODE);
 	}
 	
-	/*****   2. TEST FIND ALL   *****/
+	/**
+	 * <b>testFindAll()</b>
+	 * method test if all of certain elements from the data base can be found
+	 **/
 	@Test
 	public void testFindAll() {
 		List<Location> locations = locationService.findAll();
 		assertThat(locations).hasSize(DB_COUNT);
 	}
 	
-	/*****   3. TEST SAVE   *****/
+	/**
+	 * <b>testSave()</b>
+	 * method tests if a new element can be saved into data base
+	 **/
 	@Test
 	@Transactional
 	@Rollback(true)
@@ -76,7 +88,10 @@ public class LocationServiceTest {
 		assertThat(dbLocation.getZipCode()).isEqualTo(NEW_ZIP_CODE);
 	}
 	
-	/*****   4. TEST UPDATE   *****/
+	/**
+	 * <b>testUpdate()</b>
+	 * method tests if a certain element from the data base can be updated
+	 **/
 	@Test
     @Transactional
     @Rollback(true)
@@ -99,8 +114,11 @@ public class LocationServiceTest {
         assertThat(dbLocation.getZipCode()).isEqualTo(NEW_ZIP_CODE);
 	}
 	
-	/*****   5. TEST REMOVE   *****/
-	@Test(expected = DataIntegrityViolationException.class)
+	/**
+	 * <b>testRemove()</b>
+	 * method tests if a certain element from the data base can be removed
+	 **/
+	@Test
 	@Transactional
 	@Rollback(true)
 	public void testRemove() {
@@ -113,4 +131,94 @@ public class LocationServiceTest {
 		Location dbLocation = locationService.findOne(DB_ID_REFERENCED);
 		assertThat(dbLocation).isNull();
 	}
+	
+	/**
+	 * <h1> Negative tests </h1>
+	 */
+	
+	/**
+	 * <b>testNegativeRemove()</b>
+	 * method tests if an certain element from data base,
+	 * that should not be removed, can be removed,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testNegativeRemove() {
+		int dbSizeBeforeRemove = locationService.findAll().size();
+		locationService.remove(DB_ID);
+		
+		List<Location> locations = locationService.findAll();
+		assertThat(locations).hasSize(dbSizeBeforeRemove - 1);
+		
+		Location dbLocation = locationService.findOne(DB_ID);
+		assertThat(dbLocation).isNull();
+	}
+
+	/**
+	 * <b>testAddNullAddress()</b>
+	 * method tests if an certain element can be added into data base
+	 * without field that is required,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testAddNullAddress() {
+		Location location = new Location();
+		
+		location.setCity(NEW_CITY);
+		location.setPartOfTheCity(NEW_PART_OF_THE_CITY);
+		location.setZipCode(NEW_ZIP_CODE);
+		
+		locationService.save(location);
+	}
+	
+	/**
+	 * <b>testAddNullCity()</b>
+	 * method tests if an certain element can be added into data base
+	 * without field that is required,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testAddNullCity() {
+		Location location = new Location();
+		
+		location.setAddress(NEW_ADDRESS);
+		location.setPartOfTheCity(NEW_PART_OF_THE_CITY);
+		location.setZipCode(NEW_ZIP_CODE);
+		
+		locationService.save(location);
+	}
+	
+	/**
+	 * <b>testAddNullZipCode()</b>
+	 * method tests if an certain element can be added into data base
+	 * without field that is required,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
+	
+	/*
+	 * 
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testAddNullZipCode() {
+		Location location = new Location();
+
+		location.setAddress(NEW_ADDRESS);
+		location.setCity(NEW_CITY);
+		location.setPartOfTheCity(NEW_PART_OF_THE_CITY);
+		
+		locationService.save(location);
+	}
+	
+	*/
 }
