@@ -205,8 +205,7 @@ public class LocationServiceTest {
 	 * @exception DataIntegrityViolationException
 	 **/
 	
-	/*
-	 * 
+	/* Something wrong with adding null zip code
 	@Test(expected = DataIntegrityViolationException.class)
 	@Transactional
 	@Rollback(true)
