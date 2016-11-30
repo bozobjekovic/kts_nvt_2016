@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -26,13 +27,13 @@ public class LocationController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Location> saveLocation(Location location){
+	public ResponseEntity<Location> saveLocation(@RequestBody Location location){
 		location = locationService.save(location);
 		return new ResponseEntity<>(location, HttpStatus.CREATED);
 	}
 
 	@RequestMapping(method=RequestMethod.PUT)
-	public ResponseEntity<Location> updateLocation(Location newLocation){
+	public ResponseEntity<Location> updateLocation(@RequestBody Location newLocation){
 		Location location = locationService.findOne(newLocation.getId());
 		if (location == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
