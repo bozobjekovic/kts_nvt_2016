@@ -32,9 +32,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import tim9.realEstate.RealEstateApplication;
+import tim9.realEstate.TestUtil;
 import tim9.realEstate.constants.InappropriateConstants;
 import tim9.realEstate.model.Inappropriate;
-import tim9.realEstate.util.TestUtil;
 
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)

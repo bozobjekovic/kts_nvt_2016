@@ -1,7 +1,21 @@
+set foreign_key_checks = 0;
+
+truncate Admin;
+truncate Authority;
+truncate Comment;
+truncate Inappropriate;
+truncate Company;
+truncate Advertisment;
+truncate User;
+truncate Real_estate;
+truncate Verifier;
+truncate Location;
+
+set foreign_key_checks = 1;
+
 insert into authority (name) values ('ADMIN');
 insert into authority (name) values ('USER');
 insert into authority (name) values ('VERIFIER');
-insert into authority (name) values ('GUEST');
 
 INSERT INTO User VALUES (1, 'Balzakova', 'Novi Sad', 'user@gmail.com', 'image', 'User', 'u', '+4129494', 'Useran', 'user', '52389028', false, false, 2, 5, 2, null);
 INSERT INTO User VALUES (2, 'Niska', 'Nis', 'user2@gmail.com', 'image', 'User2', 'u', '+523525', 'Useran2', 'user2', '646546', false, false, 3, 2, 2, null);

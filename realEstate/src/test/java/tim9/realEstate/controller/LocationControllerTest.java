@@ -28,9 +28,9 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static tim9.realEstate.constants.LocationConstants.*;
 import tim9.realEstate.RealEstateApplication;
+import tim9.realEstate.TestUtil;
 import tim9.realEstate.constants.LocationConstants;
 import tim9.realEstate.model.Location;
-import tim9.realEstate.util.TestUtil;
 
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)

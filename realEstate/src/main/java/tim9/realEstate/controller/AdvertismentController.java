@@ -56,29 +56,29 @@ public class AdvertismentController {
     	return new ResponseEntity<>(advertisments, HttpStatus.OK);
     }
     
-    @RequestMapping(value="/rate", method = RequestMethod.GET)
-    public ResponseEntity<Void> rateAdvertisment(@RequestParam Long id, @RequestParam double rate){
+    @RequestMapping(value="/rate", method = RequestMethod.PUT)
+    public ResponseEntity<Advertisment> rateAdvertisment(@RequestParam Long id, @RequestParam int rate){
     	Advertisment advertisment = advertismentService.findOne(id);
     	advertisment.setNumberOfRates(advertisment.getNumberOfRates() + 1);
-    	advertisment.setRate((advertisment.getRate()*advertisment.getNumberOfRates() - 1 + rate) / advertisment.getNumberOfRates());
+    	advertisment.setRate((advertisment.getRate()*advertisment.getNumberOfRates() + rate) / advertisment.getNumberOfRates());
     	advertismentService.save(advertisment);
-    	return new ResponseEntity<>(HttpStatus.OK);
+    	return new ResponseEntity<>(advertisment, HttpStatus.OK);
     }
     
-    @RequestMapping(value="/verification", method = RequestMethod.GET)
-    public ResponseEntity<Void> verifyAdvertisment(@RequestParam Long idAdvertisment, @RequestParam Verifier verifier){
+    @RequestMapping(value="/verification", method = RequestMethod.PUT)
+    public ResponseEntity<Advertisment> verifyAdvertisment(@RequestParam Long idAdvertisment, @RequestParam Verifier verifier){
     	Advertisment advertisment = advertismentService.findOne(idAdvertisment);
     	advertisment.setVerifier(verifier);
     	advertismentService.save(advertisment);
-    	return new ResponseEntity<>(HttpStatus.OK);
+    	return new ResponseEntity<>(advertisment, HttpStatus.OK);
     }
     
-    @RequestMapping(value="/prolong", method = RequestMethod.GET)
-    public ResponseEntity<Void> prolongAdvertisment(@RequestParam Long idAdvertisment, @RequestParam Date date){
+    @RequestMapping(value="/prolong", method = RequestMethod.PUT)
+    public ResponseEntity<Advertisment> prolongAdvertisment(@RequestParam Long idAdvertisment, @RequestParam Date date){
     	Advertisment advertisment = advertismentService.findOne(idAdvertisment);
     	advertisment.setActiveUntil(date);
     	advertismentService.save(advertisment);
-    	return new ResponseEntity<>(HttpStatus.OK);
+    	return new ResponseEntity<>(advertisment, HttpStatus.OK);
     }
     
     @RequestMapping(value="/popular", method = RequestMethod.GET)

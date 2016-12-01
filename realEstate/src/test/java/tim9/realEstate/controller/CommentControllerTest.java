@@ -27,9 +27,9 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static tim9.realEstate.constants.CommentConstants.*;
 import tim9.realEstate.RealEstateApplication;
+import tim9.realEstate.TestUtil;
 import tim9.realEstate.constants.CommentConstants;
 import tim9.realEstate.model.Comment;
-import tim9.realEstate.util.TestUtil;
 
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)

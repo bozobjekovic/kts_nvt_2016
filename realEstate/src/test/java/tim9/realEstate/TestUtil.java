@@ -1,4 +1,4 @@
-package tim9.realEstate.util;
+package tim9.realEstate;
 
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.JsonInclude;

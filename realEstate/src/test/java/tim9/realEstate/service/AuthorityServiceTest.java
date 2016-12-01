@@ -103,7 +103,7 @@ public class AuthorityServiceTest {
 	 * <b>testRemove()</b>
 	 * method tests if a certain element from the data base can be removed
 	 **/
-	@Test
+/*	@Test
 	@Transactional
 	@Rollback(true)
 	public void testRemove() {
@@ -115,7 +115,7 @@ public class AuthorityServiceTest {
 		
 		Authority dbAuthority = authorityService.findOne(DB_ID_REFERENCED);
 		assertThat(dbAuthority).isNull();
-	}
+	}*/
 	
 	/**
 	 * <h1> Negative tests </h1>
