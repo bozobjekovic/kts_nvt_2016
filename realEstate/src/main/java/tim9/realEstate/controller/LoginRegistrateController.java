@@ -48,6 +48,12 @@ public class LoginRegistrateController {
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 	
+	/**
+     * This method logs out an user.
+     * @param		request HttpServletRequest request
+     * @param		response HttpServletResponse response
+     * @return      ResponseEntity with HttpStatus OK
+     */
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public ResponseEntity<Void> logout(HttpServletRequest request, HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -57,6 +63,12 @@ public class LoginRegistrateController {
 	    return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
+	/**
+     * This method represents login for user.
+ 	 * @param		loginUser DTO for logging
+     * @return      ResponseEntity with HttpStatus OK if OK,
+     * 				else BAD_REQUEST
+     */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<String> login(@RequestBody LoginUserDTO loginUser) {
         try {
@@ -71,6 +83,11 @@ public class LoginRegistrateController {
         }
 	}
 	
+	/**
+     * This method does the registration of a new user.
+     * @param		registrateUser DTO for user registration
+     * @return      ResponseEntity with HttpStatus CREATED
+     */
 	@RequestMapping(value = "/registrate", method = RequestMethod.POST)
 	public ResponseEntity<Void> registrate(@RequestBody RegistrateUserDTO registrateUser) {
 		registrateUser.setPassword(passwordEncoder.encode(registrateUser.getPassword()));

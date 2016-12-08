@@ -133,9 +133,10 @@ public class AdvertismentServiceTest {
 	
 	@Test
 	public void testFindByPurpose() {
-		List<Advertisment> advertisments = advertismentService.findByPurpose(DB_PURPOSE);
-		assertThat(advertisments.size()).isEqualTo(1);
-		assertThat(advertisments.get(advertisments.size() - 1).getPurpose()).isEqualTo(DB_PURPOSE);
+		PageRequest pageRequest = new PageRequest(0, PAGE_SIZE);
+		Page<Advertisment> advertisments = advertismentService.findByPurpose(DB_PURPOSE, pageRequest);
+		assertThat(advertisments).hasSize(1);
+		assertThat(advertisments.getContent().get((advertisments.getSize() - 1)).getPurpose()).isEqualTo(DB_PURPOSE);
 	}
 	
 	@Test
@@ -158,7 +159,8 @@ public class AdvertismentServiceTest {
 	
 	@Test
 	public void testOrderByRate() {
-		List<Advertisment> advertisments = advertismentService.orderByRate();
+		PageRequest pageRequest = new PageRequest(0, PAGE_SIZE);
+		List<Advertisment> advertisments = advertismentService.orderByRate(pageRequest);
 		assertThat(advertisments.get(0).getRate()).isGreaterThan(advertisments.get(1).getRate());
 		assertThat(advertisments.get(0).getRate()).isGreaterThan(advertisments.get(2).getRate());
 		assertThat(advertisments.get(1).getRate()).isGreaterThan(advertisments.get(2).getRate());

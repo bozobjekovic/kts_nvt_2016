@@ -42,8 +42,12 @@ public class AdvertismentService {
 		return advertismentRepository.findAll(specifications);
 	}
 	
-	public List<Advertisment> findByPurpose(String purpose){
-		return advertismentRepository.findByPurpose(purpose);
+	public Advertisment findByPhoneNumber(String phone){
+		return advertismentRepository.findByPhoneNumber(phone);
+	}
+	
+	public Page<Advertisment> findByPurpose(String purpose, Pageable page){
+		return advertismentRepository.findByPurpose(purpose, page);
 	}
 	
 	public List<Advertisment> findByRealEstate_Category(Category category){
@@ -54,7 +58,7 @@ public class AdvertismentService {
 		return advertismentRepository.findByRealEstate_Type(type);
 	}
 	
-	public List<Advertisment> orderByRate(){
-		return advertismentRepository.OrderByRateDesc();
+	public List<Advertisment> orderByRate(Pageable page){
+		return advertismentRepository.OrderByRateDesc(page);
 	}
 }

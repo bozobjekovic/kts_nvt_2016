@@ -2,12 +2,14 @@ package tim9.realEstate.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -19,7 +21,7 @@ public class RealEstate implements Serializable{
 	@GeneratedValue
 	private Long id;
 	private String name;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Location location;
 	@Column(nullable = false)
 	private double price;
@@ -27,6 +29,7 @@ public class RealEstate implements Serializable{
 	private int landSize;
 	private String techEquipment;
 	private String heatingType;
+	@Lob
 	private String image;
 	private int numOfBathRooms;
 	private int numOfBedRooms;
@@ -39,27 +42,6 @@ public class RealEstate implements Serializable{
 	public RealEstate() {
 		super();
 	}
-
-	public RealEstate(String name, Location location, double price, int landSize, String techEquipment,
-			String heatingType, String image, int numOfBathRooms, int numOfBedRooms, int numOfFlors, int buildYear,
-			Category category, String type) {
-		super();
-		this.name = name;
-		this.location = location;
-		this.price = price;
-		this.landSize = landSize;
-		this.techEquipment = techEquipment;
-		this.heatingType = heatingType;
-		this.image = image;
-		this.numOfBathRooms = numOfBathRooms;
-		this.numOfBedRooms = numOfBedRooms;
-		this.numOfFlors = numOfFlors;
-		this.buildYear = buildYear;
-		this.category = category;
-		this.type = type;
-	}
-
-
 
 	public Long getId() {
 		return id;

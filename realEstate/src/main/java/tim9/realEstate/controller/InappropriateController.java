@@ -1,7 +1,5 @@
 package tim9.realEstate.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import tim9.realEstate.dto.InappropriateDTO;
 import tim9.realEstate.model.Inappropriate;
 import tim9.realEstate.service.InappropriateService;
 
@@ -20,16 +19,21 @@ public class InappropriateController {
 	@Autowired
 	InappropriateService inappropriateService;
 	
-	@RequestMapping(value="/all", method = RequestMethod.GET)
-	public ResponseEntity<List<Inappropriate>> getAllInappropriates() {
-		List<Inappropriate> inappropriates = inappropriateService.findAll();
-		return new ResponseEntity<>(inappropriates, HttpStatus.OK);
-	}
-	
+	/**
+     * This method creates new Inappropriate Advertisement
+     * and saves it to the database.
+     * @param		companyDTO		a DTO Object
+     * @return      ResponseEntity DTO Company and HttpStatus CREATED
+     */
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Inappropriate> saveInappropriate(@RequestBody Inappropriate inappropriate){
+	public ResponseEntity<InappropriateDTO> saveInappropriate(@RequestBody InappropriateDTO inappropriateDTO){
+		Inappropriate inappropriate = new Inappropriate();
+		inappropriate.setDescription(inappropriateDTO.getDescription());
+		inappropriate.setTitle(inappropriateDTO.getTitle());
+		//set Advert
+		
 		inappropriate = inappropriateService.save(inappropriate);
-		return new ResponseEntity<>(inappropriate, HttpStatus.CREATED);
+		return new ResponseEntity<>(new InappropriateDTO(inappropriate), HttpStatus.CREATED);
 	}
 
 }

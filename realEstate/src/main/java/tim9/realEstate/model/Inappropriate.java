@@ -26,13 +26,6 @@ public class Inappropriate implements Serializable{
 		super();
 	}
 
-	public Inappropriate(String title, String description, Advertisment advertisment) {
-		super();
-		this.title = title;
-		this.description = description;
-		this.advertisment = advertisment;
-	}
-
 	public Long getId() {
 		return id;
 	}

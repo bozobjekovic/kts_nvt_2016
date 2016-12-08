@@ -1,12 +1,10 @@
 package tim9.realEstate.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -22,23 +20,15 @@ public class Comment implements Serializable{
 	@Column(nullable = false)
 	private Date date;
 	private String title;
+	@Column(nullable = false)
 	private String description;
 	@ManyToOne
 	private User user;
-	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+	@ManyToOne
 	private Advertisment advertisment;
 	
 	public Comment() {
 		super();
-	}
-
-	public Comment(Date date, String title, String description, User user, Advertisment advertisment) {
-		super();
-		this.date = date;
-		this.title = title;
-		this.description = description;
-		this.user = user;
-		this.advertisment = advertisment;
 	}
 
 	public Long getId() {
@@ -91,8 +81,8 @@ public class Comment implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Comment [id=" + id + ", date=" + date + ", title=" + title + ", description=" + description + "]";
+		return "Comment [id=" + id + ", date=" + date + ", title=" + title + ", description=" + description + ", user="
+				+ user + ", advertisment=" + advertisment + "]";
 	}
-	
 
 }

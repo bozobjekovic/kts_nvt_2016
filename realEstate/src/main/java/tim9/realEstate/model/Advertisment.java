@@ -1,13 +1,18 @@
 package tim9.realEstate.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Advertisment implements Serializable{
@@ -33,31 +38,15 @@ public class Advertisment implements Serializable{
 	private User publisher;
 	@ManyToOne
 	private User buyer;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private RealEstate realEstate;
-	//private Set<Comment> comments = new HashSet<Comment>();
+	@OneToMany(mappedBy = "advertisment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Comment> comments = new HashSet<Comment>(0);
 	
 	public Advertisment() {
 		super();
 	}
-
-	public Advertisment(Date publicationDate, Date modificationDate, Date activeUntil, String purpose, double rate,
-			int numberOfRates, String phoneNumber, Verifier verifier, User publisher, User buyer,
-			RealEstate realEstate) {
-		super();
-		this.publicationDate = publicationDate;
-		this.modificationDate = modificationDate;
-		this.activeUntil = activeUntil;
-		this.purpose = purpose;
-		this.rate = rate;
-		this.numberOfRates = numberOfRates;
-		this.phoneNumber = phoneNumber;
-		this.verifier = verifier;
-		this.publisher = publisher;
-		this.buyer = buyer;
-		this.realEstate = realEstate;
-	}
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -146,13 +135,13 @@ public class Advertisment implements Serializable{
 		this.realEstate = realEstate;
 	}
 
-/*	public Set<Comment> getComments() {
+	public Set<Comment> getComments() {
 		return comments;
 	}
 
 	public void setComments(Set<Comment> comments) {
 		this.comments = comments;
-	}*/
+	}
 
 	public int getNumberOfRates() {
 		return numberOfRates;

@@ -1,40 +1,26 @@
-package tim9.realEstate.model;
+package tim9.realEstate.dto;
 
-import java.io.Serializable;
+import tim9.realEstate.model.Location;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-import tim9.realEstate.dto.LocationDTO;
-
-@Entity
-public class Location implements Serializable{
-
-	private static final long serialVersionUID = -7237744594366208227L;
+public class LocationDTO {
 	
-	@Id
-	@GeneratedValue
 	private Long id;
-	@Column(nullable = false)
 	private String address;
-	@Column(nullable = false)
 	private String city;
-	@Column(nullable = false)
 	private int zipCode;
 	private String partOfTheCity;
 	
-	public Location() {
+	public LocationDTO() {
 		super();
 	}
 	
-	public Location(LocationDTO l) {
-		this(l.getAddress(), l.getCity(), l.getZipCode(), l.getPartOfTheCity());
+	public LocationDTO(Location l) {
+		this(l.getId(), l.getAddress(), l.getCity(), l.getZipCode(), l.getPartOfTheCity());
 	}
 
-	public Location(String address, String city, int zipCode, String partOfTheCity) {
+	public LocationDTO(Long id, String address, String city, int zipCode, String partOfTheCity) {
 		super();
+		this.id = id;
 		this.address = address;
 		this.city = city;
 		this.zipCode = zipCode;
@@ -45,47 +31,49 @@ public class Location implements Serializable{
 		return id;
 	}
 
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 
 	public String getAddress() {
 		return address;
 	}
 
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 
 	public String getCity() {
 		return city;
 	}
 
+
 	public void setCity(String city) {
 		this.city = city;
 	}
+
 
 	public int getZipCode() {
 		return zipCode;
 	}
 
+
 	public void setZipCode(int zipCode) {
 		this.zipCode = zipCode;
 	}
+
 
 	public String getPartOfTheCity() {
 		return partOfTheCity;
 	}
 
+
 	public void setPartOfTheCity(String partOfTheCity) {
 		this.partOfTheCity = partOfTheCity;
 	}
-
-	@Override
-	public String toString() {
-		return "Location [address=" + address + ", city=" + city + ", zipCode=" + zipCode + ", partOfTheCity="
-				+ partOfTheCity + "]";
-	}
-	
 
 }
