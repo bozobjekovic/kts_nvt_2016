@@ -140,7 +140,7 @@ public class AdvertismentController {
     
     /**
      * This method sets a new rate for an Advertisement.
-     * It gets an given rate as a parameter and then calculates
+     * It gets a given rate as a parameter and then calculates
      * the new average rate and saves it in the database.
      * @param		id	Advertisement's id
      * @param		rate	given rate
