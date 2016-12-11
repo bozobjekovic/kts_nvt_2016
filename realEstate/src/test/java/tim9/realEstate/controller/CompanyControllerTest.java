@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static tim9.realEstate.constants.CompanyConstants.*;
 
 import java.nio.charset.Charset;
 import javax.annotation.PostConstruct;
@@ -25,11 +26,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import static tim9.realEstate.constants.CompanyConstants.*;
 import tim9.realEstate.RealEstateApplication;
 import tim9.realEstate.TestUtil;
 import tim9.realEstate.constants.CompanyConstants;
 import tim9.realEstate.model.Company;
+import tim9.realEstate.model.Location;
+import tim9.realEstate.service.LocationService;
 
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -49,6 +51,9 @@ public class CompanyControllerTest {
     
     @Autowired
     private WebApplicationContext webApplicationContext;
+    
+    @Autowired
+    LocationService locationService;
     
     @PostConstruct
     public void setup() {
@@ -71,7 +76,9 @@ public class CompanyControllerTest {
     @Transactional
     @Rollback(true)
     public void testSaveCompany() throws Exception {
+    	Location location = locationService.findOne(1L);
     	Company company = new Company();
+    	company.setLocation(location);
     	company.setName(NEW_NAME);
     	company.setPhoneNumber(NEW_PHONE_NUMBER);
     	company.setSite(NEW_SITE);

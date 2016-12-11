@@ -3,10 +3,10 @@ package tim9.realEstate.controller;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static tim9.realEstate.constants.VerifierConstants.*;
 
 import java.nio.charset.Charset;
 import javax.annotation.PostConstruct;
@@ -17,19 +17,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import static tim9.realEstate.constants.VerifierConstants.*;
 import tim9.realEstate.RealEstateApplication;
-import tim9.realEstate.TestUtil;
 import tim9.realEstate.constants.VerifierConstants;
-import tim9.realEstate.model.Verifier;
 
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -71,27 +66,5 @@ public class VerifierControllerTest {
             .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DB_PHONE_NUMBER)))
             .andExpect(jsonPath("$.[*].surname").value(hasItem(DB_SURNAME)))
             .andExpect(jsonPath("$.[*].username").value(hasItem(DB_USERNAME)));
-    }
-    
-    @Test
-    @Transactional
-    @Rollback(true)
-    public void testSaveVerifier() throws Exception {
-    	Verifier verifier = new Verifier();
-    	verifier.setAddress(NEW_ADDRESS);
-    	verifier.setCity(NEW_CITY);
-    	verifier.setEmail(NEW_EMAIL);
-    	verifier.setImage(NEW_IMAGE);
-    	verifier.setName(NEW_NAME);
-    	verifier.setPassword(NEW_PASSWORD);
-    	verifier.setPhoneNumber(NEW_PHONE_NUMBER);
-    	verifier.setSurname(NEW_SURNAME);
-    	verifier.setUsername(NEW_USERNAME);
-    	
-    	String json = TestUtil.json(verifier);
-        this.mockMvc.perform(post(URL_PREFIX)
-                .contentType(contentType)
-                .content(json))
-                .andExpect(status().isCreated());
     }
 }

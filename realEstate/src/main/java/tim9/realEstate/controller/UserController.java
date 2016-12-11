@@ -1,5 +1,6 @@
 package tim9.realEstate.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,21 @@ public class UserController {
 	
 	@Autowired
 	UserService userService;
-	
+
+	/**
+     * This method gets all Users from the database
+     * and then creates a list of DTO objects.
+     * @return      ResponseEntity List with all DTO Users and HttpStatus OK
+     */
 	@RequestMapping(value="/all", method = RequestMethod.GET)
-	public ResponseEntity<List<User>> getAllUsers() {
+	public ResponseEntity<List<UserDTO>> getAllUsers() {
 		List<User> users = userService.findAll();
-		return new ResponseEntity<>(users, HttpStatus.OK);
+		
+		List<UserDTO> userDTO = new ArrayList<>();
+		for (User user : users)
+			userDTO.add(new UserDTO(user));
+		
+		return new ResponseEntity<>(userDTO, HttpStatus.OK);
 	}
 	
 	/**

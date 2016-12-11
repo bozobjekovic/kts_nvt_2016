@@ -3,10 +3,10 @@ package tim9.realEstate.controller;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static tim9.realEstate.constants.RealEstateConstants.*;
 
 import java.nio.charset.Charset;
 import javax.annotation.PostConstruct;
@@ -17,19 +17,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import static tim9.realEstate.constants.RealEstateConstants.*;
 import tim9.realEstate.RealEstateApplication;
-import tim9.realEstate.TestUtil;
 import tim9.realEstate.constants.RealEstateConstants;
-import tim9.realEstate.model.RealEstate;
 
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -73,30 +68,5 @@ public class RealEstateControllerTest {
             .andExpect(jsonPath("$.[*].numOfFlors").value(hasItem(DB_NUM_OF_FLORS)))
             .andExpect(jsonPath("$.[*].buildYear").value(hasItem(DB_BUILD_YEAR)))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DB_TYPE)));
-    }
-    
-    @Test
-    @Transactional
-    @Rollback(true)
-    public void testSaveRealEstate() throws Exception {
-    	RealEstate realEstate = new RealEstate();
-    	realEstate.setName(NEW_NAME);
-    	realEstate.setPrice(NEW_PRICE);
-    	realEstate.setLandSize(NEW_LAND_SIZE);
-    	realEstate.setTechEquipment(NEW_TEACH_EQUIPMENT);
-    	realEstate.setHeatingType(NEW_HEATING_TYPE);
-    	realEstate.setImage(NEW_IMAGE);
-    	realEstate.setNumOfBathRooms(NEW_NUM_OF_BATH_ROOMS);
-    	realEstate.setNumOfBedRooms(NEW_NUM_OF_BED_ROOMS);
-    	realEstate.setNumOfFlors(NEW_NUM_OF_FLORS);
-    	realEstate.setBuildYear(NEW_BUILD_YEAR);
-    	realEstate.setCategory(NEW_CATEGORY);
-    	realEstate.setType(NEW_TYPE);
-    	
-    	String json = TestUtil.json(realEstate);
-        this.mockMvc.perform(post(URL_PREFIX)
-                .contentType(contentType)
-                .content(json))
-                .andExpect(status().isCreated());
     }
 }

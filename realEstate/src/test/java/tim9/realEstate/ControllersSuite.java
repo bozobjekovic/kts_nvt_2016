@@ -5,7 +5,6 @@ import org.junit.runners.Suite;
 
 import tim9.realEstate.controller.AdminControllerTest;
 import tim9.realEstate.controller.AdvertismentControllerTest;
-import tim9.realEstate.controller.AuthorityControllerTest;
 import tim9.realEstate.controller.CommentControllerTest;
 import tim9.realEstate.controller.CompanyControllerTest;
 import tim9.realEstate.controller.InappropriateControllerTest;

@@ -7,14 +7,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static tim9.realEstate.constants.InappropriateConstants.DB_COUNT;
-import static tim9.realEstate.constants.InappropriateConstants.DB_DESCRIPTION;
-import static tim9.realEstate.constants.InappropriateConstants.DB_TITLE;
-import static tim9.realEstate.constants.InappropriateConstants.NEW_DESCRIPTION;
-import static tim9.realEstate.constants.InappropriateConstants.NEW_TITLE;
+import static tim9.realEstate.constants.InappropriateConstants.*;
 
 import java.nio.charset.Charset;
-
 import javax.annotation.PostConstruct;
 
 import org.junit.Test;
