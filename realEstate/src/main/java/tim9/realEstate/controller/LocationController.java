@@ -55,27 +55,4 @@ public class LocationController {
 		location = locationService.save(location);
 		return new ResponseEntity<>(new LocationDTO(location), HttpStatus.CREATED);
 	}
-
-	/**
-     * This method updates a Location
-     * and saves changes to the database.
-     * @param		newLocation	a DTO Object
-     * @return      ResponseEntity DTO Location and HttpStatus OK,
-     * 				else returns null
-     */
-	@RequestMapping(method=RequestMethod.PUT)
-	public ResponseEntity<LocationDTO> updateLocation(@RequestBody LocationDTO newLocation){
-		Location location = locationService.findOne(newLocation.getId());
-		if (location == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-
-		location.setAddress(newLocation.getAddress());
-		location.setCity(newLocation.getCity());
-		location.setZipCode(newLocation.getZipCode());
-		location.setPartOfTheCity(newLocation.getPartOfTheCity());
-
-		location = locationService.save(location);
-		return new ResponseEntity<>(newLocation, HttpStatus.OK);
-	}
 }

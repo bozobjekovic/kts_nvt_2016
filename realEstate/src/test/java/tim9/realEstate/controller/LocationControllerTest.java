@@ -85,22 +85,4 @@ public class LocationControllerTest {
                 .content(json))
                 .andExpect(status().isCreated());
     }
-    
-    @Test
-    @Transactional
-    @Rollback(true)
-    public void testUpdateLocation() throws Exception {
-    	Location location = new Location();
-    	location.setId(LocationConstants.DB_ID);
-    	location.setAddress(NEW_ADDRESS);
-    	location.setCity(NEW_CITY);
-    	location.setZipCode(NEW_ZIP_CODE);
-    	location.setPartOfTheCity(NEW_PART_OF_THE_CITY);
-    	
-    	String json = TestUtil.json(location);
-        this.mockMvc.perform(put(URL_PREFIX)
-                .contentType(contentType)
-                .content(json))
-                .andExpect(status().isOk());
-    }
 }
