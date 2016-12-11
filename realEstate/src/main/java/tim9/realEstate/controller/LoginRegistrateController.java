@@ -26,6 +26,10 @@ import tim9.realEstate.security.TokenUtils;
 import tim9.realEstate.service.AuthorityService;
 import tim9.realEstate.service.UserService;
 
+/**
+ * This class represents controller for login and registration.
+ *
+ */
 @RestController
 @RequestMapping(value="realEstate")
 public class LoginRegistrateController {
@@ -77,9 +81,9 @@ public class LoginRegistrateController {
             Authentication authentication = authenticationManager.authenticate(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             UserDetails details = userDetailsService.loadUserByUsername(loginUser.getUsername());
-            return new ResponseEntity<String>(tokenUtils.generateToken(details), HttpStatus.OK);
+            return new ResponseEntity<>(tokenUtils.generateToken(details), HttpStatus.OK);
         } catch (Exception ex) {
-            return new ResponseEntity<String>("Invalid login", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Invalid login", HttpStatus.BAD_REQUEST);
         }
 	}
 	
@@ -91,7 +95,7 @@ public class LoginRegistrateController {
 	@RequestMapping(value = "/registrate", method = RequestMethod.POST)
 	public ResponseEntity<Void> registrate(@RequestBody RegistrateUserDTO registrateUser) {
 		registrateUser.setPassword(passwordEncoder.encode(registrateUser.getPassword()));
-        if (registrateUser.getAuthority().equals("user")) {
+        if ("user".equals(registrateUser.getAuthority())) {
         	userService.save(new User(registrateUser, "user", authorityService.findByName("USER")));
         	return new ResponseEntity<>(HttpStatus.CREATED);
 		} else {

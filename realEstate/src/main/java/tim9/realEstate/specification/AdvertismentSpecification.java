@@ -33,15 +33,15 @@ public class AdvertismentSpecification implements Specification<Advertisment>{
 	}
 	
 	private Predicate doLogicRoot(Root<Advertisment> root, CriteriaBuilder builder) {
-		if (criteria.getOperation().equalsIgnoreCase(">")) {
+		if (">".equalsIgnoreCase(criteria.getOperation())) {
             return builder.greaterThanOrEqualTo(
               root.<String> get(criteria.getKey()), criteria.getValue().toString());
         } 
-        else if (criteria.getOperation().equalsIgnoreCase("<")) {
+        else if ("<".equalsIgnoreCase(criteria.getOperation())) {
             return builder.lessThanOrEqualTo(
               root.<String> get(criteria.getKey()), criteria.getValue().toString());
         } 
-        else if (criteria.getOperation().equalsIgnoreCase(":")) {
+        else if (":".equalsIgnoreCase(criteria.getOperation())) {
         	if (root.get(criteria.getKey()).getJavaType() == String.class) {
 				return builder.like(
 		                  root.<String>get(criteria.getKey()), "%" + criteria.getValue() + "%");
@@ -53,16 +53,16 @@ public class AdvertismentSpecification implements Specification<Advertisment>{
 	}
 	
 	private Predicate doLogicJoin(Join<Advertisment, RealEstate> root, CriteriaBuilder builder) {
-		if (criteria.getOperation().equalsIgnoreCase(">")) {
+		if (">".equalsIgnoreCase(criteria.getOperation())) {
             return builder.greaterThanOrEqualTo(
               root.<String> get(criteria.getKey()), criteria.getValue().toString());
         } 
-        else if (criteria.getOperation().equalsIgnoreCase("<")) {
+        else if ("<".equalsIgnoreCase(criteria.getOperation())) {
             return builder.lessThanOrEqualTo(
               root.<String> get(criteria.getKey()), criteria.getValue().toString());
         } 
-        else if (criteria.getOperation().equalsIgnoreCase(":")) {
-        	if (criteria.getKey().equals("city") || criteria.getKey().equals("partOfTheCity")) {
+        else if (":".equalsIgnoreCase(criteria.getOperation())) {
+        	if ("city".equals(criteria.getKey()) || "partOfTheCity".equals(criteria.getKey())) {
         		Join<RealEstate, Location> realEstateJoin = root.join("location");
     			return builder.like(
     					realEstateJoin.<String>get(criteria.getKey()), "%" + criteria.getValue() + "%");

@@ -17,9 +17,9 @@ insert into authority (name) values ('ADMIN');
 insert into authority (name) values ('USER');
 insert into authority (name) values ('VERIFIER');
 
-INSERT INTO User VALUES (1, 'Balzakova', 'Novi Sad', 'user@gmail.com', 'image', 'User', 'u', '+4129494', 'Useran', 'user', '52389028', false, false, 2, 5, 2, null);
-INSERT INTO User VALUES (2, 'Niska', 'Nis', 'user2@gmail.com', 'image', 'User2', 'u', '+523525', 'Useran2', 'user2', '646546', false, false, 3, 2, 2, null);
-INSERT INTO User VALUES (3, 'Kragujevacka', 'Kragujevac', 'user3@gmail.com', 'image', 'User3', 'u', '+3646363', 'Useran3', 'user3', '32525', false, false, 2, 2, 2, null);
+INSERT INTO User VALUES (1, 'Balzakova', 'Novi Sad', 'user@gmail.com', 'image', 'User', '$2a$08$qOdUxqqtQG0v6ZetGVFDBO0cET/mK5tQZ8cOrkivyPqMP3WkJCJYq', '+4129494', 'Useran', 'user', '52389028', false, false, 2, 5, 2, null);
+INSERT INTO User VALUES (2, 'Niska', 'Nis', 'user2@gmail.com', 'image', 'User2', '$2a$08$qOdUxqqtQG0v6ZetGVFDBO0cET/mK5tQZ8cOrkivyPqMP3WkJCJYq', '+523525', 'Useran2', 'user2', '646546', false, false, 3, 2, 2, null);
+INSERT INTO User VALUES (3, 'Kragujevacka', 'Kragujevac', 'user3@gmail.com', 'image', 'User3', '$2a$08$qOdUxqqtQG0v6ZetGVFDBO0cET/mK5tQZ8cOrkivyPqMP3WkJCJYq', '+3646363', 'Useran3', 'user3', '32525', false, false, 2, 2, 2, null);
 
 INSERT INTO Location VALUES (1, 'Balzakova 6', 'Novi Sad', 'Liman', 21000);
 INSERT INTO Location VALUES (2, 'Bul. Mihaila Pupina', 'Beograd', 'Kosutnjak', 11000);
