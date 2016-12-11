@@ -27,12 +27,6 @@ public class UserController {
 		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<User> saveUser(User user){
-		user = userService.save(user);
-		return new ResponseEntity<>(user, HttpStatus.CREATED);
-	}
-	
 	/**
      * This method sets a new rate for an User.
      * It gets a given rate as a parameter and then calculates

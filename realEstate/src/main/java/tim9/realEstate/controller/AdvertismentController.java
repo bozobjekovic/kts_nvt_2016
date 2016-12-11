@@ -11,6 +11,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -170,6 +172,9 @@ public class AdvertismentController {
     @RequestMapping(value="/verification", method = RequestMethod.PUT)
     public ResponseEntity<Void> verifyAdvertisment(@RequestParam Long idAdvertisment, @RequestParam Verifier verifier){
     	Advertisment advertisment = advertismentService.findOne(idAdvertisment);
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	System.out.println(authentication.getCredentials());
+    	
     	if(advertisment == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}

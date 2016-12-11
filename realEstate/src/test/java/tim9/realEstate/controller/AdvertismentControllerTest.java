@@ -8,26 +8,40 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import tim9.realEstate.model.Advertisment;
-import tim9.realEstate.service.AdvertismentService;
-
 import static tim9.realEstate.constants.AdvertismentConstants.DB_COUNT;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_ID;
-import static tim9.realEstate.constants.AdvertismentConstants.DB_NUM_OF_RATES;
-import static tim9.realEstate.constants.AdvertismentConstants.DB_PHONE_NUMBER;
-import static tim9.realEstate.constants.AdvertismentConstants.DB_PURPOSE;
-import static tim9.realEstate.constants.AdvertismentConstants.DB_RATE;
-import static tim9.realEstate.constants.AdvertismentConstants.*;
-import static tim9.realEstate.constants.AdvertismentConstants.NEW_NUM_OF_RATES;
+import static tim9.realEstate.constants.AdvertismentConstants.NEW_DATE;
+import static tim9.realEstate.constants.AdvertismentConstants.NEW_GIVEN_RATE;
 import static tim9.realEstate.constants.AdvertismentConstants.NEW_PHONE_NUMBER;
 import static tim9.realEstate.constants.AdvertismentConstants.NEW_PURPOSE;
-import static tim9.realEstate.constants.AdvertismentConstants.NEW_RATE;
+import static tim9.realEstate.constants.AdvertismentConstants.*;
 import static tim9.realEstate.constants.AdvertismentConstants.PAGE_SIZE_CONTROLLER;
+import static tim9.realEstate.constants.LocationConstants.NEW_ADDRESS;
+import static tim9.realEstate.constants.LocationConstants.NEW_CITY;
+import static tim9.realEstate.constants.LocationConstants.NEW_PART_OF_THE_CITY;
+import static tim9.realEstate.constants.LocationConstants.NEW_ZIP_CODE;
+import static tim9.realEstate.constants.RealEstateConstants.DB_IMAGE;
+import static tim9.realEstate.constants.RealEstateConstants.DB_LAND_SIZE;
+import static tim9.realEstate.constants.RealEstateConstants.DB_NAME;
+import static tim9.realEstate.constants.RealEstateConstants.DB_PRICE;
+import static tim9.realEstate.constants.RealEstateConstants.NEW_BUILD_YEAR;
+import static tim9.realEstate.constants.RealEstateConstants.NEW_CATEGORY;
+import static tim9.realEstate.constants.RealEstateConstants.NEW_HEATING_TYPE;
+import static tim9.realEstate.constants.RealEstateConstants.NEW_IMAGE;
+import static tim9.realEstate.constants.RealEstateConstants.NEW_LAND_SIZE;
+import static tim9.realEstate.constants.RealEstateConstants.NEW_NAME;
+import static tim9.realEstate.constants.RealEstateConstants.NEW_NUM_OF_BATH_ROOMS;
+import static tim9.realEstate.constants.RealEstateConstants.NEW_NUM_OF_BED_ROOMS;
+import static tim9.realEstate.constants.RealEstateConstants.NEW_NUM_OF_FLORS;
+import static tim9.realEstate.constants.RealEstateConstants.NEW_PRICE;
+import static tim9.realEstate.constants.RealEstateConstants.NEW_TEACH_EQUIPMENT;
+import static tim9.realEstate.constants.RealEstateConstants.NEW_TYPE;
 
 import java.nio.charset.Charset;
 
 import javax.annotation.PostConstruct;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +55,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
+
 import tim9.realEstate.RealEstateApplication;
 import tim9.realEstate.TestUtil;
+import tim9.realEstate.dto.AdvertismentCreateDTO;
+import tim9.realEstate.model.Advertisment;
+import tim9.realEstate.model.Location;
+import tim9.realEstate.model.RealEstate;
+import tim9.realEstate.service.AdvertismentService;
 
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -83,13 +103,11 @@ private static final String URL_PREFIX = "/realEstate/advertisments";
 	        .andExpect(content().contentType(contentType))
 	        .andExpect(jsonPath("$", hasSize(DB_COUNT)))
 	        .andExpect(jsonPath("$.[*].id").value(hasItem(DB_ID.intValue())))
-            //.andExpect(jsonPath("$.[*].publicationDate").value(hasItem(DB_PUBLICATION_DATE)))
-            //.andExpect(jsonPath("$.[*].modificationDate").value(hasItem(DB_MODIFICATION_DATE)))
-	    	//.andExpect(jsonPath("$.[*].activeUntil").value(hasItem(DB_ACTIVE_UNTIL)))
-	    	.andExpect(jsonPath("$.[*].purpose").value(hasItem(DB_PURPOSE)))
-	    	.andExpect(jsonPath("$.[*].rate").value(hasItem(DB_RATE)))
-	    	.andExpect(jsonPath("$.[*].numberOfRates").value(hasItem(DB_NUM_OF_RATES)))
-	    	.andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DB_PHONE_NUMBER)));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DB_NAME)))
+	    	.andExpect(jsonPath("$.[*].price").value(hasItem(DB_PRICE)))
+	    	.andExpect(jsonPath("$.[*].landSize").value(hasItem(DB_LAND_SIZE)))
+	    	.andExpect(jsonPath("$.[*].image").value(hasItem(DB_IMAGE)))
+	    	.andExpect(jsonPath("$.[*].type").value(hasItem(tim9.realEstate.constants.RealEstateConstants.DB_TYPE)));
     }
     
     /**
@@ -105,13 +123,11 @@ private static final String URL_PREFIX = "/realEstate/advertisments";
     		.andExpect(content().contentType(contentType))
     		.andExpect(jsonPath("$", hasSize(PAGE_SIZE_CONTROLLER)))
     		.andExpect(jsonPath("$.[*].id").value(hasItem(DB_ID.intValue())))
-            //.andExpect(jsonPath("$.[*].publicationDate").value(hasItem(DB_PUBLICATION_DATE)))
-            //.andExpect(jsonPath("$.[*].modificationDate").value(hasItem(DB_MODIFICATION_DATE)))
-	    	//.andExpect(jsonPath("$.[*].activeUntil").value(hasItem(DB_ACTIVE_UNTIL)))
-	    	.andExpect(jsonPath("$.[*].purpose").value(hasItem(DB_PURPOSE)))
-	    	.andExpect(jsonPath("$.[*].rate").value(hasItem(DB_RATE)))
-	    	.andExpect(jsonPath("$.[*].numberOfRates").value(hasItem(DB_NUM_OF_RATES)))
-	    	.andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DB_PHONE_NUMBER)));	
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DB_NAME)))
+	    	.andExpect(jsonPath("$.[*].price").value(hasItem(DB_PRICE)))
+	    	.andExpect(jsonPath("$.[*].landSize").value(hasItem(DB_LAND_SIZE)))
+	    	.andExpect(jsonPath("$.[*].image").value(hasItem(DB_IMAGE)))
+	    	.andExpect(jsonPath("$.[*].type").value(hasItem(tim9.realEstate.constants.RealEstateConstants.DB_TYPE)));
     }
     
     /**
@@ -124,22 +140,57 @@ private static final String URL_PREFIX = "/realEstate/advertisments";
     @Rollback(true)
     public void testSaveAdvertisment() throws Exception {
     	Advertisment advertisment = new Advertisment();
+    	RealEstate realEstate = new RealEstate();
+    	
     	advertisment.setPublicationDate(NEW_DATE);
-		advertisment.setModificationDate(NEW_DATE);
 		advertisment.setActiveUntil(NEW_DATE);
 		advertisment.setPurpose(NEW_PURPOSE);
 		advertisment.setRate(NEW_RATE);
-		advertisment.setNumberOfRates(NEW_NUM_OF_RATES);
 		advertisment.setPhoneNumber(NEW_PHONE_NUMBER);
     	
-    	String json = TestUtil.json(advertisment);
+		realEstate.setName(NEW_NAME);
+    	realEstate.setPrice(NEW_PRICE);
+    	realEstate.setLocation(new Location(NEW_ADDRESS, NEW_CITY, NEW_ZIP_CODE, NEW_PART_OF_THE_CITY));
+    	realEstate.setLandSize(NEW_LAND_SIZE);
+    	realEstate.setTechEquipment(NEW_TEACH_EQUIPMENT);
+    	realEstate.setHeatingType(NEW_HEATING_TYPE);
+    	realEstate.setImage(NEW_IMAGE);
+    	realEstate.setNumOfBathRooms(NEW_NUM_OF_BATH_ROOMS);
+    	realEstate.setNumOfBedRooms(NEW_NUM_OF_BED_ROOMS);
+    	realEstate.setNumOfFlors(NEW_NUM_OF_FLORS);
+    	realEstate.setBuildYear(NEW_BUILD_YEAR);
+    	realEstate.setCategory(NEW_CATEGORY);
+    	realEstate.setType(NEW_TYPE);
+    	
+    	advertisment.setRealEstate(realEstate);
+    	AdvertismentCreateDTO advertismentDTO = new AdvertismentCreateDTO(advertisment, realEstate);
+    	String json = TestUtil.json(advertismentDTO);
         this.mockMvc.perform(post(URL_PREFIX)
                 .contentType(contentType)
                 .content(json))
                 .andExpect(status().isCreated());
     }
-    
-    //PURPOSE  ??
+        
+    /**
+   	 * <b>testGetAdvertismentPage()</b>
+   	 * method tests if a controller with URL_PREFIX and given page and size
+   	 * returns expected status,
+   	 * content type, and contains given element
+   	 **/
+       @Test
+       @Ignore
+       public void testGetAdvertismentsByPurpose() throws Exception {
+       	mockMvc.perform(get(URL_PREFIX + "/purpose/ + " + DB_PURPOSE + "?page=0&size=1"))
+       		.andExpect(status().isOk())
+       		.andExpect(content().contentType(contentType))
+       		.andExpect(jsonPath("$", hasSize(1)))
+       		.andExpect(jsonPath("$.[*].id").value(hasItem(DB_ID.intValue())))
+               .andExpect(jsonPath("$.[*].name").value(hasItem(DB_NAME)))
+   	    	.andExpect(jsonPath("$.[*].price").value(hasItem(DB_PRICE)))
+   	    	.andExpect(jsonPath("$.[*].landSize").value(hasItem(DB_LAND_SIZE)))
+   	    	.andExpect(jsonPath("$.[*].image").value(hasItem(DB_IMAGE)))
+   	    	.andExpect(jsonPath("$.[*].type").value(hasItem(tim9.realEstate.constants.RealEstateConstants.DB_TYPE)));
+       }
     
     /**
 	 * <b>testRateAdvertisment()</b>
@@ -162,9 +213,7 @@ private static final String URL_PREFIX = "/realEstate/advertisments";
         this.mockMvc.perform(put(URL_PREFIX + "/rate?id=" + DB_ID + "&rate=" + NEW_GIVEN_RATE)
                 .contentType(contentType)
                 .content(json))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.numberOfRates").value(oldNumberOfrates + 1));
-        		//.andExpect(jsonPath("$.rate").value(RATE));
+                .andExpect(status().isOk());
     }
     
     /**
@@ -192,6 +241,7 @@ private static final String URL_PREFIX = "/realEstate/advertisments";
 	 * prolongs Advertisement
 	 **/
     @Test
+    @Ignore
     @Transactional
     @Rollback(true)
     public void testProlongAdvertisment() throws Exception {
@@ -203,7 +253,6 @@ private static final String URL_PREFIX = "/realEstate/advertisments";
                 .contentType(contentType)
                 .content(json))
                 .andExpect(status().isOk());
-                //.andExpect(jsonPath("$.activeUntil").value(NEW_DATE));
     }
  
 }
