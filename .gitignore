@@ -19,6 +19,12 @@ local.properties
 .loadpath
 .recommenders
 
+# Application properties
+src/main/resources/*
+
+# Sonar
+.sonar
+
 # Eclipse Core
 .project
 
