@@ -20,7 +20,7 @@ local.properties
 .recommenders
 
 # Application properties
-src/main/resources/*
+realEstate/src/main/resources/application.properties
 
 # Sonar
 .sonar
