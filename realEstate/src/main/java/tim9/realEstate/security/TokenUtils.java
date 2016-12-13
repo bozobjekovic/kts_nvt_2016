@@ -12,15 +12,25 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+/**
+ * This class manages with tokens
+ * @author bozo
+ *
+ */
 @Component
 public class TokenUtils {
 	
 	@Value("kts_nvt_2016")
 	private String secret;
 	
-	@Value("18000") //in seconds (5 hours)
+	@Value("18000")
 	private Long expiration;
 	
+	/**
+	 * This method returns user name from token
+	 * @param token
+	 * @return String user name
+	 */
 	public String getUsernameFromToken(String token) {
 		String username;
 		try {
@@ -32,6 +42,11 @@ public class TokenUtils {
 		return username;
 	}
 	
+	/**
+	 * This method returns object Claims from token
+	 * @param token
+	 * @return Claims
+	 */
 	private Claims getClaimsFromToken(String token) {
 		Claims claims;
 		try {
@@ -43,6 +58,11 @@ public class TokenUtils {
 		return claims;
 	}
 	
+	/**
+	 * This method returns date of expiration token
+	 * @param token
+	 * @return Date Expiration date 
+	 */
 	public Date getExpirationDateFromToken(String token) {
 		Date expirationDate;
 		try {
@@ -54,17 +74,34 @@ public class TokenUtils {
 		return expirationDate;
 	}
 	
+	/**
+	 * This method checks is token expired
+	 * @param token
+	 * @return boolean true if token is not expired, else false
+	 */
 	private boolean isTokenExpired(String token) {
 	    final Date expirationDate = this.getExpirationDateFromToken(token);
 	    return expirationDate.before(new Date(System.currentTimeMillis()));
 	  }
 	
+	
+	/**
+	 * This method checks if token is valid
+	 * @param token
+	 * @param userDetails
+	 * @return boolean true if token is valid, else false
+	 */
 	public boolean validateToken(String token, UserDetails userDetails) {
 		final String username = getUsernameFromToken(token);
 		return username.equals(userDetails.getUsername())
 				&& !isTokenExpired(token);
 	}
 	
+	/**
+	 * This method generates token and returns string that represents token for user
+	 * @param userDetails
+	 * @return token
+	 */
 	public String generateToken(UserDetails userDetails) {
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("sub", userDetails.getUsername());
