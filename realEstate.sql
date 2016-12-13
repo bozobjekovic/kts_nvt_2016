@@ -20,6 +20,7 @@ drop table Authority;
 
 set foreign_key_checks = 0;
 
+truncate Authority;
 truncate Admin;
 truncate Comment;
 truncate Inappropriate;
@@ -47,8 +48,8 @@ INSERT INTO Location VALUES (4, 'Miselinova', 'Nis', 'Deo Nisa', 23560);
 
 INSERT INTO Admin VALUES (1, 'Balzakova', 'Novi Sad', 'admin@gmail.com', 'image', 'Admin', 'a', '+381412941', 'Adminovski', 'admin', 1);
 
-INSERT INTO Verifier VALUES (1, 'Balzakova', 'Novi Sad', 'verifier@gmail.com', '', 'Verifier', 'v', '+381594219', 'Vierifieric', 'verifier', 3);
-INSERT INTO Verifier VALUES (2, 'Beogradska', 'Beograd', 'verifier2@gmail.com', '', 'Verifier2', 'v', '+381242459', 'Vierifieric2', 'verifier2', 3);
+INSERT INTO Verifier VALUES (1, 'verifier@gmail.com', 'v','Verifier', 3);
+INSERT INTO Verifier VALUES (2, 'verifier2@gmail.com','v', 'Verifier2', 3);
 
 INSERT INTO Company VALUES (1, 'Kompanija Neka', '+3819214814', 'www.kompanijaneka.com', 1);
 INSERT INTO Company VALUES (2, 'Nasa Kompanija', '+38142342', 'www.nasakompanija.com', 2);

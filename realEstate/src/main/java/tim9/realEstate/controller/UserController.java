@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import tim9.realEstate.dto.UserDTO;
+import tim9.realEstate.model.Company;
 import tim9.realEstate.model.User;
+import tim9.realEstate.service.CompanyService;
 import tim9.realEstate.service.UserService;
 
 @RestController
@@ -21,6 +23,9 @@ public class UserController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	CompanyService companyService;
 
 	/**
      * This method gets all Users from the database
@@ -58,5 +63,63 @@ public class UserController {
     	userService.save(user);
     	return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
     }
+	
+	/**
+     * This method allows user to apply to be
+     * part of a company.
+     * Sending request to the clerk, clerk decides if user
+     * will be accepted or denied.
+     * @param		id_company id of Company
+     * @return      HttpStatus OK if OK, else NOT_FOUND
+     */
+	@RequestMapping(value = "/apply", method = RequestMethod.PUT)
+	public ResponseEntity<Void> applyToCompany(@RequestParam Long id_company) {
+		//TODO get logged user
+		User user = null;
+		Company company = companyService.findOne(id_company);
+		if(company == null){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		//TODO add to company List
+		userService.save(user);
+    	return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	/**
+     * This method allows clerk to accept user to join
+     * the company.
+     * After that, mail is being sent to the user.
+     * @param		id id of an User
+     * @param		id_company id of a Company
+     * @return      HttpStatus OK if OK, else NOT_FOUND
+     */
+	@RequestMapping(value = "/accept", method = RequestMethod.PUT)
+	public ResponseEntity<Void> acceptClerk(@RequestParam Long id, @RequestParam Long id_company) {
+		User user = userService.findOne(id);
+		Company company = companyService.findOne(id_company);
+		if(user == null || company == null){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		user.setCompany(company);
+		userService.save(user);
+		//TODO SEND MAIL
+    	return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	/**
+     * This method allows clerk to deny user to join the company.
+     * After that, mail is being sent to the user
+     * with the reason why he is denied.
+     * @param		id id of an User
+     * @return      HttpStatus OK if OK, else NOT_FOUND
+     */
+	@RequestMapping(value = "/deny", method = RequestMethod.PUT)
+	public ResponseEntity<Void> denyClerk(@RequestParam Long id, @RequestParam Long id_company) {
+		User user = userService.findOne(id);
+		Company company = companyService.findOne(id_company);
+		//TODO SEND MAIL WITH REASON
+		//TODO remove user from the apply list
+    	return new ResponseEntity<>(HttpStatus.OK);
+	}
 
 }

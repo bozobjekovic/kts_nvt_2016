@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import tim9.realEstate.model.Person;
 import tim9.realEstate.model.User;
+import tim9.realEstate.model.Verifier;
 import tim9.realEstate.repository.AdminRepository;
 import tim9.realEstate.repository.UserRepository;
 import tim9.realEstate.repository.VerifierRepository;
@@ -37,7 +38,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
 		Person user = userRepository.findByUsername(username);
-		Person verifier = verifierRepository.findByUsername(username);
+		Verifier verifier = verifierRepository.findByUsername(username);
 		Person admin = adminRepository.findByUsername(username);
 		
 		if (user == null && verifier == null && admin == null) {

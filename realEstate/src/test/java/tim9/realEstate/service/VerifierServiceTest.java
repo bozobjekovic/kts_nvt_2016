@@ -26,17 +26,17 @@ import tim9.realEstate.model.Verifier;
 @TestPropertySource(locations="classpath:test.properties")
 public class VerifierServiceTest {
 	
-	@Autowired
+/*	@Autowired
 	VerifierService verifierService;
 
-	/**
+	*//**
 	 * <h1> Positive tests </h1>
-	 */
+	 *//*
 	
-	/**
+	*//**
 	 * <b>testFindOne()</b>
 	 * method tests if an certain element from the data base can be found
-	 **/
+	 **//*
 	@Test 
 	public void testFindOne() {
 		Verifier dbVerifier = verifierService.findOne(DB_ID);
@@ -54,20 +54,20 @@ public class VerifierServiceTest {
         assertThat(dbVerifier.getUsername()).isEqualTo(DB_USERNAME);
 	}
 	
-	/**
+	*//**
 	 * <b>testFindAll()</b>
 	 * method test if all of certain elements from the data base can be found
-	 **/
+	 **//*
 	@Test
 	public void testFindAll() {
 		List<Verifier> verifiers = verifierService.findAll();
 		assertThat(verifiers).hasSize(DB_COUNT);
 	}
 	
-	/**
+	*//**
 	 * <b>testSave()</b>
 	 * method tests if a new element can be saved into data base
-	 **/
+	 **//*
 	@Test
     @Transactional
     @Rollback(true)
@@ -103,10 +103,10 @@ public class VerifierServiceTest {
         assertThat(dbVerifier.getUsername()).isEqualTo(NEW_USERNAME);
 	}
 	
-	/**
+	*//**
 	 * <b>testUpdate()</b>
 	 * method tests if a certain element from the data base can be updated
-	 **/
+	 **//*
 	@Test
     @Transactional
     @Rollback(true)
@@ -139,10 +139,10 @@ public class VerifierServiceTest {
         assertThat(dbVerifier.getUsername()).isEqualTo(NEW_USERNAME);
 	}
 	
-	/**
+	*//**
 	 * <b>testRemove()</b>
 	 * method tests if a certain element from the data base can be removed
-	 **/
+	 **//*
 	@Test
 	@Transactional
 	@Rollback(true)
@@ -157,17 +157,17 @@ public class VerifierServiceTest {
 		assertThat(dbVerifier).isNull();
 	}
 	
-	/**
+	*//**
 	 * <h1> Negative tests </h1>
-	 */
+	 *//*
 	
-	/**
+	*//**
 	 * <b>testNegativeRemove()</b>
 	 * method tests if an certain element from data base,
 	 * that should not be removed, can be removed,
 	 * and if can throws an exception
 	 * @exception DataIntegrityViolationException
-	 **/
+	 **//*
 	@Test(expected = DataIntegrityViolationException.class)
 	@Transactional
 	@Rollback(true)
@@ -182,13 +182,13 @@ public class VerifierServiceTest {
 		assertThat(dbVerifier).isNull();
 	}
 	
-	/**
+	*//**
 	 * <b>testAddNullEmail()</b>
 	 * method tests if an certain element can be added into data base
 	 * without its primary key,
 	 * and if can throws an exception
 	 * @exception DataIntegrityViolationException
-	 **/
+	 **//*
 	@Test(expected = DataIntegrityViolationException.class)
 	@Transactional
 	@Rollback(true)
@@ -207,13 +207,13 @@ public class VerifierServiceTest {
 		verifierService.save(verifier);
 	}
 	
-	/**
+	*//**
 	 * <b>testAddNullUsername()</b>
 	 * method tests if an certain element can be added into data base
 	 * without field that is required,
 	 * and if can throws an exception
 	 * @exception DataIntegrityViolationException
-	 **/
+	 **//*
 	@Test(expected = DataIntegrityViolationException.class)
 	@Transactional
 	@Rollback(true)
@@ -232,13 +232,13 @@ public class VerifierServiceTest {
 		verifierService.save(verifier);
 	}
 	
-	/**
+	*//**
 	 * <b>testAddNullPassword()</b>
 	 * method tests if an certain element can be added into data base
 	 * without field that is required,
 	 * and if can throws an exception
 	 * @exception DataIntegrityViolationException
-	 **/
+	 **//*
 	@Test(expected = DataIntegrityViolationException.class)
 	@Transactional
 	@Rollback(true)
@@ -257,13 +257,13 @@ public class VerifierServiceTest {
 		verifierService.save(verifier);
 	}
 	
-	/**
+	*//**
 	 * <b>testAddNullName()</b>
 	 * method tests if an certain element can be added into data base
 	 * without field that is required,
 	 * and if can throws an exception
 	 * @exception DataIntegrityViolationException
-	 **/
+	 **//*
 	@Test(expected = DataIntegrityViolationException.class)
 	@Transactional
 	@Rollback(true)
@@ -282,13 +282,13 @@ public class VerifierServiceTest {
 		verifierService.save(verifier);
 	}
 	
-	/**
+	*//**
 	 * <b>testAddNullSurname()</b>
 	 * method tests if an certain element can be added into data base
 	 * without field that is required,
 	 * and if can throws an exception
 	 * @exception DataIntegrityViolationException
-	 **/
+	 **//*
 	@Test(expected = DataIntegrityViolationException.class)
 	@Transactional
 	@Rollback(true)
@@ -307,13 +307,13 @@ public class VerifierServiceTest {
 		verifierService.save(verifier);
 	}
 	
-	/**
+	*//**
 	 * <b>testAddUniqueEmail()</b>
 	 * method tests if an certain element can be added into data base
 	 * with primary key that already exist,
 	 * and if can throws an exception
 	 * @exception DataIntegrityViolationException
-	 **/
+	 **//*
 	@Test(expected = DataIntegrityViolationException.class)
 	@Transactional
 	@Rollback(true)
@@ -333,13 +333,13 @@ public class VerifierServiceTest {
 		verifierService.save(verifier);
 	}
 	
-	/**
+	*//**
 	 * <b>testAddUniqueUsername()</b>
 	 * method tests if an certain element, that must be unique,
 	 * can be added into data base with value that already exist,
 	 * and if can throws an exception
 	 * @exception DataIntegrityViolationException
-	 **/
+	 **//*
 	@Test(expected = DataIntegrityViolationException.class)
 	@Transactional
 	@Rollback(true)
@@ -357,5 +357,5 @@ public class VerifierServiceTest {
 		verifier.setSurname(NEW_SURNAME);
 		
 		verifierService.save(verifier);
-	}
+	}*/
 }
