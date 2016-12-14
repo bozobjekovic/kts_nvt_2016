@@ -2,12 +2,16 @@ package tim9.realEstate;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
+
+import tim9.realEstate.mail.MailConfig;
 
 /**
  * This class represents the main class and runs
  * the Application.
  */
 @SpringBootApplication
+@Import(MailConfig.class)
 public class RealEstateApplication {
 	
 	/**

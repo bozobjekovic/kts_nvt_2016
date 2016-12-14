@@ -8,6 +8,8 @@ import javax.servlet.ServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,6 +38,9 @@ public class UserController {
 	
 	@Autowired
 	UserUtils userUtils;
+	
+	@Autowired
+	JavaMailSender  javaMailService;
 
 	/**
      * This method gets all Users from the database
@@ -103,7 +108,7 @@ public class UserController {
      * @return      HttpStatus OK if OK, else NOT_FOUND
      */
 	@RequestMapping(value = "/accept", method = RequestMethod.PUT)
-	public ResponseEntity<Void> acceptClerk(@RequestParam Long id, @RequestParam Long id_company) {
+	public ResponseEntity<Void> acceptUser(@RequestParam Long id, @RequestParam Long id_company) {
 		User user = userService.findOne(id);
 		Company company = companyService.findOne(id_company);
 		if(user == null || company == null){
@@ -113,7 +118,13 @@ public class UserController {
 		user.setAppliedCompany(null);
 		user.setCompany(company);
 		userService.save(user);
-		//TODO SEND MAIL
+		
+		SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(user.getEmail());
+        mailMessage.setSubject("Join Our Company");
+        mailMessage.setText("Hello \n Your have been accepted to join our company! \n Welcome");
+        javaMailService.send(mailMessage);
+        
     	return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
@@ -129,7 +140,12 @@ public class UserController {
 		User user = userService.findOne(id);
 		user.setAppliedCompany(null);
 		userService.save(user);
-		//TODO SEND MAIL WITH REASON
+
+		SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(user.getEmail());
+        mailMessage.setSubject("Join Our Company");
+        mailMessage.setText("Hello \n We are sorry but your request has been rejected");
+        javaMailService.send(mailMessage);
     	return new ResponseEntity<>(HttpStatus.OK);
 	}
 

@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,6 +47,9 @@ public class AdminController {
 	@Autowired
 	AuthorityService authorityService;
 	
+	@Autowired
+	JavaMailSender  javaMailService;
+	
 	/**
 	 * This method returns clerks that are not approved
 	 * @return		ResponseEntity with HttpStatus OK
@@ -70,7 +75,14 @@ public class AdminController {
 	public ResponseEntity<Void> registrateVerifier(@RequestBody VerifierDTO verifierDTO) {
 		verifierDTO.setPassword(passwordEncoder.encode(verifierDTO.getPassword()));
     	verifierService.save(new Verifier(verifierDTO, authorityService.findByName("VERIFIER")));
-    	//TODO send mail
+    	
+    	SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(verifierDTO.getEmail());
+        mailMessage.setSubject("Join Our Site");
+        mailMessage.setText("Hello \n You have been added as a verifier! \n"
+        		+ "Your username : " + verifierDTO.getUsername() + "\n "
+        		+ "Your password : " + verifierDTO.getPassword());
+        javaMailService.send(mailMessage);
     	return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
@@ -90,7 +102,12 @@ public class AdminController {
 		}
 		user.setApproved(true);
 		userService.save(user);
-		//TODO SEND MAIL
+		
+		SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(user.getEmail());
+        mailMessage.setSubject("Join Our Site");
+        mailMessage.setText("Hello \n Your have been accepted to our site! \n Welcome");
+        javaMailService.send(mailMessage);
     	return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
@@ -104,11 +121,16 @@ public class AdminController {
      */
 	@RequestMapping(value = "/deny", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> denyClerk(@RequestParam Long id, @RequestParam Long company_id) {
-		//TODO SEND MAIL WITH REASON
 		User user = userService.findOne(id);
+		
+		SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(user.getEmail());
+        mailMessage.setSubject("Join Our Company");
+        mailMessage.setText("Hello \n We are sorry but your request has been rejected!");
+        javaMailService.send(mailMessage);
+       
 		user.setCompany(null);
 		userService.remove(id);
-		
 		companyService.remove(company_id);
     	return new ResponseEntity<>(HttpStatus.OK);
 	}
