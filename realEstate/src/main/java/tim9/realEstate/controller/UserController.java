@@ -3,6 +3,8 @@ package tim9.realEstate.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tim9.realEstate.dto.UserDTO;
 import tim9.realEstate.model.Company;
 import tim9.realEstate.model.User;
+import tim9.realEstate.security.UserUtils;
 import tim9.realEstate.service.CompanyService;
 import tim9.realEstate.service.UserService;
 
@@ -26,6 +29,9 @@ public class UserController {
 	
 	@Autowired
 	CompanyService companyService;
+	
+	@Autowired
+	UserUtils userUtils;
 
 	/**
      * This method gets all Users from the database
@@ -72,11 +78,9 @@ public class UserController {
      * @param		id_company id of Company
      * @return      HttpStatus OK if OK, else NOT_FOUND
      */
-	@SuppressWarnings("null")
 	@RequestMapping(value = "/apply", method = RequestMethod.PUT)
-	public ResponseEntity<Void> applyToCompany(@RequestParam Long id_company) {
-		//TODO get logged user
-		User user = null;
+	public ResponseEntity<Void> applyToCompany(@RequestParam Long id_company, ServletRequest request) {
+		User user = (User)userUtils.getLoggedUser(request);
 		Company company = companyService.findOne(id_company);
 		if(company == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +26,7 @@ import tim9.realEstate.model.Advertisment;
 import tim9.realEstate.model.Location;
 import tim9.realEstate.model.RealEstate;
 import tim9.realEstate.model.Verifier;
+import tim9.realEstate.security.UserUtils;
 import tim9.realEstate.service.AdvertismentService;
 
 @RestController
@@ -34,6 +35,9 @@ public class AdvertismentController {
 
     @Autowired
     AdvertismentService advertismentService;
+    
+    @Autowired
+    UserUtils userUtils;
     
     /**
      * This method gets all Advertisements from the database
@@ -170,15 +174,13 @@ public class AdvertismentController {
      * @return      ResponseEntity status OK, else NOT_FOUND status
      */
     @RequestMapping(value="/verification", method = RequestMethod.PUT)
-    public ResponseEntity<Void> verifyAdvertisment(@RequestParam Long idAdvertisment, @RequestParam Verifier verifier){
+    public ResponseEntity<Void> verifyAdvertisment(@RequestParam Long idAdvertisment, ServletRequest request){
     	Advertisment advertisment = advertismentService.findOne(idAdvertisment);
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    	System.out.println(authentication.getCredentials());
     	
     	if(advertisment == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-    	advertisment.setVerifier(verifier);
+    	advertisment.setVerifier((Verifier)userUtils.getLoggedUser(request));
     	advertismentService.save(advertisment);
     	return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -223,11 +225,12 @@ public class AdvertismentController {
      * @param id
      * @return HttpStatus OK if exists else HttpStatus NOT_FOUND
      */
-    @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+    @RequestMapping(value="delete/{id}", method=RequestMethod.PUT)
     public ResponseEntity<Void> deteleAdvertisement(@PathVariable Long id) {
     	Advertisment advertisement = advertismentService.findOne(id);
     	if (advertisement != null) {
-			advertismentService.remove(id);
+    		advertisement.setDeleted(true);
+			advertismentService.save(advertisement);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

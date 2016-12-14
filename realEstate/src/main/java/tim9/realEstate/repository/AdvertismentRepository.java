@@ -18,6 +18,8 @@ public interface AdvertismentRepository extends JpaRepository<Advertisment, Long
 	
 	List<Advertisment> findByRealEstate_Type(String type);
 	
+	List<Advertisment> findByIsDeletedFalse();
+	
 	Advertisment findByPhoneNumber(String phone);
 	
 	List<Advertisment> OrderByRateDesc(Pageable page);

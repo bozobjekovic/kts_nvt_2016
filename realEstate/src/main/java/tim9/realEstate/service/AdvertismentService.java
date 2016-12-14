@@ -33,7 +33,7 @@ public class AdvertismentService {
 	* @return		List of elements
 	*/
 	public List<Advertisment> findAll() {
-		return advertismentRepository.findAll();
+		return advertismentRepository.findByIsDeletedFalse();
 	}
 	
 	/**

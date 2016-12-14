@@ -42,6 +42,7 @@ public class Advertisment implements Serializable{
 	private RealEstate realEstate;
 	@OneToMany(mappedBy = "advertisment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Comment> comments = new HashSet<Comment>(0);
+	private boolean isDeleted;
 	
 	public Advertisment() {
 		super();
@@ -149,6 +150,14 @@ public class Advertisment implements Serializable{
 
 	public void setNumberOfRates(int numberOfRates) {
 		this.numberOfRates = numberOfRates;
+	}
+	
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 
 	@Override

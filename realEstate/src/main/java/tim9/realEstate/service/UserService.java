@@ -25,6 +25,15 @@ public class UserService {
 	}
 	
 	/**
+	 *  This method finds element with specified user name and gets it
+	 * @param username
+	 * @return Element if found, null if doesn't exists
+	 */
+	public User findByUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
+	
+	/**
 	* This method finds all elements from specified Table.
 	* @return		List of elements
 	*/

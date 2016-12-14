@@ -25,6 +25,15 @@ public class AdminService {
 	}
 	
 	/**
+	 *  This method finds element with specified user name and gets it
+	 * @param username
+	 * @return Element if found, null if doesn't exists
+	 */
+	public Admin findByUsername(String username) {
+		return adminRepository.findByUsername(username);
+	}
+	
+	/**
 	* This method finds all elements from specified Table.
 	* @return		List of elements
 	*/
