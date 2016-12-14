@@ -14,6 +14,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * This class managed with authentication
+ *
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -21,6 +25,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsService userDetailsService;
 
+	/**
+	 * This method configures authentication manager
+	 * @param authenticationManagerBuilder
+	 * @throws Exception
+	 */
 	@Autowired
 	public void configureAuthentication(
 			AuthenticationManagerBuilder authenticationManagerBuilder)
@@ -31,17 +40,29 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 						passwordEncoder());
 	}
 
+	/**
+	 * Method witch returns new instance of PasswordEncoder
+	 * @return
+	 */
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	
+	/**
+	 * This method return instance of AuthenticationManager from super class
+	 */
 	@Bean
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
 	
+	/**
+	 * This method returns instance of AuthenticationTokenFilter
+	 * @return
+	 * @throws Exception
+	 */
 	@Bean
 	public AuthenticationTokenFilter authenticationTokenFilterBean()
 			throws Exception {
@@ -51,6 +72,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return authenticationTokenFilter;
 	}
 
+	/**
+	 * This method configures logic about authority, authentication etc.
+	 */
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity

@@ -16,6 +16,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 
+/**
+ *  This class represents authentication token
+ *
+ */
 public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFilter {
 	
 	@Autowired
@@ -24,6 +28,9 @@ public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFil
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
+	/**
+	 * This method sets authentication on user who doesn't have authentication
+	 */
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
