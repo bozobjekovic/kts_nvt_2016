@@ -9,7 +9,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -20,17 +19,12 @@ public class RealEstate implements Serializable{
 	@Id
 	@GeneratedValue
 	private Long id;
-	private String name;
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Location location;
-	@Column(nullable = false)
-	private double price;
 	@Column(nullable = false)
 	private int landSize;
 	private String techEquipment;
 	private String heatingType;
-	@Lob
-	private String image;
 	private int numOfBathRooms;
 	private int numOfBedRooms;
 	private int numOfFlors;
@@ -50,14 +44,6 @@ public class RealEstate implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 	
 	public Location getLocation() {
 		return location;
@@ -65,14 +51,6 @@ public class RealEstate implements Serializable{
 
 	public void setLocation(Location location) {
 		this.location = location;
-	}
-
-	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
 	}
 
 	public int getLandSize() {
@@ -97,14 +75,6 @@ public class RealEstate implements Serializable{
 
 	public void setHeatingType(String heatingType) {
 		this.heatingType = heatingType;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
 	}
 	
 	public int getNumOfBathRooms() {
@@ -157,11 +127,10 @@ public class RealEstate implements Serializable{
 
 	@Override
 	public String toString() {
-		return "RealEstate [id=" + id + ", name=" + name + ", location=" + location + ", price=" + price + ", landSize="
-				+ landSize + ", techEquipment=" + techEquipment + ", heatingType=" + heatingType + ", image=" + image
+		return "RealEstate [id=" + id + ", location=" + location + ", landSize=" + landSize + ", techEquipment="
+				+ techEquipment + ", heatingType=" + heatingType + ", numOfBathRooms=" + numOfBathRooms
+				+ ", numOfBedRooms=" + numOfBedRooms + ", numOfFlors=" + numOfFlors + ", buildYear=" + buildYear
 				+ ", category=" + category + ", type=" + type + "]";
 	}
-
-		
 
 }

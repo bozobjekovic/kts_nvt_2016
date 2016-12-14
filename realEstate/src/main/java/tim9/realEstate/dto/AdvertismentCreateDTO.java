@@ -34,9 +34,9 @@ public class AdvertismentCreateDTO {
 	}
 	
 	public AdvertismentCreateDTO(Advertisment a, RealEstate e) {
-		this(a.getId(), a.getActiveUntil(), a.getPurpose(), a.getPhoneNumber(), a.getRate(), e.getId(), e.getName(),
-				new LocationDTO(e.getLocation()), e.getPrice(), e.getLandSize(), e.getTechEquipment(),
-				e.getHeatingType(), e.getImage(), e.getNumOfBathRooms(),e.getNumOfBedRooms(), e.getNumOfFlors(),
+		this(a.getId(), a.getActiveUntil(), a.getPurpose(), a.getPhoneNumber(), a.getRate(), e.getId(), a.getName(),
+				new LocationDTO(e.getLocation()), a.getPrice(), e.getLandSize(), e.getTechEquipment(),
+				e.getHeatingType(), a.getBackgroundImage(), e.getNumOfBathRooms(),e.getNumOfBedRooms(), e.getNumOfFlors(),
 				e.getBuildYear(), e.getCategory(), e.getType());
 	}
 

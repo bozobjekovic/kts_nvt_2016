@@ -118,6 +118,7 @@ public class AdvertismentServiceTest {
         assertThat(dbAdvertisment.getRate()).isEqualTo(NEW_RATE);
 	}
 	
+	@SuppressWarnings("unused")
 	@Test
 	@Transactional
 	@Rollback(true)

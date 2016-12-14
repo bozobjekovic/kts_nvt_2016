@@ -1,31 +1,25 @@
 package tim9.realEstate.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static tim9.realEstate.constants.RealEstateConstants.DB_ID;
-import static tim9.realEstate.constants.RealEstateConstants.DB_ID_REFERENCED;
 import static tim9.realEstate.constants.RealEstateConstants.DB_BUILD_YEAR;
 import static tim9.realEstate.constants.RealEstateConstants.DB_CATEGORY;
 import static tim9.realEstate.constants.RealEstateConstants.DB_COUNT;
 import static tim9.realEstate.constants.RealEstateConstants.DB_HEATING_TYPE;
-import static tim9.realEstate.constants.RealEstateConstants.DB_IMAGE;
+import static tim9.realEstate.constants.RealEstateConstants.DB_ID;
+import static tim9.realEstate.constants.RealEstateConstants.DB_ID_REFERENCED;
 import static tim9.realEstate.constants.RealEstateConstants.DB_LAND_SIZE;
-import static tim9.realEstate.constants.RealEstateConstants.DB_NAME;
 import static tim9.realEstate.constants.RealEstateConstants.DB_NUM_OF_BATH_ROOMS;
 import static tim9.realEstate.constants.RealEstateConstants.DB_NUM_OF_BED_ROOMS;
 import static tim9.realEstate.constants.RealEstateConstants.DB_NUM_OF_FLORS;
-import static tim9.realEstate.constants.RealEstateConstants.DB_PRICE;
 import static tim9.realEstate.constants.RealEstateConstants.DB_TEACH_EQUIPMENT;
 import static tim9.realEstate.constants.RealEstateConstants.DB_TYPE;
 import static tim9.realEstate.constants.RealEstateConstants.NEW_BUILD_YEAR;
 import static tim9.realEstate.constants.RealEstateConstants.NEW_CATEGORY;
 import static tim9.realEstate.constants.RealEstateConstants.NEW_HEATING_TYPE;
-import static tim9.realEstate.constants.RealEstateConstants.NEW_IMAGE;
 import static tim9.realEstate.constants.RealEstateConstants.NEW_LAND_SIZE;
-import static tim9.realEstate.constants.RealEstateConstants.NEW_NAME;
 import static tim9.realEstate.constants.RealEstateConstants.NEW_NUM_OF_BATH_ROOMS;
 import static tim9.realEstate.constants.RealEstateConstants.NEW_NUM_OF_BED_ROOMS;
 import static tim9.realEstate.constants.RealEstateConstants.NEW_NUM_OF_FLORS;
-import static tim9.realEstate.constants.RealEstateConstants.NEW_PRICE;
 import static tim9.realEstate.constants.RealEstateConstants.NEW_TEACH_EQUIPMENT;
 import static tim9.realEstate.constants.RealEstateConstants.NEW_TYPE;
 
@@ -62,12 +56,9 @@ public class RealEstateServiceTest {
 		assertThat(dbRealEstate).isNotNull();
 		
 		assertThat(dbRealEstate.getId()).isEqualTo(DB_ID);
-		assertThat(dbRealEstate.getName()).isEqualTo(DB_NAME);
-		assertThat(dbRealEstate.getPrice()).isEqualTo(DB_PRICE);
 		assertThat(dbRealEstate.getLandSize()).isEqualTo(DB_LAND_SIZE);
 		assertThat(dbRealEstate.getTechEquipment()).isEqualTo(DB_TEACH_EQUIPMENT);
 		assertThat(dbRealEstate.getHeatingType()).isEqualTo(DB_HEATING_TYPE);
-		assertThat(dbRealEstate.getImage()).isEqualTo(DB_IMAGE);
 		assertThat(dbRealEstate.getNumOfBathRooms()).isEqualTo(DB_NUM_OF_BATH_ROOMS);
 		assertThat(dbRealEstate.getNumOfBedRooms()).isEqualTo(DB_NUM_OF_BED_ROOMS);
 		assertThat(dbRealEstate.getNumOfFlors()).isEqualTo(DB_NUM_OF_FLORS);
@@ -87,12 +78,9 @@ public class RealEstateServiceTest {
 	@Rollback(true)
 	public void testSave() {
 		RealEstate realEstate = new RealEstate();
-		realEstate.setName(NEW_NAME);
-		realEstate.setPrice(NEW_PRICE);
 		realEstate.setLandSize(NEW_LAND_SIZE);
 		realEstate.setTechEquipment(NEW_TEACH_EQUIPMENT);
 		realEstate.setHeatingType(NEW_HEATING_TYPE);
-		realEstate.setImage(NEW_IMAGE);
 		realEstate.setNumOfBathRooms(NEW_NUM_OF_BATH_ROOMS);
 		realEstate.setNumOfBedRooms(NEW_NUM_OF_BED_ROOMS);
 		realEstate.setNumOfFlors(NEW_NUM_OF_FLORS);
@@ -109,12 +97,9 @@ public class RealEstateServiceTest {
 		assertThat(realEstates).hasSize(dbSizeBeforeAdd + 1);
 		
 		dbRealEstate = realEstates.get(realEstates.size() - 1);
-		assertThat(dbRealEstate.getName()).isEqualTo(NEW_NAME);
-		assertThat(dbRealEstate.getPrice()).isEqualTo(NEW_PRICE);
 		assertThat(dbRealEstate.getLandSize()).isEqualTo(NEW_LAND_SIZE);
 		assertThat(dbRealEstate.getTechEquipment()).isEqualTo(NEW_TEACH_EQUIPMENT);
 		assertThat(dbRealEstate.getHeatingType()).isEqualTo(NEW_HEATING_TYPE);
-		assertThat(dbRealEstate.getImage()).isEqualTo(NEW_IMAGE);
 		assertThat(dbRealEstate.getNumOfBathRooms()).isEqualTo(NEW_NUM_OF_BATH_ROOMS);
 		assertThat(dbRealEstate.getNumOfBedRooms()).isEqualTo(NEW_NUM_OF_BED_ROOMS);
 		assertThat(dbRealEstate.getNumOfFlors()).isEqualTo(NEW_NUM_OF_FLORS);
@@ -129,12 +114,9 @@ public class RealEstateServiceTest {
 	public void testUpdate() {
 		RealEstate dbRealEstate = realEstateService.findOne(DB_ID);
 		
-		dbRealEstate.setName(NEW_NAME);
-		dbRealEstate.setPrice(NEW_PRICE);
 		dbRealEstate.setLandSize(NEW_LAND_SIZE);
 		dbRealEstate.setTechEquipment(NEW_TEACH_EQUIPMENT);
 		dbRealEstate.setHeatingType(NEW_HEATING_TYPE);
-		dbRealEstate.setImage(NEW_IMAGE);
 		dbRealEstate.setNumOfBathRooms(NEW_NUM_OF_BATH_ROOMS);
 		dbRealEstate.setNumOfBedRooms(NEW_NUM_OF_BED_ROOMS);
 		dbRealEstate.setNumOfFlors(NEW_NUM_OF_FLORS);
@@ -147,12 +129,9 @@ public class RealEstateServiceTest {
 		
 		dbRealEstate = realEstateService.findOne(DB_ID);
 
-		assertThat(dbRealEstate.getName()).isEqualTo(NEW_NAME);
-		assertThat(dbRealEstate.getPrice()).isEqualTo(NEW_PRICE);
 		assertThat(dbRealEstate.getLandSize()).isEqualTo(NEW_LAND_SIZE);
 		assertThat(dbRealEstate.getTechEquipment()).isEqualTo(NEW_TEACH_EQUIPMENT);
 		assertThat(dbRealEstate.getHeatingType()).isEqualTo(NEW_HEATING_TYPE);
-		assertThat(dbRealEstate.getImage()).isEqualTo(NEW_IMAGE);
 		assertThat(dbRealEstate.getNumOfBathRooms()).isEqualTo(NEW_NUM_OF_BATH_ROOMS);
 		assertThat(dbRealEstate.getNumOfBedRooms()).isEqualTo(NEW_NUM_OF_BED_ROOMS);
 		assertThat(dbRealEstate.getNumOfFlors()).isEqualTo(NEW_NUM_OF_FLORS);

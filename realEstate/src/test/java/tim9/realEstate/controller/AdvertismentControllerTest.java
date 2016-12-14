@@ -142,19 +142,19 @@ private static final String URL_PREFIX = "/realEstate/advertisments";
     	Advertisment advertisment = new Advertisment();
     	RealEstate realEstate = new RealEstate();
     	
+    	advertisment.setName(NEW_NAME);
+    	advertisment.setPrice(NEW_PRICE);
     	advertisment.setPublicationDate(NEW_DATE);
+    	advertisment.setBackgroundImage(NEW_IMAGE);
 		advertisment.setActiveUntil(NEW_DATE);
 		advertisment.setPurpose(NEW_PURPOSE);
 		advertisment.setRate(NEW_RATE);
 		advertisment.setPhoneNumber(NEW_PHONE_NUMBER);
     	
-		realEstate.setName(NEW_NAME);
-    	realEstate.setPrice(NEW_PRICE);
     	realEstate.setLocation(new Location(NEW_ADDRESS, NEW_CITY, NEW_ZIP_CODE, NEW_PART_OF_THE_CITY));
     	realEstate.setLandSize(NEW_LAND_SIZE);
     	realEstate.setTechEquipment(NEW_TEACH_EQUIPMENT);
     	realEstate.setHeatingType(NEW_HEATING_TYPE);
-    	realEstate.setImage(NEW_IMAGE);
     	realEstate.setNumOfBathRooms(NEW_NUM_OF_BATH_ROOMS);
     	realEstate.setNumOfBedRooms(NEW_NUM_OF_BED_ROOMS);
     	realEstate.setNumOfFlors(NEW_NUM_OF_FLORS);

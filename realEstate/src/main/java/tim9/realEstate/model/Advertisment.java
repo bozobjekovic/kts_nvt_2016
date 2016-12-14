@@ -3,6 +3,7 @@ package tim9.realEstate.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -22,6 +24,14 @@ public class Advertisment implements Serializable{
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Column(nullable = false)
+	private String name;
+	@Column(nullable = false)
+	private double price;
+	@Lob
+	private String backgroundImage;
+	@Lob
+	private List<String> images;
 	@Column(nullable = false)
 	private Date publicationDate;
 	private Date modificationDate;
@@ -54,6 +64,38 @@ public class Advertisment implements Serializable{
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public String getBackgroundImage() {
+		return backgroundImage;
+	}
+
+	public void setBackgroundImage(String backgroundImage) {
+		this.backgroundImage = backgroundImage;
+	}
+
+	public List<String> getImages() {
+		return images;
+	}
+
+	public void setImages(List<String> images) {
+		this.images = images;
 	}
 
 	public Date getPublicationDate() {
@@ -94,6 +136,14 @@ public class Advertisment implements Serializable{
 
 	public void setRate(double rate) {
 		this.rate = rate;
+	}
+
+	public int getNumberOfRates() {
+		return numberOfRates;
+	}
+
+	public void setNumberOfRates(int numberOfRates) {
+		this.numberOfRates = numberOfRates;
 	}
 
 	public String getPhoneNumber() {
@@ -144,14 +194,6 @@ public class Advertisment implements Serializable{
 		this.comments = comments;
 	}
 
-	public int getNumberOfRates() {
-		return numberOfRates;
-	}
-
-	public void setNumberOfRates(int numberOfRates) {
-		this.numberOfRates = numberOfRates;
-	}
-	
 	public boolean isDeleted() {
 		return isDeleted;
 	}
@@ -162,10 +204,12 @@ public class Advertisment implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Advertisment [id=" + id + ", publicationDate=" + publicationDate + ", modificationDate="
+		return "Advertisment [id=" + id + ", name=" + name + ", price=" + price + ", backgroundImage=" + backgroundImage
+				+ ", images=" + images + ", publicationDate=" + publicationDate + ", modificationDate="
 				+ modificationDate + ", activeUntil=" + activeUntil + ", purpose=" + purpose + ", rate=" + rate
-				+ ", phoneNumber=" + phoneNumber + ", verifier=" + verifier + ", publisher=" + publisher + ", buyer="
-				+ buyer + ", realEstate=" + realEstate + ", comments="  + "]";
+				+ ", numberOfRates=" + numberOfRates + ", phoneNumber=" + phoneNumber + ", verifier=" + verifier
+				+ ", publisher=" + publisher + ", buyer=" + buyer + ", realEstate=" + realEstate + ", comments="
+				+ comments + ", isDeleted=" + isDeleted + "]";
 	}
 
 }

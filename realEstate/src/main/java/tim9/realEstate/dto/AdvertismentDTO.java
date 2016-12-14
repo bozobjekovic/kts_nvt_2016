@@ -17,8 +17,8 @@ public class AdvertismentDTO {
 	}
 	
 	public AdvertismentDTO(Advertisment a) {
-		this(a.getId(), a.getRealEstate().getName(), a.getRealEstate().getLocation().getCity(), a.getRealEstate().getPrice()
-				, a.getRealEstate().getLandSize(), a.getRealEstate().getImage(), a.getRealEstate().getType());
+		this(a.getId(), a.getName(), a.getRealEstate().getLocation().getCity(), a.getPrice()
+				, a.getRealEstate().getLandSize(), a.getBackgroundImage(), a.getRealEstate().getType());
 	}
 
 	public AdvertismentDTO(Long id, String name, String location, double price, int landSize, String image,

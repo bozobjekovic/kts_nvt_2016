@@ -98,7 +98,10 @@ public class AdvertismentController {
     @RequestMapping(method=RequestMethod.POST)
     public ResponseEntity<AdvertismentCreateDTO> saveAdvertisment(@RequestBody AdvertismentCreateDTO advertismentDTO){
     	Advertisment advertisment = new Advertisment();
+    	advertisment.setName(advertismentDTO.getName());
+    	advertisment.setPrice(advertismentDTO.getPrice());
     	advertisment.setPublicationDate(new Date());
+    	advertisment.setBackgroundImage(advertismentDTO.getImage());
 		advertisment.setActiveUntil(advertismentDTO.getActiveUntil());
 		advertisment.setPurpose(advertismentDTO.getPurpose());
 		advertisment.setPhoneNumber(advertismentDTO.getPhoneNumber());
@@ -107,12 +110,9 @@ public class AdvertismentController {
 		}
 		
 		RealEstate realEstate = new RealEstate();
-		realEstate.setName(advertismentDTO.getName());
 		realEstate.setLocation(new Location(advertismentDTO.getLocation()));
-		realEstate.setPrice(advertismentDTO.getPrice());
 		realEstate.setLandSize(advertismentDTO.getLandSize());
 		realEstate.setTechEquipment(advertismentDTO.getTechEquipment());
-		realEstate.setImage(advertismentDTO.getImage());
 		realEstate.setNumOfBathRooms(advertismentDTO.getNumOfBathRooms());
 		realEstate.setNumOfBedRooms(advertismentDTO.getNumOfBedRooms());
 		realEstate.setNumOfFlors(advertismentDTO.getNumOfFlors());

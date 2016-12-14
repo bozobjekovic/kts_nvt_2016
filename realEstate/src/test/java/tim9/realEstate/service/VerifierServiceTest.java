@@ -1,23 +1,12 @@
 package tim9.realEstate.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static tim9.realEstate.constants.VerifierConstants.*;
-
-import java.util.List;
-
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import tim9.realEstate.RealEstateApplication;
-import tim9.realEstate.model.Verifier;
 
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
