@@ -2,6 +2,9 @@ package tim9.realEstate.dto;
 
 import tim9.realEstate.model.Company;
 
+/**
+ * This class represent data transfer object for Company class
+ */
 public class CompanyDTO {
 	
 	private Long id;
@@ -10,14 +13,31 @@ public class CompanyDTO {
 	private String phoneNumber;
 	private String site;
 	
+	/**
+	 * Constructor created from Superclass
+	 */
 	public CompanyDTO() {
 		super();
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param c represents Company object
+	 */
 	public CompanyDTO(Company c) {
 		this(c.getId(), c.getName(), new LocationDTO(c.getLocation()), c.getPhoneNumber(), c.getSite());
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param id represents Company ID
+	 * @param name represents Name of the Company
+	 * @param location represents Location of the Company
+	 * @param phoneNumber represents Phone Number of the Company
+	 * @param site represents Site of the Company
+	 */
 	public CompanyDTO(Long id, String name, LocationDTO location, String phoneNumber, String site) {
 		super();
 		this.id = id;

@@ -16,6 +16,9 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+/**
+ * This class represent Advertisement bean class
+ */
 @Entity
 public class Advertisment implements Serializable{
 
@@ -54,6 +57,9 @@ public class Advertisment implements Serializable{
 	private Set<Comment> comments = new HashSet<Comment>(0);
 	private boolean isDeleted;
 	
+	/**
+	 * Constructor created from Superclass
+	 */
 	public Advertisment() {
 		super();
 	}

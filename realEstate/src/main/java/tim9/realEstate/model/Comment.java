@@ -9,6 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+/**
+ * This class represent Comment bean class
+ */
 @Entity
 public class Comment implements Serializable{
 
@@ -27,6 +30,9 @@ public class Comment implements Serializable{
 	@ManyToOne
 	private Advertisment advertisment;
 	
+	/**
+	 * Constructor created from Superclass
+	 */
 	public Comment() {
 		super();
 	}

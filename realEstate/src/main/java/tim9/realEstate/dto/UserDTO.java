@@ -2,6 +2,9 @@ package tim9.realEstate.dto;
 
 import tim9.realEstate.model.User;
 
+/**
+ * This class represent data transfer object for User class
+ */
 public class UserDTO {
 	
 	private Long id;
@@ -16,15 +19,38 @@ public class UserDTO {
 	private int bankAccount;
 	private String image;
 	
+	/**
+	 * Constructor created from Superclass
+	 */
 	public UserDTO() {
 		super();
 	}
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param u represents User object
+	 */
 	public UserDTO(User u) {
 		this(u.getId(), u.getEmail(), u.getUsername(), u.getName(), u.getSurname(), u.getPhoneNumber(), u.getAddress(),
 				u.getCity(), u.getRate(), u.getBankAccount(), u.getImage());
 	}
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param id represents User ID
+	 * @param email represents Email of the User
+	 * @param username represents User name of the User
+	 * @param name represents Name of the User
+	 * @param surname represents Surname of the User
+	 * @param phoneNumber represents Phone Number of the User
+	 * @param address represents Address of the User
+	 * @param city represents City of the User
+	 * @param rate represents average rate of the User
+	 * @param bankAccount represents Bank account of the User
+	 * @param image represents Image of the User
+	 */
 	public UserDTO(Long id, String email, String username, String name, String surname, String phoneNumber, String address,
 			String city, double rate, int bankAccount, String image) {
 		super();

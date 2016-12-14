@@ -9,6 +9,9 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
+/**
+ * This class represent Person bean class
+ */
 @MappedSuperclass
 public abstract class Person implements Serializable{
 
@@ -34,11 +37,28 @@ public abstract class Person implements Serializable{
 	private Authority authority;
 	@Lob
 	private String image;
-	
+
+	/**
+	 * Constructor created from Superclass
+	 */
 	public Person() {
 		super();
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param email represents Email of the Person
+	 * @param username represents User name of the Person
+	 * @param password represents Password of the Person
+	 * @param name represents Name of the Person
+	 * @param surname represents Surname of the Person
+	 * @param phoneNumber represents Phone Number of the Person
+	 * @param address represents Address of the Person
+	 * @param city represents City of the Person
+	 * @param authority represents Authority that the Person possesses
+	 * @param image represents Image of the Person
+	 */
 	public Person(String email, String username, String password, String name, String surname, String phoneNumber,
 			String address, String city, Authority authority, String image) {
 		super();
@@ -148,5 +168,4 @@ public abstract class Person implements Serializable{
 	public void setImage(String image) {
 		this.image = image;
 	}
-
 }

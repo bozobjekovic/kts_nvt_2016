@@ -15,6 +15,9 @@ import javax.persistence.OneToMany;
 
 import tim9.realEstate.dto.RegistrateUserDTO;
 
+/**
+ * This class represent Company bean class
+ */
 @Entity
 public class Company implements Serializable{
 
@@ -33,16 +36,32 @@ public class Company implements Serializable{
 	@OneToMany(mappedBy = "appliedCompany", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<User> usersToApprove = new HashSet<User>(0);
 	
+	/**
+	 * Constructor created from Superclass
+	 */
 	public Company() {
 		super();
 	}
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param regCompany represents RegistrateUserDTO object
+	 */
 	public Company(RegistrateUserDTO regCompany) {
 		this(regCompany.getCompanyName(), new Location(regCompany.getCompanyAddress(), 
 				regCompany.getCompanyCity(), regCompany.getZipCode(), regCompany.getPartOfTheCity()), 
 				regCompany.getCompanyPhoneNumber(), regCompany.getSite());
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param name represents Name of the Company
+	 * @param location represents Location of the Company
+	 * @param phoneNumber represents Phone number of the Company
+	 * @param site represents Site of the Company
+	 */
 	public Company(String name, Location location, String phoneNumber, String site) {
 		super();
 		this.name = name;

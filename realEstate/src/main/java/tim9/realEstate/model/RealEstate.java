@@ -11,6 +11,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+/**
+ * This class represent RealEstate bean class
+ */
 @Entity
 public class RealEstate implements Serializable{
 	
@@ -32,7 +35,10 @@ public class RealEstate implements Serializable{
 	@Enumerated(EnumType.ORDINAL)
 	private Category category;
 	private String type;
-	
+
+	/**
+	 * Constructor created from Superclass
+	 */
 	public RealEstate() {
 		super();
 	}
@@ -132,5 +138,4 @@ public class RealEstate implements Serializable{
 				+ ", numOfBedRooms=" + numOfBedRooms + ", numOfFlors=" + numOfFlors + ", buildYear=" + buildYear
 				+ ", category=" + category + ", type=" + type + "]";
 	}
-
 }

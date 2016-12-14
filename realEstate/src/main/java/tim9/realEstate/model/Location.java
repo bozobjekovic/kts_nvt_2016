@@ -9,6 +9,9 @@ import javax.persistence.Id;
 
 import tim9.realEstate.dto.LocationDTO;
 
+/**
+ * This class represent Location bean class
+ */
 @Entity
 public class Location implements Serializable{
 
@@ -24,15 +27,31 @@ public class Location implements Serializable{
 	@Column(nullable = false)
 	private int zipCode;
 	private String partOfTheCity;
-	
+
+	/**
+	 * Constructor created from Superclass
+	 */
 	public Location() {
 		super();
 	}
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param l represents LocationDTO object
+	 */
 	public Location(LocationDTO l) {
 		this(l.getAddress(), l.getCity(), l.getZipCode(), l.getPartOfTheCity());
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param address represents Address of the Location
+	 * @param city represents City of the Location
+	 * @param zipCode represents Zip code of the Location
+	 * @param partOfTheCity represents Part of the City of the Location
+	 */
 	public Location(String address, String city, int zipCode, String partOfTheCity) {
 		super();
 		this.address = address;
@@ -86,6 +105,4 @@ public class Location implements Serializable{
 		return "Location [address=" + address + ", city=" + city + ", zipCode=" + zipCode + ", partOfTheCity="
 				+ partOfTheCity + "]";
 	}
-	
-
 }

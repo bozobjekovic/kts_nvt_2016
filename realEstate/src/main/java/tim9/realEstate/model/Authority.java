@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/**
+ * This class represent Authority bean class
+ */
 @Entity
 public class Authority {
 	
@@ -29,5 +32,4 @@ public class Authority {
 	public void setName(String name) {
 		this.name = name;
 	}
-
 }

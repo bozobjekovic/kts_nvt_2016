@@ -1,5 +1,8 @@
 package tim9.realEstate.dto;
 
+/**
+ * This class represent data transfer object for RegistrateUser class
+ */
 public class RegistrateUserDTO {
 	
 	// user fields
@@ -26,6 +29,9 @@ public class RegistrateUserDTO {
 	private int zipCode;
 	private String partOfTheCity;
 	
+	/**
+	 * Constructor created from Superclass
+	 */
 	public RegistrateUserDTO() { super(); }
 
 	public String getEmail() {

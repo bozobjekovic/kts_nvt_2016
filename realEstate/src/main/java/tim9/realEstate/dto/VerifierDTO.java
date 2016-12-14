@@ -1,15 +1,28 @@
 package tim9.realEstate.dto;
 
+/**
+ * This class represent data transfer object for Verifier class
+ */
 public class VerifierDTO {
 	
 	private String email;
 	private String username;
 	private String password;
-	
+
+	/**
+	 * Constructor created from Superclass
+	 */
 	public VerifierDTO() {
 		super();
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param email represents Email of the Verifier
+	 * @param username represents User name of the Verifier
+	 * @param password represents Password of the Verifier
+	 */
 	public VerifierDTO(String email, String username, String password) {
 		super();
 		this.email = email;

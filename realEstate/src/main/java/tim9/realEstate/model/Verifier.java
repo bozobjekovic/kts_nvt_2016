@@ -11,6 +11,9 @@ import javax.persistence.ManyToOne;
 
 import tim9.realEstate.dto.VerifierDTO;
 
+/**
+ * This class represent Verifier bean class
+ */
 @Entity
 public class Verifier implements Serializable{
 
@@ -28,10 +31,19 @@ public class Verifier implements Serializable{
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Authority authority;
 
+	/**
+	 * Constructor
+	 */
 	public Verifier() {
 
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param verifierDTO represents VerifierDTO object
+	 * @param authority represents Authority that the Verifier possesses
+	 */
 	public Verifier(VerifierDTO verifierDTO, Authority authority) {
 		this.email = verifierDTO.getEmail();
 		this.username = verifierDTO.getUsername();
@@ -78,5 +90,4 @@ public class Verifier implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
 }

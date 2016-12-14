@@ -2,6 +2,9 @@ package tim9.realEstate.dto;
 
 import tim9.realEstate.model.Advertisment;
 
+/**
+ * This class represent data transfer object for Advertisement class
+ */
 public class AdvertismentDTO {
 	
 	private Long id;
@@ -12,15 +15,34 @@ public class AdvertismentDTO {
 	private String image;
 	private String type;
 	
+	/**
+	 * Constructor created from Superclass
+	 */
 	public AdvertismentDTO() {
 		super();
 	}
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param a represents Advertisement object
+	 */
 	public AdvertismentDTO(Advertisment a) {
 		this(a.getId(), a.getName(), a.getRealEstate().getLocation().getCity(), a.getPrice()
 				, a.getRealEstate().getLandSize(), a.getBackgroundImage(), a.getRealEstate().getType());
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param id represents Advertisement ID
+	 * @param name represents Name of the Advertisement
+	 * @param location represents Location of the Real Estate
+	 * @param price represents Price of the Real Estate
+	 * @param landSize represents Land Size of the Real Estate
+	 * @param image represents Image of the Real Estate
+	 * @param type represents Type of the Real Estate
+	 */
 	public AdvertismentDTO(Long id, String name, String location, double price, int landSize, String image,
 			String type) {
 		super();

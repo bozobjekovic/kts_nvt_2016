@@ -6,6 +6,9 @@ import tim9.realEstate.model.Advertisment;
 import tim9.realEstate.model.Category;
 import tim9.realEstate.model.RealEstate;
 
+/**
+ * This class represent data transfer object for Advertisement class
+ */
 public class AdvertismentCreateDTO {
 	
 	private Long advertismentId;
@@ -29,17 +32,48 @@ public class AdvertismentCreateDTO {
 	private Category category;
 	private String type;
 	
+	/**
+	 * Constructor created from Superclass
+	 */
 	public AdvertismentCreateDTO() {
 		super();
 	}
 	
+	/**
+	 * Constructor
+	 * @param a represents Advertisement object
+	 * @param e represents RealEstate object
+	 */
 	public AdvertismentCreateDTO(Advertisment a, RealEstate e) {
 		this(a.getId(), a.getActiveUntil(), a.getPurpose(), a.getPhoneNumber(), a.getRate(), e.getId(), a.getName(),
 				new LocationDTO(e.getLocation()), a.getPrice(), e.getLandSize(), e.getTechEquipment(),
 				e.getHeatingType(), a.getBackgroundImage(), e.getNumOfBathRooms(),e.getNumOfBedRooms(), e.getNumOfFlors(),
 				e.getBuildYear(), e.getCategory(), e.getType());
 	}
-
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param advertismentId represents Advertisement ID
+	 * @param activeUntil represents Date until is Advertisement active
+	 * @param purpose represents purpose of the Advertisement
+	 * @param phoneNumber represents Phone Number that Creator of the Advertisement left as a Contact
+	 * @param rate represents average Rate of the Advertisement
+	 * @param realEstateId represents RealEstate ID
+	 * @param name represents Advertisement Name
+	 * @param location represents Location of the Real estate
+	 * @param price represents Price of the Real estate
+	 * @param landSize represents Land size of the Real estate
+	 * @param techEquipment represents Technical Equipment of the Real estate
+	 * @param heatingType represents Type of Heating for the Real estate
+	 * @param image represents an Image of the Real estate
+	 * @param numOfBathRooms represents the number of Bathrooms for the Real estate
+	 * @param numOfBedRooms represents the number of Bedrooms for the Real estate
+	 * @param numOfFlors represents the number of Floors for the Real estate
+	 * @param buildYear represents Year the Real estate was build in
+	 * @param category represents Category of the Real estate
+	 * @param type represents Type of the Real estate
+	 */
 	public AdvertismentCreateDTO(Long advertismentId, Date activeUntil, String purpose, String phoneNumber, double rate,
 			Long realEstateId, String name, LocationDTO location, double price, int landSize, String techEquipment,
 			String heatingType, String image, int numOfBathRooms, int numOfBedRooms, int numOfFlors, int buildYear,

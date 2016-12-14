@@ -2,6 +2,9 @@ package tim9.realEstate.dto;
 
 import tim9.realEstate.model.Location;
 
+/**
+ * This class represent data transfer object for Location class
+ */
 public class LocationDTO {
 	
 	private Long id;
@@ -9,15 +12,32 @@ public class LocationDTO {
 	private String city;
 	private int zipCode;
 	private String partOfTheCity;
-	
+
+	/**
+	 * Constructor created from Superclass
+	 */
 	public LocationDTO() {
 		super();
 	}
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param l represents Location ID
+	 */
 	public LocationDTO(Location l) {
 		this(l.getId(), l.getAddress(), l.getCity(), l.getZipCode(), l.getPartOfTheCity());
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param id represents Location ID
+	 * @param address represents Address of the Real Estate
+	 * @param city represents City where the Real Estate is
+	 * @param zipCode represents Zip code of City where the Real Estate is
+	 * @param partOfTheCity represents Part of the City where the Real Estate is
+	 */
 	public LocationDTO(Long id, String address, String city, int zipCode, String partOfTheCity) {
 		super();
 		this.id = id;

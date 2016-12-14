@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+/**
+ * This class represent Inappropriate bean class
+ */
 @Entity
 public class Inappropriate implements Serializable{
 
@@ -21,7 +24,10 @@ public class Inappropriate implements Serializable{
 	private String description;
 	@ManyToOne
 	private Advertisment advertisment;
-	
+
+	/**
+	 * Constructor created from Superclass
+	 */
 	public Inappropriate() {
 		super();
 	}
@@ -62,6 +68,4 @@ public class Inappropriate implements Serializable{
 	public String toString() {
 		return "Inappropriate [id=" + id + ", title=" + title + ", description=" + description + "]";
 	}
-
-
 }

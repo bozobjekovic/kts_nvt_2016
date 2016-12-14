@@ -15,6 +15,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import tim9.realEstate.dto.RegistrateUserDTO;
 
+/**
+ * This class represent User bean class
+ */
 @Entity
 public class User extends Person implements Serializable{
 
@@ -37,10 +40,20 @@ public class User extends Person implements Serializable{
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Company appliedCompany;
 
+	/**
+	 * Constructor created from Superclass
+	 */
 	public User() {
 		super();
 	}
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param registrateUser represents RegistrateUserDTO object
+	 * @param type represents Type of the User
+	 * @param authority represents Authority that the User possesses
+	 */
 	public User(RegistrateUserDTO registrateUser, String type, Authority authority) {
 		this(registrateUser.getEmail(), registrateUser.getUsername(), registrateUser.getPassword(), 
 				registrateUser.getName(), registrateUser.getSurname(), registrateUser.getPhoneNumber(), 
@@ -55,6 +68,26 @@ public class User extends Person implements Serializable{
 		}
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param email represents Email of the User
+	 * @param username represents User name of the User
+	 * @param password represents Password of the User
+	 * @param name represents Name of the User
+	 * @param surname represents Surname of the User
+	 * @param phoneNumber represents Phone number of the User
+	 * @param address represents Address of the User
+	 * @param city represents City the User is from
+	 * @param authority represents Authority that the User possesses
+	 * @param image represents Image of the User
+	 * @param numOfRates represents Number of Rated of the User
+	 * @param rate represents average Rate of the User
+	 * @param bankAccount represents Back account of the User
+	 * @param isClerk says if the User is Clerk
+	 * @param isApproved says if the User is approved
+	 * @param company represents Company of the User
+	 */
 	public User(String email, String username, String password, String name, String surname, String phoneNumber,
 			String address, String city, Authority authority, String image, int numOfRates, double rate,
 			int bankAccount, boolean isClerk, boolean isApproved, Company company) {
@@ -66,8 +99,6 @@ public class User extends Person implements Serializable{
 		this.isApproved = isApproved;
 		this.company = company;
 	}
-
-	
 
 	@Override
 	public String toString() {
@@ -145,5 +176,4 @@ public class User extends Person implements Serializable{
 	public void setAppliedCompany(Company appliedCompany) {
 		this.appliedCompany = appliedCompany;
 	}
-	
 }
