@@ -35,7 +35,7 @@ public class UserController {
 	@RequestMapping(value="/all", method = RequestMethod.GET)
 	public ResponseEntity<List<UserDTO>> getAllUsers() {
 		List<User> users = userService.findAll();
-		
+
 		List<UserDTO> userDTO = new ArrayList<>();
 		for (User user : users)
 			userDTO.add(new UserDTO(user));
@@ -72,6 +72,7 @@ public class UserController {
      * @param		id_company id of Company
      * @return      HttpStatus OK if OK, else NOT_FOUND
      */
+	@SuppressWarnings("null")
 	@RequestMapping(value = "/apply", method = RequestMethod.PUT)
 	public ResponseEntity<Void> applyToCompany(@RequestParam Long id_company) {
 		//TODO get logged user
@@ -80,7 +81,7 @@ public class UserController {
 		if(company == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		//TODO add to company List
+		user.setAppliedCompany(company);
 		userService.save(user);
     	return new ResponseEntity<>(HttpStatus.OK);
 	}
@@ -100,6 +101,8 @@ public class UserController {
 		if(user == null || company == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+		
+		user.setAppliedCompany(null);
 		user.setCompany(company);
 		userService.save(user);
 		//TODO SEND MAIL
@@ -114,11 +117,11 @@ public class UserController {
      * @return      HttpStatus OK if OK, else NOT_FOUND
      */
 	@RequestMapping(value = "/deny", method = RequestMethod.PUT)
-	public ResponseEntity<Void> denyClerk(@RequestParam Long id, @RequestParam Long id_company) {
+	public ResponseEntity<Void> denyClerk(@RequestParam Long id) {
 		User user = userService.findOne(id);
-		Company company = companyService.findOne(id_company);
+		user.setAppliedCompany(null);
+		userService.save(user);
 		//TODO SEND MAIL WITH REASON
-		//TODO remove user from the apply list
     	return new ResponseEntity<>(HttpStatus.OK);
 	}
 

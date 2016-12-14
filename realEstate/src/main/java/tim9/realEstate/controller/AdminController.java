@@ -1,5 +1,8 @@
 package tim9.realEstate.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import tim9.realEstate.dto.UserDTO;
 import tim9.realEstate.dto.VerifierDTO;
 import tim9.realEstate.model.User;
 import tim9.realEstate.model.Verifier;
 import tim9.realEstate.service.AuthorityService;
+import tim9.realEstate.service.CompanyService;
 import tim9.realEstate.service.UserService;
 import tim9.realEstate.service.VerifierService;
 
@@ -31,7 +36,25 @@ public class AdminController {
 	UserService userService;
 	
 	@Autowired
+	CompanyService companyService;
+	
+	@Autowired
 	AuthorityService authorityService;
+	
+	/**
+	 * This method returns clerks that are not approved
+	 * @return		ResponseEntity with HttpStatus OK
+	 */
+	@RequestMapping(value="/unapproved/clerks", method = RequestMethod.GET)
+	public ResponseEntity<List<UserDTO>> getAllUnapprovedClerks() {
+		List<User> users = userService.findUnapprovedClerks();
+
+		List<UserDTO> userDTO = new ArrayList<>();
+		for (User user : users)
+			userDTO.add(new UserDTO(user));
+		
+		return new ResponseEntity<>(userDTO, HttpStatus.OK);
+	}
 	
 	/**
      * This method does the registration of a verifier,
@@ -76,11 +99,13 @@ public class AdminController {
      * @return      HttpStatus OK if OK, else NOT_FOUND
      */
 	@RequestMapping(value = "/deny", method = RequestMethod.DELETE)
-	public ResponseEntity<Void> denyClerk(@RequestParam Long id) {
+	public ResponseEntity<Void> denyClerk(@RequestParam Long id, @RequestParam Long company_id) {
 		//TODO SEND MAIL WITH REASON
 		User user = userService.findOne(id);
 		user.setCompany(null);
 		userService.remove(id);
+		
+		companyService.remove(company_id);
     	return new ResponseEntity<>(HttpStatus.OK);
 	}
 

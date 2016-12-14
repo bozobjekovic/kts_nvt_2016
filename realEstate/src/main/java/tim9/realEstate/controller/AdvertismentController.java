@@ -217,5 +217,21 @@ public class AdvertismentController {
 		}
     	return new ResponseEntity<>(advertsDTO, HttpStatus.OK);
     }
+    
+    /**
+     * This method deletes advertisement with given id
+     * @param id
+     * @return HttpStatus OK if exists else HttpStatus NOT_FOUND
+     */
+    @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deteleAdvertisement(@PathVariable Long id) {
+    	Advertisment advertisement = advertismentService.findOne(id);
+    	if (advertisement != null) {
+			advertismentService.remove(id);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+    }
 
 }

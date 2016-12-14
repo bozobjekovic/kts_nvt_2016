@@ -1,13 +1,17 @@
 package tim9.realEstate.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import tim9.realEstate.dto.RegistrateUserDTO;
 
@@ -26,6 +30,8 @@ public class Company implements Serializable{
 	@Column(unique = true)
 	private String phoneNumber;
 	private String site;
+	@OneToMany(mappedBy = "appliedCompany", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<User> usersToApprove = new HashSet<User>(0);
 	
 	public Company() {
 		super();
@@ -83,6 +89,14 @@ public class Company implements Serializable{
 
 	public void setSite(String site) {
 		this.site = site;
+	}
+
+	public Set<User> getUsersToApprove() {
+		return usersToApprove;
+	}
+
+	public void setUsersToApprove(Set<User> usersToApprove) {
+		this.usersToApprove = usersToApprove;
 	}
 
 	@Override

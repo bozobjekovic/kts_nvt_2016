@@ -48,5 +48,13 @@ public class UserService {
 	public void remove(Long id) {
 		userRepository.delete(id);
 	}
+	
+	/**
+	 * This method finds all clerks that are not approved
+	 * @return 		List of elements
+	 */
+	public List<User> findUnapprovedClerks() {
+		return userRepository.findByIsClerkTrueAndIsApprovedFalse();
+	}
 
 }

@@ -34,6 +34,8 @@ public class User extends Person implements Serializable{
 	private Set<Advertisment> buyedAdvertisments = new HashSet<Advertisment>(0);
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Company company;
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Company appliedCompany;
 
 	public User() {
 		super();
@@ -65,10 +67,11 @@ public class User extends Person implements Serializable{
 		this.company = company;
 	}
 
+	
+
 	@Override
 	public String toString() {
-		return "User [numOfRates=" + numOfRates + ", rate=" + rate + ", bankAccount=" + bankAccount + ", clerk=" + isClerk
-				+ ", company=" + company + "]";
+		return "User id : " + super.getId(); 
 	}
 
 	public int getNumOfRates() {
@@ -119,4 +122,28 @@ public class User extends Person implements Serializable{
 		this.company = company;
 	}
 
+	public Set<Advertisment> getPublishedAdvertisments() {
+		return publishedAdvertisments;
+	}
+
+	public void setPublishedAdvertisments(Set<Advertisment> publishedAdvertisments) {
+		this.publishedAdvertisments = publishedAdvertisments;
+	}
+
+	public Set<Advertisment> getBuyedAdvertisments() {
+		return buyedAdvertisments;
+	}
+
+	public void setBuyedAdvertisments(Set<Advertisment> buyedAdvertisments) {
+		this.buyedAdvertisments = buyedAdvertisments;
+	}
+
+	public Company getAppliedCompany() {
+		return appliedCompany;
+	}
+
+	public void setAppliedCompany(Company appliedCompany) {
+		this.appliedCompany = appliedCompany;
+	}
+	
 }
