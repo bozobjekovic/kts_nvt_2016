@@ -3,6 +3,10 @@ package tim9.realEstate;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * This class represents the main class and runs
+ * the Application.
+ */
 @SpringBootApplication
 public class RealEstateApplication {
 	

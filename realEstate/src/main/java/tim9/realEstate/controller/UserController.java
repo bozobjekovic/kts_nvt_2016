@@ -20,6 +20,10 @@ import tim9.realEstate.security.UserUtils;
 import tim9.realEstate.service.CompanyService;
 import tim9.realEstate.service.UserService;
 
+/**
+ * This class represents controller for User
+ * and manages with all User functionalities.
+ */
 @RestController
 @RequestMapping(value="realEstate/users")
 public class UserController {

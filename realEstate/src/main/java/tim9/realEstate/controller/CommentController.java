@@ -17,6 +17,10 @@ import tim9.realEstate.model.Advertisment;
 import tim9.realEstate.model.Comment;
 import tim9.realEstate.service.CommentService;
 
+/**
+ * This class represents controller for Comment
+ * and manages with all Comment functionalities.
+ */
 @RestController
 @RequestMapping(value="realEstate/comments")
 public class CommentController {

@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import tim9.realEstate.model.Verifier;
 import tim9.realEstate.service.VerifierService;
 
+
+/**
+ * This class represents controller for Verifier
+ * and manages with all Verifier functionalities.
+ */
 @Controller
 @RequestMapping(value="realEstate/verifiers")
 public class VerifierController {

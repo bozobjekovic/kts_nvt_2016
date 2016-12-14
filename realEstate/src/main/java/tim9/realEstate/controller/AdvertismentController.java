@@ -29,6 +29,10 @@ import tim9.realEstate.model.Verifier;
 import tim9.realEstate.security.UserUtils;
 import tim9.realEstate.service.AdvertismentService;
 
+/**
+ * This class represents controller for Advertisement
+ * and manages with all Advertisement functionalities.
+ */
 @RestController
 @RequestMapping(value="realEstate/advertisments")
 public class AdvertismentController {

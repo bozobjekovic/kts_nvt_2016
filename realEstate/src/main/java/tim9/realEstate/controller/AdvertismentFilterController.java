@@ -21,6 +21,9 @@ import tim9.realEstate.model.Category;
 import tim9.realEstate.service.AdvertismentService;
 import tim9.realEstate.specification.AdvertismentSpecificationsBuilder;
 
+/**
+ * This class represents controller for filtering Advertisement.
+ */
 @RestController
 @RequestMapping(value="realEstate/advertisments")
 public class AdvertismentFilterController {

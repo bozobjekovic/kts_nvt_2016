@@ -16,6 +16,10 @@ import tim9.realEstate.model.Company;
 import tim9.realEstate.model.Location;
 import tim9.realEstate.service.CompanyService;
 
+/**
+ * This class represents controller for Company
+ * and manages with all Company functionalities.
+ */
 @Controller
 @RequestMapping(value="realEstate/companies")
 public class CompanyController {

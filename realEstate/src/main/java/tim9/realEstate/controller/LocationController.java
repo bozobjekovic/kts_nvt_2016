@@ -15,6 +15,10 @@ import tim9.realEstate.dto.LocationDTO;
 import tim9.realEstate.model.Location;
 import tim9.realEstate.service.LocationService;
 
+/**
+ * This class represents controller for Location
+ * and manages with all Location functionalities.
+ */
 @Controller
 @RequestMapping(value="realEstate/locations")
 public class LocationController {

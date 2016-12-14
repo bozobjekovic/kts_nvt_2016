@@ -15,6 +15,10 @@ import tim9.realEstate.dto.InappropriateDTO;
 import tim9.realEstate.model.Inappropriate;
 import tim9.realEstate.service.InappropriateService;
 
+/**
+ * This class represents controller for Inappropriate
+ * Advertisement.
+ */
 @Controller
 @RequestMapping(value="realEstate/inappropriates")
 public class InappropriateController {

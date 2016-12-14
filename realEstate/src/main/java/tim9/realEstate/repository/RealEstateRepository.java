@@ -5,5 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import tim9.realEstate.model.RealEstate;
 
 public interface RealEstateRepository extends JpaRepository<RealEstate, Long>{
+	
+	RealEstate findByLocation_Address(String address);
 
 }

@@ -22,6 +22,10 @@ import tim9.realEstate.service.CompanyService;
 import tim9.realEstate.service.UserService;
 import tim9.realEstate.service.VerifierService;
 
+/**
+ * This class represents controller for Admin
+ * and manages with all Admin functionalities.
+ */
 @RestController
 @RequestMapping(value="realEstate/admin")
 public class AdminController {
