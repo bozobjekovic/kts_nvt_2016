@@ -28,7 +28,7 @@ public class Company implements Serializable{
 	private Long id;
 	@Column(nullable = false, unique = true)
 	private String name;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Location location;
 	@Column(unique = true)
 	private String phoneNumber;

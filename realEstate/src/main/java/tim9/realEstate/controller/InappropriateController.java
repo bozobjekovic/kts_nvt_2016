@@ -1,8 +1,5 @@
 package tim9.realEstate.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,22 +22,6 @@ public class InappropriateController {
 	
 	@Autowired
 	InappropriateService inappropriateService;
-	
-	/**
-     * This method gets all Inappropriate comments from the database
-     * and then creates a list of DTO objects.
-     * @return      ResponseEntity List with all DTO Inappropriate comments and HttpStatus OK
-     */
-	@RequestMapping(value="/all", method = RequestMethod.GET)
-	public ResponseEntity<List<InappropriateDTO>> getAllLocations() {
-		List<Inappropriate> inappropriates = inappropriateService.findAll();
-		
-		List<InappropriateDTO> inappropriateDTO = new ArrayList<>();
-		for(Inappropriate i : inappropriates){
-			inappropriateDTO.add(new InappropriateDTO(i));
-		}
-		return new ResponseEntity<>(inappropriateDTO, HttpStatus.OK);
-	}
 	
 	/**
      * This method creates new Inappropriate Advertisement

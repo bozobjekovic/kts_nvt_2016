@@ -34,6 +34,15 @@ public class VerifierService {
 	}
 	
 	/**
+	 *  This method finds element with specified email and gets it
+	 * @param email
+	 * @return Element if found, null if doesn't exists
+	 */
+	public Verifier findByEmail(String email) {
+		return verifierRepository.findByEmail(email);
+	}
+	
+	/**
 	* This method finds all elements from specified Table.
 	* @return		List of elements
 	*/

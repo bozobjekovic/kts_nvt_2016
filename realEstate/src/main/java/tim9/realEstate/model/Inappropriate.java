@@ -1,9 +1,11 @@
 package tim9.realEstate.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -20,10 +22,13 @@ public class Inappropriate implements Serializable{
 	@GeneratedValue
 	private Long id;
 	private String title;
+	private Date date;
 	@Column(nullable = false)
 	private String description;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Advertisment advertisment;
+	@ManyToOne
+	private User user;
 
 	/**
 	 * Constructor created from Superclass
@@ -62,6 +67,22 @@ public class Inappropriate implements Serializable{
 
 	public void setAdvertisment(Advertisment advertisment) {
 		this.advertisment = advertisment;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override

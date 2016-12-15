@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tim9.realEstate.model.Advertisment;
 import tim9.realEstate.model.Inappropriate;
 import tim9.realEstate.repository.InappropriateRepository;
 
@@ -30,6 +31,14 @@ public class InappropriateService {
 	*/
 	public List<Inappropriate> findAll() {
 		return inappropriateRepository.findAll();
+	}
+	
+	/**
+	* This method finds all elements with specified Advertisement.
+	* @return		List of elements
+	*/
+	public List<Inappropriate> findByAdvertisement(Advertisment advertisment) {
+		return inappropriateRepository.findByAdvertisment(advertisment);
 	}
 	
 	/**

@@ -3,7 +3,6 @@ package tim9.realEstate.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -33,8 +32,8 @@ public class Advertisment implements Serializable{
 	private double price;
 	@Lob
 	private String backgroundImage;
-	@Lob
-	private List<String> images;
+/*	@Lob
+	private List<String> images;*/
 	@Column(nullable = false)
 	private Date publicationDate;
 	private Date modificationDate;
@@ -96,13 +95,13 @@ public class Advertisment implements Serializable{
 		this.backgroundImage = backgroundImage;
 	}
 
-	public List<String> getImages() {
+/*	public List<String> getImages() {
 		return images;
 	}
 
 	public void setImages(List<String> images) {
 		this.images = images;
-	}
+	}*/
 
 	public Date getPublicationDate() {
 		return publicationDate;
@@ -211,7 +210,7 @@ public class Advertisment implements Serializable{
 	@Override
 	public String toString() {
 		return "Advertisment [id=" + id + ", name=" + name + ", price=" + price + ", backgroundImage=" + backgroundImage
-				+ ", images=" + images + ", publicationDate=" + publicationDate + ", modificationDate="
+			    + ", publicationDate=" + publicationDate + ", modificationDate="
 				+ modificationDate + ", activeUntil=" + activeUntil + ", purpose=" + purpose + ", rate=" + rate
 				+ ", numberOfRates=" + numberOfRates + ", phoneNumber=" + phoneNumber + ", verifier=" + verifier
 				+ ", publisher=" + publisher + ", buyer=" + buyer + ", realEstate=" + realEstate + ", comments="
