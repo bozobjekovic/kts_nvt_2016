@@ -33,7 +33,7 @@ public class AdvertismentService {
 	* @return		List of elements
 	*/
 	public List<Advertisment> findAll() {
-		return advertismentRepository.findByIsDeletedFalse();
+		return advertismentRepository.findByIsDeletedFalseAndVerifierNotNull();
 	}
 	
 	/**
@@ -43,7 +43,15 @@ public class AdvertismentService {
 	* @return		Page List of elements
 	*/
 	public Page<Advertisment> findAll(Pageable page) {
-		return advertismentRepository.findAll(page);
+		return advertismentRepository.findByIsDeletedFalseAndVerifierNotNull(page);
+	}
+	
+	/**
+	 * This method finds all unverified elements from specified Table
+	 * @return List of elements
+	 */
+	public List<Advertisment> findAllUnverified() {
+		return advertismentRepository.findByIsDeletedFalseAndVerifierIsNull();
 	}
 
 	/**
@@ -78,7 +86,7 @@ public class AdvertismentService {
 	* @return		List of elements
 	*/
 	public Advertisment findByPhoneNumber(String phone){
-		return advertismentRepository.findByPhoneNumber(phone);
+		return advertismentRepository.findByPhoneNumberAndIsDeletedFalseAndVerifierNotNull(phone);
 	}
 	
 	/**
@@ -88,7 +96,7 @@ public class AdvertismentService {
 	* @return		Page List of elements
 	*/
 	public Page<Advertisment> findByPurpose(String purpose, Pageable page){
-		return advertismentRepository.findByPurpose(purpose, page);
+		return advertismentRepository.findByPurposeAndIsDeletedFalseAndVerifierNotNull(purpose, page);
 	}
 	
 	/**
@@ -97,7 +105,7 @@ public class AdvertismentService {
 	* @return		List of elements
 	*/
 	public List<Advertisment> findByRealEstate_Category(Category category){
-		return advertismentRepository.findByRealEstate_Category(category);
+		return advertismentRepository.findByRealEstate_CategoryAndIsDeletedFalseAndVerifierNotNull(category);
 	}
 	
 	/**
@@ -106,7 +114,7 @@ public class AdvertismentService {
 	* @return		List of elements
 	*/
 	public List<Advertisment> findByRealEstate_Type(String type){
-		return advertismentRepository.findByRealEstate_Type(type);
+		return advertismentRepository.findByRealEstate_TypeAndIsDeletedFalseAndVerifierNotNull(type);
 	}
 	
 	/**
@@ -115,6 +123,6 @@ public class AdvertismentService {
 	* @return		List of elements
 	*/
 	public List<Advertisment> orderByRate(Pageable page){
-		return advertismentRepository.OrderByRateDesc(page);
+		return advertismentRepository.findByIsDeletedFalseAndVerifierNotNullOrderByRateDesc(page);
 	}
 }

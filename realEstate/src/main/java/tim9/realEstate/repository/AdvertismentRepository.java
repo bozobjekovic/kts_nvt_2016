@@ -12,16 +12,20 @@ import tim9.realEstate.model.Category;
 
 public interface AdvertismentRepository extends JpaRepository<Advertisment, Long>, JpaSpecificationExecutor<Advertisment> {
 	
-	Page<Advertisment> findByPurpose(String purpose, Pageable page);
+	Page<Advertisment> findByPurposeAndIsDeletedFalseAndVerifierNotNull(String purpose, Pageable page);
 	
-	List<Advertisment> findByRealEstate_Category(Category category);
+	List<Advertisment> findByRealEstate_CategoryAndIsDeletedFalseAndVerifierNotNull(Category category);
 	
-	List<Advertisment> findByRealEstate_Type(String type);
+	List<Advertisment> findByRealEstate_TypeAndIsDeletedFalseAndVerifierNotNull(String type);
 	
-	List<Advertisment> findByIsDeletedFalse();
+	List<Advertisment> findByIsDeletedFalseAndVerifierNotNull();
 	
-	Advertisment findByPhoneNumber(String phone);
+	Page<Advertisment> findByIsDeletedFalseAndVerifierNotNull(Pageable page);
 	
-	List<Advertisment> OrderByRateDesc(Pageable page);
+	Advertisment findByPhoneNumberAndIsDeletedFalseAndVerifierNotNull(String phone);
+	
+	List<Advertisment> findByIsDeletedFalseAndVerifierNotNullOrderByRateDesc(Pageable page);
+	
+	List<Advertisment> findByIsDeletedFalseAndVerifierIsNull();
 
 }

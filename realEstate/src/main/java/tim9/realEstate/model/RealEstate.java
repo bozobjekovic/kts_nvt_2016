@@ -2,7 +2,6 @@ package tim9.realEstate.model;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -22,7 +21,7 @@ public class RealEstate implements Serializable{
 	@Id
 	@GeneratedValue
 	private Long id;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Location location;
 	@Column(nullable = false)
 	private int landSize;
