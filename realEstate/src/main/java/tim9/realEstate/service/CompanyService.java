@@ -25,6 +25,26 @@ public class CompanyService {
 	}
 	
 	/**
+	* This method finds element with specified name and gets it
+	* from the database.
+	* @param		id  Element id
+	* @return		Element if found, null if doesn't exist
+	*/
+	public Company findByName(String name) {
+		return companyRepository.findByName(name);
+	}
+	
+	/**
+	* This method finds element with specified phone number
+	* and gets it from the database.
+	* @param		id  Element id
+	* @return		Element if found, null if doesn't exist
+	*/
+	public Company findByPhoneNumber(String phoneNumber) {
+		return companyRepository.findByPhoneNumber(phoneNumber);
+	}
+	
+	/**
 	* This method finds all elements from specified Table.
 	* @return		List of elements
 	*/

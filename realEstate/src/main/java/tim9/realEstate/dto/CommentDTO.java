@@ -11,7 +11,6 @@ public class CommentDTO {
 	
 	private Long id;
 	private Date date;
-	private String title;
 	private String description;
 	
 	/**
@@ -27,7 +26,7 @@ public class CommentDTO {
 	 * @param c represents Comment object
 	 */
 	public CommentDTO(Comment c) {
-		this(c.getId(), c.getDate(), c.getTitle(), c.getDescription());
+		this(c.getId(), c.getDate(), c.getDescription());
 	}
 
 	/**
@@ -38,11 +37,10 @@ public class CommentDTO {
 	 * @param title represents Title of the Comment
 	 * @param description represents Description of the Comment
 	 */
-	public CommentDTO(Long id, Date date, String title, String description) {
+	public CommentDTO(Long id, Date date, String description) {
 		super();
 		this.id = id;
 		this.date = date;
-		this.title = title;
 		this.description = description;
 	}
 
@@ -60,14 +58,6 @@ public class CommentDTO {
 
 	public void setDate(Date date) {
 		this.date = date;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
 	}
 
 	public String getDescription() {

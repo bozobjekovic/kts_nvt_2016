@@ -39,6 +39,9 @@ public class AdvertismentFilterController {
      */
 	@RequestMapping(value="/category/{category}", method = RequestMethod.GET)
     public ResponseEntity<List<AdvertismentDTO>> getAdvertismentsByCategory(@PathVariable Category category){
+		if(category == null){
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
     	List<Advertisment> advertisements = advertismentService.findByRealEstate_Category(category);
     	
     	List<AdvertismentDTO> advertsDTO = new ArrayList<>();
@@ -57,6 +60,9 @@ public class AdvertismentFilterController {
      */
     @RequestMapping(value="/category/{category}/{type}", method = RequestMethod.GET)
     public ResponseEntity<List<AdvertismentDTO>> getAdvertismentsByType(@PathVariable Category category, @PathVariable String type){
+    	if(category == null || type == null){
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
     	List<Advertisment> advertisements = advertismentService.findByRealEstate_Type(type);
     	
     	List<AdvertismentDTO> advertsDTO = new ArrayList<>();

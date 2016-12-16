@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -42,21 +41,4 @@ public class LocationController {
 		return new ResponseEntity<>(locationDTO, HttpStatus.OK);
 	}
 	
-	/**
-     * This method creates new Location
-     * and saves it to the database.
-     * @param		locationDTO		a DTO Object
-     * @return      ResponseEntity DTO Location and HttpStatus CREATED
-     */
-	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<LocationDTO> saveLocation(@RequestBody LocationDTO locationDTO){
-		Location location = new Location();
-		location.setAddress(locationDTO.getAddress());
-		location.setCity(locationDTO.getCity());
-		location.setZipCode(locationDTO.getZipCode());
-		location.setPartOfTheCity(locationDTO.getPartOfTheCity());
-		
-		location = locationService.save(location);
-		return new ResponseEntity<>(new LocationDTO(location), HttpStatus.CREATED);
-	}
 }

@@ -7,6 +7,7 @@ select * from admin;
 select * from verifier;
 select * from company;
 select * from inappropriate;
+select * from comment;
 
 drop table Admin;
 drop table Comment;
@@ -73,3 +74,6 @@ INSERT INTO Inappropriate VALUES(1, '2017-12-20',"Inappropriate advertisement", 
 INSERT INTO Inappropriate VALUES(2, '2017-12-20',"Inappropriate advertisement", "Inappropriate", 1, 2);
 INSERT INTO Inappropriate VALUES(3, '2017-12-20',"Inappropriate advertisement", "Inappropriate", 2, 1);
 INSERT INTO Inappropriate VALUES(4, '2017-12-20',"Inappropriate advertisement", "Inappropriate", 3, 3);
+
+INSERT INTO Comment VALUES (1, '2016-04-24', 'Opis komentara', 1, 1);
+INSERT INTO Comment VALUES (2, '2016-01-23', 'Comm desc', 2, 2);

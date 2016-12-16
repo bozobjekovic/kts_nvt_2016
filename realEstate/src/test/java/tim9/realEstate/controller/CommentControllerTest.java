@@ -73,7 +73,6 @@ public class CommentControllerTest {
     public void testSaveComment() throws Exception {
     	Comment comment = new Comment();
     	comment.setDate(NEW_DATE);
-    	comment.setTitle(NEW_TITLE);
     	comment.setDescription(NEW_DESCRIPTION);
     	
     	String json = TestUtil.json(comment);

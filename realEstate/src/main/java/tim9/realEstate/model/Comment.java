@@ -22,7 +22,6 @@ public class Comment implements Serializable{
 	private Long id;
 	@Column(nullable = false)
 	private Date date;
-	private String title;
 	@Column(nullable = false)
 	private String description;
 	@ManyToOne
@@ -53,14 +52,6 @@ public class Comment implements Serializable{
 		this.date = date;
 	}
 
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -87,7 +78,7 @@ public class Comment implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Comment [id=" + id + ", date=" + date + ", title=" + title + ", description=" + description + ", user="
+		return "Comment [id=" + id + ", date=" + date + ", description=" + description + ", user="
 				+ user + ", advertisment=" + advertisment + "]";
 	}
 

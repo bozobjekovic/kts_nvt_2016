@@ -51,6 +51,12 @@ public class CompanyController {
      */
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<CompanyDTO> saveCompany(@RequestBody CompanyDTO companyDTO){
+		if(companyDTO.getName() == null){
+			return new ResponseEntity<>(companyDTO, HttpStatus.BAD_REQUEST);
+		}
+		if(companyService.findByName(companyDTO.getName()) != null || companyService.findByPhoneNumber(companyDTO.getPhoneNumber()) != null){
+			return new ResponseEntity<>(companyDTO, HttpStatus.BAD_REQUEST);
+		}
 		Company company = new Company();
 		company.setLocation(new Location(companyDTO.getLocation()));
 		company.setName(companyDTO.getName());

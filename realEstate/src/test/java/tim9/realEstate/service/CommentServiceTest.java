@@ -44,7 +44,6 @@ public class CommentServiceTest {
 		
 		assertThat(dbComment.getId()).isEqualTo(DB_ID);
 		assertThat(dbComment.getDescription()).isEqualTo(DB_DESCRIPTION);
-		assertThat(dbComment.getTitle()).isEqualTo(DB_TITLE);
 	}
 	
 	/**
@@ -68,7 +67,6 @@ public class CommentServiceTest {
 		Comment comment = new Comment();
 		comment.setDate(NEW_DATE);
 		comment.setDescription(NEW_DESCRIPTION);
-		comment.setTitle(NEW_TITLE);
 		
 		int dbSizeBeforeAdd = commentService.findAll().size();
 		
@@ -81,7 +79,6 @@ public class CommentServiceTest {
 		dbComment = comments.get(comments.size() - 1);
 		assertThat(dbComment.getDate()).isEqualTo(NEW_DATE);
 		assertThat(dbComment.getDescription()).isEqualTo(NEW_DESCRIPTION);
-		assertThat(dbComment.getTitle()).isEqualTo(NEW_TITLE);
 	}
 	
 	/**
@@ -95,7 +92,6 @@ public class CommentServiceTest {
 		Comment dbComment = commentService.findOne(DB_ID);
 		
 		dbComment.setDescription(NEW_DESCRIPTION);
-		dbComment.setTitle(NEW_TITLE);
 		
 		dbComment = commentService.save(dbComment);
 		assertThat(dbComment).isNotNull();
@@ -103,7 +99,6 @@ public class CommentServiceTest {
 		dbComment = commentService.findOne(DB_ID);
 
 		assertThat(dbComment.getDescription()).isEqualTo(NEW_DESCRIPTION);
-		assertThat(dbComment.getTitle()).isEqualTo(NEW_TITLE);
 	}
 	
 	/**
@@ -142,7 +137,6 @@ public class CommentServiceTest {
 		Comment comment = new Comment();
 		
 		comment.setDescription(NEW_DESCRIPTION);
-		comment.setTitle(NEW_TITLE);
 		
 		commentService.save(comment);
 	}
