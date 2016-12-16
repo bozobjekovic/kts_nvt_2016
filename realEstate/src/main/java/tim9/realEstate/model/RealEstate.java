@@ -23,7 +23,6 @@ public class RealEstate implements Serializable{
 	private Long id;
 	@ManyToOne
 	private Location location;
-	@Column(nullable = false)
 	private int landSize;
 	private String techEquipment;
 	private String heatingType;
@@ -33,6 +32,7 @@ public class RealEstate implements Serializable{
 	private int buildYear;
 	@Enumerated(EnumType.ORDINAL)
 	private Category category;
+	@Column(nullable = false)
 	private String type;
 
 	/**

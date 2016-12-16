@@ -28,7 +28,6 @@ public class Advertisment implements Serializable{
 	private Long id;
 	@Column(nullable = false)
 	private String name;
-	@Column(nullable = false)
 	private double price;
 	@Lob
 	private String backgroundImage;

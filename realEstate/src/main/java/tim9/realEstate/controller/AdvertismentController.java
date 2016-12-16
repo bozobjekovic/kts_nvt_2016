@@ -23,11 +23,12 @@ import org.springframework.web.bind.annotation.RestController;
 import tim9.realEstate.dto.AdvertismentCreateDTO;
 import tim9.realEstate.dto.AdvertismentDTO;
 import tim9.realEstate.model.Advertisment;
-import tim9.realEstate.model.Location;
 import tim9.realEstate.model.RealEstate;
+import tim9.realEstate.model.User;
 import tim9.realEstate.model.Verifier;
 import tim9.realEstate.security.UserUtils;
 import tim9.realEstate.service.AdvertismentService;
+import tim9.realEstate.service.LocationService;
 
 /**
  * This class represents controller for Advertisement
@@ -39,6 +40,9 @@ public class AdvertismentController {
 
     @Autowired
     AdvertismentService advertismentService;
+    
+    @Autowired
+    LocationService locationService;
     
     @Autowired
     UserUtils userUtils;
@@ -84,12 +88,15 @@ public class AdvertismentController {
      * 				else null
      */
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<AdvertismentDTO> getAdvertisment(@PathVariable Long id){
+	public ResponseEntity<AdvertismentCreateDTO> getAdvertisment(@PathVariable Long id){
+    	if(id == null){
+    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    	}
     	Advertisment advertisment = advertismentService.findOne(id);
 		if(advertisment == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(new AdvertismentDTO(advertisment), HttpStatus.OK);
+		return new ResponseEntity<>(new AdvertismentCreateDTO(advertisment, advertisment.getRealEstate()), HttpStatus.OK);
 	}
     
     /**
@@ -100,7 +107,10 @@ public class AdvertismentController {
      * 				else null
      */
     @RequestMapping(method=RequestMethod.POST)
-    public ResponseEntity<AdvertismentCreateDTO> saveAdvertisment(@RequestBody AdvertismentCreateDTO advertismentDTO){
+    public ResponseEntity<AdvertismentCreateDTO> saveAdvertisment(@RequestBody AdvertismentCreateDTO advertismentDTO, ServletRequest request){
+    	if(!checkInput(advertismentDTO)){
+    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    	}
     	Advertisment advertisment = new Advertisment();
     	advertisment.setName(advertismentDTO.getName());
     	advertisment.setPrice(advertismentDTO.getPrice());
@@ -110,11 +120,12 @@ public class AdvertismentController {
 		advertisment.setPurpose(advertismentDTO.getPurpose());
 		advertisment.setPhoneNumber(advertismentDTO.getPhoneNumber());
 		if(advertismentService.findByPhoneNumber(advertisment.getPhoneNumber()) != null){
-			return null;
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+		advertisment.setPublisher((User)userUtils.getLoggedUser(request));
 		
 		RealEstate realEstate = new RealEstate();
-		realEstate.setLocation(new Location(advertismentDTO.getLocation()));
+		realEstate.setLocation(locationService.findOne(advertismentDTO.getLocation().getId()));
 		realEstate.setLandSize(advertismentDTO.getLandSize());
 		realEstate.setTechEquipment(advertismentDTO.getTechEquipment());
 		realEstate.setNumOfBathRooms(advertismentDTO.getNumOfBathRooms());
@@ -132,6 +143,27 @@ public class AdvertismentController {
     }
     
     /**
+     * This method checks if all input fields are valid.
+     * @param		advertismentDTO	Advertisement DTO
+     * @return      true if OK, else false
+     */
+    private boolean checkInput(AdvertismentCreateDTO advertismentDTO) {
+    	if(advertismentDTO.getName() == null || advertismentDTO.getName().equals("")){
+    		return false;
+    	}
+    	else if(advertismentDTO.getPurpose() == null || advertismentDTO.getPurpose().equals("")){
+    		return false;
+    	}
+    	else if(advertismentDTO.getPhoneNumber() == null || advertismentDTO.getPhoneNumber().equals("")){
+    		return false;
+    	}
+    	else if(advertismentDTO.getType() == null || advertismentDTO.getType().equals("")){
+    		return false;
+    	}
+    	return true;		
+	}
+
+	/**
      * This method gets all Advertisements with a 
      * specified purpose.
      * @param		purpose	Advertisement's purpose
@@ -139,6 +171,9 @@ public class AdvertismentController {
      */
     @RequestMapping(value="/purpose/{purpose}", method = RequestMethod.GET)
     public ResponseEntity<List<AdvertismentDTO>> getAdvertismentsByPurpose(@PathVariable String purpose, Pageable page){
+    	if(purpose == null){
+    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    	}
     	Page<Advertisment> advertisements = advertismentService.findByPurpose(purpose, page);
 
     	List<AdvertismentDTO> advertsDTO = new ArrayList<>();
@@ -159,6 +194,9 @@ public class AdvertismentController {
      */
     @RequestMapping(value="/rate", method = RequestMethod.PUT)
     public ResponseEntity<AdvertismentCreateDTO> rateAdvertisment(@RequestParam Long id, @RequestParam int rate){
+    	if(id == null || rate == 0){
+    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    	}
     	Advertisment advertisment = advertismentService.findOne(id);
     	if(advertisment == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -179,8 +217,10 @@ public class AdvertismentController {
      */
     @RequestMapping(value="/verification", method = RequestMethod.PUT)
     public ResponseEntity<Void> verifyAdvertisment(@RequestParam Long idAdvertisment, ServletRequest request){
+    	if(idAdvertisment == null){
+    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    	}
     	Advertisment advertisment = advertismentService.findOne(idAdvertisment);
-    	
     	if(advertisment == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -199,6 +239,10 @@ public class AdvertismentController {
      */
     @RequestMapping(value="/prolong", method = RequestMethod.PUT)
     public ResponseEntity<AdvertismentCreateDTO> prolongAdvertisment(@RequestParam Long idAdvertisment, @RequestParam Date date){
+    	if(idAdvertisment == null || date == null){
+    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    	}
+    	//TODO PROVER ZA DATUM
     	Advertisment advertisment = advertismentService.findOne(idAdvertisment);
     	if(advertisment == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -231,6 +275,9 @@ public class AdvertismentController {
      */
     @RequestMapping(value="delete/{id}", method=RequestMethod.PUT)
     public ResponseEntity<Void> deteleAdvertisement(@PathVariable Long id) {
+    	if(id == null){
+    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    	}
     	Advertisment advertisement = advertismentService.findOne(id);
     	if (advertisement != null) {
     		advertisement.setDeleted(true);

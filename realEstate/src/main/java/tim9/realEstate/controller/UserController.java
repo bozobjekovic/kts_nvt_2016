@@ -8,14 +8,13 @@ import javax.servlet.ServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import tim9.realEstate.dto.UserDTO;
+import tim9.realEstate.mail.MailUtil;
 import tim9.realEstate.model.Company;
 import tim9.realEstate.model.User;
 import tim9.realEstate.security.UserUtils;
@@ -40,7 +39,7 @@ public class UserController {
 	UserUtils userUtils;
 	
 	@Autowired
-	JavaMailSender  javaMailService;
+	MailUtil mailUtil;
 
 	/**
      * This method gets all Users from the database
@@ -69,6 +68,9 @@ public class UserController {
      */
 	@RequestMapping(value="/rate", method = RequestMethod.PUT)
     public ResponseEntity<UserDTO> rateUser(@RequestParam Long id, @RequestParam double rate){
+		if(id == null || rate == 0){
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
     	User user = userService.findOne(id);
     	if(user == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -89,6 +91,9 @@ public class UserController {
      */
 	@RequestMapping(value = "/apply", method = RequestMethod.PUT)
 	public ResponseEntity<Void> applyToCompany(@RequestParam Long id_company, ServletRequest request) {
+		if(id_company == null){
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		User user = (User)userUtils.getLoggedUser(request);
 		Company company = companyService.findOne(id_company);
 		if(company == null){
@@ -109,22 +114,22 @@ public class UserController {
      */
 	@RequestMapping(value = "/accept", method = RequestMethod.PUT)
 	public ResponseEntity<Void> acceptUser(@RequestParam Long id, @RequestParam Long id_company) {
+		if(id == null || id_company == null){
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		User user = userService.findOne(id);
 		Company company = companyService.findOne(id_company);
 		if(user == null || company == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		
 		user.setAppliedCompany(null);
 		user.setCompany(company);
 		userService.save(user);
 		
-		SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(user.getEmail());
-        mailMessage.setSubject("Join Our Company");
-        mailMessage.setText("Hello \n Your have been accepted to join our company! \n Welcome");
-        javaMailService.send(mailMessage);
-        
+        String email = user.getEmail();
+        String subject = "Join Our Company";
+        String text = "Hello \n Your have been accepted to join our company! \n Welcome";
+        mailUtil.sendMail(email, subject, text);
     	return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
@@ -137,15 +142,20 @@ public class UserController {
      */
 	@RequestMapping(value = "/deny", method = RequestMethod.PUT)
 	public ResponseEntity<Void> denyClerk(@RequestParam Long id) {
+		if(id == null){
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		User user = userService.findOne(id);
+		if(user == null){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 		user.setAppliedCompany(null);
 		userService.save(user);
 
-		SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(user.getEmail());
-        mailMessage.setSubject("Join Our Company");
-        mailMessage.setText("Hello \n We are sorry but your request has been rejected");
-        javaMailService.send(mailMessage);
+        String email = user.getEmail();
+        String subject = "Join Our Company";
+        String text = "Hello \n We are sorry but your request has been rejected";
+        mailUtil.sendMail(email, subject, text);
     	return new ResponseEntity<>(HttpStatus.OK);
 	}
 
