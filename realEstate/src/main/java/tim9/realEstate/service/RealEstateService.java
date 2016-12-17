@@ -31,7 +31,7 @@ public class RealEstateService {
 	* @return		Element if found, null if doesn't exist
 	*/
 	public RealEstate findByAddress(String address) {
-		return realEstateRepository.findByLocation_Address(address);
+		return realEstateRepository.findByAddress(address);
 	}
 	
 	/**

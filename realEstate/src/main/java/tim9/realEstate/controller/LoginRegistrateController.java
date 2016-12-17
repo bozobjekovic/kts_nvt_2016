@@ -140,7 +140,7 @@ public class LoginRegistrateController {
 	 * @return  True if parameters are OK or False if NOT
 	 */
 	private boolean checkInputParamsRegistrate(RegistrateUserDTO registrateUser) {
-		if (registrateUser.getAuthority() == null || registrateUser.getEmail().equals("")) { return false; }
+		if (registrateUser.getAuthority() == null || registrateUser.getAuthority().equals("")) { return false; }
 		
 		if (registrateUser.getAuthority().equals("user")) {
 			if (!checkUserParams(registrateUser)) { return false; }

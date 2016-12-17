@@ -21,6 +21,8 @@ public class RealEstate implements Serializable{
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Column(nullable = false)
+	private String address;
 	@ManyToOne
 	private Location location;
 	private int landSize;
@@ -50,6 +52,14 @@ public class RealEstate implements Serializable{
 		this.id = id;
 	}
 	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	public Location getLocation() {
 		return location;
 	}
@@ -132,9 +142,10 @@ public class RealEstate implements Serializable{
 
 	@Override
 	public String toString() {
-		return "RealEstate [id=" + id + ", location=" + location + ", landSize=" + landSize + ", techEquipment="
-				+ techEquipment + ", heatingType=" + heatingType + ", numOfBathRooms=" + numOfBathRooms
-				+ ", numOfBedRooms=" + numOfBedRooms + ", numOfFlors=" + numOfFlors + ", buildYear=" + buildYear
-				+ ", category=" + category + ", type=" + type + "]";
+		return "RealEstate [id=" + id + ", address=" + address + ", location=" + location + ", landSize=" + landSize
+				+ ", techEquipment=" + techEquipment + ", heatingType=" + heatingType + ", numOfBathRooms="
+				+ numOfBathRooms + ", numOfBedRooms=" + numOfBedRooms + ", numOfFlors=" + numOfFlors + ", buildYear="
+				+ buildYear + ", category=" + category + ", type=" + type + "]";
 	}
+
 }
