@@ -2,6 +2,9 @@ package tim9.realEstate.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static tim9.realEstate.constants.CompanyConstants.NEW_SITE;
+import static tim9.realEstate.constants.LocationConstants.DB_PART_OF_THE_CITY;
+import static tim9.realEstate.constants.LocationConstants.DB_ZIP_CODE;
 import static tim9.realEstate.constants.UserConstants.DB_EMAIL;
 import static tim9.realEstate.constants.UserConstants.DB_PASSWORD;
 import static tim9.realEstate.constants.UserConstants.DB_USERNAME;
@@ -14,8 +17,6 @@ import static tim9.realEstate.constants.UserConstants.NEW_PASSWORD;
 import static tim9.realEstate.constants.UserConstants.NEW_PHONE_NUMBER;
 import static tim9.realEstate.constants.UserConstants.NEW_SURNAME;
 import static tim9.realEstate.constants.UserConstants.NEW_USERNAME;
-import static tim9.realEstate.constants.CompanyConstants.*;
-import static tim9.realEstate.constants.LocationConstants.*;
 
 import java.nio.charset.Charset;
 
@@ -89,8 +90,9 @@ public class LoginRegistrateControllerTest {
     }
 	
 	/**
-	 * method tests if a controller with URL_PREFIX returns token of logged user
-	 * and expected status
+	 * Method tests if a controller with URL_PREFIX returns
+	 * token of logged user with valid input parameters.
+	 * Expected: Status OK
 	 * @throws Exception
 	 */
 	@Test
@@ -107,7 +109,10 @@ public class LoginRegistrateControllerTest {
 	}
 	
 	/**
-	 * 
+	 * Method tests if a controller with URL_PREFIX returns bad request
+	 * with invalid input parameters like empty object and invalid 
+	 * data in object.
+	 * Expected: Status Bad Request
 	 * @throws Exception
 	 */
 	@Test
@@ -131,13 +136,18 @@ public class LoginRegistrateControllerTest {
 	}
 	
 	/**
-	 * 
+	 * Method tests if a controller with URL_PREFIX returns bad request
+	 * for registration users or clerks with companies.
+	 * Method sending invalid input parameters to controller, like
+	 * empty object, wrong authority, object with missing non nullable
+	 * parameters for user and/or company.
+	 * Expected: Status Bad Request for all test cases
 	 * @throws Exception
 	 */
 	@Test
 	@Transactional
     @Rollback(true)
-	public void testRegistrateInvalidForBoth() throws Exception { /////// polja obavezna da se ne proslede #################### JOS KOD KOMPANIJE
+	public void testRegistrateInvalidForBoth() throws Exception {
 		RegistrateUserDTO registrateUser = new RegistrateUserDTO();
 		
 		String json = TestUtil.json(registrateUser);
@@ -153,6 +163,7 @@ public class LoginRegistrateControllerTest {
 				.contentType(contentType)
 				.content(json))
 				.andExpect(status().isBadRequest());
+		// TEST #############################################
 		
 		registrateUser.setPassword(NEW_PASSWORD);				// doen't have email and user name
 		registrateUser.setName(NEW_NAME);
@@ -168,10 +179,44 @@ public class LoginRegistrateControllerTest {
 				.contentType(contentType)
 				.content(json))
 				.andExpect(status().isBadRequest());
+		// TEST #############################################
+		
+		registrateUser.setEmail(NEW_EMAIL);
+		registrateUser.setUsername(NEW_USERNAME);
+		registrateUser.setPassword(NEW_PASSWORD);
+		registrateUser.setName(NEW_NAME);
+		registrateUser.setSurname(NEW_SURNAME);
+		registrateUser.setPhoneNumber(NEW_PHONE_NUMBER);
+		registrateUser.setAddress(NEW_ADDRESS);
+		registrateUser.setCity(NEW_CITY);
+		registrateUser.setAuthority("clerk");
+		registrateUser.setBankAccount(NEW_BANK_ACCOUNT);
+		
+		// Company
+		registrateUser.setSite(NEW_SITE); 						// doen't have company name and phone number
+		
+		// Company location
+		registrateUser.setCompanyAddress(NEW_ADDRESS);
+		
+		// Location
+		LocationDTO companyLocationDTO = new LocationDTO();
+		companyLocationDTO.setCity(tim9.realEstate.constants.LocationConstants.DB_CITY);
+		companyLocationDTO.setZipCode(DB_ZIP_CODE);
+		companyLocationDTO.setPartOfTheCity(DB_PART_OF_THE_CITY);
+		
+		registrateUser.setCompanyLocation(companyLocationDTO);
+		
+		json = TestUtil.json(registrateUser);
+		mockMvc.perform(post(URL_PREFIX + "/registrate")
+				.contentType(contentType)
+				.content(json))
+				.andExpect(status().isBadRequest());
 	}
 	
 	/**
-	 * 
+	 * Method tests if a controller with URL_PREFIX registrate new user 
+	 * with valid input parameters and returns status created.
+	 * Expected: Status CREATED
 	 * @throws Exception
 	 */
 	@Test
@@ -198,6 +243,14 @@ public class LoginRegistrateControllerTest {
 				.andExpect(status().isCreated());
 	}
 	
+	/**
+	 * Method tests if a controller with URL_PREFIX returns bad request
+	 * for registration users.
+	 * Method sending invalid input parameters to controller, like
+	 * existing parameters for user.
+	 * Expected: Status Bad Request for all test cases
+	 * @throws Exception
+	 */
 	@Test
 	@Transactional
     @Rollback(true)
@@ -223,14 +276,6 @@ public class LoginRegistrateControllerTest {
 		
 		registrateUser.setEmail(NEW_EMAIL);
 		registrateUser.setUsername(DB_USERNAME);		  // existing user name
-		registrateUser.setPassword(NEW_PASSWORD);
-		registrateUser.setName(NEW_NAME);
-		registrateUser.setSurname(NEW_SURNAME);
-		registrateUser.setPhoneNumber(NEW_PHONE_NUMBER);
-		registrateUser.setAddress(NEW_ADDRESS);
-		registrateUser.setCity(NEW_CITY);
-		registrateUser.setAuthority("user");
-		registrateUser.setBankAccount(NEW_BANK_ACCOUNT);
 		
 		json = TestUtil.json(registrateUser);
 		mockMvc.perform(post(URL_PREFIX + "/registrate")
@@ -239,6 +284,12 @@ public class LoginRegistrateControllerTest {
 				.andExpect(status().isBadRequest());
 	}
 	
+	/**
+	 * Method tests if a controller with URL_PREFIX registrate new clerk 
+	 * and copany with valid input parameters and returns status created.
+	 * Expected: Status CREATED
+	 * @throws Exception
+	 */
 	@Test
 	@Transactional
     @Rollback(true)
@@ -279,8 +330,62 @@ public class LoginRegistrateControllerTest {
 				.andExpect(status().isCreated());
 	}
 	
-	public void testRegistrateInvalidClerk() {
+	/**
+	 * Method tests if a controller with URL_PREFIX returns bad request
+	 * for registration clerks.
+	 * Method sending invalid input parameters to controller, like
+	 * existing parameters for clerk.
+	 * Expected: Status Bad Request for all test cases
+	 * @throws Exception
+	 */
+	@Test
+	@Transactional
+    @Rollback(true)
+	public void testRegistrateInvalidClerk() throws Exception {
+		RegistrateUserDTO registrateUser = new RegistrateUserDTO();
 		
+		registrateUser.setEmail(NEW_EMAIL);
+		registrateUser.setUsername(NEW_USERNAME);
+		registrateUser.setPassword(NEW_PASSWORD);
+		registrateUser.setName(NEW_NAME);
+		registrateUser.setSurname(NEW_SURNAME);
+		registrateUser.setPhoneNumber(NEW_PHONE_NUMBER);
+		registrateUser.setAddress(NEW_ADDRESS);
+		registrateUser.setCity(NEW_CITY);
+		registrateUser.setAuthority("clerk");
+		registrateUser.setBankAccount(NEW_BANK_ACCOUNT);
+		
+		// Company
+		registrateUser.setCompanyName(tim9.realEstate.constants.CompanyConstants.DB_NAME);					// existing company name
+		registrateUser.setCompanyPhoneNumber(tim9.realEstate.constants.CompanyConstants.NEW_PHONE_NUMBER);
+		registrateUser.setSite(NEW_SITE);
+		
+		// Company location
+		registrateUser.setCompanyAddress(NEW_ADDRESS);
+		
+		// Location
+		LocationDTO companyLocationDTO = new LocationDTO();
+		companyLocationDTO.setCity(tim9.realEstate.constants.LocationConstants.DB_CITY);
+		companyLocationDTO.setZipCode(DB_ZIP_CODE);
+		companyLocationDTO.setPartOfTheCity(DB_PART_OF_THE_CITY);
+		
+		registrateUser.setCompanyLocation(companyLocationDTO);
+		
+		String json = TestUtil.json(registrateUser);
+		mockMvc.perform(post(URL_PREFIX + "/registrate")
+				.contentType(contentType)
+				.content(json))
+				.andExpect(status().isBadRequest());
+		
+		// Company
+		registrateUser.setCompanyName(tim9.realEstate.constants.CompanyConstants.NEW_NAME);
+		registrateUser.setCompanyPhoneNumber(tim9.realEstate.constants.CompanyConstants.DB_PHONE_NUMBER);	// existing company phone number
+		
+		json = TestUtil.json(registrateUser);
+		mockMvc.perform(post(URL_PREFIX + "/registrate")
+				.contentType(contentType)
+				.content(json))
+				.andExpect(status().isBadRequest());
 	}
 	
 }
