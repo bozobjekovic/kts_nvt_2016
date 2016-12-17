@@ -25,6 +25,9 @@ public class AdvertismentConstants {
     
     public static final Long DB_ID = 3L;
     public static final String DB_PURPOSE = "rent";
+	public static final String DB_CITY = "Nis";
+	public static final String DB_NAME = "Kuca sa bazenom";
+	public static final double DB_PRICE = 423424;
     public static final String DB_PHONE_NUMBER = "+52432342";
     public static final double DB_RATE = 3.2;
     public static final Category DB_CATEGORY = Category.Office;

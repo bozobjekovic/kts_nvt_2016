@@ -118,7 +118,7 @@ public class AdminController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		User user = userService.findOne(id);
-		if(user == null){
+		if(user == null || user.isApproved() == true){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		user.setApproved(true);
@@ -145,7 +145,7 @@ public class AdminController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		User user = userService.findOne(id);
-		if(user == null){
+		if(user == null || user.isApproved() == true){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		

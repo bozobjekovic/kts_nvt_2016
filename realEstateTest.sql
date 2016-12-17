@@ -58,8 +58,8 @@ INSERT INTO Company VALUES (2, 'Nasa Kompanija', '+38142342', 'www.nasakompanija
 INSERT INTO Company VALUES (3, 'Company', '+38164564', 'www.comany.com', 3);
 INSERT INTO Company VALUES (4, 'Kompanija DOO', '+3816456456', 'www.kompanijadoo.com', 4);
 
-INSERT INTO User VALUES (4, 'Balzakova', 'Novi Sad', 'clerk@gmail.com', 'image', 'Clerk', 'c', '+12331203', 'Clerkan', 'clerk', '21345411', false, true, 1, 2, 2, null, 1);
-INSERT INTO User VALUES (5, 'Novosadska', 'Novi Sad', 'clerk2@gmail.com', 'image', 'Clerk2', 'c', '+15232', 'Clerkan2', 'clerk2', '9678678', true, true, 2, 2, 2, null, 2);
+INSERT INTO User VALUES (4, 'Balzakova', 'Novi Sad', 'clerk@gmail.com', 'image', 'Clerk', '$2a$06$ESTR0aRvH5s4McmiWeiXl.DqRxveC/lruQKFD7UVkvBRwOEdp2Qty', '+12331203', 'Clerkan', 'clerk', '21345411', false, true, 1, 2, 2, null, 1);
+INSERT INTO User VALUES (5, 'Novosadska', 'Novi Sad', 'clerk2@gmail.com', 'image', 'Clerk2', '$2a$06$ESTR0aRvH5s4McmiWeiXl.DqRxveC/lruQKFD7UVkvBRwOEdp2Qty', '+15232', 'Clerkan2', 'clerk2', '9678678', true, true, 2, 2, 2, null, 2);
 
 INSERT INTO Real_Estate VALUES (1, 1890, 0, 'radijatori', 456, 2, 3, 3, 'TV,Klima', 'Kuca', 1);
 INSERT INTO Real_Estate VALUES (2, 1950, 1, 'radijatori', 100, 3, 5, 4,'TV,Klima,Namestak', 'Stan', 2);
