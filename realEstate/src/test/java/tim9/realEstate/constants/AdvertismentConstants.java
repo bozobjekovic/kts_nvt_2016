@@ -35,7 +35,8 @@ public class AdvertismentConstants {
     public static final Date DB_ACTIVE_UNTIL = dateCalendar.getTime();
     public static final Date DB_MODIFICATION_DATE = new Date();
     public static final int DB_NUM_OF_RATES = 47;
-    public static final Date DB_PUBLICATION_DATE = new Date(); 
+    public static final Date DB_PUBLICATION_DATE = new Date();
+    public static final String DB_IMAGE = "img";
     
     public static final int DB_COUNT_WITH_PURPOSE_SELL = 2; 
     

@@ -3,45 +3,34 @@ package tim9.realEstate.controller;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static tim9.realEstate.constants.AdvertismentConstants.DB_CITY;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_COUNT;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_ID;
-import static tim9.realEstate.constants.AdvertismentConstants.DB_PURPOSE;
-import static tim9.realEstate.constants.AdvertismentConstants.NEW_DATE;
-import static tim9.realEstate.constants.AdvertismentConstants.NEW_GIVEN_RATE;
-import static tim9.realEstate.constants.AdvertismentConstants.NEW_PHONE_NUMBER;
-import static tim9.realEstate.constants.AdvertismentConstants.NEW_PURPOSE;
-import static tim9.realEstate.constants.AdvertismentConstants.NEW_RATE;
-import static tim9.realEstate.constants.AdvertismentConstants.*;
+import static tim9.realEstate.constants.AdvertismentConstants.DB_IMAGE;
+import static tim9.realEstate.constants.AdvertismentConstants.DB_NAME;
+import static tim9.realEstate.constants.AdvertismentConstants.DB_PRICE;
+import static tim9.realEstate.constants.AdvertismentConstants.PAGE_SIZE_CONTROLLER;
 
 import java.nio.charset.Charset;
 
 import javax.annotation.PostConstruct;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import tim9.realEstate.RealEstateApplication;
-import tim9.realEstate.TestUtil;
-import tim9.realEstate.dto.AdvertismentCreateDTO;
-import tim9.realEstate.model.Advertisment;
-import tim9.realEstate.model.RealEstate;
 import tim9.realEstate.service.AdvertismentService;
 
 @SuppressWarnings("deprecation")
@@ -74,6 +63,9 @@ private static final String URL_PREFIX = "/realEstate/advertisments";
     /**
 	 * This method tests getting all advertisements from the
 	 * database that are not deleted and that are verified.
+	 * Expected: method get, status OK, specified size and
+	 * content
+     * @throws Exception 
 	 **/
     @Test
     public void testGetAllAdvertisments() throws Exception {
@@ -86,16 +78,17 @@ private static final String URL_PREFIX = "/realEstate/advertisments";
             .andExpect(jsonPath("$.[*].city").value(hasItem(DB_CITY)))
 	    	.andExpect(jsonPath("$.[*].price").value(hasItem(DB_PRICE)))
 	    	.andExpect(jsonPath("$.[*].landSize").value(hasItem(tim9.realEstate.constants.RealEstateConstants.DB_LAND_SIZE)))
-	    	.andExpect(jsonPath("$.[*].image").value(hasItem(tim9.realEstate.constants.RealEstateConstants.DB_IMAGE)))
+	    	.andExpect(jsonPath("$.[*].image").value(hasItem(DB_IMAGE)))
 	    	.andExpect(jsonPath("$.[*].type").value(hasItem(tim9.realEstate.constants.RealEstateConstants.DB_TYPE)));
     }
     
-/*    *//**
-	 * <b>testGetAdvertismentPage()</b>
-	 * method tests if a controller with URL_PREFIX and given page and size
-	 * returns expected status,
-	 * content type, and contains given element
-	 **//*
+     /**
+	 * This method tests getting a page of advertisements from the
+	 * database that are not deleted and that are verified.
+	 * Expected: method get, status OK, specified size and
+	 * content
+     * @throws Exception 
+	 **/
     @Test
     public void testGetAdvertismentPage() throws Exception {
     	mockMvc.perform(get(URL_PREFIX + "?page=0&size=" + PAGE_SIZE_CONTROLLER))
@@ -104,12 +97,40 @@ private static final String URL_PREFIX = "/realEstate/advertisments";
     		.andExpect(jsonPath("$", hasSize(PAGE_SIZE_CONTROLLER)))
     		.andExpect(jsonPath("$.[*].id").value(hasItem(DB_ID.intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DB_NAME)))
+            .andExpect(jsonPath("$.[*].city").value(hasItem(DB_CITY)))
 	    	.andExpect(jsonPath("$.[*].price").value(hasItem(DB_PRICE)))
-	    	.andExpect(jsonPath("$.[*].landSize").value(hasItem(DB_LAND_SIZE)))
+	    	.andExpect(jsonPath("$.[*].landSize").value(hasItem(tim9.realEstate.constants.RealEstateConstants.DB_LAND_SIZE)))
 	    	.andExpect(jsonPath("$.[*].image").value(hasItem(DB_IMAGE)))
 	    	.andExpect(jsonPath("$.[*].type").value(hasItem(tim9.realEstate.constants.RealEstateConstants.DB_TYPE)));
     }
     
+    /**
+	 * This method tests getting a page of advertisements from the
+	 * database that are not deleted and that are verified.
+	 * Expected: method get, status OK, specified size and
+	 * content
+     * @throws Exception 
+	 **/
+    @Test
+    public void testGetAdvertisment() throws Exception {
+    	mockMvc.perform(get(URL_PREFIX + "/" + DB_ID))
+    		.andExpect(status().isOk())
+    		.andExpect(content().contentType(contentType))
+    		.andExpect(jsonPath("$.advertismentId").value(DB_ID.intValue()))
+            .andExpect(jsonPath("$.activeUntil").value(DB_NAME))
+            .andExpect(jsonPath("$.purpose").value(DB_CITY))
+	    	.andExpect(jsonPath("$.phoneNumber").value(DB_PRICE))
+	    	.andExpect(jsonPath("$.rate").value(tim9.realEstate.constants.RealEstateConstants.DB_LAND_SIZE))
+	    	.andExpect(jsonPath("$.realEstateId").value(DB_IMAGE))
+	    	.andExpect(jsonPath("$.name").value(tim9.realEstate.constants.RealEstateConstants.DB_TYPE))
+	    	.andExpect(jsonPath("$.name").value(tim9.realEstate.constants.RealEstateConstants.DB_TYPE))
+	    	.andExpect(jsonPath("$.name").value(tim9.realEstate.constants.RealEstateConstants.DB_TYPE))
+	    	.andExpect(jsonPath("$.name").value(tim9.realEstate.constants.RealEstateConstants.DB_TYPE))
+	    	.andExpect(jsonPath("$.name").value(tim9.realEstate.constants.RealEstateConstants.DB_TYPE))
+	    	.andExpect(jsonPath("$.name").value(tim9.realEstate.constants.RealEstateConstants.DB_TYPE))
+	    	.andExpect(jsonPath("$.name").value(tim9.realEstate.constants.RealEstateConstants.DB_TYPE));
+    }
+/*    
     *//**
 	 * <b>testSaveAdvertisment()</b>
 	 * method tests if a controller with URL_PREFIX
