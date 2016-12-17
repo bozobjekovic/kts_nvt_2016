@@ -62,8 +62,8 @@ public class User extends Person implements Serializable{
 		if (type.equals("clerk")) {
 			this.setClerk(true);
 			this.setApproved(false);
-			this.setCompany(new Company(registrateUser.getCompanyName(), new Location(registrateUser.getCompanyAddress(), 
-				registrateUser.getCompanyCity(), registrateUser.getZipCode(), registrateUser.getPartOfTheCity()), 
+			this.setCompany(new Company(registrateUser.getCompanyName(), registrateUser.getAddress(), new Location(
+				registrateUser.getCompanyLocation().getCity(), registrateUser.getCompanyLocation().getZipCode(), registrateUser.getCompanyLocation().getPartOfTheCity()), 
 				registrateUser.getCompanyPhoneNumber(), registrateUser.getSite()));
 		}
 	}

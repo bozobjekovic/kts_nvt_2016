@@ -43,7 +43,6 @@ public class LocationServiceTest {
 		assertThat(dbLocation).isNotNull();
 		
 		assertThat(dbLocation.getId()).isEqualTo(DB_ID);
-		assertThat(dbLocation.getAddress()).isEqualTo(DB_ADDRESS);
 		assertThat(dbLocation.getCity()).isEqualTo(DB_CITY);
 		assertThat(dbLocation.getPartOfTheCity()).isEqualTo(DB_PART_OF_THE_CITY);
 		assertThat(dbLocation.getZipCode()).isEqualTo(DB_ZIP_CODE);
@@ -68,7 +67,6 @@ public class LocationServiceTest {
 	@Rollback(true)
 	public void testSave() {
 		Location location = new Location();
-		location.setAddress(NEW_ADDRESS);
 		location.setCity(NEW_CITY);
 		location.setPartOfTheCity(NEW_PART_OF_THE_CITY);
 		location.setZipCode(NEW_ZIP_CODE);
@@ -82,7 +80,6 @@ public class LocationServiceTest {
 		assertThat(locations).hasSize(dbSizeBeforeAdd + 1);
 		
 		dbLocation = locations.get(locations.size() - 1);
-		assertThat(dbLocation.getAddress()).isEqualTo(NEW_ADDRESS);
 		assertThat(dbLocation.getCity()).isEqualTo(NEW_CITY);
 		assertThat(dbLocation.getPartOfTheCity()).isEqualTo(NEW_PART_OF_THE_CITY);
 		assertThat(dbLocation.getZipCode()).isEqualTo(NEW_ZIP_CODE);
@@ -98,7 +95,6 @@ public class LocationServiceTest {
 	public void testUpdate() {
 		Location dbLocation = locationService.findOne(DB_ID);
 
-		dbLocation.setAddress(NEW_ADDRESS);
 		dbLocation.setCity(NEW_CITY);
 		dbLocation.setPartOfTheCity(NEW_PART_OF_THE_CITY);
 		dbLocation.setZipCode(NEW_ZIP_CODE);
@@ -108,7 +104,6 @@ public class LocationServiceTest {
 		
 		dbLocation = locationService.findOne(DB_ID);
 
-        assertThat(dbLocation.getAddress()).isEqualTo(NEW_ADDRESS);
         assertThat(dbLocation.getCity()).isEqualTo(NEW_CITY);
         assertThat(dbLocation.getPartOfTheCity()).isEqualTo(NEW_PART_OF_THE_CITY);
         assertThat(dbLocation.getZipCode()).isEqualTo(NEW_ZIP_CODE);
@@ -190,7 +185,6 @@ public class LocationServiceTest {
 	public void testAddNullCity() {
 		Location location = new Location();
 		
-		location.setAddress(NEW_ADDRESS);
 		location.setPartOfTheCity(NEW_PART_OF_THE_CITY);
 		location.setZipCode(NEW_ZIP_CODE);
 		

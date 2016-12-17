@@ -24,6 +24,10 @@ public class LocationService {
 		return locationRepositroy.findOne(id);
 	}
 	
+	public Location findByCityAndZipCodeAndPartOfTheCity(String city, int zipCode, String partOfTheCity) {
+		return locationRepositroy.findByCityAndZipCodeAndPartOfTheCity(city, zipCode, partOfTheCity);
+	}
+	
 	/**
 	* This method finds all elements from specified Table.
 	* @return		List of elements

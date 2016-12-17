@@ -73,7 +73,6 @@ public class LocationControllerTest {
     @Rollback(true)
     public void testSaveLocation() throws Exception {
     	Location location = new Location();
-    	location.setAddress(NEW_ADDRESS);
     	location.setCity(NEW_CITY);
     	location.setZipCode(NEW_ZIP_CODE);
     	location.setPartOfTheCity(NEW_PART_OF_THE_CITY);

@@ -21,11 +21,10 @@ public class Location implements Serializable{
 	@GeneratedValue
 	private Long id;
 	@Column(nullable = false)
-	private String address;
-	@Column(nullable = false)
 	private String city;
 	@Column(nullable = false)
 	private int zipCode;
+	@Column(nullable = false)
 	private String partOfTheCity;
 
 	/**
@@ -41,7 +40,7 @@ public class Location implements Serializable{
 	 * @param l represents LocationDTO object
 	 */
 	public Location(LocationDTO l) {
-		this(l.getAddress(), l.getCity(), l.getZipCode(), l.getPartOfTheCity());
+		this(l.getCity(), l.getZipCode(), l.getPartOfTheCity());
 	}
 
 	/**
@@ -52,9 +51,8 @@ public class Location implements Serializable{
 	 * @param zipCode represents Zip code of the Location
 	 * @param partOfTheCity represents Part of the City of the Location
 	 */
-	public Location(String address, String city, int zipCode, String partOfTheCity) {
+	public Location(String city, int zipCode, String partOfTheCity) {
 		super();
-		this.address = address;
 		this.city = city;
 		this.zipCode = zipCode;
 		this.partOfTheCity = partOfTheCity;
@@ -66,14 +64,6 @@ public class Location implements Serializable{
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
 	}
 
 	public String getCity() {
@@ -102,7 +92,7 @@ public class Location implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Location [address=" + address + ", city=" + city + ", zipCode=" + zipCode + ", partOfTheCity="
+		return "Location city=" + city + ", zipCode=" + zipCode + ", partOfTheCity="
 				+ partOfTheCity + "]";
 	}
 }

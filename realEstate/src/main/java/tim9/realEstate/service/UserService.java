@@ -34,6 +34,15 @@ public class UserService {
 	}
 	
 	/**
+	 * This method finds element with specified user email and gets it
+	 * @param email
+	 * @return Element if found, null if doesn't exists
+	 */
+	public User findByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+	
+	/**
 	* This method finds all elements from specified Table.
 	* @return		List of elements
 	*/

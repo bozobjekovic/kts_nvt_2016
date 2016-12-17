@@ -28,9 +28,11 @@ public class Company implements Serializable{
 	private Long id;
 	@Column(nullable = false, unique = true)
 	private String name;
+	@Column(nullable = false)
+	private String address;
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Location location;
-	@Column(unique = true)
+	@Column(nullable = false, unique = true)
 	private String phoneNumber;
 	private String site;
 	@OneToMany(mappedBy = "appliedCompany", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -49,8 +51,8 @@ public class Company implements Serializable{
 	 * @param regCompany represents RegistrateUserDTO object
 	 */
 	public Company(RegistrateUserDTO regCompany) {
-		this(regCompany.getCompanyName(), new Location(regCompany.getCompanyAddress(), 
-				regCompany.getCompanyCity(), regCompany.getZipCode(), regCompany.getPartOfTheCity()), 
+		this(regCompany.getCompanyName(), regCompany.getAddress(), new Location(
+				regCompany.getCompanyLocation().getCity(), regCompany.getCompanyLocation().getZipCode(), regCompany.getCompanyLocation().getPartOfTheCity()), 
 				regCompany.getCompanyPhoneNumber(), regCompany.getSite());
 	}
 
@@ -62,9 +64,10 @@ public class Company implements Serializable{
 	 * @param phoneNumber represents Phone number of the Company
 	 * @param site represents Site of the Company
 	 */
-	public Company(String name, Location location, String phoneNumber, String site) {
+	public Company(String name, String address, Location location, String phoneNumber, String site) {
 		super();
 		this.name = name;
+		this.address = address;
 		this.location = location;
 		this.phoneNumber = phoneNumber;
 		this.site = site;
@@ -118,10 +121,19 @@ public class Company implements Serializable{
 		this.usersToApprove = usersToApprove;
 	}
 
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	@Override
 	public String toString() {
-		return "Company [id=" + id + ", name=" + name + ", phoneNumber=" + phoneNumber + ", site=" + site + "]";
+		return "Company [id=" + id + ", name=" + name + ", address=" + address + ", location=" + location
+				+ ", phoneNumber=" + phoneNumber + ", site=" + site + ", usersToApprove=" + usersToApprove + "]";
 	}
-	
 
+	
 }

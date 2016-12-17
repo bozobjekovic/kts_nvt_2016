@@ -19,11 +19,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import tim9.realEstate.dto.LocationDTO;
 import tim9.realEstate.dto.LoginUserDTO;
 import tim9.realEstate.dto.RegistrateUserDTO;
+import tim9.realEstate.model.Location;
 import tim9.realEstate.model.User;
 import tim9.realEstate.security.TokenUtils;
 import tim9.realEstate.service.AuthorityService;
+import tim9.realEstate.service.CompanyService;
+import tim9.realEstate.service.LocationService;
 import tim9.realEstate.service.UserService;
 
 /**
@@ -45,6 +49,12 @@ public class LoginRegistrateController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	CompanyService companySevice;
+	
+	@Autowired
+	LocationService locationService;
 	
 	@Autowired
 	AuthorityService authorityService;
@@ -75,18 +85,24 @@ public class LoginRegistrateController {
      */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<String> login(@RequestBody LoginUserDTO loginUser) {
-        try {
-        	UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-        			loginUser.getUsername(), loginUser.getPassword());
-            Authentication authentication = authenticationManager.authenticate(token);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            UserDetails details = userDetailsService.loadUserByUsername(loginUser.getUsername());
-            return new ResponseEntity<>(tokenUtils.generateToken(details), HttpStatus.OK);
-        } catch (Exception ex) {
-            return new ResponseEntity<>("Invalid login", HttpStatus.BAD_REQUEST);
-        }
+		if (checkInputParams(loginUser)) {
+			try {
+	        	UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+	        			loginUser.getUsername(), loginUser.getPassword());
+	        	
+	            Authentication authentication = authenticationManager.authenticate(token);
+	            SecurityContextHolder.getContext().setAuthentication(authentication);
+	            
+	            UserDetails details = userDetailsService.loadUserByUsername(loginUser.getUsername());
+	            return new ResponseEntity<>(tokenUtils.generateToken(details), HttpStatus.OK);
+	        } catch (Exception ex) {
+	            return new ResponseEntity<>("Invalid login", HttpStatus.BAD_REQUEST);
+	        }
+		} else {
+			return new ResponseEntity<>("Invalid login", HttpStatus.BAD_REQUEST);
+		}
 	}
-	
+
 	/**
      * This method does the registration of a new user.
      * @param		registrateUser DTO for user registration
@@ -94,14 +110,94 @@ public class LoginRegistrateController {
      */
 	@RequestMapping(value = "/registrate", method = RequestMethod.POST)
 	public ResponseEntity<Void> registrate(@RequestBody RegistrateUserDTO registrateUser) {
+		if (!checkInputParamsRegistrate(registrateUser) ) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		} 
+		
 		registrateUser.setPassword(passwordEncoder.encode(registrateUser.getPassword()));
         if ("user".equals(registrateUser.getAuthority())) {
         	userService.save(new User(registrateUser, "user", authorityService.findByName("USER")));
         	return new ResponseEntity<>(HttpStatus.CREATED);
 		} else {
+			Location location = locationService.findByCityAndZipCodeAndPartOfTheCity(
+					registrateUser.getCompanyLocation().getCity(), 
+					registrateUser.getCompanyLocation().getZipCode(), 
+					registrateUser.getCompanyLocation().getPartOfTheCity());
+			
+			if (location == null) {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+			
+			registrateUser.setCompanyLocation(new LocationDTO(location));
 			userService.save(new User(registrateUser, "clerk", authorityService.findByName("USER")));
 			return new ResponseEntity<>(HttpStatus.CREATED);
 		}
+	}
+	
+	/**
+	 * This method checks input parameters for registration new user or clerk
+	 * @param registrateUser
+	 * @return  True if parameters are OK or False if NOT
+	 */
+	private boolean checkInputParamsRegistrate(RegistrateUserDTO registrateUser) {
+		if (registrateUser.getAuthority() == null || registrateUser.getEmail().equals("")) { return false; }
+		
+		if (registrateUser.getAuthority().equals("user")) {
+			if (!checkUserParams(registrateUser)) { return false; }
+		} else if (registrateUser.getAuthority().equals("clerk")) {
+			if (!checkUserParams(registrateUser)) { return false; }
+			if (!checkCompanyParams(registrateUser)) { return false; } 
+		} else {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	/**
+	 * This method checks input parameters for login
+	 * @param loginUser
+	 * @return True if parameters are OK or False if NOT
+	 */
+	private boolean checkInputParams(LoginUserDTO loginUser) {
+		if (loginUser.getUsername() == null || loginUser.getUsername().trim().equals("")) {
+			return false;
+		}
+		if (loginUser.getPassword() == null || loginUser.getPassword().trim().equals("")) {
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * This method checks input parameters for registration new user 
+	 * @param registrateUser
+	 * @return True if parameters are OK or False if NOT
+	 */
+	private boolean checkUserParams(RegistrateUserDTO registrateUser) {
+		if (registrateUser.getEmail() == null || registrateUser.getEmail().equals("")) { return false; }
+		if (userService.findByEmail(registrateUser.getEmail()) != null) { return false; }
+		if (registrateUser.getUsername() == null || registrateUser.getUsername().equals("")) { return false; }
+		if (userService.findByUsername(registrateUser.getUsername()) != null) { return false; }
+		if (registrateUser.getPassword() == null || registrateUser.getPassword().equals("")) { return false; }
+		if (registrateUser.getName() == null || registrateUser.getName().equals("")) { return false; }
+		if (registrateUser.getSurname() == null || registrateUser.getSurname().equals("")) { return false; }
+		return true;
+	}
+	
+	/**
+	 *  This method checks input parameters for registration clerk/company
+	 * @param registrateUser
+	 * @return True if parameters are OK or False if NOT
+	 */
+	private boolean checkCompanyParams(RegistrateUserDTO registrateUser) {
+		if (registrateUser.getCompanyName() == null || registrateUser.getCompanyName().equals("")) { return false; }
+		if (companySevice.findByName(registrateUser.getCompanyName()) != null) { return false; }
+		if (registrateUser.getCompanyPhoneNumber() == null || registrateUser.getCompanyPhoneNumber().equals("")) { return false; }
+		if (companySevice.findByPhoneNumber(registrateUser.getCompanyPhoneNumber()) != null) { return false; }
+		if (registrateUser.getCompanyAddress() == null || registrateUser.getCompanyAddress().equals("")) { return false; }
+		if (registrateUser.getCompanyLocation().getCity() == null || registrateUser.getCompanyLocation().getCity().equals("")) { return false; }
+		return true;
 	}
 
 }

@@ -94,9 +94,8 @@ public class LoginRegistrateControllerTest {
 	}
 	
 	/**
-	 * <b>testLogin()</b>
-	 * method tests if a controller with URL_PREFIX returns bad request
-	 * as expected status
+	 * <b>testInvalidLogin()</b>
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -110,6 +109,13 @@ public class LoginRegistrateControllerTest {
 				.contentType(contentType)
 				.content(json))
 				.andExpect(status().isBadRequest());
+		
+		String json1 = TestUtil.json(new LoginUserDTO());
+		mockMvc.perform(post(URL_PREFIX + "/login")
+				.contentType(contentType)
+				.content(json1))
+				.andExpect(status().isBadRequest());
+		
 	}
 	
 	

@@ -10,16 +10,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_COUNT;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_ID;
+import static tim9.realEstate.constants.AdvertismentConstants.DB_PURPOSE;
 import static tim9.realEstate.constants.AdvertismentConstants.NEW_DATE;
 import static tim9.realEstate.constants.AdvertismentConstants.NEW_GIVEN_RATE;
 import static tim9.realEstate.constants.AdvertismentConstants.NEW_PHONE_NUMBER;
 import static tim9.realEstate.constants.AdvertismentConstants.NEW_PURPOSE;
-import static tim9.realEstate.constants.AdvertismentConstants.*;
+import static tim9.realEstate.constants.AdvertismentConstants.NEW_RATE;
 import static tim9.realEstate.constants.AdvertismentConstants.PAGE_SIZE_CONTROLLER;
-import static tim9.realEstate.constants.LocationConstants.NEW_ADDRESS;
-import static tim9.realEstate.constants.LocationConstants.NEW_CITY;
-import static tim9.realEstate.constants.LocationConstants.NEW_PART_OF_THE_CITY;
-import static tim9.realEstate.constants.LocationConstants.NEW_ZIP_CODE;
 import static tim9.realEstate.constants.RealEstateConstants.DB_IMAGE;
 import static tim9.realEstate.constants.RealEstateConstants.DB_LAND_SIZE;
 import static tim9.realEstate.constants.RealEstateConstants.DB_NAME;
@@ -60,7 +57,6 @@ import tim9.realEstate.RealEstateApplication;
 import tim9.realEstate.TestUtil;
 import tim9.realEstate.dto.AdvertismentCreateDTO;
 import tim9.realEstate.model.Advertisment;
-import tim9.realEstate.model.Location;
 import tim9.realEstate.model.RealEstate;
 import tim9.realEstate.service.AdvertismentService;
 
@@ -151,7 +147,6 @@ private static final String URL_PREFIX = "/realEstate/advertisments";
 		advertisment.setRate(NEW_RATE);
 		advertisment.setPhoneNumber(NEW_PHONE_NUMBER);
     	
-    	realEstate.setLocation(new Location(NEW_ADDRESS, NEW_CITY, NEW_ZIP_CODE, NEW_PART_OF_THE_CITY));
     	realEstate.setLandSize(NEW_LAND_SIZE);
     	realEstate.setTechEquipment(NEW_TEACH_EQUIPMENT);
     	realEstate.setHeatingType(NEW_HEATING_TYPE);

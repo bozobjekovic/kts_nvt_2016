@@ -41,7 +41,7 @@ public class Advertisment implements Serializable{
 	private String purpose;
 	private double rate;
 	private int numberOfRates;
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
 	private String phoneNumber;
 	@ManyToOne
 	private Verifier verifier;

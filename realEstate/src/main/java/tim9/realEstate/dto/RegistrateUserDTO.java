@@ -25,9 +25,7 @@ public class RegistrateUserDTO {
 	
 	// company location fields
 	private String companyAddress;
-	private String companyCity;
-	private int zipCode;
-	private String partOfTheCity;
+	private LocationDTO companyLocation;
 	
 	/**
 	 * Constructor created from Superclass
@@ -154,28 +152,12 @@ public class RegistrateUserDTO {
 		this.companyAddress = companyAddress;
 	}
 
-	public String getCompanyCity() {
-		return companyCity;
+	public LocationDTO getCompanyLocation() {
+		return companyLocation;
 	}
 
-	public void setCompanyCity(String companyCity) {
-		this.companyCity = companyCity;
+	public void setCompanyLocation(LocationDTO companyLocation) {
+		this.companyLocation = companyLocation;
 	}
 
-	public int getZipCode() {
-		return zipCode;
-	}
-
-	public void setZipCode(int zipCode) {
-		this.zipCode = zipCode;
-	}
-
-	public String getPartOfTheCity() {
-		return partOfTheCity;
-	}
-
-	public void setPartOfTheCity(String partOfTheCity) {
-		this.partOfTheCity = partOfTheCity;
-	}
-	
 }
