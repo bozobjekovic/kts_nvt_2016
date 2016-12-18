@@ -216,17 +216,23 @@ public class AdvertismentController {
      */
     @RequestMapping(value="/prolong", method = RequestMethod.PUT)
     public ResponseEntity<AdvertismentCreateDTO> prolongAdvertisment(@RequestParam Long idAdvertisment, @RequestParam Date date){
-    	System.out.println(date);
     	if(idAdvertisment == null || date == null){
     		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     	}
-    	//TODO PROVER ZA DATUM
+    	
     	Advertisment advertisment = advertismentService.findOne(idAdvertisment);
+    	
     	if(advertisment == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+    	
+    	if (date.before(new Date())) {
+    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+    	
     	advertisment.setActiveUntil(date);
     	advertismentService.save(advertisment);
+    	
     	return new ResponseEntity<>(new AdvertismentCreateDTO(advertisment, advertisment.getRealEstate()), HttpStatus.OK);
     }
     
@@ -240,16 +246,29 @@ public class AdvertismentController {
     	if(id == null){
     		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     	}
+    	
     	Advertisment advertisement = advertismentService.findOne(id);
-    	if (advertisement != null) {
-    		advertisement.setDeleted(true);
-			advertismentService.save(advertisement);
-			return new ResponseEntity<>(HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	
+    	if (advertisement == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+    	
+    	if (advertisement.isDeleted()) {
+    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+    	
+    	advertisement.setDeleted(true);
+		advertismentService.save(advertisement);
+		return new ResponseEntity<>(HttpStatus.OK);
     }
     
+    /**
+     * This method rounds double value on two 
+     * decimals
+     * @param value
+     * @param places
+     * @return double value with two decimals
+     */
     private double round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
 
