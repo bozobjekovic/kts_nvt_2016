@@ -125,7 +125,7 @@ public class RealEstate implements Serializable{
 	public void setBuildYear(int buildYear) {
 		this.buildYear = buildYear;
 	}
-	
+
 	public Status getStatus() {
 		return status;
 	}

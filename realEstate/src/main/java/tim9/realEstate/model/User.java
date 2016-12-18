@@ -11,8 +11,6 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import tim9.realEstate.dto.RegistrateUserDTO;
 
 /**
@@ -29,10 +27,8 @@ public class User extends Person implements Serializable{
 	private int bankAccount;
 	private boolean isClerk;
 	private boolean isApproved;
-	@JsonIgnore
 	@OneToMany(mappedBy = "publisher", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Advertisment> publishedAdvertisments = new HashSet<Advertisment>(0);
-	@JsonIgnore
 	@OneToMany(mappedBy = "buyer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Advertisment> buyedAdvertisments = new HashSet<Advertisment>(0);
 	@ManyToOne(cascade = CascadeType.ALL)

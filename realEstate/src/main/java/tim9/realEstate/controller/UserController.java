@@ -1,6 +1,7 @@
 package tim9.realEstate.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletRequest;
@@ -92,6 +93,13 @@ public class UserController {
     	return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
     }
 	
+	/**
+	 * This method sets sold status on real estate
+	 * with specified id, and sets status deleted 
+	 * on it's advertisement
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value="/buy", method = RequestMethod.PUT)
 	public ResponseEntity<Void> buyRealEstate(@RequestParam Long id) {
 		if (id == null) {
@@ -114,6 +122,33 @@ public class UserController {
 		Advertisment advertisement = advertisementService.findByRealEstate(realEstate);
 		advertisement.setDeleted(true);
 		advertisementService.save(advertisement);
+		
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value="/rent", method = RequestMethod.PUT)
+	public ResponseEntity<Void> rentRealEstate(@RequestParam Long id, @RequestParam Date rentDateFrom, @RequestParam Date rentDateTo) {
+		
+		if (id == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		RealEstate realEstate = realEstateService.findOne(id);
+		
+		if (realEstate == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		if (realEstate.getStatus() == Status.Sold || realEstate.getStatus() == Status.Rented) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		/*if (rentDateFrom.before(realEstate.getRentedUntil())) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}*/
+
+		// TODO: FINISHED THIS !!!!!!!!!!!!!!
 		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
