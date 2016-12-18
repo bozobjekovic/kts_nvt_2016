@@ -10,6 +10,7 @@ public class InappropriateDTO {
 	private Long id;
 	private String title;
 	private String description;
+	private AdvertismentDTO advertisementDTO;
 	
 	/**
 	 * Constructor created from Superclass
@@ -24,7 +25,7 @@ public class InappropriateDTO {
 	 * @param i represents Inappropriate object
 	 */
 	public InappropriateDTO(Inappropriate i) {
-		this(i.getId(), i.getTitle(), i.getDescription());
+		this(i.getId(), i.getTitle(), i.getDescription(), new AdvertismentDTO(i.getAdvertisment()));
 	}
 	
 	/**
@@ -34,11 +35,12 @@ public class InappropriateDTO {
 	 * @param title represents Title of the Inappropriate comment
 	 * @param description represents Description of the Inappropriate comment
 	 */
-	public InappropriateDTO(Long id, String title, String description) {
+	public InappropriateDTO(Long id, String title, String description, AdvertismentDTO advertisementDTO) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.description = description;
+		this.advertisementDTO = advertisementDTO;
 	}
 
 	public Long getId() {
@@ -63,6 +65,14 @@ public class InappropriateDTO {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public AdvertismentDTO getAdvertisementDTO() {
+		return advertisementDTO;
+	}
+
+	public void setAdvertisementDTO(AdvertismentDTO advertisementDTO) {
+		this.advertisementDTO = advertisementDTO;
 	}
 
 }

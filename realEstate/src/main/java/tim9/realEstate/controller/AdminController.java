@@ -122,10 +122,17 @@ public class AdminController {
 		if(id == null){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+		
 		User user = userService.findOne(id);
-		if(user == null || user.isApproved() == true){
+		
+		if(user == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+		
+		if (user.isApproved() == true) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
 		user.setApproved(true);
 		userService.save(user);
 		
@@ -149,9 +156,15 @@ public class AdminController {
 		if(id == null){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+		
 		User user = userService.findOne(id);
-		if(user == null || user.isApproved() == true){
+		
+		if(user == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		if (user.isApproved() == true) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
 		String email = user.getEmail();
@@ -213,10 +226,13 @@ public class AdminController {
 		if(id == null){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+		
 		Inappropriate inappropriate = inappropriateService.findOne(id);
+		
 		if(inappropriate == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}	
+		
 		Advertisment advertisment = inappropriate.getAdvertisment();
 		List<Inappropriate> inappropriates = inappropriateService.findByAdvertisement(advertisment);
 		
@@ -227,8 +243,10 @@ public class AdminController {
 	        mailUtil.sendMail(email, subject, text);
 	        inappropriateService.remove(inappropriates.get(i).getId());
 		}
+		
 		advertisment.setDeleted(true);
 		advertismentService.save(advertisment);
+		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
