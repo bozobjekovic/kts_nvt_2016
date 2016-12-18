@@ -21,6 +21,7 @@ import tim9.realEstate.model.Advertisment;
 import tim9.realEstate.model.Inappropriate;
 import tim9.realEstate.model.User;
 import tim9.realEstate.model.Verifier;
+import tim9.realEstate.security.UserUtils;
 import tim9.realEstate.service.AdvertismentService;
 import tim9.realEstate.service.AuthorityService;
 import tim9.realEstate.service.CompanyService;
@@ -60,6 +61,9 @@ public class AdminController {
 	@Autowired
 	MailUtil mailUtil;
 	
+	@Autowired
+	UserUtils userUtils;
+	
 	/**
 	 * This method returns clerks that are not approved.
 	 * @return		ResponseEntity with List of Users and HttpStatus OK
@@ -86,7 +90,8 @@ public class AdminController {
 		if(verifierDTO.getEmail() == null || verifierDTO.getPassword() == null || verifierDTO.getUsername() == null){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		if(verifierService.findByEmail(verifierDTO.getEmail()) != null || verifierService.findByUsername(verifierDTO.getEmail()) != null){
+		
+		if (!userUtils.checkUniqueEmailAndUsername(verifierDTO.getEmail(), verifierDTO.getUsername())) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		

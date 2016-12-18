@@ -57,5 +57,18 @@ public class UserUtils {
 			return null;
 		}
 	}
+	
+	public boolean checkUniqueEmailAndUsername(String email, String username) {
+		
+		if (adminService.findByUsername(username) != null || adminService.findByEmail(email) != null) {
+			return false;
+		} else if (userService.findByUsername(username) != null || userService.findByEmail(email) != null) {
+			return false;
+		} else if (verifierService.findByUsername(username) != null || verifierService.findByEmail(email) != null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 
 }

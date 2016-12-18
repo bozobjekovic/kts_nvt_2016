@@ -34,6 +34,15 @@ public class AdminService {
 	}
 	
 	/**
+	 *  This method finds element with specified email and gets it
+	 * @param email
+	 * @return Element if found, null if doesn't exists
+	 */
+	public Admin findByEmail(String email) {
+		return adminRepository.findByEmail(email);
+	}
+	
+	/**
 	* This method finds all elements from specified Table.
 	* @return		List of elements
 	*/
