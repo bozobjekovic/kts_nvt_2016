@@ -50,6 +50,12 @@ public class Verifier implements Serializable{
 		this.password = verifierDTO.getPassword();
 		this.authority = authority;
 	}
+	
+	@Override
+	public String toString() {
+		return "Verifier [id=" + id + ", email=" + email + ", username=" + username + ", password=" + password
+				+ ", authority=" + authority + "]";
+	}
 
 	public Long getId() {
 		return id;

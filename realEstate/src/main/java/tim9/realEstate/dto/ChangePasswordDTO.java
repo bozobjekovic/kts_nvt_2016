@@ -18,6 +18,12 @@ public class ChangePasswordDTO {
 		super();
 	}
 	
+	@Override
+	public String toString() {
+		return "ChangePasswordDTO [id=" + id + ", oldPassword=" + oldPassword + ", newPassword=" + newPassword
+				+ ", confirmPassword=" + confirmPassword + "]";
+	}
+
 	public Long getId() {
 		return id;
 	}

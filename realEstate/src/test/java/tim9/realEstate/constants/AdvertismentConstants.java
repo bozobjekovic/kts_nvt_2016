@@ -38,11 +38,20 @@ public class AdvertismentConstants {
     public static final Date DB_PUBLICATION_DATE = new Date();
     public static final String DB_IMAGE = "img";
     
+    public static final Long DB_ID_UNVERIFIED = 4L;
+	public static final String DB_CITY_UNVERIFIED = "Nis";
+	public static final String DB_NAME_UNVERIFIED = "Kuca sa bazenom";
+	public static final double DB_PRICE_UNVERIFIED = 423424;
+    public static final int DB_LAND_SIZE_UNVERIFIED = 3506;
+    public static final String DB_TYPE_UNVERIFIED = "Kancelarija";
+    public static final String DB_IMAGE_UNVERIFIED = "img";
+    
     public static final int DB_COUNT_WITH_PURPOSE_SELL = 2; 
     
     public static final Long DB_ID_REFERENCED = 1L; 
     
     public static final int DB_COUNT = 3;
+    public static final int DB_COUNT_UNVERIFIED = 1;
     public static final int PAGE_SIZE = 2;
     public static final int PAGE_SIZE_CONTROLLER = 3;
 

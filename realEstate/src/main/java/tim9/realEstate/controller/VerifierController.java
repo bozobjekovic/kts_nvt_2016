@@ -72,7 +72,7 @@ public class VerifierController {
 		}
 
 		Verifier verifier = verifierService.findOne(changePasswordDTO.getId());
-		
+
 		if (verifier == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -133,6 +133,11 @@ public class VerifierController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
+	/**
+	 * This method checks input parameters
+	 * @param changePasswordDTO
+	 * @return True if parameters are OK, false if not
+	 */
 	private boolean checkInputParams(ChangePasswordDTO changePasswordDTO) {
 		if (changePasswordDTO.getId() == null) {
 			return false;
