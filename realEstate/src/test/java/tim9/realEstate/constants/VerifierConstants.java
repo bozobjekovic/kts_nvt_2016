@@ -25,4 +25,8 @@ public class VerifierConstants {
 
 	public static final Long DB_ID_REFERENCED = 3L;
     public static final int DB_COUNT = 3;
+ 
+    public static final Long DB_ID_ACCEPTED_ADVERTISEMENT = 2L;
+    public static final Long DB_ID_ADVERTISEMENT = 4L;
+    public static final Long DB_ID_WRONG_ADVERTISEMENT = 7L;
 }

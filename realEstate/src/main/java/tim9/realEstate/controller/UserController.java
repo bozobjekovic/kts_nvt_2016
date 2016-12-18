@@ -19,6 +19,7 @@ import tim9.realEstate.model.Company;
 import tim9.realEstate.model.User;
 import tim9.realEstate.security.UserUtils;
 import tim9.realEstate.service.CompanyService;
+import tim9.realEstate.service.RealEstateService;
 import tim9.realEstate.service.UserService;
 
 /**
@@ -37,6 +38,9 @@ public class UserController {
 	
 	@Autowired
 	UserUtils userUtils;
+	
+	@Autowired
+	RealEstateService realEstateService;
 	
 	@Autowired
 	MailUtil mailUtil;
@@ -80,6 +84,18 @@ public class UserController {
     	userService.save(user);
     	return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
     }
+	
+	@RequestMapping(value="/buy", method = RequestMethod.PUT)
+	public ResponseEntity<Void> buyRealEstate(@RequestParam Long id) {
+		if (id == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		//RealEstate realEstate = realEstateService.findOne(id);
+		
+		//TODO: FINISH 
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 	
 	/**
      * This method allows user to apply to be

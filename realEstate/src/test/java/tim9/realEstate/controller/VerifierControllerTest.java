@@ -1,11 +1,13 @@
 package tim9.realEstate.controller;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static tim9.realEstate.constants.AdminConstants.DB_EXISTING_ID;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_CITY_UNVERIFIED;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_COUNT_UNVERIFIED;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_ID_UNVERIFIED;
@@ -20,6 +22,7 @@ import java.nio.charset.Charset;
 
 import javax.annotation.PostConstruct;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,7 +124,7 @@ public class VerifierControllerTest {
     @Test
     @Transactional
     @Rollback(true)
-    public void testInvalidChangePassword() throws Exception { // prazan objekat, ne postojeci id korisnika, ne poklapanje starih lozinki, ne poklapanje novih lozinki
+    public void testChangePasswordInvalid() throws Exception { // prazan objekat, ne postojeci id korisnika, ne poklapanje starih lozinki, ne poklapanje novih lozinki
     	ChangePasswordDTO changePasswordDTO = new ChangePasswordDTO();
     	
     	String json = TestUtil.json(changePasswordDTO);							// empty object
@@ -164,6 +167,57 @@ public class VerifierControllerTest {
     	// TEST #########################################
 	}
     
+    @Test
+    @Ignore
+    public void testAcceptAdvertisement() throws Exception {
+    	this.mockMvc.perform(put(URL_PREFIX + "/accept?id=" + DB_EXISTING_ID)
+                .contentType(contentType))
+                .andExpect(status().isOk());
+    }
     
+    /**
+     * This method should test reject advertisement 
+     * with valid input parameters.
+     * Expected: Status OK
+     * deleted
+     * @throws Exception
+     */
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void testRejectAdvertisement() throws Exception {
+    	this.mockMvc.perform(delete(URL_PREFIX + "/reject?id=" + tim9.realEstate.constants.VerifierConstants.DB_ID_ADVERTISEMENT)
+                .contentType(contentType))
+                .andExpect(status().isOk());
+    }
     
+    /**
+     * This method should test rejecting advertisement 
+     * with wrong input parameters, like empty parameter,
+     * parameter that doesn't exists in database and
+     * id advertisement which is already accepted.
+     * Expected: Status Not Found if id is not valid and
+     * if id already accepted in database
+     * or Bad Request if input parameter is incorrect.
+     * @throws Exception
+     */
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void testRejectAdvertisementInvalid() throws Exception {
+    	this.mockMvc.perform(delete(URL_PREFIX + "/reject?id=")
+                .contentType(contentType))
+                .andExpect(status().isBadRequest());
+    	// TEST ############################################
+    	
+    	this.mockMvc.perform(delete(URL_PREFIX + "/reject?id=" + tim9.realEstate.constants.VerifierConstants.DB_ID_WRONG_ADVERTISEMENT)		// doesn't existing id
+                .contentType(contentType))
+                .andExpect(status().isNotFound());
+    	// TEST ############################################
+    	
+    	this.mockMvc.perform(delete(URL_PREFIX + "/reject?id=" + tim9.realEstate.constants.VerifierConstants.DB_ID_ACCEPTED_ADVERTISEMENT)		// accepted id
+                .contentType(contentType))
+                .andExpect(status().isNotFound());
+    	// TEST ############################################
+    }
 }

@@ -33,6 +33,8 @@ public class RealEstate implements Serializable{
 	private int numOfFlors;
 	private int buildYear;
 	@Enumerated(EnumType.ORDINAL)
+	private Status status;
+	@Enumerated(EnumType.ORDINAL)
 	private Category category;
 	@Column(nullable = false)
 	private String type;
@@ -123,6 +125,14 @@ public class RealEstate implements Serializable{
 	public void setBuildYear(int buildYear) {
 		this.buildYear = buildYear;
 	}
+	
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 
 	public Category getCategory() {
 		return category;
@@ -145,7 +155,7 @@ public class RealEstate implements Serializable{
 		return "RealEstate [id=" + id + ", address=" + address + ", location=" + location + ", landSize=" + landSize
 				+ ", techEquipment=" + techEquipment + ", heatingType=" + heatingType + ", numOfBathRooms="
 				+ numOfBathRooms + ", numOfBedRooms=" + numOfBedRooms + ", numOfFlors=" + numOfFlors + ", buildYear="
-				+ buildYear + ", category=" + category + ", type=" + type + "]";
+				+ buildYear + ", status=" + status + ", category=" + category + ", type=" + type + "]";
 	}
 
 }

@@ -101,7 +101,7 @@ public class VerifierController {
 		
 		Advertisment advertisement = advertisementService.findOne(id);
 		
-		if (advertisement == null) {
+		if (advertisement == null || advertisement.getVerifier() != null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
@@ -124,7 +124,7 @@ public class VerifierController {
 		
 		Advertisment advertisement = advertisementService.findOne(id);
 		
-		if (advertisement == null) {
+		if (advertisement == null || advertisement.getVerifier() != null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
