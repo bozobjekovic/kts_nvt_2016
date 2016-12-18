@@ -37,5 +37,7 @@ public class UserConstants {
 	public static final Long DB_ID_REFERENCED = 1L;
 	public static final Long DB_DELETE = 3L;
     public static final int DB_COUNT = 5;
+    
+    public static final Long DB_ID_COMPANY = 1L;
 
 }

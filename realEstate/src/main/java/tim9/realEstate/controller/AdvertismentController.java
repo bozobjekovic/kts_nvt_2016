@@ -9,7 +9,6 @@ import javax.servlet.ServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +24,6 @@ import tim9.realEstate.dto.AdvertismentDTO;
 import tim9.realEstate.model.Advertisment;
 import tim9.realEstate.model.RealEstate;
 import tim9.realEstate.model.User;
-import tim9.realEstate.model.Verifier;
 import tim9.realEstate.security.UserUtils;
 import tim9.realEstate.service.AdvertismentService;
 import tim9.realEstate.service.LocationService;
@@ -209,27 +207,6 @@ public class AdvertismentController {
     }
     
     /**
-     * This method verifies an Advertisement
-     * and sets it's verifier.
-     * @param		idAdvertisment	Advertisement's id
-     * @param		verifier	who verified it
-     * @return      ResponseEntity status OK, else NOT_FOUND status
-     */
-    @RequestMapping(value="/verification", method = RequestMethod.PUT)
-    public ResponseEntity<Void> verifyAdvertisment(@RequestParam Long idAdvertisment, ServletRequest request){
-    	if(idAdvertisment == null){
-    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    	}
-    	Advertisment advertisment = advertismentService.findOne(idAdvertisment);
-    	if(advertisment == null){
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-    	advertisment.setVerifier((Verifier)userUtils.getLoggedUser(request));
-    	advertismentService.save(advertisment);
-    	return new ResponseEntity<>(HttpStatus.OK);
-    }
-    
-    /**
      * This method prolongs an Advertisement
      * until given Date.
      * @param		idAdvertisment	Advertisement's id
@@ -239,6 +216,7 @@ public class AdvertismentController {
      */
     @RequestMapping(value="/prolong", method = RequestMethod.PUT)
     public ResponseEntity<AdvertismentCreateDTO> prolongAdvertisment(@RequestParam Long idAdvertisment, @RequestParam Date date){
+    	System.out.println(date);
     	if(idAdvertisment == null || date == null){
     		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     	}
@@ -253,27 +231,11 @@ public class AdvertismentController {
     }
     
     /**
-     * This method gets top 3 rated Advertisements.
-     * @return      ResponseEntity DTO Advertisement and HttpStatus OK
-     */
-    @RequestMapping(value="/popular", method = RequestMethod.GET)
-    public ResponseEntity<List<AdvertismentDTO>> getPopularAdvertisements(){
-    	PageRequest request = new PageRequest(0, 3);
-    	List<Advertisment> advertisements = advertismentService.orderByRate(request);
-    	
-    	List<AdvertismentDTO> advertsDTO = new ArrayList<>();
-		for (Advertisment a : advertisements) {
-			advertsDTO.add(new AdvertismentDTO(a));
-		}
-    	return new ResponseEntity<>(advertsDTO, HttpStatus.OK);
-    }
-    
-    /**
      * This method deletes advertisement with given id
      * @param id
      * @return HttpStatus OK if exists else HttpStatus NOT_FOUND
      */
-    @RequestMapping(value="delete/{id}", method=RequestMethod.PUT)
+    @RequestMapping(value="/delete/{id}", method=RequestMethod.PUT)
     public ResponseEntity<Void> deteleAdvertisement(@PathVariable Long id) {
     	if(id == null){
     		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
