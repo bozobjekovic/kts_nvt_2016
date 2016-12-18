@@ -15,9 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tim9.realEstate.dto.UserDTO;
 import tim9.realEstate.mail.MailUtil;
+import tim9.realEstate.model.Advertisment;
 import tim9.realEstate.model.Company;
+import tim9.realEstate.model.RealEstate;
+import tim9.realEstate.model.Status;
 import tim9.realEstate.model.User;
 import tim9.realEstate.security.UserUtils;
+import tim9.realEstate.service.AdvertismentService;
 import tim9.realEstate.service.CompanyService;
 import tim9.realEstate.service.RealEstateService;
 import tim9.realEstate.service.UserService;
@@ -38,6 +42,9 @@ public class UserController {
 	
 	@Autowired
 	UserUtils userUtils;
+	
+	@Autowired
+	AdvertismentService advertisementService;
 	
 	@Autowired
 	RealEstateService realEstateService;
@@ -91,9 +98,23 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
-		//RealEstate realEstate = realEstateService.findOne(id);
+		RealEstate realEstate = realEstateService.findOne(id);
 		
-		//TODO: FINISH 
+		if (realEstate == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		if (realEstate.getStatus() == Status.Sold || realEstate.getStatus() == Status.Rented) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		realEstate.setStatus(Status.Sold);
+		realEstateService.save(realEstate);
+		
+		Advertisment advertisement = advertisementService.findByRealEstate(realEstate);
+		advertisement.setDeleted(true);
+		advertisementService.save(advertisement);
+		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	

@@ -9,10 +9,13 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import tim9.realEstate.model.Advertisment;
 import tim9.realEstate.model.Category;
+import tim9.realEstate.model.RealEstate;
 
 public interface AdvertismentRepository extends JpaRepository<Advertisment, Long>, JpaSpecificationExecutor<Advertisment> {
 	
 	Page<Advertisment> findByPurposeAndIsDeletedFalseAndVerifierNotNull(String purpose, Pageable page);
+	
+	Advertisment findByRealEstate(RealEstate realEstate);
 	
 	List<Advertisment> findByRealEstate_CategoryAndIsDeletedFalseAndVerifierNotNull(Category category);
 	

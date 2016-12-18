@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import tim9.realEstate.model.Advertisment;
 import tim9.realEstate.model.Category;
+import tim9.realEstate.model.RealEstate;
 import tim9.realEstate.repository.AdvertismentRepository;
 
 @Service
@@ -26,6 +27,16 @@ public class AdvertismentService {
 	*/
 	public Advertisment findOne(Long id) {
 		return advertismentRepository.findOne(id);
+	}
+	
+	/**
+	 * This method finds element with specified real estate
+	 *  and gets it from the database.
+	 * @param realEstate
+	 * @return 		Element if found, null if doesn't exist
+	 */
+	public Advertisment findByRealEstate(RealEstate realEstate) {
+		return advertismentRepository.findByRealEstate(realEstate);
 	}
 	
 	/**
