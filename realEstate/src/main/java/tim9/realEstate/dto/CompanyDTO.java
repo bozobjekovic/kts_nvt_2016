@@ -8,6 +8,7 @@ import tim9.realEstate.model.Company;
 public class CompanyDTO {
 	
 	private Long id;
+	private String address;
 	private String name;
 	private LocationDTO location;
 	private String phoneNumber;
@@ -26,7 +27,7 @@ public class CompanyDTO {
 	 * @param c represents Company object
 	 */
 	public CompanyDTO(Company c) {
-		this(c.getId(), c.getName(), new LocationDTO(c.getLocation()), c.getPhoneNumber(), c.getSite());
+		this(c.getId(), c.getAddress(), c.getName(), new LocationDTO(c.getLocation()), c.getPhoneNumber(), c.getSite());
 	}
 
 	/**
@@ -38,9 +39,10 @@ public class CompanyDTO {
 	 * @param phoneNumber represents Phone Number of the Company
 	 * @param site represents Site of the Company
 	 */
-	public CompanyDTO(Long id, String name, LocationDTO location, String phoneNumber, String site) {
+	public CompanyDTO(Long id, String address, String name, LocationDTO location, String phoneNumber, String site) {
 		super();
 		this.id = id;
+		this.address = address;
 		this.name = name;
 		this.location = location;
 		this.phoneNumber = phoneNumber;
@@ -53,6 +55,14 @@ public class CompanyDTO {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getName() {

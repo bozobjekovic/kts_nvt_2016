@@ -1,17 +1,13 @@
 package tim9.realEstate.controller;
 
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasSize;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tim9.realEstate.constants.InappropriateConstants.*;
 
 import java.nio.charset.Charset;
 import javax.annotation.PostConstruct;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +24,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import tim9.realEstate.RealEstateApplication;
 import tim9.realEstate.TestUtil;
-import tim9.realEstate.constants.InappropriateConstants;
-import tim9.realEstate.model.Inappropriate;
+import tim9.realEstate.dto.InappropriateDTO;
 
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -54,30 +49,81 @@ public class InappropriateControllerTest {
     public void setup() {
     	this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
-    
+
+    /**
+  	* This method tests adding new Inappropriate and
+  	* saving it to the database.
+  	* Expected all input fields to be valid.
+  	**/
     @Test
-    public void testGetAllInappropriates() throws Exception {
-    	mockMvc.perform(get(URL_PREFIX + "/all"))
-	        .andExpect(status().isOk())
-	        .andExpect(content().contentType(contentType))
-	        .andExpect(jsonPath("$", hasSize(DB_COUNT)))
-	        .andExpect(jsonPath("$.[*].id").value(hasItem(InappropriateConstants.DB_ID.intValue())))
-            .andExpect(jsonPath("$.[*].title").value(hasItem(DB_TITLE)))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DB_DESCRIPTION)));
-    }
-    
-    @Test
+    @Ignore
     @Transactional
     @Rollback(true)
     public void testSaveInappropriate() throws Exception {
-    	Inappropriate inappropriate = new Inappropriate();
+    	InappropriateDTO inappropriate = new InappropriateDTO();
     	inappropriate.setTitle(NEW_TITLE);
     	inappropriate.setDescription(NEW_DESCRIPTION);
+    	
+    	String json = TestUtil.json(inappropriate);
+        this.mockMvc.perform(post(URL_PREFIX + "?id=" + tim9.realEstate.constants.AdvertismentConstants.DB_ID)
+                .contentType(contentType)
+                .content(json))
+                .andExpect(status().isCreated());
+    }
+
+    /**
+  	* This method tests adding new Inappropriate and
+  	* saving it to the database, but without set Description
+  	* which has to be given.
+  	**/
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void testSaveInappropriateNoDescriptionWithParam() throws Exception {
+    	InappropriateDTO inappropriate = new InappropriateDTO();
+    	inappropriate.setTitle(NEW_TITLE);
+    	
+    	String json = TestUtil.json(inappropriate);
+        this.mockMvc.perform(post(URL_PREFIX + "?id=" + tim9.realEstate.constants.AdvertismentConstants.DB_ID)
+                .contentType(contentType)
+                .content(json))
+                .andExpect(status().isBadRequest());
+    }
+
+    /**
+  	* This method tests adding new Inappropriate and
+  	* saving it to the database, but without Description
+  	* as ID parameter, which has to be given.
+  	**/
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void testSaveInappropriateNoDescriptionNoParam() throws Exception {
+    	InappropriateDTO inappropriate = new InappropriateDTO();
     	
     	String json = TestUtil.json(inappropriate);
         this.mockMvc.perform(post(URL_PREFIX)
                 .contentType(contentType)
                 .content(json))
-                .andExpect(status().isCreated());
+                .andExpect(status().isBadRequest());
+    }
+
+    /**
+  	* This method tests adding new Inappropriate and
+  	* saving it to the database, but with non existing Advertisement
+  	**/
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void testSaveInappropriateNoAdvertisement() throws Exception {
+    	InappropriateDTO inappropriate = new InappropriateDTO();
+    	inappropriate.setTitle(NEW_TITLE);
+    	inappropriate.setDescription(NEW_DESCRIPTION);
+    	
+    	String json = TestUtil.json(inappropriate);
+        this.mockMvc.perform(post(URL_PREFIX + "?id=" + tim9.realEstate.constants.AdvertismentConstants.DB_NONEXISTING_ID)
+                .contentType(contentType)
+                .content(json))
+                .andExpect(status().isNotFound());
     }
 }

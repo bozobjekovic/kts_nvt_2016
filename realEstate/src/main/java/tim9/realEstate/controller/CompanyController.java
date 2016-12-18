@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import tim9.realEstate.dto.CompanyDTO;
 import tim9.realEstate.model.Company;
-import tim9.realEstate.model.Location;
 import tim9.realEstate.service.CompanyService;
+import tim9.realEstate.service.LocationService;
 
 /**
  * This class represents controller for Company
@@ -26,6 +26,9 @@ public class CompanyController {
 	
 	@Autowired
 	CompanyService companyService;
+
+	@Autowired
+	LocationService locationService;
 	
 	/**
      * This method gets all Comments from the database
@@ -58,11 +61,13 @@ public class CompanyController {
 			return new ResponseEntity<>(companyDTO, HttpStatus.BAD_REQUEST);
 		}
 		Company company = new Company();
-		company.setLocation(new Location(companyDTO.getLocation()));
+		company.setLocation(locationService.findOne(companyDTO.getLocation().getId()));
 		company.setName(companyDTO.getName());
+		company.setAddress(companyDTO.getAddress());
 		company.setPhoneNumber(companyDTO.getPhoneNumber());
 		company.setSite(companyDTO.getSite());
 		
+		System.out.println("***************" + company);
 		company = companyService.save(company);
 		return new ResponseEntity<>(new CompanyDTO(company), HttpStatus.CREATED);
 	}

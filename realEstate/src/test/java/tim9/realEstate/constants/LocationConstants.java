@@ -14,5 +14,6 @@ public class LocationConstants {
 	public static final int DB_ZIP_CODE = 23560;
 	
 	public static final Long DB_ID_REFERENCED = 5L; 
-	public static final int DB_COUNT = 5;	
+	public static final int DB_COUNT = 5;
+	public static final int DB_LOC_COUNT = 4;
 }

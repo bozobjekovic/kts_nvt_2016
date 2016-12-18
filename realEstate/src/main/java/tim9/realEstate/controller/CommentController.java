@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +44,7 @@ public class CommentController {
      * @param		advertisement Advertisement that contains this comments
      * @return      ResponseEntity List with all DTO Comments and HttpStatus OK
      */
-	@RequestMapping(value="/all", method = RequestMethod.POST)
+	@RequestMapping(value="/all", method = RequestMethod.GET)
 	public ResponseEntity<List<CommentDTO>> getAllComments(@RequestParam Long id) {
 		if(id == null){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
