@@ -13,7 +13,7 @@ import static tim9.realEstate.constants.AdminConstants.CLERK_ADDRESS;
 import static tim9.realEstate.constants.AdminConstants.CLERK_BANK_ACCOUNT;
 import static tim9.realEstate.constants.AdminConstants.CLERK_CITY;
 import static tim9.realEstate.constants.AdminConstants.CLERK_EMAIL;
-import static tim9.realEstate.constants.AdminConstants.CLERK_ID;
+import static tim9.realEstate.constants.AdminConstants.*;
 import static tim9.realEstate.constants.AdminConstants.CLERK_IMAGE;
 import static tim9.realEstate.constants.AdminConstants.CLERK_NAME;
 import static tim9.realEstate.constants.AdminConstants.CLERK_PHONE_NUMBER;
@@ -127,7 +127,7 @@ public class AdminControllerTest {
             .andExpect(status().isCreated());
     }
        
-	   /**
+	 /**
 	 * This method should test registrating new Verifier
 	 * with invalid input.
 	 * Expect to miss some not nullable fields.
@@ -147,7 +147,9 @@ public class AdminControllerTest {
 	       .content(json))
 	       .andExpect(status().isBadRequest());
 	   
+	   verifierDTO = new VerifierDTO();
 	   verifierDTO.setEmail(NEW_EMAIL);
+	   verifierDTO.setPassword(NEW_PASSWORD);
 	   	
 	   json = TestUtil.json(verifierDTO);
 	      this.mockMvc.perform(post(URL_PREFIX + "/registrate")
@@ -155,7 +157,9 @@ public class AdminControllerTest {
 	       .content(json))
 	       .andExpect(status().isBadRequest());
 	      
-	   verifierDTO.setPassword(NEW_PASSWORD);
+	   verifierDTO = new VerifierDTO();
+	   verifierDTO.setEmail(NEW_EMAIL);
+	   verifierDTO.setPassword(NEW_USERNAME);
 	   
 	   json = TestUtil.json(verifierDTO);
 	   this.mockMvc.perform(post(URL_PREFIX + "/registrate")
@@ -163,13 +167,15 @@ public class AdminControllerTest {
 	       .content(json))
 	       .andExpect(status().isBadRequest());
 	   
-	   verifierDTO.setUsername(NEW_USERNAME);
+	   verifierDTO = new VerifierDTO();
+	   verifierDTO.setEmail(NEW_USERNAME);
+	   verifierDTO.setPassword(NEW_PASSWORD);
 	   
 	   json = TestUtil.json(verifierDTO);
 	   this.mockMvc.perform(post(URL_PREFIX + "/registrate")
 	       .contentType(contentType)
 	       .content(json))
-	       .andExpect(status().isCreated());
+	       .andExpect(status().isBadRequest());
 	  }
           
 	  /**
@@ -191,15 +197,20 @@ public class AdminControllerTest {
 			  .content(json))
 	  		  .andExpect(status().isBadRequest());
 	   
-		  verifierDTO.setEmail(tim9.realEstate.constants.VerifierConstants.DB_USERNAME);
+		  verifierDTO.setEmail(NEW_EMAIL);
+		  verifierDTO.setPassword(NEW_PASSWORD);
+		  verifierDTO.setUsername(tim9.realEstate.constants.VerifierConstants.DB_USERNAME);
 	
 		  json = TestUtil.json(verifierDTO);
 		  this.mockMvc.perform(post(URL_PREFIX + "/registrate")
 		       .contentType(contentType)
 		       .content(json))
 		       .andExpect(status().isBadRequest());
-	    
-		  verifierDTO.setPassword(tim9.realEstate.constants.VerifierConstants.DB_EMAIL);
+	      
+		  verifierDTO = new VerifierDTO();
+		  verifierDTO.setEmail(tim9.realEstate.constants.VerifierConstants.DB_EMAIL);
+		  verifierDTO.setPassword(NEW_PASSWORD);
+		  verifierDTO.setUsername(NEW_USERNAME);
 	 
 		  json = TestUtil.json(verifierDTO);
 		  this.mockMvc.perform(post(URL_PREFIX + "/registrate")
@@ -260,6 +271,23 @@ public class AdminControllerTest {
 	}
 	 
 	 /**
+	 * This method should test accepting clerk and his
+	 * company.
+	 * Expecting request to be valid, but user is already
+	 * approved.
+	 * Expected: method post, status BAD_REQUEST
+	 * @throws Exception 
+	 **/
+	 @Test
+	 @Transactional
+	 @Rollback(true)
+	 public void testAcceptClerkApproved() throws Exception{
+	    this.mockMvc.perform(put(URL_PREFIX + "/accept?id=" + DB_APPROVED_ID)
+            .contentType(contentType))
+            .andExpect(status().isBadRequest());
+	}
+	 
+	 /**
 	 * This method should test denying clerk and his
 	 * company.
 	 * Expecting request to be valid.
@@ -307,6 +335,23 @@ public class AdminControllerTest {
 	    this.mockMvc.perform(delete(URL_PREFIX + "/deny?id=" + DB_NONEXISTING_ID)
             .contentType(contentType))
             .andExpect(status().isNotFound());
+	}
+	
+	/**
+	* This method should test denying clerk and his
+	* company.
+	* Expecting request to be valid, but user is already
+	* approved.
+	* Expected: method post, status BAD_REQUEST
+	* @throws Exception 
+	**/
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testDenyClerkApproved() throws Exception{
+	    this.mockMvc.perform(delete(URL_PREFIX + "/deny?id=" + DB_APPROVED_ID)
+            .contentType(contentType))
+            .andExpect(status().isBadRequest());
 	}
 	 
 	 /**

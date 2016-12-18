@@ -50,5 +50,6 @@ public class AdminConstants {
 	
 	public static final Long DB_EXADV_ID = 2L;
 	public static final Long DB_NONEXADV_ID = 8L;
+	public static final Long DB_APPROVED_ID = 5L;
 	
 }

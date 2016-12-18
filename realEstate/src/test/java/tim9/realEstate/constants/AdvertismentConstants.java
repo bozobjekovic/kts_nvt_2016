@@ -8,7 +8,8 @@ public class AdvertismentConstants {
 
 	public static final String NEW_PURPOSE = "buy";
     public static final String NEW_PHONE_NUMBER = "+2141441";
-    public static final Date NEW_DATE = new Date(42342);
+    public static final Date NEW_DATE = new Date();
+    public static final String NEW_DATE_STR = "2018/06/06";
     public static final double NEW_RATE = 4;
     public static final int NEW_GIVEN_RATE = 2;
     public static final int NEW_NUM_OF_RATES = 45;
@@ -43,6 +44,7 @@ public class AdvertismentConstants {
     public static final int DB_COUNT_UNVERIFIED = 1;
     public static final int PAGE_SIZE = 2;
     public static final int PAGE_SIZE_CONTROLLER = 3;
+    public static final int DB_COUNT_PURPOSE = 1;
     
     public static final Long DB_NONEXISTING_ID = 11L; 
 

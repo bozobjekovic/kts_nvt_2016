@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_CITY;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_COUNT;
+import static tim9.realEstate.constants.AdvertismentConstants.DB_COUNT_PURPOSE;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_ID;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_IMAGE;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_NAME;
@@ -19,6 +20,7 @@ import static tim9.realEstate.constants.AdvertismentConstants.DB_PRICE;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_PURPOSE;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_RATE;
 import static tim9.realEstate.constants.AdvertismentConstants.NEW_DATE;
+import static tim9.realEstate.constants.AdvertismentConstants.NEW_DATE_STR;
 import static tim9.realEstate.constants.AdvertismentConstants.NEW_GIVEN_RATE;
 import static tim9.realEstate.constants.AdvertismentConstants.NEW_PHONE_NUMBER;
 import static tim9.realEstate.constants.AdvertismentConstants.NEW_PURPOSE;
@@ -44,6 +46,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import tim9.realEstate.LoginTest;
 import tim9.realEstate.RealEstateApplication;
 import tim9.realEstate.TestUtil;
 import tim9.realEstate.dto.AdvertismentCreateDTO;
@@ -76,6 +79,9 @@ private static final String URL_PREFIX = "/realEstate/advertisments";
     
     @Autowired
     private LocationService locationService;
+    
+    @Autowired
+    private LoginTest loginTest;
     
     @PostConstruct
     public void setup() {
@@ -170,16 +176,21 @@ private static final String URL_PREFIX = "/realEstate/advertisments";
 			.andExpect(status().isNotFound());
     }
     
+    
+    
     /**
   	* This method tests adding new Advertisement and
   	* saving it to the database.
   	* Expected all input fields to be valid.
+  	* Expected: method post, status CREATED, specified size and
+	* content
+    * @throws Exception
   	**/
     @Test
-    @Ignore
   	@Transactional
   	@Rollback(true)
   	public void testSaveAdvertisment() throws Exception {
+		
 	  	Advertisment advertisment = new Advertisment();
 	  	RealEstate realEstate = new RealEstate();
 	  	
@@ -192,6 +203,7 @@ private static final String URL_PREFIX = "/realEstate/advertisments";
 		advertisment.setPhoneNumber(NEW_PHONE_NUMBER);
 		
 		realEstate.setLocation(locationService.findOne(tim9.realEstate.constants.LocationConstants.DB_ID));
+		realEstate.setAddress(tim9.realEstate.constants.AdminConstants.NEW_ADDRESS);
 		realEstate.setLandSize(tim9.realEstate.constants.RealEstateConstants.NEW_LAND_SIZE);
 		realEstate.setTechEquipment(tim9.realEstate.constants.RealEstateConstants.NEW_TEACH_EQUIPMENT);
 		realEstate.setNumOfBathRooms(tim9.realEstate.constants.RealEstateConstants.NEW_NUM_OF_BATH_ROOMS);
@@ -203,10 +215,12 @@ private static final String URL_PREFIX = "/realEstate/advertisments";
 		
 		advertisment.setRealEstate(realEstate);
 	  	
-	  	advertisment.setRealEstate(realEstate);
+	  	String token = loginTest.login(tim9.realEstate.constants.UserConstants.DB_USERNAME, tim9.realEstate.constants.UserConstants.DB_PASSWORD);
+	  	
 	  	AdvertismentCreateDTO advertismentDTO = new AdvertismentCreateDTO(advertisment, realEstate);
 	  	String json = TestUtil.json(advertismentDTO);
 	  	this.mockMvc.perform(post(URL_PREFIX)
+	  			  .header("X-Auth-Token", token)
 	              .contentType(contentType)
 	              .content(json))
 	              .andExpect(status().isCreated());
@@ -214,16 +228,18 @@ private static final String URL_PREFIX = "/realEstate/advertisments";
     
     /**
 	* This method tests if a controller with URL_PREFIX and given page and size
-	* returns expected status,
-	* content type, and contains specified element.
+	* returns all advertisements that are not deleted or unverified
+	* with specified purpose.
+	* Expected: method get, status OK, specified size and
+	* content
+    * @throws Exception
 	**/
 	@Test
-	@Ignore
 	public void testGetAdvertismentsByPurpose() throws Exception {
-	   	mockMvc.perform(get(URL_PREFIX + "/purpose/ + " + DB_PURPOSE + "?page=0&size=" + PAGE_SIZE_CONTROLLER))
+	   	mockMvc.perform(get(URL_PREFIX + "/purpose/" + DB_PURPOSE + "?page=0&size=" + PAGE_SIZE_CONTROLLER))
 	   		.andExpect(status().isOk())
 			.andExpect(content().contentType(contentType))
-			.andExpect(jsonPath("$", hasSize(1)))
+			.andExpect(jsonPath("$", hasSize(DB_COUNT_PURPOSE)))
 	        .andExpect(jsonPath("$.[*].id").value(hasItem(DB_ID.intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DB_NAME)))
             .andExpect(jsonPath("$.[*].city").value(hasItem(DB_CITY)))
@@ -239,12 +255,22 @@ private static final String URL_PREFIX = "/realEstate/advertisments";
 	* content type, and contains specified element.
 	* Expecting invalid request.
 	* Expected: method get, status BAD_REQUEST
+	* @throws Exception
 	**/
 	@Test
 	public void testGetAdvertismentsByPurposeInvalid() throws Exception {
 	   	mockMvc.perform(get(URL_PREFIX + "/purpose"))
 	   		.andExpect(status().isBadRequest());
 	}
+	
+	private double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
     
 	/**
 	* This method tests rating advertisement.
@@ -254,21 +280,17 @@ private static final String URL_PREFIX = "/realEstate/advertisments";
 	* Expected: method put, status OK, specified content
 	**/
     @Test
-    @Ignore
     @Transactional
     @Rollback(true)
     public void testRateAdvertisment() throws Exception {
     	Advertisment advertisment = advertismentService.findOne(DB_ID);
-    	
-    	int oldNumberOfrates = advertisment.getNumberOfRates();
-    	
-    	double RATE = (advertisment.getRate()*(oldNumberOfrates + 1) + NEW_GIVEN_RATE) / (oldNumberOfrates + 1);
-    	advertisment.setRate(RATE);
-    	
-    	String json = TestUtil.json(advertisment);
+
+    	advertisment.setNumberOfRates(advertisment.getNumberOfRates() + 1);
+    	double RATE = round(
+    			((advertisment.getRate()*(advertisment.getNumberOfRates()-1)) + NEW_GIVEN_RATE) / advertisment.getNumberOfRates(), 2);
+
         this.mockMvc.perform(put(URL_PREFIX + "/rate?id=" + DB_ID + "&rate=" + NEW_GIVEN_RATE)
-                .contentType(contentType)
-                .content(json))
+                .contentType(contentType))
                 .andExpect(status().isOk())
 				.andExpect(content().contentType(contentType))
 				.andExpect(jsonPath("$.advertismentId").value(DB_ID.intValue()))
@@ -335,11 +357,10 @@ private static final String URL_PREFIX = "/realEstate/advertisments";
     * @throws Exception 
 	**/
     @Test
-    @Ignore
     @Transactional
     @Rollback(true)
     public void testProlongAdvertisment() throws Exception {
-        this.mockMvc.perform(put(URL_PREFIX + "/prolong?idAdvertisment=" + DB_ID + "&date=" + NEW_DATE)
+        this.mockMvc.perform(put(URL_PREFIX + "/prolong?idAdvertisment=" + DB_ID + "&date=" + NEW_DATE_STR)
             .contentType(contentType))
             .andExpect(status().isOk())
             .andExpect(content().contentType(contentType))
@@ -395,11 +416,24 @@ private static final String URL_PREFIX = "/realEstate/advertisments";
     * @throws Exception 
 	**/
     @Test
-    @Ignore
     public void testProlongAdvertismentInvalid() throws Exception {
-        this.mockMvc.perform(put(URL_PREFIX + "/prolong?idAdvertisment=" + DB_NONEXISTING_ID + "&date=" + NEW_DATE)
+        this.mockMvc.perform(put(URL_PREFIX + "/prolong?idAdvertisment=" + DB_NONEXISTING_ID + "&date=" + NEW_DATE_STR)
             .contentType(contentType))
             .andExpect(status().isNotFound());
+    }
+    
+    /**
+	* This method tests prolonging advertisement.
+	* Expecting valid request, but invalid date
+	* (date before todays date)
+	* Expected: method put, status BAD_REQUEST
+    * @throws Exception 
+	**/
+    @Test
+    public void testProlongAdvertismentInvalidDate() throws Exception {
+        this.mockMvc.perform(put(URL_PREFIX + "/prolong?idAdvertisment=" + DB_ID + "&date=2004/04/04")
+            .contentType(contentType))
+            .andExpect(status().isBadRequest());
     }
     
     /**
@@ -413,9 +447,27 @@ private static final String URL_PREFIX = "/realEstate/advertisments";
 	@Transactional
 	@Rollback(true)
 	public void testDeleteAdvertisement() throws Exception{
-		this.mockMvc.perform(put(URL_PREFIX + "/delete/" + DB_ID)
+		this.mockMvc.perform(put(URL_PREFIX + "/delete?id=" + DB_ID)
 	        .contentType(contentType))
 	        .andExpect(status().isOk());
+	}
+	
+	/**
+    * This method should test 'deleting' (setting isDeleted true)
+	* advertisement.
+	* Expecting request to be valid, but advertisement
+	* is already deleted
+	* Expected: method put, status OK
+	* @throws Exception 
+	**/
+	@Test
+	@Ignore
+	@Transactional
+	@Rollback(true)
+	public void testDeleteAdvertisementDeleted() throws Exception{
+		this.mockMvc.perform(put(URL_PREFIX + "/delete?id=" + DB_NONEXISTING_ID)
+	        .contentType(contentType))
+	        .andExpect(status().isBadRequest());
 	}
 	 
 	/**
@@ -426,11 +478,10 @@ private static final String URL_PREFIX = "/realEstate/advertisments";
 	* @throws Exception 
 	**/
 	@Test
-	@Ignore
 	@Transactional
 	@Rollback(true)
 	public void testDeleteAdvertisementNullParam() throws Exception{
-		 this.mockMvc.perform(put(URL_PREFIX + "/delete/")
+		 this.mockMvc.perform(put(URL_PREFIX + "/delete")
             .contentType(contentType))
             .andExpect(status().isBadRequest());
 	}
@@ -447,7 +498,7 @@ private static final String URL_PREFIX = "/realEstate/advertisments";
 	@Transactional
 	@Rollback(true)
 	public void testDeleteAdvertisementIndalid() throws Exception{
-		this.mockMvc.perform(put(URL_PREFIX + "/delete/" + DB_NONEXISTING_ID)
+		this.mockMvc.perform(put(URL_PREFIX + "/delete?id=" + DB_NONEXISTING_ID)
 	        .contentType(contentType))
 	        .andExpect(status().isNotFound());
 	}

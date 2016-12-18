@@ -23,6 +23,7 @@ public class AdvertismentCreateDTO {
 	private double price;
 	private int landSize;
 	private String techEquipment;
+	private String address;
 	private String heatingType;
 	private String image;
 	private int numOfBathRooms;
@@ -45,7 +46,7 @@ public class AdvertismentCreateDTO {
 	 * @param e represents RealEstate object
 	 */
 	public AdvertismentCreateDTO(Advertisment a, RealEstate e) {
-		this(a.getId(), a.getActiveUntil(), a.getPurpose(), a.getPhoneNumber(), a.getRate(), e.getId(), a.getName(),
+		this(a.getId(), a.getActiveUntil(), a.getPurpose(), e.getAddress(), a.getPhoneNumber(), a.getRate(), e.getId(), a.getName(),
 				new LocationDTO(e.getLocation()), a.getPrice(), e.getLandSize(), e.getTechEquipment(),
 				e.getHeatingType(), a.getBackgroundImage(), e.getNumOfBathRooms(),e.getNumOfBedRooms(), e.getNumOfFlors(),
 				e.getBuildYear(), e.getCategory(), e.getType());
@@ -74,7 +75,7 @@ public class AdvertismentCreateDTO {
 	 * @param category represents Category of the Real estate
 	 * @param type represents Type of the Real estate
 	 */
-	public AdvertismentCreateDTO(Long advertismentId, Date activeUntil, String purpose, String phoneNumber, double rate,
+	public AdvertismentCreateDTO(Long advertismentId, Date activeUntil, String purpose, String address, String phoneNumber, double rate,
 			Long realEstateId, String name, LocationDTO location, double price, int landSize, String techEquipment,
 			String heatingType, String image, int numOfBathRooms, int numOfBedRooms, int numOfFlors, int buildYear,
 			Category category, String type) {
@@ -83,6 +84,7 @@ public class AdvertismentCreateDTO {
 		this.activeUntil = activeUntil;
 		this.purpose = purpose;
 		this.phoneNumber = phoneNumber;
+		this.address = address;
 		this.rate = rate;
 		this.realEstateId = realEstateId;
 		this.name = name;
@@ -250,6 +252,14 @@ public class AdvertismentCreateDTO {
 
 	public void setRate(double rate) {
 		this.rate = rate;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
 }

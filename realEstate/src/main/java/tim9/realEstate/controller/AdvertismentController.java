@@ -121,9 +121,10 @@ public class AdvertismentController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		advertisment.setPublisher((User)userUtils.getLoggedUser(request));
-		
+		System.out.println("Aaaaaa");
 		RealEstate realEstate = new RealEstate();
 		realEstate.setLocation(locationService.findOne(advertismentDTO.getLocation().getId()));
+		realEstate.setAddress(advertismentDTO.getAddress());
 		realEstate.setLandSize(advertismentDTO.getLandSize());
 		realEstate.setTechEquipment(advertismentDTO.getTechEquipment());
 		realEstate.setNumOfBathRooms(advertismentDTO.getNumOfBathRooms());
@@ -241,8 +242,8 @@ public class AdvertismentController {
      * @param id
      * @return HttpStatus OK if exists else HttpStatus NOT_FOUND
      */
-    @RequestMapping(value="/delete/{id}", method=RequestMethod.PUT)
-    public ResponseEntity<Void> deteleAdvertisement(@PathVariable Long id) {
+    @RequestMapping(value="/delete", method=RequestMethod.PUT)
+    public ResponseEntity<Void> deteleAdvertisement(@RequestParam Long id) {
     	if(id == null){
     		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     	}

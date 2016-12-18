@@ -21,7 +21,7 @@ public class VerifierConstants {
 	public static final String DB_PASSWORD = "v";
     public static final String DB_PHONE_NUMBER = "+381594219";
     public static final String DB_SURNAME = "Vierifieric";
-	public static final String DB_USERNAME = "verifier";
+	public static final String DB_USERNAME = "Verifier";
 
 	public static final Long DB_ID_REFERENCED = 3L;
     public static final int DB_COUNT = 3;
