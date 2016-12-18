@@ -192,7 +192,7 @@ public class AdvertismentController {
      */
     @RequestMapping(value="/rate", method = RequestMethod.PUT)
     public ResponseEntity<AdvertismentCreateDTO> rateAdvertisment(@RequestParam Long id, @RequestParam int rate){
-    	if(id == null || rate == 0){
+    	if(id == null || rate < 1 || rate > 5){
     		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     	}
     	Advertisment advertisment = advertismentService.findOne(id);
@@ -200,9 +200,9 @@ public class AdvertismentController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
     	advertisment.setNumberOfRates(advertisment.getNumberOfRates() + 1);
-    	advertisment.setRate((advertisment.getRate()*advertisment.getNumberOfRates() + rate) / advertisment.getNumberOfRates());
+    	advertisment.setRate(round(
+    			((advertisment.getRate()*(advertisment.getNumberOfRates()-1)) + rate) / advertisment.getNumberOfRates(), 2));
     	advertismentService.save(advertisment);
-
 		return new ResponseEntity<>(new AdvertismentCreateDTO(advertisment, advertisment.getRealEstate()), HttpStatus.OK);
     }
     
@@ -248,6 +248,15 @@ public class AdvertismentController {
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+    }
+    
+    private double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
     }
 
 }

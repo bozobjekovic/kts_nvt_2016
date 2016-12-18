@@ -202,16 +202,20 @@ public class AdminController {
 		if(id == null){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+		
 		Inappropriate inappropriate = inappropriateService.findOne(id);
+		
 		if(inappropriate == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+		
 		inappropriateService.remove(id);
 		
 		String email = inappropriate.getUser().getEmail();
         String subject = "Inappropriate Advertisement Request";
         String text = "Hello \nYour request has been rejected!";
         mailUtil.sendMail(email, subject, text);
+        
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
