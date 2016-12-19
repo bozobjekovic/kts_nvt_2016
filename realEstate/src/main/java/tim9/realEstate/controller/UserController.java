@@ -148,7 +148,7 @@ public class UserController {
 	@RequestMapping(value="/rent", method = RequestMethod.PUT)
 	public ResponseEntity<Void> rentRealEstate(@RequestParam Long id, @RequestParam Date rentDateFrom, @RequestParam Date rentDateTo) {
 		
-		if (id == null) {
+		if (id == null || rentDateFrom == null || rentDateTo == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
