@@ -34,7 +34,6 @@ public class CommentServiceTest {
 	 */
 	
 	/**
-	 * <b>testFindOne()</b>
 	 * method tests if an certain element from the data base can be found
 	 **/
 	@Test
@@ -47,7 +46,6 @@ public class CommentServiceTest {
 	}
 	
 	/**
-	 * <b>testFindAll()</b>
 	 * method test if all of certain elements from the data base can be found
 	 **/
 	@Test
@@ -57,7 +55,6 @@ public class CommentServiceTest {
 	}
 	
 	/**
-	 * <b>testSave()</b>
 	 * method tests if a new element can be saved into data base
 	 **/
 	@Test
@@ -82,7 +79,6 @@ public class CommentServiceTest {
 	}
 	
 	/**
-	 * <b>testUpdate()</b>
 	 * method tests if a certain element from the data base can be updated
 	 **/
 	@Test
@@ -102,7 +98,6 @@ public class CommentServiceTest {
 	}
 	
 	/**
-	 * <b>testRemove()</b>
 	 * method tests if a certain element from the data base can be removed
 	 **/
 	@Test
@@ -124,7 +119,6 @@ public class CommentServiceTest {
 	 */
 	
 	/**
-	 * <b>testAddNullDate()</b>
 	 * method tests if an certain element can be added into data base
 	 * without field that is required,
 	 * and if can throws an exception
@@ -135,8 +129,23 @@ public class CommentServiceTest {
 	@Rollback(true)
 	public void testAddNullDate() {
 		Comment comment = new Comment();
-		
 		comment.setDescription(NEW_DESCRIPTION);
+		
+		commentService.save(comment);
+	}
+	
+	/**
+	 * method tests if an certain element can be added into data base
+	 * without field that is required,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testAddNullDecription() {
+		Comment comment = new Comment();
+		comment.setDate(NEW_DATE);
 		
 		commentService.save(comment);
 	}

@@ -34,7 +34,6 @@ public class CompanyServiceTest {
 	 */
 	
 	/**
-	 * <b>testFindOne()</b>
 	 * method tests if an certain element from the data base can be found
 	 **/
 	@Test
@@ -43,13 +42,13 @@ public class CompanyServiceTest {
 		assertThat(dbCompany).isNotNull();
 		
 		assertThat(dbCompany.getId()).isEqualTo(DB_ID);
+		assertThat(dbCompany.getAddress()).isEqualTo(DB_ADDRESS);
 		assertThat(dbCompany.getName()).isEqualTo(DB_NAME);
 		assertThat(dbCompany.getPhoneNumber()).isEqualTo(DB_PHONE_NUMBER);
 		assertThat(dbCompany.getSite()).isEqualTo(DB_SITE);
 	}
 	
 	/**
-	 * <b>testFindAll()</b>
 	 * method test if all of certain elements from the data base can be found
 	 **/
 	@Test
@@ -59,7 +58,6 @@ public class CompanyServiceTest {
 	}
 	
 	/**
-	 * <b>testSave()</b>
 	 * method tests if a new element can be saved into data base
 	 **/
 	@Test
@@ -67,6 +65,7 @@ public class CompanyServiceTest {
 	@Rollback(true)
 	public void testSave() {
 		Company company = new Company();
+		company.setAddress(NEW_ADDRESS);
 		company.setName(NEW_NAME);
 		company.setPhoneNumber(NEW_PHONE_NUMBER);
 		company.setSite(NEW_SITE);
@@ -80,13 +79,13 @@ public class CompanyServiceTest {
 		assertThat(companies).hasSize(dbSizeBeforeAdd + 1);
 		
 		dbCompany = companies.get(companies.size() - 1);
+		assertThat(dbCompany.getAddress()).isEqualTo(NEW_ADDRESS);
 		assertThat(dbCompany.getName()).isEqualTo(NEW_NAME);
 		assertThat(dbCompany.getPhoneNumber()).isEqualTo(NEW_PHONE_NUMBER);
 		assertThat(dbCompany.getSite()).isEqualTo(NEW_SITE);
 	}
 	
 	/**
-	 * <b>testUpdate()</b>
 	 * method tests if a certain element from the data base can be updated
 	 **/
 	@Test
@@ -96,6 +95,7 @@ public class CompanyServiceTest {
 		Company dbCompany = companyService.findOne(DB_ID);
 		
 		dbCompany.setName(NEW_NAME);
+		dbCompany.setAddress(NEW_ADDRESS);
 		dbCompany.setPhoneNumber(NEW_PHONE_NUMBER);
 		dbCompany.setSite(NEW_SITE);
 		
@@ -105,12 +105,12 @@ public class CompanyServiceTest {
 		dbCompany = companyService.findOne(DB_ID);
 
 		assertThat(dbCompany.getName()).isEqualTo(NEW_NAME);
+		assertThat(dbCompany.getAddress()).isEqualTo(NEW_ADDRESS);
 		assertThat(dbCompany.getPhoneNumber()).isEqualTo(NEW_PHONE_NUMBER);
 		assertThat(dbCompany.getSite()).isEqualTo(NEW_SITE);
 	}
 	
 	/**
-	 * <b>testRemove()</b>
 	 * method tests if a certain element from the data base can be removed
 	 **/
 	@Test
@@ -132,7 +132,6 @@ public class CompanyServiceTest {
 	 */
 	
 	/**
-	 * <b>testNegativeRemove()</b>
 	 * method tests if an certain element from data base,
 	 * that should not be removed, can be removed,
 	 * and if can throws an exception
@@ -143,17 +142,16 @@ public class CompanyServiceTest {
 	@Rollback(true)
 	public void testNegativeRemove() {
 		int dbSizeBeforeRemove = companyService.findAll().size();
-		companyService.remove(DB_ID);
+		companyService.remove(DB_ID_USED);
 		
 		List<Company> companies = companyService.findAll();
 		assertThat(companies).hasSize(dbSizeBeforeRemove - 1);
 		
-		Company dbCompany = companyService.findOne(DB_ID);
+		Company dbCompany = companyService.findOne(DB_ID_USED);
 		assertThat(dbCompany).isNull();
 	}
 	
 	/**
-	 * <b>testAddNullName()</b>
 	 * method tests if an certain element can be added into data base
 	 * without field that is required,
 	 * and if can throws an exception
@@ -164,7 +162,7 @@ public class CompanyServiceTest {
 	@Rollback(true)
 	public void testAddNullName() {
 		Company company = new Company();
-		
+		company.setAddress(NEW_ADDRESS);
 		company.setPhoneNumber(NEW_PHONE_NUMBER);
 		company.setSite(NEW_SITE);
 		
@@ -172,7 +170,6 @@ public class CompanyServiceTest {
 	}
 	
 	/**
-	 * <b>testAddUniqueName()</b>
 	 * method tests if an certain element, that must be unique,
 	 * can be added into data base with value that already exist,
 	 * and if can throws an exception
@@ -183,8 +180,8 @@ public class CompanyServiceTest {
 	@Rollback(true)
 	public void testAddUniqueName() {
 		Company company = new Company();
-		
 		company.setName(DB_NAME);
+		company.setAddress(NEW_ADDRESS);
 		company.setPhoneNumber(NEW_PHONE_NUMBER);
 		company.setSite(NEW_SITE);
 		
@@ -192,7 +189,42 @@ public class CompanyServiceTest {
 	}
 	
 	/**
-	 * <b>testAddUniquePhoneNumber()</b>
+	 * method tests if an certain element can be added into data base
+	 * without field that is required,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testAddNullAddress() {
+		Company company = new Company();
+		company.setName(NEW_NAME);
+		company.setPhoneNumber(NEW_PHONE_NUMBER);
+		company.setSite(NEW_SITE);
+		
+		companyService.save(company);
+	}
+	
+	/**
+	 * method tests if an certain element can be added into data base
+	 * without field that is required,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testAddNullPhoneNumber() {
+		Company company = new Company();
+		company.setName(NEW_NAME);
+		company.setAddress(NEW_ADDRESS);
+		company.setSite(NEW_SITE);
+		
+		companyService.save(company);
+	}
+	
+	/**
 	 * method tests if an certain element, that must be unique,
 	 * can be added into data base with value that already exist,
 	 * and if can throws an exception
@@ -203,8 +235,8 @@ public class CompanyServiceTest {
 	@Rollback(true)
 	public void testAddUniquePhoneNumber() {
 		Company company = new Company();
-		
 		company.setName(NEW_NAME);
+		company.setAddress(NEW_ADDRESS);
 		company.setPhoneNumber(DB_PHONE_NUMBER);
 		company.setSite(NEW_SITE);
 		

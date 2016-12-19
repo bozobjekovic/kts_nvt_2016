@@ -1,30 +1,9 @@
 package tim9.realEstate.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static tim9.realEstate.constants.RealEstateConstants.DB_BUILD_YEAR;
-import static tim9.realEstate.constants.RealEstateConstants.DB_CATEGORY;
-import static tim9.realEstate.constants.RealEstateConstants.DB_COUNT;
-import static tim9.realEstate.constants.RealEstateConstants.DB_HEATING_TYPE;
-import static tim9.realEstate.constants.RealEstateConstants.DB_ID;
-import static tim9.realEstate.constants.RealEstateConstants.DB_ID_REFERENCED;
-import static tim9.realEstate.constants.RealEstateConstants.DB_LAND_SIZE;
-import static tim9.realEstate.constants.RealEstateConstants.DB_NUM_OF_BATH_ROOMS;
-import static tim9.realEstate.constants.RealEstateConstants.DB_NUM_OF_BED_ROOMS;
-import static tim9.realEstate.constants.RealEstateConstants.DB_NUM_OF_FLORS;
-import static tim9.realEstate.constants.RealEstateConstants.DB_TEACH_EQUIPMENT;
-import static tim9.realEstate.constants.RealEstateConstants.DB_TYPE;
-import static tim9.realEstate.constants.RealEstateConstants.NEW_BUILD_YEAR;
-import static tim9.realEstate.constants.RealEstateConstants.NEW_CATEGORY;
-import static tim9.realEstate.constants.RealEstateConstants.NEW_HEATING_TYPE;
-import static tim9.realEstate.constants.RealEstateConstants.NEW_LAND_SIZE;
-import static tim9.realEstate.constants.RealEstateConstants.NEW_NUM_OF_BATH_ROOMS;
-import static tim9.realEstate.constants.RealEstateConstants.NEW_NUM_OF_BED_ROOMS;
-import static tim9.realEstate.constants.RealEstateConstants.NEW_NUM_OF_FLORS;
-import static tim9.realEstate.constants.RealEstateConstants.NEW_TEACH_EQUIPMENT;
-import static tim9.realEstate.constants.RealEstateConstants.NEW_TYPE;
+import static tim9.realEstate.constants.RealEstateConstants.*;
 
 import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.junit.Test;
@@ -56,6 +35,7 @@ public class RealEstateServiceTest {
 		assertThat(dbRealEstate).isNotNull();
 		
 		assertThat(dbRealEstate.getId()).isEqualTo(DB_ID);
+		assertThat(dbRealEstate.getAddress()).isEqualTo(DB_ADDRESS);
 		assertThat(dbRealEstate.getLandSize()).isEqualTo(DB_LAND_SIZE);
 		assertThat(dbRealEstate.getTechEquipment()).isEqualTo(DB_TEACH_EQUIPMENT);
 		assertThat(dbRealEstate.getHeatingType()).isEqualTo(DB_HEATING_TYPE);
@@ -70,7 +50,7 @@ public class RealEstateServiceTest {
 	@Test
 	public void testFindAll() {	
 		List<RealEstate> realEstates = realEstateService.findAll();
-		assertThat(realEstates).hasSize(DB_COUNT);
+		assertThat(realEstates).hasSize(DB_COUNT_REAL);
 	}
 
 	@Test
@@ -78,6 +58,7 @@ public class RealEstateServiceTest {
 	@Rollback(true)
 	public void testSave() {
 		RealEstate realEstate = new RealEstate();
+		realEstate.setAddress(NEW_ADDRESS);
 		realEstate.setLandSize(NEW_LAND_SIZE);
 		realEstate.setTechEquipment(NEW_TEACH_EQUIPMENT);
 		realEstate.setHeatingType(NEW_HEATING_TYPE);
@@ -97,6 +78,7 @@ public class RealEstateServiceTest {
 		assertThat(realEstates).hasSize(dbSizeBeforeAdd + 1);
 		
 		dbRealEstate = realEstates.get(realEstates.size() - 1);
+		assertThat(dbRealEstate.getAddress()).isEqualTo(NEW_ADDRESS);
 		assertThat(dbRealEstate.getLandSize()).isEqualTo(NEW_LAND_SIZE);
 		assertThat(dbRealEstate.getTechEquipment()).isEqualTo(NEW_TEACH_EQUIPMENT);
 		assertThat(dbRealEstate.getHeatingType()).isEqualTo(NEW_HEATING_TYPE);
@@ -114,6 +96,7 @@ public class RealEstateServiceTest {
 	public void testUpdate() {
 		RealEstate dbRealEstate = realEstateService.findOne(DB_ID);
 		
+		dbRealEstate.setAddress(NEW_ADDRESS);
 		dbRealEstate.setLandSize(NEW_LAND_SIZE);
 		dbRealEstate.setTechEquipment(NEW_TEACH_EQUIPMENT);
 		dbRealEstate.setHeatingType(NEW_HEATING_TYPE);
@@ -129,6 +112,7 @@ public class RealEstateServiceTest {
 		
 		dbRealEstate = realEstateService.findOne(DB_ID);
 
+		assertThat(dbRealEstate.getAddress()).isEqualTo(NEW_ADDRESS);
 		assertThat(dbRealEstate.getLandSize()).isEqualTo(NEW_LAND_SIZE);
 		assertThat(dbRealEstate.getTechEquipment()).isEqualTo(NEW_TEACH_EQUIPMENT);
 		assertThat(dbRealEstate.getHeatingType()).isEqualTo(NEW_HEATING_TYPE);
@@ -153,5 +137,54 @@ public class RealEstateServiceTest {
 		RealEstate dbRealEstate = realEstateService.findOne(DB_ID_REFERENCED);
 		assertThat(dbRealEstate).isNull();
 	}
-
+	
+	/**
+	 * method tests if an certain element can be added into data base
+	 * without field that is required,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testAddNullAddress() {
+		RealEstate re = new RealEstate();
+		
+		re.setLandSize(NEW_LAND_SIZE);
+		re.setTechEquipment(NEW_TEACH_EQUIPMENT);
+		re.setHeatingType(NEW_HEATING_TYPE);
+		re.setNumOfBathRooms(NEW_NUM_OF_BATH_ROOMS);
+		re.setNumOfBedRooms(NEW_NUM_OF_BED_ROOMS);
+		re.setNumOfFlors(NEW_NUM_OF_FLORS);
+		re.setBuildYear(NEW_BUILD_YEAR);
+		re.setCategory(NEW_CATEGORY);
+		re.setType(NEW_TYPE);
+		
+		realEstateService.save(re);
+	}
+	
+	/**
+	 * method tests if an certain element can be added into data base
+	 * without field that is required,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
+	@Test(expected = DataIntegrityViolationException.class)
+	@Transactional
+	@Rollback(true)
+	public void testAddNullType() {
+		RealEstate re = new RealEstate();
+		
+		re.setAddress(NEW_ADDRESS);
+		re.setLandSize(NEW_LAND_SIZE);
+		re.setTechEquipment(NEW_TEACH_EQUIPMENT);
+		re.setHeatingType(NEW_HEATING_TYPE);
+		re.setNumOfBathRooms(NEW_NUM_OF_BATH_ROOMS);
+		re.setNumOfBedRooms(NEW_NUM_OF_BED_ROOMS);
+		re.setNumOfFlors(NEW_NUM_OF_FLORS);
+		re.setBuildYear(NEW_BUILD_YEAR);
+		re.setCategory(NEW_CATEGORY);
+		
+		realEstateService.save(re);
+	}
 }

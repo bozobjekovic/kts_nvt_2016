@@ -34,7 +34,6 @@ public class LocationServiceTest {
 	 */
 	
 	/**
-	 * <b>testFindOne()</b>
 	 * method tests if an certain element from the data base can be found
 	 **/
 	@Test
@@ -49,7 +48,6 @@ public class LocationServiceTest {
 	}
 	
 	/**
-	 * <b>testFindAll()</b>
 	 * method test if all of certain elements from the data base can be found
 	 **/
 	@Test
@@ -59,7 +57,6 @@ public class LocationServiceTest {
 	}
 	
 	/**
-	 * <b>testSave()</b>
 	 * method tests if a new element can be saved into data base
 	 **/
 	@Test
@@ -86,7 +83,6 @@ public class LocationServiceTest {
 	}
 	
 	/**
-	 * <b>testUpdate()</b>
 	 * method tests if a certain element from the data base can be updated
 	 **/
 	@Test
@@ -110,7 +106,6 @@ public class LocationServiceTest {
 	}
 	
 	/**
-	 * <b>testRemove()</b>
 	 * method tests if a certain element from the data base can be removed
 	 **/
 	@Test
@@ -118,12 +113,12 @@ public class LocationServiceTest {
 	@Rollback(true)
 	public void testRemove() {
 		int dbSizeBeforeRemove = locationService.findAll().size();
-		locationService.remove(DB_ID_REFERENCED);
+		locationService.remove(5L);
 		
 		List<Location> locations = locationService.findAll();
 		assertThat(locations).hasSize(dbSizeBeforeRemove - 1);
 		
-		Location dbLocation = locationService.findOne(DB_ID_REFERENCED);
+		Location dbLocation = locationService.findOne(5L);
 		assertThat(dbLocation).isNull();
 	}
 	
@@ -132,7 +127,6 @@ public class LocationServiceTest {
 	 */
 	
 	/**
-	 * <b>testNegativeRemove()</b>
 	 * method tests if an certain element from data base,
 	 * that should not be removed, can be removed,
 	 * and if can throws an exception
@@ -151,29 +145,8 @@ public class LocationServiceTest {
 		Location dbLocation = locationService.findOne(DB_ID);
 		assertThat(dbLocation).isNull();
 	}
-
-	/**
-	 * <b>testAddNullAddress()</b>
-	 * method tests if an certain element can be added into data base
-	 * without field that is required,
-	 * and if can throws an exception
-	 * @exception DataIntegrityViolationException
-	 **/
-	@Test(expected = DataIntegrityViolationException.class)
-	@Transactional
-	@Rollback(true)
-	public void testAddNullAddress() {
-		Location location = new Location();
-		
-		location.setCity(NEW_CITY);
-		location.setPartOfTheCity(NEW_PART_OF_THE_CITY);
-		location.setZipCode(NEW_ZIP_CODE);
-		
-		locationService.save(location);
-	}
 	
 	/**
-	 * <b>testAddNullCity()</b>
 	 * method tests if an certain element can be added into data base
 	 * without field that is required,
 	 * and if can throws an exception
@@ -192,26 +165,20 @@ public class LocationServiceTest {
 	}
 	
 	/**
-	 * <b>testAddNullZipCode()</b>
 	 * method tests if an certain element can be added into data base
 	 * without field that is required,
 	 * and if can throws an exception
 	 * @exception DataIntegrityViolationException
 	 **/
-	
-	/* Something wrong with adding null zip code
 	@Test(expected = DataIntegrityViolationException.class)
 	@Transactional
 	@Rollback(true)
-	public void testAddNullZipCode() {
+	public void testAddNullPartOfTheCity() {
 		Location location = new Location();
-
-		location.setAddress(NEW_ADDRESS);
+		
 		location.setCity(NEW_CITY);
-		location.setPartOfTheCity(NEW_PART_OF_THE_CITY);
+		location.setZipCode(NEW_ZIP_CODE);
 		
 		locationService.save(location);
 	}
-	
-	*/
 }

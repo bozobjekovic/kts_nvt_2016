@@ -60,7 +60,7 @@ public class LocationControllerTest {
     	mockMvc.perform(get(URL_PREFIX + "/all"))
 	        .andExpect(status().isOk())
 	        .andExpect(content().contentType(contentType))
-	        .andExpect(jsonPath("$", hasSize(DB_LOC_COUNT)))
+	        .andExpect(jsonPath("$", hasSize(DB_COUNT)))
 	        .andExpect(jsonPath("$.[*].id").value(hasItem(LocationConstants.DB_ID.intValue())))
             .andExpect(jsonPath("$.[*].city").value(hasItem(DB_CITY)))
             .andExpect(jsonPath("$.[*].zipCode").value(hasItem(DB_ZIP_CODE)))

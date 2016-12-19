@@ -24,9 +24,11 @@ public class VerifierConstants {
 	public static final String DB_USERNAME = "Verifier";
 
 	public static final Long DB_ID_REFERENCED = 3L;
-    public static final int DB_COUNT = 3;
+    public static final int DB_COUNT = 2;
  
     public static final Long DB_ID_ACCEPTED_ADVERTISEMENT = 2L;
     public static final Long DB_ID_ADVERTISEMENT = 4L;
     public static final Long DB_ID_WRONG_ADVERTISEMENT = 7L;
+    
+	public static final String DB_PASSWORD_REAL = "$2a$04$TjNk.I2AJ/QGBZKyOO6uruAx9MRoHsYKTJHcTd35rmmULDoM/XiXy";
 }

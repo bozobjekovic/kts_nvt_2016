@@ -34,7 +34,6 @@ public class InappropriateServiceTest {
 	 */
 	
 	/**
-	 * <b>testFindOne()</b>
 	 * method tests if an certain element from the data base can be found
 	 **/
 	@Test
@@ -44,21 +43,19 @@ public class InappropriateServiceTest {
 		
 		assertThat(dbInappropriate.getId()).isEqualTo(DB_ID);
 		assertThat(dbInappropriate.getDescription()).isEqualTo(DB_DESCRIPTION);
-		assertThat(dbInappropriate.getTitle()).isEqualTo(DB_TITLE);
+		assertThat(dbInappropriate.getTitle()).isEqualTo(DB_TITLE_REAL);
 	}
 	
 	/**
-	 * <b>testFindAll()</b>
 	 * method test if all of certain elements from the data base can be found
 	 **/
 	@Test
 	public void testFindAll() {
 		List<Inappropriate> inappropriates = inappropriateService.findAll();
-		assertThat(inappropriates).hasSize(DB_COUNT);
+		assertThat(inappropriates).hasSize(DB_COUNT_REAL);
 	}
 	
 	/**
-	 * <b>testSave()</b>
 	 * method tests if a new element can be saved into data base
 	 **/
 	@Test
@@ -83,7 +80,6 @@ public class InappropriateServiceTest {
 	}
 	
 	/**
-	 * <b>testUpdate()</b>
 	 * method tests if a certain element from the data base can be updated
 	 **/
 	@Test
@@ -105,7 +101,6 @@ public class InappropriateServiceTest {
 	}
 	
 	/**
-	 * <b>testRemove()</b>
 	 * method tests if a certain element from the data base can be removed
 	 **/
 	@Test
@@ -127,7 +122,6 @@ public class InappropriateServiceTest {
 	 */
 	
 	/**
-	 * <b>testAddNullDescription()</b>
 	 * method tests if an certain element can be added into data base
 	 * without field that is required,
 	 * and if can throws an exception

@@ -34,7 +34,6 @@ public class AuthorityServiceTest {
 	 */
 	
 	/**
-	 * <b>testFindOne()</b>
 	 * method tests if an certain element from the data base can be found
 	 **/
 	@Test
@@ -47,7 +46,6 @@ public class AuthorityServiceTest {
 	}
 	
 	/**
-	 * <b>testFindAll()</b>
 	 * method test if all of certain elements from the data base can be found
 	 **/
 	@Test
@@ -57,7 +55,6 @@ public class AuthorityServiceTest {
 	}
 	
 	/**
-	 * <b>testSave()</b>
 	 * method tests if a new element can be saved into data base
 	 **/
 	@Test
@@ -80,7 +77,6 @@ public class AuthorityServiceTest {
 	}
 	
 	/**
-	 * <b>testUpdate()</b>
 	 * method tests if a certain element from the data base can be updated
 	 **/
 	@Test
@@ -100,29 +96,10 @@ public class AuthorityServiceTest {
 	}
 	
 	/**
-	 * <b>testRemove()</b>
-	 * method tests if a certain element from the data base can be removed
-	 **/
-/*	@Test
-	@Transactional
-	@Rollback(true)
-	public void testRemove() {
-		int dbSizeBeforeRemove = authorityService.findAll().size();
-		authorityService.remove(DB_ID_REFERENCED);
-		
-		List<Authority> authorities = authorityService.findAll();
-		assertThat(authorities).hasSize(dbSizeBeforeRemove - 1);
-		
-		Authority dbAuthority = authorityService.findOne(DB_ID_REFERENCED);
-		assertThat(dbAuthority).isNull();
-	}*/
-	
-	/**
 	 * <h1> Negative tests </h1>
 	 */
 	
 	/**
-	 * <b>testNegativeRemove()</b>
 	 * method tests if an certain element from data base,
 	 * that should not be removed, can be removed,
 	 * and if can throws an exception
@@ -143,7 +120,6 @@ public class AuthorityServiceTest {
 	}
 	
 	/**
-	 * <b>testAddNullName()</b>
 	 * method tests if an certain element can be added into data base
 	 * without field that is required,
 	 * and if can throws an exception

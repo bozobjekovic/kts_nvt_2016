@@ -1,36 +1,7 @@
 package tim9.realEstate.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static tim9.realEstate.constants.UserConstants.DB_ADDRESS;
-import static tim9.realEstate.constants.UserConstants.DB_BANK_ACCOUNT;
-import static tim9.realEstate.constants.UserConstants.DB_CITY;
-import static tim9.realEstate.constants.UserConstants.DB_COUNT;
-import static tim9.realEstate.constants.UserConstants.DB_EMAIL;
-import static tim9.realEstate.constants.UserConstants.DB_ID;
 import static tim9.realEstate.constants.UserConstants.*;
-import static tim9.realEstate.constants.UserConstants.DB_IS_APPROVED;
-import static tim9.realEstate.constants.UserConstants.DB_IS_CLERK;
-import static tim9.realEstate.constants.UserConstants.DB_NAME;
-import static tim9.realEstate.constants.UserConstants.DB_NUM_OF_RATES;
-import static tim9.realEstate.constants.UserConstants.DB_PASSWORD;
-import static tim9.realEstate.constants.UserConstants.DB_PHONE_NUMBER;
-import static tim9.realEstate.constants.UserConstants.DB_RATE;
-import static tim9.realEstate.constants.UserConstants.DB_SURNAME;
-import static tim9.realEstate.constants.UserConstants.DB_USERNAME;
-import static tim9.realEstate.constants.UserConstants.NEW_ADDRESS;
-import static tim9.realEstate.constants.UserConstants.NEW_BANK_ACCOUNT;
-import static tim9.realEstate.constants.UserConstants.NEW_CITY;
-import static tim9.realEstate.constants.UserConstants.NEW_EMAIL;
-import static tim9.realEstate.constants.UserConstants.NEW_IMAGE;
-import static tim9.realEstate.constants.UserConstants.NEW_IS_APPROVED;
-import static tim9.realEstate.constants.UserConstants.NEW_IS_CLERK;
-import static tim9.realEstate.constants.UserConstants.NEW_NAME;
-import static tim9.realEstate.constants.UserConstants.NEW_NUM_OF_RATES;
-import static tim9.realEstate.constants.UserConstants.NEW_PASSWORD;
-import static tim9.realEstate.constants.UserConstants.NEW_PHONE_NUMBER;
-import static tim9.realEstate.constants.UserConstants.NEW_RATE;
-import static tim9.realEstate.constants.UserConstants.NEW_SURNAME;
-import static tim9.realEstate.constants.UserConstants.NEW_USERNAME;
 
 import java.util.List;
 
@@ -63,7 +34,6 @@ public class UserServiceTest {
 	 */
 	
 	/**
-	 * <b>testFindOne()</b>
 	 * method tests if an certain element from the data base can be found
 	 **/
 	@Test 
@@ -77,7 +47,7 @@ public class UserServiceTest {
 		assertThat(dbUser.getEmail()).isEqualTo(DB_EMAIL);
 		assertThat(dbUser.getImage()).isEqualTo(DB_IMAGE);
 		assertThat(dbUser.getName()).isEqualTo(DB_NAME);
-		assertThat(dbUser.getPassword()).isEqualTo(DB_PASSWORD);
+		assertThat(dbUser.getPassword()).isEqualTo(DB_PASSWORD_REAL);
         assertThat(dbUser.getPhoneNumber()).isEqualTo(DB_PHONE_NUMBER);
         assertThat(dbUser.getSurname()).isEqualTo(DB_SURNAME);
         assertThat(dbUser.getUsername()).isEqualTo(DB_USERNAME);
@@ -89,7 +59,6 @@ public class UserServiceTest {
 	}
 	
 	/**
-	 * <b>testFindAll()</b>
 	 * method test if all of certain elements from the data base can be found
 	 **/
 	@Test
@@ -99,7 +68,6 @@ public class UserServiceTest {
 	}
 	
 	/**
-	 * <b>testSave()</b>
 	 * method tests if a new element can be saved into data base
 	 **/
 	@Test
@@ -148,7 +116,6 @@ public class UserServiceTest {
 	}
 	
 	/**
-	 * <b>testUpdate()</b>
 	 * method tests if a certain element from the data base can be updated
 	 **/
 	@Test
@@ -194,7 +161,6 @@ public class UserServiceTest {
 	}
 	
 	/**
-	 * <b>testRemove()</b>
 	 * method tests if a certain element from the data base can be removed
 	 **/
 	@Test
@@ -202,12 +168,12 @@ public class UserServiceTest {
 	@Rollback(true)
 	public void testRemove() {
 		int dbSizeBeforeRemove = userService.findAll().size();
-		userService.remove(DB_DELETE);
+		userService.remove(DB_ID_REAL);
 		
 		List<User> users = userService.findAll();
 		assertThat(users).hasSize(dbSizeBeforeRemove - 1);
 		
-		User dbUser = userService.findOne(DB_DELETE);
+		User dbUser = userService.findOne(DB_ID_REAL);
 		assertThat(dbUser).isNull();
 	}
 	
@@ -216,7 +182,6 @@ public class UserServiceTest {
 	 */
 	
 	/**
-	 * <b>testNegativeRemove()</b>
 	 * method tests if an certain element from data base,
 	 * that should not be removed, can be removed,
 	 * and if can throws an exception
@@ -237,7 +202,6 @@ public class UserServiceTest {
 	}
 	
 	/**
-	 * <b>testAddNullEmail()</b>
 	 * method tests if an certain element can be added into data base
 	 * without field that is required,
 	 * and if can throws an exception
@@ -267,7 +231,6 @@ public class UserServiceTest {
 	}
 	
 	/**
-	 * <b>testAddNullUsername()</b>
 	 * method tests if an certain element can be added into data base
 	 * without field that is required,
 	 * and if can throws an exception
@@ -297,7 +260,6 @@ public class UserServiceTest {
 	}
 	
 	/**
-	 * <b>testAddNullPassword()</b>
 	 * method tests if an certain element can be added into data base
 	 * without field that is required,
 	 * and if can throws an exception
@@ -327,7 +289,6 @@ public class UserServiceTest {
 	}
 	
 	/**
-	 * <b>testAddNullName()</b>
 	 * method tests if an certain element can be added into data base
 	 * without field that is required,
 	 * and if can throws an exception
@@ -358,7 +319,6 @@ public class UserServiceTest {
 	}
 	
 	/**
-	 * <b>testAddNullSurname()</b>
 	 * method tests if an certain element can be added into data base
 	 * without field that is required,
 	 * and if can throws an exception
@@ -388,7 +348,6 @@ public class UserServiceTest {
 	}
 	
 	/**
-	 * <b>testAddUniqueEmail()</b>
 	 * method tests if an certain element can be added into data base
 	 * without field that is required,
 	 * and if can throws an exception
@@ -419,7 +378,6 @@ public class UserServiceTest {
 	}
 	
 	/**
-	 * <b>testAddUniqueUsername()</b>
 	 * method tests if an certain element can be added into data base
 	 * without field that is required,
 	 * and if can throws an exception
@@ -450,7 +408,6 @@ public class UserServiceTest {
 	}
 	
 	/**
-	 * <b>testAddUniqueBankAccount()</b>
 	 * method tests if an certain element can be added into data base
 	 * without field that is required,
 	 * and if can throws an exception

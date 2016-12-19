@@ -49,6 +49,7 @@ INSERT INTO Location VALUES (1, 'Novi Sad', 'Liman', 21000);
 INSERT INTO Location VALUES (2, 'Beograd', 'Kosutnjak', 11000);
 INSERT INTO Location VALUES (3, 'Novi Sad', 'Bulevar', 21000);
 INSERT INTO Location VALUES (4, 'Nis', 'Deo Nisa', 23560);
+INSERT INTO Location VALUES (5, 'NS', 'Lim', 21000);
 
 INSERT INTO Admin VALUES (1, 'Balzakova', 'Novi Sad', 'admin@gmail.com', 'image', 'Admin', 'a', '+381412941', 'Adminovski', 'admin', 1);
 

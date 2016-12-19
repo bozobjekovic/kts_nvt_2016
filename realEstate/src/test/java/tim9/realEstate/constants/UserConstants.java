@@ -39,5 +39,7 @@ public class UserConstants {
     public static final int DB_COUNT = 5;
     
     public static final Long DB_ID_COMPANY = 1L;
+	public static final String DB_PASSWORD_REAL = "$2a$08$qOdUxqqtQG0v6ZetGVFDBO0cET/mK5tQZ8cOrkivyPqMP3WkJCJYq";
+    public static final Long DB_ID_REAL = 5L;
 
 }
