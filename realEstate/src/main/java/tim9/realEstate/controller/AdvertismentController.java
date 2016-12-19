@@ -121,7 +121,6 @@ public class AdvertismentController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		advertisment.setPublisher((User)userUtils.getLoggedUser(request));
-		System.out.println("Aaaaaa");
 		RealEstate realEstate = new RealEstate();
 		realEstate.setLocation(locationService.findOne(advertismentDTO.getLocation().getId()));
 		realEstate.setAddress(advertismentDTO.getAddress());

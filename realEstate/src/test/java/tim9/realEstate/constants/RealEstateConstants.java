@@ -33,7 +33,10 @@ public class RealEstateConstants { // LOCATION REFERENCE MISS !!!!!!!!!!!!!!!!
 	public static final Category DB_CATEGORY = Category.Office;
 	public static final String DB_TYPE = "Kancelarija";
 	
-	public static final Long DB_ID_REFERENCED = 4L; 
+	public static final Long DB_ID_REFERENCED = 4L;
+	public static final Long DB_ID_ACTIVE = 1L;
+	public static final Long DB_ID_SOLD = 3L;
+	public static final Long DB_ID_TO_RENT= 2L;
 	
 	public static final int DB_COUNT = 4;
 	public static final int DB_COUNT_REAL = 5;

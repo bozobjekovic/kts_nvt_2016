@@ -41,5 +41,10 @@ public class UserConstants {
     public static final Long DB_ID_COMPANY = 1L;
 	public static final String DB_PASSWORD_REAL = "$2a$08$qOdUxqqtQG0v6ZetGVFDBO0cET/mK5tQZ8cOrkivyPqMP3WkJCJYq";
     public static final Long DB_ID_REAL = 5L;
+    
+    public static final String DATE_RENT_TO = "2018/02/02";
+    public static final String DATE_RENT_FROM = "2017/06/23";
+    public static final String DATE_RENT_FROM_INVALID = "2017/05/20";
+    public static final String DATE_RENT_FROM_INV = "2015/05/20";
 
 }
