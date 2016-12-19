@@ -46,19 +46,32 @@ public class AdvertismentServiceTest {
 	@Autowired
 	AdvertismentService advertismentService;
 	
+	/**
+	 * <h1> Positive tests </h1>
+	 */
+	
+	/**
+	 * method test if all of certain elements from the data base can be found
+	 **/
 	@Test
 	public void testFindAll() {
 		List<Advertisment> advertisements = advertismentService.findAll();
 		assertThat(advertisements).hasSize(DB_COUNT);
 	}
-	
+
+	/**
+	 * method test if all of pageable elements from the data base can be found
+	 **/
 	@Test
 	public void testFindAllPageable() {
 		PageRequest pageRequest = new PageRequest(0, PAGE_SIZE);
 		Page<Advertisment> advertisements = advertismentService.findAll(pageRequest);
 		assertThat(advertisements).hasSize(PAGE_SIZE); 
 	}
-	
+
+	/**
+	 * method tests if an certain element from the data base can be found
+	 **/
 	@Test 
 	public void testFindOne() {
 		Advertisment dbAdvertisment = advertismentService.findOne(DB_ID);
@@ -70,6 +83,9 @@ public class AdvertismentServiceTest {
         assertThat(dbAdvertisment.getRate()).isEqualTo(DB_RATE);  
 	}
 	
+	/**
+	 * method tests if a certain element can be inserted into data base
+	 **/
 	@Test
 	@Ignore
     @Transactional
@@ -103,6 +119,9 @@ public class AdvertismentServiceTest {
         assertThat(dbAdvertisment.getPhoneNumber()).isEqualTo(NEW_PHONE_NUMBER);  
 	}
 	
+	/**
+	 * method tests if a certain element from the data base can be updated
+	 **/
 	@Test
     @Transactional
     @Rollback(true)
@@ -122,6 +141,9 @@ public class AdvertismentServiceTest {
         assertThat(dbAdvertisment.getRate()).isEqualTo(NEW_RATE);
 	}
 	
+	/**
+	 * method tests if a certain element from the data base can be removed
+	 **/
 	@SuppressWarnings("unused")
 	@Test
 	@Transactional
@@ -137,6 +159,9 @@ public class AdvertismentServiceTest {
 		assertThat(dbAdvertisment).isNull();
 	}
 	
+	/**
+	 * method tests if a certain element from the data base can be found by purpose
+	 **/
 	@Test
 	public void testFindByPurpose() {
 		PageRequest pageRequest = new PageRequest(0, PAGE_SIZE);
@@ -149,6 +174,9 @@ public class AdvertismentServiceTest {
 		assertThat(advertList.get(advertList.size() - 1).getPurpose()).isEqualTo(DB_PURPOSE);
 	}
 	
+	/**
+	 * method tests if a certain element from the data base can be found by category
+	 **/
 	@Test
 	public void testFindByRealEstate_Category() {
 		List<Advertisment> advertisments = advertismentService.findByRealEstate_Category(DB_CATEGORY);
@@ -156,8 +184,11 @@ public class AdvertismentServiceTest {
 		for (int i = 0; i < advertisments.size(); i++) {
 			assertThat(advertisments.get(i).getRealEstate().getCategory()).isEqualTo(DB_CATEGORY);
 		}
-	}	
+	}
 	
+	/**
+	 * method tests if a certain element from the data base can be found by type
+	 **/
 	@Test
 	public void testFindByRealEstate_Type() {
 		List<Advertisment> advertisments = advertismentService.findByRealEstate_Type(DB_TYPE);
@@ -167,6 +198,9 @@ public class AdvertismentServiceTest {
 		}
 	}
 	
+	/**
+	 * method tests if a certain element from the data base can be ordered by rate
+	 **/
 	@Test
 	public void testOrderByRate() {
 		PageRequest pageRequest = new PageRequest(0, 3);
@@ -179,11 +213,17 @@ public class AdvertismentServiceTest {
 		assertThat(advertList.get(0).getRate()).isGreaterThan(advertList.get(2).getRate());
 		assertThat(advertList.get(1).getRate()).isGreaterThan(advertList.get(2).getRate());
 	}
-	
-	/*
-	 * Negative tests
+
+	/**
+	 * <h1> Negative tests </h1>
 	 */
 	
+	/**
+	 * method tests if an certain element, that must be unique,
+	 * can be added into data base with value that already exist,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
 	@Test(expected = DataIntegrityViolationException.class)
     @Transactional
     @Rollback(true)
@@ -199,7 +239,13 @@ public class AdvertismentServiceTest {
 		
 		advertismentService.save(advertisment);
 	}
-	
+
+	/**
+	 * method tests if an certain element can be added into data base
+	 * without field that is required,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
 	@Test(expected = DataIntegrityViolationException.class)
 	@Transactional
 	@Rollback(true)
@@ -214,7 +260,13 @@ public class AdvertismentServiceTest {
 		
 		advertismentService.save(advertisment);
 	}
-	
+
+	/**
+	 * method tests if an certain element can be added into data base
+	 * without field that is required,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
 	@Test(expected = DataIntegrityViolationException.class)
 	@Transactional
 	@Rollback(true)
@@ -229,7 +281,13 @@ public class AdvertismentServiceTest {
 		
 		advertismentService.save(advertisment);
 	}
-	
+
+	/**
+	 * method tests if an certain element from data base,
+	 * that should not be removed, can be removed,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
 	@Test(expected = DataIntegrityViolationException.class)
 	@Transactional
 	@Rollback(true)

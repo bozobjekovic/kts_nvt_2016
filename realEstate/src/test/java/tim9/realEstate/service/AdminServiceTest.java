@@ -1,26 +1,7 @@
 package tim9.realEstate.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static tim9.realEstate.constants.AdminConstants.DB_ADDRESS;
-import static tim9.realEstate.constants.AdminConstants.DB_CITY;
-import static tim9.realEstate.constants.AdminConstants.DB_COUNT;
-import static tim9.realEstate.constants.AdminConstants.DB_EMAIL;
-import static tim9.realEstate.constants.AdminConstants.DB_ID;
-import static tim9.realEstate.constants.AdminConstants.DB_IMAGE;
-import static tim9.realEstate.constants.AdminConstants.DB_NAME;
-import static tim9.realEstate.constants.AdminConstants.DB_PASSWORD;
-import static tim9.realEstate.constants.AdminConstants.DB_PHONE_NUMBER;
-import static tim9.realEstate.constants.AdminConstants.DB_SURNAME;
-import static tim9.realEstate.constants.AdminConstants.DB_USERNAME;
-import static tim9.realEstate.constants.AdminConstants.NEW_ADDRESS;
-import static tim9.realEstate.constants.AdminConstants.NEW_CITY;
-import static tim9.realEstate.constants.AdminConstants.NEW_EMAIL;
-import static tim9.realEstate.constants.AdminConstants.NEW_IMAGE;
-import static tim9.realEstate.constants.AdminConstants.NEW_NAME;
-import static tim9.realEstate.constants.AdminConstants.NEW_PASSWORD;
-import static tim9.realEstate.constants.AdminConstants.NEW_PHONE_NUMBER;
-import static tim9.realEstate.constants.AdminConstants.NEW_SURNAME;
-import static tim9.realEstate.constants.AdminConstants.NEW_USERNAME;
+import static tim9.realEstate.constants.AdminConstants.*;
 
 import java.util.List;
 
@@ -47,6 +28,14 @@ public class AdminServiceTest {
 	
 	@Autowired
 	AdminService adminService;
+	
+	/**
+	 * <h1> Positive tests </h1>
+	 */
+	
+	/**
+	 * method tests if an certain element from the data base can be found
+	 **/
 
 	@Test 
 	public void testFindOne() {
@@ -65,12 +54,18 @@ public class AdminServiceTest {
         assertThat(dbAdmin.getUsername()).isEqualTo(DB_USERNAME);
 	}
 	
+	/**
+	 * method test if all of certain elements from the data base can be found
+	 **/
 	@Test
 	public void testFindAll() {
 		List<Admin> admins = adminService.findAll();
 		assertThat(admins).hasSize(DB_COUNT);
 	}
-
+	
+	/**
+	 * method tests if a new element can be saved into data base
+	 **/
 	@Test
     @Transactional
     @Rollback(true)
@@ -106,6 +101,9 @@ public class AdminServiceTest {
         assertThat(dbAdmin.getUsername()).isEqualTo(NEW_USERNAME);
 	}
 	
+	/**
+	 * method tests if a certain element from the data base can be updated
+	 **/
 	@Test
     @Transactional
     @Rollback(true)
@@ -138,6 +136,9 @@ public class AdminServiceTest {
         assertThat(dbAdmin.getUsername()).isEqualTo(NEW_USERNAME);
 	}
 	
+	/**
+	 * method tests if a certain element from the data base can be removed
+	 **/
 	@Test
 	@Transactional
 	@Rollback(true)
@@ -151,11 +152,17 @@ public class AdminServiceTest {
 		Admin dbAdmin = adminService.findOne(DB_ID);
 		assertThat(dbAdmin).isNull();
 	}
-	
-	/*
-	 * Negative tests
+
+	/**
+	 * <h1> Negative tests </h1>
 	 */
 	
+	/**
+	 * method tests if an certain element can be added into data base
+	 * without field that is required,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
 	@Test(expected = DataIntegrityViolationException.class)
 	@Transactional
 	@Rollback(true)
@@ -173,7 +180,13 @@ public class AdminServiceTest {
 		
 		adminService.save(admin);
 	}
-	
+
+	/**
+	 * method tests if an certain element can be added into data base
+	 * without field that is required,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
 	@Test(expected = DataIntegrityViolationException.class)
 	@Transactional
 	@Rollback(true)
@@ -191,7 +204,13 @@ public class AdminServiceTest {
 		
 		adminService.save(admin);
 	}
-	
+
+	/**
+	 * method tests if an certain element can be added into data base
+	 * without field that is required,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
 	@Test(expected = DataIntegrityViolationException.class)
 	@Transactional
 	@Rollback(true)
@@ -209,7 +228,13 @@ public class AdminServiceTest {
 		
 		adminService.save(admin);
 	}
-	
+
+	/**
+	 * method tests if an certain element can be added into data base
+	 * without field that is required,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
 	@Test(expected = DataIntegrityViolationException.class)
 	@Transactional
 	@Rollback(true)
@@ -227,7 +252,13 @@ public class AdminServiceTest {
 		
 		adminService.save(admin);
 	}
-	
+
+	/**
+	 * method tests if an certain element can be added into data base
+	 * without field that is required,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
 	@Test(expected = DataIntegrityViolationException.class)
 	@Transactional
 	@Rollback(true)
@@ -246,6 +277,12 @@ public class AdminServiceTest {
 		adminService.save(admin);
 	}
 	
+	/**
+	 * method tests if an certain element, that must be unique,
+	 * can be added into data base with value that already exist,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
 	@Test(expected = DataIntegrityViolationException.class)
 	@Transactional
 	@Rollback(true)
@@ -265,6 +302,12 @@ public class AdminServiceTest {
 		adminService.save(admin);
 	}
 	
+	/**
+	 * method tests if an certain element, that must be unique,
+	 * can be added into data base with value that already exist,
+	 * and if can throws an exception
+	 * @exception DataIntegrityViolationException
+	 **/
 	@Test(expected = DataIntegrityViolationException.class)
 	@Transactional
 	@Rollback(true)
@@ -283,5 +326,4 @@ public class AdminServiceTest {
 		
 		adminService.save(admin);
 	}
-
 }

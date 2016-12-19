@@ -28,7 +28,14 @@ public class RealEstateServiceTest {
 	
 	@Autowired
 	RealEstateService realEstateService;
+
+	/**
+	 * <h1> Positive tests </h1>
+	 */
 	
+	/**
+	 * method tests if an certain element from the data base can be found
+	 **/
 	@Test
 	public void testFindOne() {
 		RealEstate dbRealEstate = realEstateService.findOne(DB_ID);
@@ -47,12 +54,18 @@ public class RealEstateServiceTest {
 		assertThat(dbRealEstate.getType()).isEqualTo(DB_TYPE);
 	}
 
+	/**
+	 * method test if all of certain elements from the data base can be found
+	 **/
 	@Test
 	public void testFindAll() {	
 		List<RealEstate> realEstates = realEstateService.findAll();
 		assertThat(realEstates).hasSize(DB_COUNT_REAL);
 	}
 
+	/**
+	 * method tests if a new element can be saved into data base
+	 **/
 	@Test
 	@Transactional
 	@Rollback(true)
@@ -89,7 +102,10 @@ public class RealEstateServiceTest {
 		assertThat(dbRealEstate.getCategory()).isEqualTo(NEW_CATEGORY);
 		assertThat(dbRealEstate.getType()).isEqualTo(NEW_TYPE);
 	}
-	
+
+	/**
+	 * method tests if a certain element from the data base can be updated
+	 **/
 	@Test
     @Transactional
     @Rollback(true)
@@ -124,6 +140,9 @@ public class RealEstateServiceTest {
 		assertThat(dbRealEstate.getType()).isEqualTo(NEW_TYPE);
 	}
 
+	/**
+	 * method tests if a certain element from the data base can be removed
+	 **/
 	@Test(expected = DataIntegrityViolationException.class)
 	@Transactional
 	@Rollback(true)
@@ -137,6 +156,10 @@ public class RealEstateServiceTest {
 		RealEstate dbRealEstate = realEstateService.findOne(DB_ID_REFERENCED);
 		assertThat(dbRealEstate).isNull();
 	}
+
+	/**
+	 * <h1> Negative tests </h1>
+	 */
 	
 	/**
 	 * method tests if an certain element can be added into data base
