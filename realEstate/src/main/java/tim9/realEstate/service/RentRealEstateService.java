@@ -1,5 +1,8 @@
 package tim9.realEstate.service;
 
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +32,8 @@ public class RentRealEstateService {
 	 * @param realEstate
 	 * @return 		Element if found, null if doesn't exist
 	 */
-	public RentRealEstate findByRealEstate(RealEstate realEstate) {
-		return rentRealEstateRepository.findByRealEstate(realEstate);
+	public List<RentRealEstate> findByRealEstate(RealEstate realEstate) {
+		return rentRealEstateRepository.findByRealEstateAndRentedToAfter(realEstate, new Date());
 	}
 	
 	/**

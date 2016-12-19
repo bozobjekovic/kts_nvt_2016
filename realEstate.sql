@@ -8,6 +8,7 @@ select * from verifier;
 select * from company;
 select * from inappropriate;
 select * from comment;
+select * from rent_real_estate;
 
 drop table Admin;
 drop table Comment;
@@ -66,7 +67,7 @@ INSERT INTO User VALUES (5, 'Novosadska', 'Novi Sad', 'clerk2@gmail.com', 'image
 INSERT INTO Real_Estate VALUES (1, 'Balzakova 6', 1890, 0, 'radijatori', 456, 2, 3, 3, 0, 'TV,Klima', 'Kuca', 1);
 INSERT INTO Real_Estate VALUES (2, 'Bul. Mihaila Pupina', 1950, 1, 'radijatori', 100, 3, 5, 4, 0, 'TV,Klima,Namestak', 'Stan', 2);
 INSERT INTO Real_Estate VALUES (3, 'Bul. Mihaila Pupina', 1960, 2, 'radijatori', 52,  2, 2, 2, 1, 'TV,Klima,Bazen', 'Kuca', 3);
-INSERT INTO Real_Estate VALUES (4, 'Bulevar Oslobodjenja', 1994, 1, 'radijatori', 3506, 2, 3, 2, 2, 'Nista', 'Kancelarija', 4);
+INSERT INTO Real_Estate VALUES (4, 'Bulevar Oslobodjenja', 1994, 1, 'radijatori', 3506, 2, 3, 2, 0, 'Nista', 'Kancelarija', 4);
 INSERT INTO Real_Estate VALUES (5, 'Miselinova', 1994, 1, 'radijatori', 3506, 2, 3, 2, 0, 'Nista', 'Kancelarija', 4);
 
 INSERT INTO Advertisment VALUES (1, '2016-12-20', 'img', 0, '2016-12-23', 'Kuca velika', 10, '+481924842', 234412, '2017-12-20', 'sell', '4', null, null, 2, 1);
@@ -78,6 +79,11 @@ INSERT INTO Inappropriate VALUES(1, '2017-12-20',"Inappropriate advertisement", 
 INSERT INTO Inappropriate VALUES(2, '2017-12-20',"Inappropriate advertisement", "Inappropriate", 1, 2);
 INSERT INTO Inappropriate VALUES(3, '2017-12-20',"Inappropriate advertisement", "Inappropriate", 2, 1);
 INSERT INTO Inappropriate VALUES(4, '2017-12-20',"Inappropriate advertisement", "Inappropriate", 3, 3);
+
+INSERT INTO rent_real_estate VALUES(1, '2017-02-02', '2017-03-02', 2);
+INSERT INTO rent_real_estate VALUES(2, '2017-04-09', '2017-04-30', 2);
+INSERT INTO rent_real_estate VALUES(3, '2017-05-01', '2017-05-31', 2);
+INSERT INTO rent_real_estate VALUES(4, '2017-06-05', '2017-06-22', 2);
 
 INSERT INTO Comment VALUES (1, '2016-04-24', 'Opis komentara', 1, 1);
 INSERT INTO Comment VALUES (2, '2016-01-23', 'Comm desc', 2, 2);

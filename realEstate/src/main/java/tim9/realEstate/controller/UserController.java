@@ -19,12 +19,14 @@ import tim9.realEstate.mail.MailUtil;
 import tim9.realEstate.model.Advertisment;
 import tim9.realEstate.model.Company;
 import tim9.realEstate.model.RealEstate;
+import tim9.realEstate.model.RentRealEstate;
 import tim9.realEstate.model.Status;
 import tim9.realEstate.model.User;
 import tim9.realEstate.security.UserUtils;
 import tim9.realEstate.service.AdvertismentService;
 import tim9.realEstate.service.CompanyService;
 import tim9.realEstate.service.RealEstateService;
+import tim9.realEstate.service.RentRealEstateService;
 import tim9.realEstate.service.UserService;
 
 /**
@@ -49,6 +51,9 @@ public class UserController {
 	
 	@Autowired
 	RealEstateService realEstateService;
+	
+	@Autowired
+	RentRealEstateService rentRealEstateService;
 	
 	@Autowired
 	MailUtil mailUtil;
@@ -80,15 +85,19 @@ public class UserController {
      */
 	@RequestMapping(value="/rate", method = RequestMethod.PUT)
     public ResponseEntity<UserDTO> rateUser(@RequestParam Long id, @RequestParam double rate){
-		if(id == null || rate == 0){
+		if(id == null || rate < 1 || rate > 5){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+		
     	User user = userService.findOne(id);
+    	
     	if(user == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+    	
     	user.setNumOfRates(user.getNumOfRates() + 1);
-    	user.setRate((user.getRate()*user.getNumOfRates() + rate) / user.getNumOfRates());
+    	user.setRate(round(
+    			((user.getRate()*(user.getNumOfRates()-1)) + rate) / user.getNumOfRates(), 2));
     	userService.save(user);
     	return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
     }
@@ -112,7 +121,7 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
-		if (realEstate.getStatus() == Status.Sold || realEstate.getStatus() == Status.Rented) {
+		if (realEstate.getStatus() == Status.Sold || rentRealEstateService.findByRealEstate(realEstate).size() != 0) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
@@ -126,7 +135,16 @@ public class UserController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	
+	/**
+	 * This method should rent real estate
+	 * with specified id, rented date from and
+	 * rented date to.
+	 * Expected: Status OK
+	 * @param id
+	 * @param rentDateFrom
+	 * @param rentDateTo
+	 * @return
+	 */
 	@RequestMapping(value="/rent", method = RequestMethod.PUT)
 	public ResponseEntity<Void> rentRealEstate(@RequestParam Long id, @RequestParam Date rentDateFrom, @RequestParam Date rentDateTo) {
 		
@@ -140,15 +158,34 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
-		if (realEstate.getStatus() == Status.Sold || realEstate.getStatus() == Status.Rented) {
+		if (realEstate.getStatus() == Status.Sold) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
-		/*if (rentDateFrom.before(realEstate.getRentedUntil())) {
+		if (rentDateFrom.before(new Date()) || rentDateTo.before(new Date()) || rentDateFrom.after(rentDateTo)) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}*/
-
-		// TODO: FINISHED THIS !!!!!!!!!!!!!!
+		}
+		
+		List<RentRealEstate> rentRealEstates = rentRealEstateService.findByRealEstate(realEstate);
+		for (RentRealEstate rentRealEstate : rentRealEstates) {
+			if (rentRealEstate.getRentedFrom().after(rentDateFrom)) {
+				if (!rentRealEstate.getRentedFrom().after(rentDateTo)) {
+					return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				}
+			}
+			else if (rentRealEstate.getRentedTo().before(rentDateTo)) {
+				if (!rentRealEstate.getRentedTo().before(rentDateFrom)) {
+					return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				}
+			}
+		}
+		
+		RentRealEstate rentRealEstate = new RentRealEstate();
+		rentRealEstate.setRealEstate(realEstate);
+		rentRealEstate.setRentedFrom(rentDateFrom);
+		rentRealEstate.setRentedTo(rentDateTo);
+		
+		rentRealEstateService.save(rentRealEstate);
 		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
@@ -230,5 +267,21 @@ public class UserController {
         mailUtil.sendMail(email, subject, text);
     	return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
+	/**
+     * This method rounds double value on two 
+     * decimals
+     * @param value
+     * @param places
+     * @return double value with two decimals
+     */
+    private double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
 
 }
