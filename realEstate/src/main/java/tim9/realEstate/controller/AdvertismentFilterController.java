@@ -80,7 +80,7 @@ public class AdvertismentFilterController {
      * @return      ResponseEntity List with all DTO Advertisements and HttpStatus OK
      */
     @RequestMapping(value="/category/{category}/filters", method = RequestMethod.GET)
-    public ResponseEntity<List<Advertisment>> filters(@PathVariable Category category, @RequestParam(value = "filter") String filter){
+    public ResponseEntity<List<AdvertismentDTO>> filters(@PathVariable Category category, @RequestParam(value = "filter") String filter){
     	AdvertismentSpecificationsBuilder builder = new AdvertismentSpecificationsBuilder();
     	
     	Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");
@@ -92,7 +92,14 @@ public class AdvertismentFilterController {
     	builder.with("category", ":", category);
     	
     	Specification<Advertisment> spec = builder.build();
-    	return new ResponseEntity<>(advertismentService.findAllBySpecification(spec), HttpStatus.OK);
+    	List<Advertisment> filteredAdvertisements = advertismentService.findAllBySpecification(spec);
+    	List<AdvertismentDTO> filteredAdvertisementsDTO = new ArrayList<>();
+    	
+    	for (Advertisment advertisment : filteredAdvertisements) {
+			filteredAdvertisementsDTO.add(new AdvertismentDTO(advertisment));
+		}
+    	
+    	return new ResponseEntity<>(filteredAdvertisementsDTO, HttpStatus.OK);
     }
 
 }

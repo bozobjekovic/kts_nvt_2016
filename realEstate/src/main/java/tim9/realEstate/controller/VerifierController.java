@@ -101,8 +101,12 @@ public class VerifierController {
 		
 		Advertisment advertisement = advertisementService.findOne(id);
 		
-		if (advertisement == null || advertisement.getVerifier() != null) {
+		if (advertisement == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		if (advertisement.getVerifier() != null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
 		advertisement.setVerifier((Verifier)userUtils.getLoggedUser(request));

@@ -7,22 +7,27 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static tim9.realEstate.constants.AdminConstants.DB_EXISTING_ID;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_CITY_UNVERIFIED;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_COUNT_UNVERIFIED;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_ID_UNVERIFIED;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_IMAGE_UNVERIFIED;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_LAND_SIZE_UNVERIFIED;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_NAME_UNVERIFIED;
+import static tim9.realEstate.constants.AdvertismentConstants.DB_NONEXISTING_ID;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_PRICE_UNVERIFIED;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_TYPE_UNVERIFIED;
-import static tim9.realEstate.constants.ChangePasswordConstants.*;
+import static tim9.realEstate.constants.ChangePasswordConstants.DB_ID;
+import static tim9.realEstate.constants.ChangePasswordConstants.DB_NEW_CONFIRM_PASSWORD;
+import static tim9.realEstate.constants.ChangePasswordConstants.DB_NEW_ID;
+import static tim9.realEstate.constants.ChangePasswordConstants.DB_NEW_PASSWORD;
+import static tim9.realEstate.constants.ChangePasswordConstants.DB_NEW_WRONG_CONFIRM_PASSWORD;
+import static tim9.realEstate.constants.ChangePasswordConstants.DB_OLD_PASSWORD;
+import static tim9.realEstate.constants.ChangePasswordConstants.DB_OLD_WRONG_PASSWORD;
 
 import java.nio.charset.Charset;
 
 import javax.annotation.PostConstruct;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +42,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import tim9.realEstate.LoginTest;
 import tim9.realEstate.RealEstateApplication;
 import tim9.realEstate.TestUtil;
 import tim9.realEstate.dto.ChangePasswordDTO;
@@ -59,6 +65,9 @@ public class VerifierControllerTest {
     
     @Autowired
     private WebApplicationContext webApplicationContext;
+    
+    @Autowired
+    LoginTest loginTest;
     
     @PostConstruct
     public void setup() {
@@ -167,12 +176,59 @@ public class VerifierControllerTest {
     	// TEST #########################################
 	}
     
+    /**
+     * This method should test accepting advertisement
+     * with valid input parameters and registrated
+     * verifier
+     * Excepted: Status OK
+     * @throws Exception
+     */
     @Test
-    @Ignore
+    @Transactional
+    @Rollback(true)
     public void testAcceptAdvertisement() throws Exception {
-    	this.mockMvc.perform(put(URL_PREFIX + "/accept?id=" + DB_EXISTING_ID)
-                .contentType(contentType))
+    	String token = loginTest.login(
+    			tim9.realEstate.constants.VerifierConstants.DB_USERNAME,
+    			tim9.realEstate.constants.VerifierConstants.DB_PASSWORD);
+    	
+    	this.mockMvc.perform(put(URL_PREFIX + "/accept?id=" + DB_ID_UNVERIFIED)
+                .header("X-Auth-Token", token)
+    			.contentType(contentType))
                 .andExpect(status().isOk());
+    }
+    
+    /**
+     * This method should test accepting advertisement
+     * with wrong input parameters like empty params,
+     * doesn't existing advertisement id and 
+     * specified advertisement id that has verifier
+     * Excepted: Not Found id advertisement with 
+     * specified id doesn't exist or Bad Request 
+     * if input parameters are wrong
+     * @throws Exception
+     */
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void testAcceptAdvertisementInvalid() throws Exception {
+    	String token = loginTest.login(
+    			tim9.realEstate.constants.VerifierConstants.DB_USERNAME,
+    			tim9.realEstate.constants.VerifierConstants.DB_PASSWORD);
+    	
+    	this.mockMvc.perform(put(URL_PREFIX + "/accept?id=")
+                .header("X-Auth-Token", token)
+    			.contentType(contentType))
+                .andExpect(status().isBadRequest());
+    	
+    	this.mockMvc.perform(put(URL_PREFIX + "/accept?id=" + DB_NONEXISTING_ID)
+                .header("X-Auth-Token", token)
+    			.contentType(contentType))
+                .andExpect(status().isNotFound());
+    	
+    	this.mockMvc.perform(put(URL_PREFIX + "/accept?id=" + tim9.realEstate.constants.AdvertismentConstants.DB_ID)
+                .header("X-Auth-Token", token)
+    			.contentType(contentType))
+                .andExpect(status().isBadRequest());
     }
     
     /**
