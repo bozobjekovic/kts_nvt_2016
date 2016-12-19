@@ -18,7 +18,6 @@ import java.nio.charset.Charset;
 
 import javax.annotation.PostConstruct;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +32,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import tim9.realEstate.LoginTest;
 import tim9.realEstate.RealEstateApplication;
 import tim9.realEstate.TestUtil;
 import tim9.realEstate.dto.CommentDTO;
@@ -58,6 +58,9 @@ public class CommentControllerTest {
     AdvertismentService advertismentService;
     
     @Autowired
+    private LoginTest loginTest;
+    
+    @Autowired
     private WebApplicationContext webApplicationContext;
     
     @PostConstruct
@@ -81,12 +84,36 @@ public class CommentControllerTest {
     }
     
     /**
+	 * This method tests getting all comments from the database.
+	 * Expecting invalid request, without parameters.
+	 * Expected: method get, status OK, specified size and content
+     * @throws Exception 
+	 **/
+    @Test
+    public void testGetAllCommentsNullParam() throws Exception {
+        mockMvc.perform(get(URL_PREFIX + "/all"))
+	        .andExpect(status().isBadRequest());
+    }
+    
+    /**
+	 * This method tests getting all comments from the database.
+	 * Expecting valid request, but non existing
+	 * advertisement id.
+	 * Expected: method get, status OK, specified size and content
+     * @throws Exception 
+	 **/
+    @Test
+    public void testGetAllCommentsInvalid() throws Exception {
+        mockMvc.perform(get(URL_PREFIX + "/all?id=" + tim9.realEstate.constants.AdvertismentConstants.DB_NONEXISTING_ID))
+	        .andExpect(status().isNotFound());
+    }
+    
+    /**
   	* This method tests adding new Comment and
   	* saving it to the database.
   	* Expected all input fields to be valid.
   	**/
     @Test
-    @Ignore
     @Transactional
     @Rollback(true)
     public void testSaveComment() throws Exception {
@@ -94,8 +121,11 @@ public class CommentControllerTest {
     	comment.setDate(NEW_DATE);
     	comment.setDescription(NEW_DESCRIPTION);
     	
+    	String token = loginTest.login(tim9.realEstate.constants.UserConstants.DB_USERNAME, tim9.realEstate.constants.UserConstants.DB_PASSWORD);
+    	
     	String json = TestUtil.json(comment);
         this.mockMvc.perform(post(URL_PREFIX + "?id=" + tim9.realEstate.constants.AdvertismentConstants.DB_ID)
+        		.header("X-Auth-Token", token)
                 .contentType(contentType)
                 .content(json))
                 .andExpect(status().isCreated());

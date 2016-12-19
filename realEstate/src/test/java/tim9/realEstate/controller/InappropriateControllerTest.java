@@ -2,12 +2,13 @@ package tim9.realEstate.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static tim9.realEstate.constants.InappropriateConstants.*;
+import static tim9.realEstate.constants.InappropriateConstants.NEW_DESCRIPTION;
+import static tim9.realEstate.constants.InappropriateConstants.NEW_TITLE;
 
 import java.nio.charset.Charset;
+
 import javax.annotation.PostConstruct;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import tim9.realEstate.LoginTest;
 import tim9.realEstate.RealEstateApplication;
 import tim9.realEstate.TestUtil;
 import tim9.realEstate.dto.InappropriateDTO;
@@ -45,6 +47,9 @@ public class InappropriateControllerTest {
     @Autowired
     private WebApplicationContext webApplicationContext;
     
+    @Autowired
+    private LoginTest loginTest;
+    
     @PostConstruct
     public void setup() {
     	this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
@@ -56,7 +61,6 @@ public class InappropriateControllerTest {
   	* Expected all input fields to be valid.
   	**/
     @Test
-    @Ignore
     @Transactional
     @Rollback(true)
     public void testSaveInappropriate() throws Exception {
@@ -64,8 +68,11 @@ public class InappropriateControllerTest {
     	inappropriate.setTitle(NEW_TITLE);
     	inappropriate.setDescription(NEW_DESCRIPTION);
     	
+    	String token = loginTest.login(tim9.realEstate.constants.UserConstants.DB_USERNAME, tim9.realEstate.constants.UserConstants.DB_PASSWORD);
+    	
     	String json = TestUtil.json(inappropriate);
         this.mockMvc.perform(post(URL_PREFIX + "?id=" + tim9.realEstate.constants.AdvertismentConstants.DB_ID)
+        		.header("X-Auth-Token", token)
                 .contentType(contentType)
                 .content(json))
                 .andExpect(status().isCreated());

@@ -220,10 +220,113 @@ private static final String URL_PREFIX = "/realEstate/advertisments";
 	  	AdvertismentCreateDTO advertismentDTO = new AdvertismentCreateDTO(advertisment, realEstate);
 	  	String json = TestUtil.json(advertismentDTO);
 	  	this.mockMvc.perform(post(URL_PREFIX)
+  			  .header("X-Auth-Token", token)
+              .contentType(contentType)
+              .content(json))
+              .andExpect(status().isCreated())
+              .andExpect(jsonPath("$.purpose").value(NEW_PURPOSE))
+	  	      .andExpect(jsonPath("$.phoneNumber").value(NEW_PHONE_NUMBER))
+	  	      .andExpect(jsonPath("$.name").value(tim9.realEstate.constants.RealEstateConstants.NEW_NAME))
+	  	      .andExpect(jsonPath("$.price").value(tim9.realEstate.constants.RealEstateConstants.NEW_PRICE))
+	  	      .andExpect(jsonPath("$.landSize").value(tim9.realEstate.constants.RealEstateConstants.NEW_LAND_SIZE))
+	  	      .andExpect(jsonPath("$.techEquipment").value(tim9.realEstate.constants.RealEstateConstants.NEW_TEACH_EQUIPMENT))
+	  	      .andExpect(jsonPath("$.image").value(tim9.realEstate.constants.RealEstateConstants.NEW_IMAGE))
+	  	      .andExpect(jsonPath("$.numOfBathRooms").value(tim9.realEstate.constants.RealEstateConstants.NEW_NUM_OF_BATH_ROOMS))
+	  	      .andExpect(jsonPath("$.numOfBedRooms").value(tim9.realEstate.constants.RealEstateConstants.NEW_NUM_OF_BED_ROOMS))
+	  	      .andExpect(jsonPath("$.numOfFlors").value(tim9.realEstate.constants.RealEstateConstants.NEW_NUM_OF_FLORS))
+	  	      .andExpect(jsonPath("$.buildYear").value(tim9.realEstate.constants.RealEstateConstants.NEW_BUILD_YEAR))
+	  	      .andExpect(jsonPath("$.type").value(tim9.realEstate.constants.RealEstateConstants.NEW_TYPE));
+    }
+    
+    /**
+  	* This method tests adding new Advertisement and
+  	* saving it to the database.
+  	* Expected invalid input fields.
+  	* Expected: method post, status BAD_REQUEST
+    * @throws Exception
+  	**/
+    @Test
+  	@Transactional
+  	@Rollback(true)
+  	public void testSaveAdvertismentInvalid() throws Exception {
+    	Advertisment advertisment = new Advertisment();
+	  	RealEstate realEstate = new RealEstate();
+	  	
+	  	advertisment.setName(tim9.realEstate.constants.RealEstateConstants.NEW_NAME);
+    	advertisment.setPrice(tim9.realEstate.constants.RealEstateConstants.NEW_PRICE);
+    	advertisment.setPublicationDate(new Date());
+    	advertisment.setBackgroundImage(tim9.realEstate.constants.RealEstateConstants.NEW_IMAGE);
+		advertisment.setActiveUntil(NEW_DATE);
+		advertisment.setPurpose(NEW_PURPOSE);
+		advertisment.setPhoneNumber(DB_PHONE_NUMBER);
+		
+		realEstate.setLocation(locationService.findOne(tim9.realEstate.constants.LocationConstants.DB_ID));
+		realEstate.setAddress(tim9.realEstate.constants.AdminConstants.NEW_ADDRESS);
+		realEstate.setLandSize(tim9.realEstate.constants.RealEstateConstants.NEW_LAND_SIZE);
+		realEstate.setTechEquipment(tim9.realEstate.constants.RealEstateConstants.NEW_TEACH_EQUIPMENT);
+		realEstate.setNumOfBathRooms(tim9.realEstate.constants.RealEstateConstants.NEW_NUM_OF_BATH_ROOMS);
+		realEstate.setNumOfBedRooms(tim9.realEstate.constants.RealEstateConstants.NEW_NUM_OF_BED_ROOMS);
+		realEstate.setNumOfFlors(tim9.realEstate.constants.RealEstateConstants.NEW_NUM_OF_FLORS);
+		realEstate.setBuildYear(tim9.realEstate.constants.RealEstateConstants.NEW_BUILD_YEAR);
+		realEstate.setCategory(tim9.realEstate.constants.RealEstateConstants.NEW_CATEGORY);
+		realEstate.setType(tim9.realEstate.constants.RealEstateConstants.NEW_TYPE);
+		
+		advertisment.setRealEstate(realEstate);
+	  	
+	  	String token = loginTest.login(tim9.realEstate.constants.UserConstants.DB_USERNAME, tim9.realEstate.constants.UserConstants.DB_PASSWORD);
+	  	
+	  	AdvertismentCreateDTO advertismentDTO = new AdvertismentCreateDTO(advertisment, realEstate);
+	  	String json = TestUtil.json(advertismentDTO);
+	  	this.mockMvc.perform(post(URL_PREFIX)
 	  			  .header("X-Auth-Token", token)
 	              .contentType(contentType)
 	              .content(json))
-	              .andExpect(status().isCreated());
+	              .andExpect(status().isBadRequest());
+    }
+    
+    /**
+  	* This method tests adding new Advertisement and
+  	* saving it to the database.
+  	* Expected invalid input fields, unique phone number.
+  	* Expected: method post, status BAD_REQUEST
+    * @throws Exception
+  	**/
+    @Test
+  	@Transactional
+  	@Rollback(true)
+  	public void testSaveAdvertismentUnique() throws Exception {
+    	Advertisment advertisment = new Advertisment();
+	  	RealEstate realEstate = new RealEstate();
+	  	
+    	advertisment.setPrice(tim9.realEstate.constants.RealEstateConstants.NEW_PRICE);
+    	advertisment.setPublicationDate(new Date());
+    	advertisment.setBackgroundImage(tim9.realEstate.constants.RealEstateConstants.NEW_IMAGE);
+		advertisment.setActiveUntil(NEW_DATE);
+		advertisment.setPurpose(NEW_PURPOSE);
+		advertisment.setPhoneNumber(NEW_PHONE_NUMBER);
+		
+		realEstate.setLocation(locationService.findOne(tim9.realEstate.constants.LocationConstants.DB_ID));
+		realEstate.setAddress(tim9.realEstate.constants.AdminConstants.NEW_ADDRESS);
+		realEstate.setLandSize(tim9.realEstate.constants.RealEstateConstants.NEW_LAND_SIZE);
+		realEstate.setTechEquipment(tim9.realEstate.constants.RealEstateConstants.NEW_TEACH_EQUIPMENT);
+		realEstate.setNumOfBathRooms(tim9.realEstate.constants.RealEstateConstants.NEW_NUM_OF_BATH_ROOMS);
+		realEstate.setNumOfBedRooms(tim9.realEstate.constants.RealEstateConstants.NEW_NUM_OF_BED_ROOMS);
+		realEstate.setNumOfFlors(tim9.realEstate.constants.RealEstateConstants.NEW_NUM_OF_FLORS);
+		realEstate.setBuildYear(tim9.realEstate.constants.RealEstateConstants.NEW_BUILD_YEAR);
+		realEstate.setCategory(tim9.realEstate.constants.RealEstateConstants.NEW_CATEGORY);
+		realEstate.setType(tim9.realEstate.constants.RealEstateConstants.NEW_TYPE);
+		
+		advertisment.setRealEstate(realEstate);
+	  	
+	  	String token = loginTest.login(tim9.realEstate.constants.UserConstants.DB_USERNAME, tim9.realEstate.constants.UserConstants.DB_PASSWORD);
+	  	
+	  	AdvertismentCreateDTO advertismentDTO = new AdvertismentCreateDTO(advertisment, realEstate);
+	  	String json = TestUtil.json(advertismentDTO);
+	  	this.mockMvc.perform(post(URL_PREFIX)
+	  			  .header("X-Auth-Token", token)
+	              .contentType(contentType)
+	              .content(json))
+	              .andExpect(status().isBadRequest());
     }
     
     /**
