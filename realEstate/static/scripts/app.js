@@ -14,10 +14,10 @@ angular
             .when('/', {
                 templateUrl: 'views/main.html'
             })
-            .when('/admin', {
-                templateUrl: 'views/admin.html',
-                controller: 'AdminCtrl',
-                controllerAs: 'admin'
+            .when('/about', {
+                templateUrl: 'views/about.html',
+                controller: 'AboutCtrl',
+                controllerAs: 'about'
             })
             .otherwise({
                 redirectTo: '/'

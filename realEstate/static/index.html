@@ -13,10 +13,10 @@
 	  	<div class="header" id="home">
 	  		<div class="header-top">
 	  			<div class="container">
-	  				<div class="deatils">
+	  				<div class="deatils" ng-controller="LoginCtrl">
 	  					<ul>
-	  						<li><i class="glyphicon glyphicon-log-in" aria-hidden="true"></i><a href="#" data-toggle="modal" data-target="#myModal">Sign In</a></li>
-	  						<li><i class="glyphicon glyphicon-lock" aria-hidden="true"></i><a href="#" data-toggle="modal" data-target="#myModal1">Register</a></li>
+	  						<li><i class="glyphicon glyphicon-log-in" aria-hidden="true"></i><a href="" ng-click="openModal()">Sign In</a></li>
+	  						<li><i class="glyphicon glyphicon-lock" aria-hidden="true"></i><a href="" data-toggle="modal" data-target="#myModal1">Register</a></li>
 	  					</ul>
 	  				</div>
 	  				<div class="logo">
@@ -62,6 +62,7 @@
 
 
 		<script src="scripts/app.js"></script>
+		<script src="scripts/login_registrate/login-ctrl.js"></script>
 
 <!-- 
 	<script src="js/jquery.min.js"></script>
