@@ -29,6 +29,10 @@
                     //
                     $uibModalInstance.close('ok')
                 }
+
+                $scope.cancel = function() {
+                    $uibModalInstance.close('cancel');
+                };
             }
         ]);
 })(angular);

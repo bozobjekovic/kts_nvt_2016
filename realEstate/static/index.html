@@ -4,19 +4,19 @@
 		<title>Real Estates</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		
+
 		<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 		<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 	</head>
-	
+
 	<body ng-app="realEstateClientApp">
 	  	<div class="header" id="home">
 	  		<div class="header-top">
 	  			<div class="container">
-	  				<div class="deatils" ng-controller="LoginCtrl">
+	  				<div class="deatils" >
 	  					<ul>
-	  						<li><i class="glyphicon glyphicon-log-in" aria-hidden="true"></i><a href="" ng-click="openModal()">Sign In</a></li>
-	  						<li><i class="glyphicon glyphicon-lock" aria-hidden="true"></i><a href="" data-toggle="modal" data-target="#myModal1">Register</a></li>
+	  						<li ng-controller="LoginCtrl"><i class="glyphicon glyphicon-log-in" aria-hidden="true"></i><a href="" ng-click="openModal()">Log In</a></li>
+	  						<li ng-controller="RegistrateCtrl"><i class="glyphicon glyphicon-lock" aria-hidden="true"></i><a href="" ng-click="openModal()">Register</a></li>
 	  					</ul>
 	  				</div>
 	  				<div class="logo">
@@ -45,7 +45,7 @@
 	  			</div>
 	  		</div>
 	  	</div>
-	  	
+
 	  	<div class="content">
 	  		<div ng-view=""></div>
 	  	</div>
@@ -63,8 +63,9 @@
 
 		<script src="scripts/app.js"></script>
 		<script src="scripts/login_registrate/login-ctrl.js"></script>
+		<script src="scripts/login_registrate/registrate-ctrl.js"></script>
 
-<!-- 
+<!--
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/responsiveslides.min.js"></script>
@@ -79,7 +80,7 @@
         	});
       	});
 	</script>
-	
+
 	ZA ADVERTISEMENT <style>tr:nth-child(even){background-color: #f2f2f2}</style>
 	ZA MAPU <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 -->
