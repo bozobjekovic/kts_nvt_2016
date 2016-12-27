@@ -84,7 +84,7 @@ public class LoginRegistrateController {
      * 				else BAD_REQUEST
      */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<String> login(@RequestBody LoginUserDTO loginUser) {
+	public ResponseEntity<StringResponse> login(@RequestBody LoginUserDTO loginUser) {
 		if (checkInputParams(loginUser)) {
 			try {
 	        	UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
@@ -94,12 +94,12 @@ public class LoginRegistrateController {
 	            SecurityContextHolder.getContext().setAuthentication(authentication);
 	            
 	            UserDetails details = userDetailsService.loadUserByUsername(loginUser.getUsername());
-	            return new ResponseEntity<>(tokenUtils.generateToken(details), HttpStatus.OK);
+	            return new ResponseEntity<>(new StringResponse(tokenUtils.generateToken(details)), HttpStatus.OK);
 	        } catch (Exception ex) {
-	            return new ResponseEntity<>("Invalid login", HttpStatus.BAD_REQUEST);
+	            return new ResponseEntity<>(new StringResponse("Invalid login"), HttpStatus.BAD_REQUEST);
 	        }
 		} else {
-			return new ResponseEntity<>("Invalid login", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new StringResponse("Invalid login"), HttpStatus.BAD_REQUEST);
 		}
 	}
 

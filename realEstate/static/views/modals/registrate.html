@@ -7,26 +7,30 @@
 			<form>
 				<fieldset class="form-group">
 					<label for="name" style="font-size:17px;">Name:</label>
-					<input type="text" class="form-control" required id="name">
+					<input type="text" class="form-control" required id="name" ng-model="registrateUser.name">
 					<label for="surname" style="font-size:17px;">Surname:</label>
-					<input type="text" class="form-control" id="surname">
+					<input type="text" class="form-control" id="surname" ng-model="registrateUser.surname">
 					<label for="email" style="font-size:17px;">Email:</label>
-					<input type="text" class="form-control" id="email">
+					<input type="text" class="form-control" id="email" ng-model="registrateUser.email">
 					<label for="username" style="font-size:17px;">Username:</label>
-					<input type="text" class="form-control" id="username">
+					<input type="text" class="form-control" id="username" ng-model="registrateUser.username">
 					<label for="password" style="font-size:17px;">Password:</label>
-					<input type="password" class="form-control" id="password">
+					<input type="password" class="form-control" id="password" ng-model="registrateUser.password">
 					<label for="phonenumber" style="font-size:17px;">Phone number:</label>
-					<input type="text" class="form-control" id="phonenumber">
+					<input type="text" class="form-control" id="phonenumber" ng-model="registrateUser.phoneNumber">
 					<label for="address" style="font-size:17px;">Address:</label>
-					<input type="text" class="form-control" id="address">
+					<input type="text" class="form-control" id="address" ng-model="registrateUser.address">
 					<label for="city" style="font-size:17px;">City:</label>
-					<input type="text" class="form-control" id="city">
-					<label for="surname" style="font-size:17px;">Surname:</label>
-					<input type="text" class="form-control" id="surname">
+					<input type="text" class="form-control" id="city" ng-model="registrateUser.city">
+					<label for="image" style="font-size:17px;">Image:</label>
+					<input type="text" class="form-control" id="image" ng-model="registrateUser.image">
 					<label for="bankaccount" style="font-size:17px;">Bank account:</label>
-					<input type="text" class="form-control" id="bankaccount">
+					<input type="text" class="form-control" id="bankaccount" ng-model="registrateUser.bankAccount">
 				</fieldset>
+				<div class="modal-footer">
+					<button class="btn btn-default" type="button" ng-click="ok_user()">OK</button>
+					<button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+				</div>
 			</form>
 		</uib-tab>
     	<uib-tab index="1" heading="Clerk">
@@ -34,50 +38,50 @@
 				<div style="display: inline-block;">
 					<fieldset class="form-group">
 						<label for="name" style="font-size:17px;">Name:</label>
-						<input type="text" class="form-control" required id="name">
+						<input type="text" class="form-control" required id="name" ng-model="registrateUser.name">
 						<label for="surname" style="font-size:17px;">Surname:</label>
-						<input type="text" class="form-control" id="surname">
+						<input type="text" class="form-control" id="surname" ng-model="registrateUser.surname">
 						<label for="email" style="font-size:17px;">Email:</label>
-						<input type="text" class="form-control" id="email">
+						<input type="text" class="form-control" id="email" ng-model="registrateUser.email">
 						<label for="username" style="font-size:17px;">Username:</label>
-						<input type="text" class="form-control" id="username">
+						<input type="text" class="form-control" id="username" ng-model="registrateUser.username">
 						<label for="password" style="font-size:17px;">Password:</label>
-						<input type="password" class="form-control" id="password">
+						<input type="password" class="form-control" id="password" ng-model="registrateUser.password">
 						<label for="phonenumber" style="font-size:17px;">Phone number:</label>
-						<input type="text" class="form-control" id="phonenumber">
+						<input type="text" class="form-control" id="phonenumber" ng-model="registrateUser.phoneNumber">
 						<label for="address" style="font-size:17px;">Address:</label>
-						<input type="text" class="form-control" id="address">
+						<input type="text" class="form-control" id="address" ng-model="registrateUser.address">
 						<label for="city" style="font-size:17px;">City:</label>
-						<input type="text" class="form-control" id="city">
-						<label for="surname" style="font-size:17px;">Surname:</label>
-						<input type="text" class="form-control" id="surname">
+						<input type="text" class="form-control" id="city" ng-model="registrateUser.city">
+						<label for="image" style="font-size:17px;">Image:</label>
+						<input type="text" class="form-control" id="image" ng-model="registrateUser.image">
 						<label for="bankaccount" style="font-size:17px;">Bank account:</label>
-						<input type="text" class="form-control" id="bankaccount">
+						<input type="text" class="form-control" id="bankaccount" ng-model="registrateUser.bankAccount">
 					</fieldset>
 				</div>
 				<div style="display: inline-block; float: right;">
 					<fieldset class="form-group">
 						<label for="companyname" style="font-size:17px;">Company Name:</label>
-						<input type="text" class="form-control" required id="companyname">
+						<input type="text" class="form-control" required id="companyname" ng-model="registrateUser.companyName">
 						<label for="companyphone" style="font-size:17px;">Company phone:</label>
-						<input type="text" class="form-control" id="companyphone">
+						<input type="text" class="form-control" id="companyphone" ng-model="registrateUser.companyPhoneNumber">
 						<label for="companysite" style="font-size:17px;">Company site:</label>
-						<input type="text" class="form-control" id="companysite">
+						<input type="text" class="form-control" id="companysite" ng-model="registrateUser.site">
 						<label for="companyaddress" style="font-size:17px;">Company address:</label>
-						<input type="text" class="form-control" id="companyaddress">
+						<input type="text" class="form-control" id="companyaddress" ng-model="registrateUser.companyAddress">
 						<label for="companycity" style="font-size:17px;">Company city:</label>
-						<input type="text" class="form-control" id="companycity">
+						<input type="text" class="form-control" id="companycity" ng-model="registrateUser.companyLocation.city">
 						<label for="zipcode" style="font-size:17px;">Zip Code:</label>
-						<input type="text" class="form-control" id="zipcode">
+						<input type="text" class="form-control" id="zipcode" ng-model="registrateUser.companyLocation.zipCode">
 						<label for="partCity" style="font-size:17px;">Part of the city:</label>
-						<input type="text" class="form-control" id="partCity">
+						<input type="text" class="form-control" id="partCity" ng-model="registrateUser.companyLocation.partOfTheCity">
 					</fieldset>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-default" type="button" ng-click="ok_clerk()">OK</button>
+					<button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
 				</div>
 			</form>
 		</uib-tab>
 	</uib-tabset>
-</div>
-<div class="modal-footer">
-	<button class="btn btn-default" type="button" ng-click="ok()">OK</button>
-	<button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
 </div>

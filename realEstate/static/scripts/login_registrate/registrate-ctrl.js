@@ -5,9 +5,29 @@
         .controller('RegistrateCtrl', ['$scope', '$uibModal',
             function($scope, $uibModal) {
                 $scope.openModal = function() {
-                    var regustrateUser = {
+                    var registrateUser = {
+                        email : '',
                         username : '',
-                        password : ''
+                        password : '',
+                        name : '',
+                        surname : '',
+                        phoneNumber : '',
+                        address : '',
+                        city : '',
+                        authority : '',
+                        bankAccount : '',
+                        image : '',
+                        //
+                        companyName : '',
+                        companyPhoneNumber : '',
+                        site : '',
+                        //
+                        companyAddress : '',
+                        companyLocation : {
+                            city : '',
+                            zipCode : '',
+                            partOfTheCity : ''
+                        }
                     };
 
                     var modalInstance = $uibModal.open({
@@ -15,19 +35,28 @@
                         controller  : 'RegistrateModalCtrl',
                         scope       : $scope,
                         resolve     : {
-                            regustrateUser : function() {
-                                return regustrateUser;
+                            registrateUser : function() {
+                                return registrateUser;
                             }
                         }
                     });
                 }
             }
         ])
-        .controller('RegistrateModalCtrl', ['$scope', '$uibModalInstance', 'regustrateUser',
-            function($scope, $uibModalInstance, regustrateUser) {
-                $scope.ok = function() {
-                    //
-                    $uibModalInstance.close('ok')
+        .controller('RegistrateModalCtrl', ['$scope', '$uibModalInstance', 'registrateUser', 'RegistrateFactory',
+            function($scope, $uibModalInstance, registrateUser, RegistrateFactory) {
+                $scope.registrateUser = registrateUser;
+
+                $scope.ok_user = function() {
+                    console.log('user');
+                    RegistrateFactory.registrateUser($scope.registrateUser);
+                    $uibModalInstance.close('ok_user')
+                };
+
+                $scope.ok_clerk = function() {
+                    console.log('clerk');
+                    RegistrateFactory.registrateClerk($scope.registrateUser);
+                    $uibModalInstance.close('ok_clerk')
                 };
 
                 $scope.cancel = function() {

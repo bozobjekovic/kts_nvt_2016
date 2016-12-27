@@ -23,10 +23,12 @@
                 }
             }
         ])
-        .controller('LoginModalCtrl', ['$scope', '$uibModalInstance', 'loginUser',
-            function($scope, $uibModalInstance, loginUser) {
+        .controller('LoginModalCtrl', ['$scope', '$uibModalInstance', 'loginUser', 'LoginFactory',
+            function($scope, $uibModalInstance, loginUser, LoginFactory) {
+                $scope.loginUser = loginUser;
+
                 $scope.ok = function() {
-                    //
+                    LoginFactory.logInUser($scope.loginUser);
                     $uibModalInstance.close('ok')
                 }
 

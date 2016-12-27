@@ -8,7 +8,7 @@ import tim9.realEstate.model.Location;
 public class LocationDTO {
 	
 	private Long id;
-	private String city;
+	private String companyCity;
 	private int zipCode;
 	private String partOfTheCity;
 
@@ -40,7 +40,7 @@ public class LocationDTO {
 	public LocationDTO(Long id, String city, int zipCode, String partOfTheCity) {
 		super();
 		this.id = id;
-		this.city = city;
+		this.companyCity = city;
 		this.zipCode = zipCode;
 		this.partOfTheCity = partOfTheCity;
 	}
@@ -54,11 +54,11 @@ public class LocationDTO {
 	}
 
 	public String getCity() {
-		return city;
+		return companyCity;
 	}
 
 	public void setCity(String city) {
-		this.city = city;
+		this.companyCity = city;
 	}
 
 	public int getZipCode() {
