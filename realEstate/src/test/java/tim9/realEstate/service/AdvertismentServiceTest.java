@@ -191,7 +191,7 @@ public class AdvertismentServiceTest {
 	 **/
 	@Test
 	public void testFindByRealEstate_Type() {
-		List<Advertisment> advertisments = advertismentService.findByRealEstate_Type(DB_TYPE);
+		List<Advertisment> advertisments = advertismentService.findByRealEstate_Type(DB_PURPOSE, DB_TYPE);
 		assertThat(advertisments.size()).isEqualTo(1);
 		for (int i = 0; i < advertisments.size(); i++) {
 			assertThat(advertisments.get(i).getRealEstate().getType()).isEqualTo(DB_TYPE);

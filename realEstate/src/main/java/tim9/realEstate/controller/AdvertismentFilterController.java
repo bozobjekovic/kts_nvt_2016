@@ -58,12 +58,12 @@ public class AdvertismentFilterController {
      * @param		type	Advertisment's type
      * @return      ResponseEntity List with all DTO Advertisements and HttpStatus OK
      */
-    @RequestMapping(value="/category/{category}/{type}", method = RequestMethod.GET)
-    public ResponseEntity<List<AdvertismentDTO>> getAdvertismentsByType(@PathVariable Category category, @PathVariable String type){
-    	if(category == null || type == null){
+    @RequestMapping(value="/purpose/{purpose}/category/{category}/type/{type}", method = RequestMethod.GET)
+    public ResponseEntity<List<AdvertismentDTO>> getAdvertismentsByType(@PathVariable String purpose, @PathVariable Category category, @PathVariable String type){
+    	if(purpose == null || category == null || type == null){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-    	List<Advertisment> advertisements = advertismentService.findByRealEstate_Type(type);
+    	List<Advertisment> advertisements = advertismentService.findByRealEstate_Type(purpose, type);
     	
     	List<AdvertismentDTO> advertsDTO = new ArrayList<>();
 		for (Advertisment a : advertisements) {

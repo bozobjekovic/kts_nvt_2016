@@ -7,7 +7,8 @@ angular
         'ngRoute',
         'restangular',
         'ui.bootstrap',
-        'lodash'
+        'lodash',
+        'angular.filter'
     ])
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider

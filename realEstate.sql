@@ -50,6 +50,10 @@ INSERT INTO Location VALUES (1, 'Novi Sad', 'Liman', 21000);
 INSERT INTO Location VALUES (2, 'Beograd', 'Kosutnjak', 11000);
 INSERT INTO Location VALUES (3, 'Novi Sad', 'Bulevar', 21000);
 INSERT INTO Location VALUES (4, 'Nis', 'Deo Nisa', 23560);
+INSERT INTO Location VALUES (5, 'Beograd', 'Zemun', 23560);
+INSERT INTO Location VALUES (6, 'Kragujevac', 'Deo Kragujevca', 23560);
+INSERT INTO Location VALUES (7, 'Smederevo', 'Deo Smedereva', 23560);
+INSERT INTO Location VALUES (8, 'Nis', 'Deo Nisa', 23560);
 
 INSERT INTO Admin VALUES (1, 'Balzakova', 'Novi Sad', 'admin@gmail.com', 'image', 'Admin', 'a', '+381412941', 'Adminovski', 'admin', 1);
 
@@ -64,22 +68,22 @@ INSERT INTO Company VALUES (4, 'Miselinova', 'Kompanija DOO', '+3816456456', 'ww
 INSERT INTO User VALUES (4, 'Balzakova', 'Novi Sad', 'clerk@gmail.com', 'image', 'Clerk', '$2a$06$ESTR0aRvH5s4McmiWeiXl.DqRxveC/lruQKFD7UVkvBRwOEdp2Qty', '+12331203', 'Clerkan', 'clerk', '21345411', false, true, 1, 2, 2, null, 1);
 INSERT INTO User VALUES (5, 'Novosadska', 'Novi Sad', 'clerk2@gmail.com', 'image', 'Clerk2', '$2a$06$ESTR0aRvH5s4McmiWeiXl.DqRxveC/lruQKFD7UVkvBRwOEdp2Qty', '+15232', 'Clerkan2', 'clerk2', '9678678', true, true, 2, 2, 2, null, 2);
 
-INSERT INTO Real_Estate VALUES (1, 'Balzakova 6', 1890, 0, 'radijatori', 456, 2, 3, 3, 0, 'TV,Klima', 'Kuca', 1);
-INSERT INTO Real_Estate VALUES (2, 'Bul. Mihaila Pupina', 1950, 1, 'radijatori', 100, 3, 5, 4, 0, 'TV,Klima,Namestak', 'Stan', 2);
-INSERT INTO Real_Estate VALUES (3, 'Bul. Mihaila Pupina', 1960, 2, 'radijatori', 52,  2, 2, 2, 1, 'TV,Klima,Bazen', 'Kuca', 3);
-INSERT INTO Real_Estate VALUES (4, 'Bulevar Oslobodjenja', 1994, 1, 'radijatori', 3506, 2, 3, 2, 0, 'Nista', 'Kancelarija', 4);
-INSERT INTO Real_Estate VALUES (5, 'Miselinova', 1994, 1, 'radijatori', 3506, 2, 3, 2, 0, 'Nista', 'Kancelarija', 4);
+INSERT INTO Real_Estate VALUES (1, 'Balzakova 6', 1890, 0, 'radijatori', 456, 2, 3, 3, 0, 'TV,Klima', 'Apartment', 1);
+INSERT INTO Real_Estate VALUES (2, 'Bul. Mihaila Pupina', 1950, 0, 'radijatori', 100, 3, 5, 4, 0, 'TV,Klima,Namestak', 'Room', 2);
+INSERT INTO Real_Estate VALUES (3, 'Bul. Mihaila Pupina', 1960, 0, 'radijatori', 52,  2, 2, 2, 1, 'TV,Klima,Bazen', 'House', 3);
+INSERT INTO Real_Estate VALUES (4, 'Bulevar Oslobodjenja', 1994, 0, 'radijatori', 3506, 2, 3, 2, 0, 'Nista', 'Apartment', 4);
+INSERT INTO Real_Estate VALUES (5, 'Miselinova', 1994, 1, 'radijatori', 3506, 0, 3, 2, 0, 'Nista', 'House', 4);
 
 INSERT INTO Advertisment VALUES (1, '2016-12-20', 'images/house1.jpg', 0, '2016-12-23', 'Kuca velika', 10, '+481924842', 234412, '2017-12-20', 'sell', '4', null, 1, 2, 1);
 INSERT INTO Advertisment VALUES (2, '2016-12-20', 'images/house2.jpg', 0, '2016-12-23', 'Stan na brdu', 11,'+3453535', 43242,'2017-12-20', 'sell', '5', null, 2, 1, 2);
 INSERT INTO Advertisment VALUES (3, '2016-12-20', 'images/house3.jpg', 0,'2016-12-23',  'Kuca sa bazenom', 47,'+52432342', 423424, '2017-12-20', 'rent', '3.2', null, 3, 4, 2);
-INSERT INTO Advertisment VALUES (4, '2016-12-20', 'images/house4.jpg', 0,'2016-12-23',  'Kuca sa bazenom', 47,'+5243234982', 423424, '2017-12-20', 'rent', '3.2', null, 1, 5, null);
-INSERT INTO Advertisment VALUES (5, '2016-12-20', 'images/house5.jpg', 0, '2016-12-23', 'Kuca velika', 10, '+48192482', 234412, '2017-12-20', 'sell', '4', null, 2, 2, 1);
-INSERT INTO Advertisment VALUES (6, '2016-12-20', 'images/house6.jpg', 0, '2016-12-23', 'Stan na brdu', 11,'+345535', 43242,'2017-12-20', 'sell', '5', null, 3, 1, 2);
-INSERT INTO Advertisment VALUES (7, '2016-12-20', 'images/house3.jpg', 0,'2016-12-23',  'Kuca sa bazenom', 55,'+5243342', 423424, '2017-12-20', 'rent', '3.2', null, 1, 4, 2);
+INSERT INTO Advertisment VALUES (4, '2016-12-20', 'images/house4.jpg', 0,'2016-12-23',  'Kuca sa bazenom', 47,'+5243234982', 423424, '2017-12-20', 'rent', '3.2', null, 1, 3, null);
+INSERT INTO Advertisment VALUES (5, '2016-12-20', 'images/house2.jpg', 0, '2016-12-23', 'Kuca velika', 10, '+48192482', 234412, '2017-12-20', 'sell', '4', null, 2, 2, 1);
+INSERT INTO Advertisment VALUES (6, '2016-12-20', 'images/house3.jpg', 0, '2016-12-23', 'Stan na brdu', 11,'+345535', 43242,'2017-12-20', 'sell', '5', null, 3, 1, 2);
+INSERT INTO Advertisment VALUES (7, '2016-12-20', 'images/house4.jpg', 0,'2016-12-23',  'Kuca sa bazenom', 55,'+5243342', 423424, '2017-12-20', 'rent', '3.2', null, 1, 4, 2);
 INSERT INTO Advertisment VALUES (8, '2016-12-20', 'images/house4.jpg', 0,'2016-12-23',  'Kuca sa bazenom', 4,'+52434982', 423424, '2017-12-20', 'rent', '3.2', null, 3, 5, null);
 INSERT INTO Advertisment VALUES (9, '2016-12-20', 'images/house1.jpg', 0, '2016-12-23', 'Kuca velika', 90, '+481982', 234412, '2017-12-20', 'sell', '4', null, 1, 2, 1);
-INSERT INTO Advertisment VALUES (10, '2016-12-20', 'images/house2.jpg', 0, '2016-12-23', 'Stan na brdu', 14,'+34577535', 43242,'2017-12-20', 'sell', '5', null, null, 1, 2);
+INSERT INTO Advertisment VALUES (10, '2016-12-20', 'images/house2.jpg', 0, '2016-12-23', 'Stan na brdu', 14,'+34577535', 43242,'2017-12-20', 'sell', '5', null, null, 3, 2);
 INSERT INTO Advertisment VALUES (11, '2016-12-20', 'images/house3.jpg', 0,'2016-12-23',  'Kuca sa bazenom', 4,'+5243232', 423424, '2017-12-20', 'rent', '3.2', null, 2, 4, 2);
 INSERT INTO Advertisment VALUES (12, '2016-12-20', 'images/house4.jpg', 0,'2016-12-23',  'Kuca sa bazenom', 7,'+5234982', 423424, '2017-12-20', 'rent', '3.2', null, 3, 5, null);
 INSERT INTO Advertisment VALUES (13, '2016-12-20', 'images/house1.jpg', 0, '2016-12-23', 'Kuca velika', 18, '+4924842', 234412, '2017-12-20', 'sell', '4', null, 1, 2, 1);

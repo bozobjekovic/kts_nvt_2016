@@ -124,8 +124,8 @@ public class AdvertismentService {
 	* @param		type Advertisement's type
 	* @return		List of elements
 	*/
-	public List<Advertisment> findByRealEstate_Type(String type){
-		return advertismentRepository.findByRealEstate_TypeAndIsDeletedFalseAndVerifierNotNull(type);
+	public List<Advertisment> findByRealEstate_Type(String purpose, String type){
+		return advertismentRepository.findByPurposeAndRealEstate_TypeAndIsDeletedFalseAndVerifierNotNull(purpose, type);
 	}
 	
 	/**
