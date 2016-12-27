@@ -19,6 +19,36 @@ angular
                 controller: 'AboutCtrl',
                 controllerAs: 'about'
             })
+            .when('/advertisement', {
+                templateUrl: 'views/advertisement.html',
+                controller: 'AdvertisementCtrl',
+                controllerAs: 'advertisement'
+            })
+            .when('/buy', {
+                templateUrl: 'views/buy.html',
+                controller: 'BuyCtrl',
+                controllerAs: 'buy'
+            })
+            .when('/contact', {
+                templateUrl: 'views/contact.html',
+                controller: 'ContactCtrl',
+                controllerAs: 'contact'
+            })
+            .when('/profile', {
+                templateUrl: 'views/profile.html',
+                controller: 'ProfileCtrl',
+                controllerAs: 'profile'
+            })
+            .when('/rent', {
+                templateUrl: 'views/rent.html',
+                controller: 'RentCtrl',
+                controllerAs: 'rent'
+            })
+            .when('/sell', {
+                templateUrl: 'views/sell.html',
+                controller: 'SellCtrl',
+                controllerAs: 'sell'
+            })
             .otherwise({
                 redirectTo: '/'
             });
