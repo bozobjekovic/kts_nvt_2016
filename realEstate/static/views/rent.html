@@ -4,9 +4,9 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="text-align: center;">
 				<nav class="menu menu--francisco" style="display: inline-block;">
 					<ul class="nav navbar-nav menu__list">
-						<li class="menu__item menu__item--current"><a ng-click="showResidentalMenu()" class="menu__link"><span class="menu__helper">Residential</span></a></li>
-						<li class="menu__item"><a ng-click="showOfficeMenu()" class="menu__link"><span class="menu__helper">Office</span></a></li>
-						<li class="menu__item"><a ng-click="showPropertyMenu()" class="menu__link"><span class="menu__helper">Property</span></a></li>
+						<li class="menu__item menu__item--current"><a ng-click="showResidentalMenu(); getAdvertisementsByCategory('rent', 'Residental')" class="menu__link"><span class="menu__helper">Residential</span></a></li>
+						<li class="menu__item"><a ng-click="showOfficeMenu(); getAdvertisementsByCategory('rent', 'Office')" class="menu__link"><span class="menu__helper">Office</span></a></li>
+						<li class="menu__item"><a ng-click="showPropertyMenu(); getAdvertisementsByCategory('rent', 'Property')" class="menu__link"><span class="menu__helper">Property</span></a></li>
 					</ul>
 				</nav>
 			</div>
@@ -33,16 +33,16 @@
 						<ul class="nav navbar-nav menu__list, mini_menu_list">
 							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Office', 'Office')" class="menu__link"><span class="menu__helper">Offices</span></a></li>
 							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Office', 'Warehouse')" class="menu__link"><span class="menu__helper">Warehouses</span></a></li>
-							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Office', 'Hospitality')" class="menu__link"><span class="menu__helper">Hospitality Facilities</span></a></li>
-							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Office', 'Manufacturing')" class="menu__link"><span class="menu__helper">Manufacturing Facilities</span></a></li>
-							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Office', 'Sport')" class="menu__link"><span class="menu__helper">Sport Facilities</span></a></li>
+							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Office', 'Hospitality Facility')" class="menu__link"><span class="menu__helper">Hospitality Facilities</span></a></li>
+							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Office', 'Manufacturing Facility')" class="menu__link"><span class="menu__helper">Manufacturing Facilities</span></a></li>
+							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Office', 'Sport Facility')" class="menu__link"><span class="menu__helper">Sport Facilities</span></a></li>
 						</ul>
 					</nav>
 
 					<nav class="menu menu--francisco" ng-if="menu == 'property'" style="display: inline-block;">
 						<ul class="nav navbar-nav menu__list, mini_menu_list">
-							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Property', 'BuildingPlot')" class="menu__link"><span class="menu__helper">Building Plots</span></a></li>
-							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Property', 'AgriculturalPlot')" class="menu__link"><span class="menu__helper">Agricultural Plots</span></a></li>
+							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Property', 'Building Plot')" class="menu__link"><span class="menu__helper">Building Plots</span></a></li>
+							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Property', 'Agricultural Plot')" class="menu__link"><span class="menu__helper">Agricultural Plots</span></a></li>
 						</ul>
 					</nav>
 				</div>
@@ -60,12 +60,12 @@
 					<div class="panel panel-success">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-	       						<a data-toggle="collapse" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
+	       						<a ng-click="purposeCollapsed=!purposeCollapsed" href="">
 									Purpose
 								</a>
 							</h3>
 						</div>
-						<div class="collapsed" id="collapse1">
+						<div uib-collapse="purposeCollapsed">
 							<div class="panel-body">
 								<div class="radio">
 									<label><input type="radio" name="optradio">Buy</label>
@@ -79,12 +79,12 @@
 					<div class="panel panel-success">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-	       						<a data-toggle="collapse" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
+	       						<a ng-click="cityCollapsed=!cityCollapsed" href="">
 									City
 								</a>
 							</h3>
 						</div>
-						<div class="collapsed" id="collapse2">
+						<div uib-collapse="cityCollapsed">
 							<div class="panel-scroll" ng-controller = "BuyCtrl">
 								<div class="checkbox" ng-repeat="location in locations | unique: 'city'">
 									<label><input type="checkbox">{{location.city}}</label>
@@ -95,12 +95,12 @@
 					<div class="panel panel-success">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-	       						<a data-toggle="collapse" href="#collapse3" aria-expanded="false" aria-controls="collapse3">
+	       						<a ng-click="partOfTheCityCollapsed=!partOfTheCityCollapsed" href="">
 									Part of The City
 								</a>
 							</h3>
 						</div>
-						<div class="collapsed" id="collapse3">
+						<div uib-collapse="partOfTheCityCollapsed">
 							<div class="panel-scroll" ng-controller = "BuyCtrl">
 								<div class="checkbox" ng-repeat="location in locations | unique: 'partOfTheCity'">
 									<label><input type="checkbox">{{location.partOfTheCity}}</label>
@@ -111,12 +111,12 @@
 					<div class="panel panel-success">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-	       						<a data-toggle="collapse" href="#collapse4" aria-expanded="false" aria-controls="collapse4">
+	       						<a ng-click="priceCollapsed=!priceCollapsed" href="">
 									Price (RSD)
 								</a>
 							</h3>
 						</div>
-						<div class="collapse" id="collapse4">
+						<div ng-show="priceCollapsed">
 							<div class="panel-body">
 								<label class="number-size-left">From:</label>
 								<label class="number-size-right">To:</label>
@@ -129,12 +129,12 @@
 					<div class="panel panel-success">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-	       						<a data-toggle="collapse" href="#collapse5" aria-expanded="false" aria-controls="collapse5">
+	       						<a ng-click="landSizeCollapsed=!landSizeCollapsed" href="">
 									Land size (m<sup>2</sup>)
 								</a>
 							</h3>
 						</div>
-						<div class="collapse" id="collapse5">
+						<div ng-show="landSizeCollapsed">
 							<div class="panel-body">
 								<label class="number-size-left">From:</label>
 								<label class="number-size-right">To:</label>
@@ -147,12 +147,12 @@
 					<div class="panel panel-success">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-	       						<a data-toggle="collapse" href="#collapse6" aria-expanded="false" aria-controls="collapse6">
+	       						<a ng-click="rateCollapsed=!rateCollapsed" href="">
 									Rate (1-5)
 								</a>
 							</h3>
 						</div>
-						<div class="collapse" id="collapse6">
+						<div ng-show="rateCollapsed">
 							<div class="panel-body">
 								<label class="number-size-left">From:</label>
 								<label class="number-size-right">To:</label>
@@ -165,15 +165,17 @@
 					<div class="panel panel-success">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-	       						<a data-toggle="collapse" href="#collapse7" aria-expanded="false" aria-controls="collapse7">
+	       						<a ng-click="heatingTypeCollapsed=!heatingTypeCollapsed" href="">
 									Heating Type
 								</a>
 							</h3>
 						</div>
-						<div class="collapse" id="collapse7">
+						<div ng-show="heatingTypeCollapsed">
 							<div class="panel-body">
-								<div class="checkbox" ng-repeat="adver in rentAdvertisements">
-									<label><input type="checkbox">{{adver.heatingType}}</label>
+								<div class="checkbox">
+									<label><input type="checkbox">Forced Air</label>
+									<label><input type="checkbox">Radiant</label>
+									<label><input type="checkbox">Radiators</label>
 								</div>
 							</div>
 						</div>
@@ -181,12 +183,12 @@
 					<div class="panel panel-success">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-	       						<a data-toggle="collapse" href="#collapse8" aria-expanded="false" aria-controls="collapse8">
+	       						<a ng-click="numOfRoomsCollapsed=!numOfRoomsCollapsed" href="">
 									Number Of Rooms
 								</a>
 							</h3>
 						</div>
-						<div class="collapse" id="collapse8">
+						<div ng-show="numOfRoomsCollapsed">
 							<div class="panel-body">
 								<label class="number-size-left">From:</label>
 								<label class="number-size-right">To:</label>
@@ -199,12 +201,12 @@
 					<div class="panel panel-success">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-	       						<a data-toggle="collapse" href="#collapse9" aria-expanded="false" aria-controls="collapse9">
+	       						<a ng-click="numOfFloorsCollapsed=!numOfFloorsCollapsed" href="">
 									Number Of Floors
 								</a>
 							</h3>
 						</div>
-						<div class="collapse" id="collapse9">
+						<div ng-show="numOfFloorsCollapsed">
 							<div class="panel-body">
 								<label class="number-size-left">From:</label>
 								<label class="number-size-right">To:</label>
@@ -217,12 +219,12 @@
 					<div class="panel panel-success">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-	       						<a data-toggle="collapse" href="#collapse10" aria-expanded="false" aria-controls="collapse10">
+	       						<a ng-click="numOfBathsRCollapsed=!numOfBathsRCollapsed" href="">
 									Number Of Bathrooms
 								</a>
 							</h3>
 						</div>
-						<div class="collapse" id="collapse10">
+						<div ng-show="numOfBathsRCollapsed">
 							<div class="panel-body">
 								<label class="number-size-left">From:</label>
 								<label class="number-size-right">To:</label>
@@ -235,12 +237,12 @@
 					<div class="panel panel-success">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-	       						<a data-toggle="collapse" href="#collapse11" aria-expanded="false" aria-controls="collapse11">
+	       						<a ng-click="bYearCollapsed=!bYearCollapsed" href="">
 									Build Year
 								</a>
 							</h3>
 						</div>
-						<div class="collapse" id="collapse11">
+						<div ng-show="bYearCollapsed">
 							<div class="panel-body">
 								<label class="number-size-left">From:</label>
 								<label class="number-size-right">To:</label>
@@ -254,25 +256,24 @@
 			</div>
 			<div class="search-grid-right">
 				<h4 class="tittle" style="color: #751717;">Homes</h4>
-
 				<div class="portfolio_grid_w3lss">
 					<div class="col-md-4 w3agile_Projects_grid" ng-repeat="advertisement in rentAdvertisements">
-						<a ng-href="/{{'advertisement'}}">
-	             			<figure>
-	               				<div class="image-text">
-	 								<img src="{{advertisement.image}}" alt="" class="img-responsive" />
-				                 	<p>
-				                 		<font size="4">{{advertisement.name}}</font> <br/>
-				                 		<font size="6">{{advertisement.price}}</font> <br/>
-				                 		<font size="5">{{advertisement.city}}</font>
-				                 	</p>
-				               	</div>
-							</figure>
-						</a>
+             			<figure>
+               				<div class="image-text">
+ 								<img src="{{advertisement.image}}" alt="" class="img-responsive" />
+			                 	<p>
+			                 		<font size="4">{{advertisement.name}}</font> <br/>
+			                 		<font size="6">{{advertisement.price}}</font> <br/>
+			                 		<font size="5">{{advertisement.city}}</font>
+			                 	</p>
+			               	</div>
+						</figure>
 					</div>
 					<div class="clearfix"> </div>
+					<div ng-controller="PaginationCtrl">
+						<ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true"></ul>
+					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>
