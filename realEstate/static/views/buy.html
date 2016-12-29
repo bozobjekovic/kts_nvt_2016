@@ -22,8 +22,8 @@
 	<div class="header-bottom">
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<nav class="menu menu--francisco">
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="text-align: center;">
+					<nav class="menu menu--francisco" style="display: inline-block;">
 						<ul class="nav navbar-nav menu__list, mini_menu_list">
 							<li class="menu__item"><a href="" ng-click="getAdvertisementsByType('sell', 'Residental', 'Apartment')" class="menu__link"><span class="menu__helper">Apartments</span></a></li>
 							<li class="menu__item"><a href="" ng-click="getAdvertisementsByType('sell', 'Residental', 'House')" class="menu__link"><span class="menu__helper">Houses</span></a></li>
@@ -244,7 +244,7 @@
 			<div class="search-grid-right">
 				<h4 class="tittle" style="color: #751717;">Homes</h4>
 				<div class="portfolio_grid_w3lss">
-					<div class="col-md-4 w3agile_Projects_grid" ng-repeat="advertisement in buyAdvertisements"> 
+					<div class="col-md-4 w3agile_Projects_grid" ng-repeat="advertisement in buyAdvertisements">
 						<figure>
 							<div class="image-text">
 								<img src="{{advertisement.image}}" alt="" class="img-responsive"/>
@@ -257,13 +257,13 @@
 						</figure>
 					</div>
 				</div>
-				
+
 				<div class="clearfix"></div>
 				<div ng-controller="PaginationCtrl">
 					<ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true"></ul>
 				</div>
 			</div>
-			
+
 		</div>
 	</div>
 </div>

@@ -1,9 +1,9 @@
 <div class="header-bottom">
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<nav class="menu menu--francisco">
-					<ul class="nav navbar-nav menu__list" style="padding-left: 100px">
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="text-align: center;">
+				<nav class="menu menu--francisco" style="display: inline-block;">
+					<ul class="nav navbar-nav menu__list">
 						<li class="menu__item menu__item--current"><a ng-click="showResidentalMenu()" class="menu__link"><span class="menu__helper">Residential</span></a></li>
 						<li class="menu__item"><a ng-click="showOfficeMenu()" class="menu__link"><span class="menu__helper">Office</span></a></li>
 						<li class="menu__item"><a ng-click="showPropertyMenu()" class="menu__link"><span class="menu__helper">Property</span></a></li>
@@ -19,18 +19,18 @@
 	<div class="header-bottom">
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<nav class="menu menu--francisco" ng-if="menu == 'residental'">
-						<ul class="nav navbar-nav menu__list, mini_menu_list" style="margin-left: 374.6335px;">
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="text-align: center;">
+					<nav class="menu menu--francisco" ng-if="menu == 'residental'" style="display: inline-block;">
+						<ul class="nav navbar-nav menu__list, mini_menu_list">
 							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Residental', 'Apartment')" class="menu__link"><span class="menu__helper">Apartments</span></a></li>
 							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Residental', 'House')" class="menu__link"><span class="menu__helper">Houses</span></a></li>
 							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Residental', 'Room')" class="menu__link"><span class="menu__helper">Rooms</span></a></li>
 							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Residental', 'Garage')" class="menu__link"><span class="menu__helper">Garages</span></a></li>
 						</ul>
 					</nav>
-					
-					<nav class="menu menu--francisco" ng-if="menu == 'office'">
-						<ul class="nav navbar-nav menu__list, mini_menu_list" style="margin-left: 224.6335px;">
+
+					<nav class="menu menu--francisco" ng-if="menu == 'office'" style="display: inline-block;">
+						<ul class="nav navbar-nav menu__list, mini_menu_list">
 							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Office', 'Office')" class="menu__link"><span class="menu__helper">Offices</span></a></li>
 							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Office', 'Warehouse')" class="menu__link"><span class="menu__helper">Warehouses</span></a></li>
 							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Office', 'Hospitality')" class="menu__link"><span class="menu__helper">Hospitality Facilities</span></a></li>
@@ -38,9 +38,9 @@
 							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Office', 'Sport')" class="menu__link"><span class="menu__helper">Sport Facilities</span></a></li>
 						</ul>
 					</nav>
-					
-					<nav class="menu menu--francisco" ng-if="menu == 'property'">
-						<ul class="nav navbar-nav menu__list, mini_menu_list" style="margin-left: 374.6335px;">
+
+					<nav class="menu menu--francisco" ng-if="menu == 'property'" style="display: inline-block;">
+						<ul class="nav navbar-nav menu__list, mini_menu_list">
 							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Property', 'BuildingPlot')" class="menu__link"><span class="menu__helper">Building Plots</span></a></li>
 							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Property', 'AgriculturalPlot')" class="menu__link"><span class="menu__helper">Agricultural Plots</span></a></li>
 						</ul>
@@ -272,7 +272,7 @@
 					</div>
 					<div class="clearfix"> </div>
 				</div>
-				
+
 			</div>
 		</div>
 	</div>
