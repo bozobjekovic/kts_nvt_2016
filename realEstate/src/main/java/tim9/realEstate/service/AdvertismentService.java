@@ -115,8 +115,8 @@ public class AdvertismentService {
 	* @param		category Advertisement's category
 	* @return		List of elements
 	*/
-	public List<Advertisment> findByRealEstate_Category(Category category){
-		return advertismentRepository.findByRealEstate_CategoryAndIsDeletedFalseAndVerifierNotNull(category);
+	public List<Advertisment> findByRealEstate_Category(String purpose, Category category){
+		return advertismentRepository.findByPurposeAndRealEstate_CategoryAndIsDeletedFalseAndVerifierNotNull(purpose, category);
 	}
 	
 	/**

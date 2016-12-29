@@ -17,7 +17,7 @@ public interface AdvertismentRepository extends JpaRepository<Advertisment, Long
 	
 	Advertisment findByRealEstate(RealEstate realEstate);
 	
-	List<Advertisment> findByRealEstate_CategoryAndIsDeletedFalseAndVerifierNotNull(Category category);
+	List<Advertisment> findByPurposeAndRealEstate_CategoryAndIsDeletedFalseAndVerifierNotNull(String purpose, Category category);
 	
 	List<Advertisment> findByPurposeAndRealEstate_TypeAndIsDeletedFalseAndVerifierNotNull(String purpose, String type);
 	

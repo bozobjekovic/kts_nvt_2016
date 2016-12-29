@@ -179,7 +179,7 @@ public class AdvertismentServiceTest {
 	 **/
 	@Test
 	public void testFindByRealEstate_Category() {
-		List<Advertisment> advertisments = advertismentService.findByRealEstate_Category(DB_CATEGORY);
+		List<Advertisment> advertisments = advertismentService.findByRealEstate_Category(DB_PURPOSE,DB_CATEGORY);
 		assertThat(advertisments.size()).isEqualTo(2);
 		for (int i = 0; i < advertisments.size(); i++) {
 			assertThat(advertisments.get(i).getRealEstate().getCategory()).isEqualTo(DB_CATEGORY);
