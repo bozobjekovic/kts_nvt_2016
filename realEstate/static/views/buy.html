@@ -1,34 +1,47 @@
-<!--
-<div class="container, header-height">
-	<div class="header-bottom">
-		<nav class="navbar navbar-default">
-			<div class="container-fluid">
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<nav class="menu menu--francisco">
-						<ul class="nav navbar-nav menu__list">
-							<li class="menu__item menu__item--current"><a href="#" class="menu__link"><span class="menu__helper">Residential</span></a></li>
-							<li class="menu__item"><a href="#" class="menu__link"><span class="menu__helper">Office</span></a></li>
-							<li class="menu__item"><a href="#" class="menu__link"><span class="menu__helper">Property</span></a></li>
-						</ul>
-					</nav>
-				</div>
+<div class="header-bottom">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="text-align: center;">
+				<nav class="menu menu--francisco" style="display: inline-block;">
+					<ul class="nav navbar-nav menu__list">
+						<li class="menu__item"><a ng-click="showMenu('Residental'); getAdvertisementsByCategory('sell', 'Residental')" class="menu__link"><span class="menu__helper">Residential</span></a></li>
+						<li class="menu__item"><a ng-click="showMenu('Office'); getAdvertisementsByCategory('sell', 'Office')" class="menu__link"><span class="menu__helper">Office</span></a></li>
+						<li class="menu__item"><a ng-click="showMenu('Property'); getAdvertisementsByCategory('sell', 'Property')" class="menu__link"><span class="menu__helper">Property</span></a></li>
+					</ul>
+				</nav>
 			</div>
-		</nav>
-	</div>
+		</div>
+	</nav>
 </div>
--->
 
 <div class="container, header-height">
 	<div class="header-bottom">
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="text-align: center;">
-					<nav class="menu menu--francisco" style="display: inline-block;">
+					<nav class="menu menu--francisco" ng-if="menu == 'residental'" style="display: inline-block;">
 						<ul class="nav navbar-nav menu__list, mini_menu_list">
-							<li class="menu__item"><a href="" ng-click="getAdvertisementsByType('sell', 'Residental', 'Apartment')" class="menu__link"><span class="menu__helper">Apartments</span></a></li>
-							<li class="menu__item"><a href="" ng-click="getAdvertisementsByType('sell', 'Residental', 'House')" class="menu__link"><span class="menu__helper">Houses</span></a></li>
-							<li class="menu__item"><a href="" ng-click="getAdvertisementsByType('sell', 'Residental', 'Room')" class="menu__link"><span class="menu__helper">Rooms</span></a></li>
-							<li class="menu__item"><a href="" ng-click="getAdvertisementsByType('sell', 'Residental', 'Garage')" class="menu__link"><span class="menu__helper">Garages</span></a></li>
+							<li class="menu__item"><a ng-click="getAdvertisementsByType('sell', 'Residental', 'Apartment')" class="menu__link"><span class="menu__helper">Apartments</span></a></li>
+							<li class="menu__item"><a ng-click="getAdvertisementsByType('sell', 'Residental', 'House')" class="menu__link"><span class="menu__helper">Houses</span></a></li>
+							<li class="menu__item"><a ng-click="getAdvertisementsByType('sell', 'Residental', 'Room')" class="menu__link"><span class="menu__helper">Rooms</span></a></li>
+							<li class="menu__item"><a ng-click="getAdvertisementsByType('sell', 'Residental', 'Garage')" class="menu__link"><span class="menu__helper">Garages</span></a></li>
+						</ul>
+					</nav>
+
+					<nav class="menu menu--francisco" ng-if="menu == 'office'" style="display: inline-block;">
+						<ul class="nav navbar-nav menu__list, mini_menu_list">
+							<li class="menu__item"><a ng-click="getAdvertisementsByType('sell', 'Office', 'Office')" class="menu__link"><span class="menu__helper">Offices</span></a></li>
+							<li class="menu__item"><a ng-click="getAdvertisementsByType('sell', 'Office', 'Warehouse')" class="menu__link"><span class="menu__helper">Warehouses</span></a></li>
+							<li class="menu__item"><a ng-click="getAdvertisementsByType('sell', 'Office', 'Hospitality')" class="menu__link"><span class="menu__helper">Hospitality Facilities</span></a></li>
+							<li class="menu__item"><a ng-click="getAdvertisementsByType('sell', 'Office', 'Manufacturing')" class="menu__link"><span class="menu__helper">Manufacturing Facilities</span></a></li>
+							<li class="menu__item"><a ng-click="getAdvertisementsByType('sell', 'Office', 'Sport')" class="menu__link"><span class="menu__helper">Sport Facilities</span></a></li>
+						</ul>
+					</nav>
+
+					<nav class="menu menu--francisco" ng-if="menu == 'property'" style="display: inline-block;">
+						<ul class="nav navbar-nav menu__list, mini_menu_list">
+							<li class="menu__item"><a ng-click="getAdvertisementsByType('sell', 'Property', 'BuildingPlot')" class="menu__link"><span class="menu__helper">Building Plots</span></a></li>
+							<li class="menu__item"><a ng-click="getAdvertisementsByType('sell', 'Property', 'AgriculturalPlot')" class="menu__link"><span class="menu__helper">Agricultural Plots</span></a></li>
 						</ul>
 					</nav>
 				</div>
