@@ -15,17 +15,22 @@
 	  			<div class="container">
 	  				<div class="deatils" >
 	  					<ul>
+							<!--
 	  						<li ng-controller="LoginCtrl"><i class="glyphicon glyphicon-log-in" aria-hidden="true"></i><a href="" ng-click="openModal()">Log In</a></li>
 	  						<li ng-controller="RegistrateCtrl"><i class="glyphicon glyphicon-lock" aria-hidden="true"></i><a href="" ng-click="openModal()">Register</a></li>
+							-->
+							<!--   -->
+							<li ng-controller="LoginCtrl"><i class="glyphicon glyphicon-user" aria-hidden="true"></i><a href="" >Ana Marojevic</a></li>
+	  						<li ng-controller="RegistrateCtrl"><i class="glyphicon glyphicon-log-out" aria-hidden="true"></i><a href="" >Log Out</a></li>
 	  					</ul>
-	  				</div>
+	  				</div><br />
 	  				<div class="logo">
-	  					<h1 style="margin-top: 10px; margin-left: 140px;"><a href="#"><i>Real Estates</i></a></h1>
+	  					<h1 style="margin-top: 1px; text-align:center;"><a href="#"><i>Real Estates</i></a></h1>
 	  				</div>
 	  			</div>
 	  		</div>
 	  		<div class="container">
-	  			<div class="header-bottom">
+	  			<div class="header-bottom" ng-if="mainMenu">
 	  				<nav class="navbar navbar-default">
 	  					<div class="container-fluid">
 	  						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="text-align: center;">
@@ -64,6 +69,7 @@
 
 
 		<script src="scripts/app.js"></script>
+		<script src="scripts/main/main-ctrl.js"></script>
 		<script src="scripts/login_registrate/login-ctrl.js"></script>
 		<script src="scripts/login_registrate/login-factory.js"></script>
 		<script src="scripts/login_registrate/registrate-ctrl.js"></script>
