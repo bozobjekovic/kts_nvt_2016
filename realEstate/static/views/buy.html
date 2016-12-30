@@ -51,19 +51,19 @@
 </div>
 
 <div class="content">
-	<div class="projects-agile" style="padding: 0px;">
+	<div class="projects-agile">
 		<div class="container">
 			<div class="search-grid-left">
 				<div class="panel-group">
 					<div class="panel panel-success">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-	       						<a data-toggle="collapse" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
+	       						<a ng-click="purposeCollapsed=!purposeCollapsed" href="">
 									Purpose
 								</a>
 							</h3>
 						</div>
-						<div class="collapsed" id="collapse1">
+						<div uib-collapse="purposeCollapsed">
 							<div class="panel-body">
 								<div class="radio">
 									<label><input type="radio" name="optradio" checked="">Buy</label>
@@ -77,12 +77,12 @@
 					<div class="panel panel-success">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-	       						<a data-toggle="collapse" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
+	       						<a ng-click="cityCollapsed=!cityCollapsed" href="">
 									City
 								</a>
 							</h3>
 						</div>
-						<div class="collapsed" id="collapse2">
+						<div uib-collapse="cityCollapsed">
 							<div class="panel-scroll">
 								<div class="checkbox" ng-repeat="location in locations | unique:'city'">
 									<label><input type="checkbox">{{location.city}}</label>
@@ -93,12 +93,12 @@
 					<div class="panel panel-success">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-	       						<a data-toggle="collapse" href="#collapse3" aria-expanded="false" aria-controls="collapse3">
+	       						<a ng-click="partOfTheCityCollapsed=!partOfTheCityCollapsed" href="">
 									Part of The City
 								</a>
 							</h3>
 						</div>
-						<div class="collapsed" id="collapse3">
+						<div  uib-collapse="partOfTheCityCollapsed">
 							<div class="panel-scroll">
 								<div class="checkbox" ng-repeat="location in locations | unique:'partOfTheCity'">
 									<label><input type="checkbox">{{location.partOfTheCity}}</label>
@@ -109,12 +109,12 @@
 					<div class="panel panel-success">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-	       						<a data-toggle="collapse" href="#collapse4" aria-expanded="false" aria-controls="collapse4">
+	       						<a ng-click="priceCollapsed=!priceCollapsed" href="">
 									Price (USD)
 								</a>
 							</h3>
 						</div>
-						<div class="collapse" id="collapse4">
+						<div ng-show="priceCollapsed">
 							<div class="panel-body">
 								<label class="number-size-left">From:</label>
 								<label class="number-size-right">To:</label>
@@ -127,12 +127,12 @@
 					<div class="panel panel-success">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-	       						<a data-toggle="collapse" href="#collapse5" aria-expanded="false" aria-controls="collapse5">
+	       						<a ng-click="landSizeCollapsed=!landSizeCollapsed" href="">
 									Land size (m<sup>2</sup>)
 								</a>
 							</h3>
 						</div>
-						<div class="collapse" id="collapse5">
+						<div  ng-show="landSizeCollapsed">
 							<div class="panel-body">
 								<label class="number-size-left">From:</label>
 								<label class="number-size-right">To:</label>
@@ -145,12 +145,12 @@
 					<div class="panel panel-success">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-	       						<a data-toggle="collapse" href="#collapse6" aria-expanded="false" aria-controls="collapse6">
+	       						<a ng-click="rateCollapsed=!rateCollapsed" href="">
 									Rate (1-5)
 								</a>
 							</h3>
 						</div>
-						<div class="collapse" id="collapse6">
+						<div ng-show="rateCollapsed">
 							<div class="panel-body">
 								<label class="number-size-left">From:</label>
 								<label class="number-size-right">To:</label>
@@ -163,38 +163,30 @@
 					<div class="panel panel-success">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-	       						<a data-toggle="collapse" href="#collapse7" aria-expanded="false" aria-controls="collapse7">
+	       						<a ng-click="heatingTypeCollapsed=!heatingTypeCollapsed" href="">
 									Heating Type
 								</a>
 							</h3>
 						</div>
-						<div class="collapse" id="collapse7">
+						<div ng-show="heatingTypeCollapsed">
 							<div class="panel-body">
 								<div class="checkbox">
-									<label><input type="checkbox">Central</label>
-								</div>
-								<div class="checkbox">
-									<label><input type="checkbox">Floor</label>
-								</div>
-								<div class="checkbox">
-									<label><input type="checkbox">Gas</label>
-								</div>
-								<div class="checkbox">
-									<label><input type="checkbox">Electricity</label>
-								</div>
-								<div class="checkbox">
-									<label><input type="checkbox">Fuel Oil</label>
-								</div>
++									<label><input type="checkbox">Forced Air</label>
++									<label><input type="checkbox">Radiant</label>
++									<label><input type="checkbox">Radiators</label>
+ 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="panel panel-success">
 						<div class="panel-heading">
-       						<a data-toggle="collapse" href="#collapse8" aria-expanded="false" aria-controls="collapse8">
-								<h3 class="panel-title">Number Of Rooms</h3>
-							</a>
+							<h3 class="panel-title">	
+	       						<a ng-click="numOfRoomsCollapsed=!numOfRoomsCollapsed" href="">
+									Number Of Rooms
+								</a>
+							</h3>
 						</div>
-						<div class="collapse" id="collapse8">
+						<div ng-show="numOfRoomsCollapsed">
 							<div class="panel-body">
 								<label class="number-size-left">From:</label>
 								<label class="number-size-right">To:</label>
@@ -206,11 +198,13 @@
 					</div>
 					<div class="panel panel-success">
 						<div class="panel-heading">
-       						<a data-toggle="collapse" href="#collapse9" aria-expanded="false" aria-controls="collapse9">
-								<h3 class="panel-title">Number Of Floors</h3>
-							</a>
+							<h3 class="panel-title">
+	       						<a  ng-click="numOfFloorsCollapsed=!numOfFloorsCollapsed" href="">
+									Number Of Floors
+								</a>
+							</h3>
 						</div>
-						<div class="collapse" id="collapse9">
+						<div ng-show="numOfFloorsCollapsed">
 							<div class="panel-body">
 								<label class="number-size-left">From:</label>
 								<label class="number-size-right">To:</label>
@@ -222,11 +216,13 @@
 					</div>
 					<div class="panel panel-success">
 						<div class="panel-heading">
-       						<a data-toggle="collapse" href="#collapse10" aria-expanded="false" aria-controls="collapse10">
-								<h3 class="panel-title">Number Of Bathrooms</h3>
-							</a>
+							<h3 class="panel-title">
+	       						<a ng-click="numOfBathsRCollapsed=!numOfBathsRCollapsed" href="">
+									Number Of Bathrooms
+								</a>
+							</h3>
 						</div>
-						<div class="collapse" id="collapse10">
+						<div ng-show="numOfBathsRCollapsed">
 							<div class="panel-body">
 								<label class="number-size-left">From:</label>
 								<label class="number-size-right">To:</label>
@@ -238,11 +234,13 @@
 					</div>
 					<div class="panel panel-success">
 						<div class="panel-heading">
-       						<a data-toggle="collapse" href="#collapse11" aria-expanded="false" aria-controls="collapse11">
-								<h3 class="panel-title">Build Year</h3>
-							</a>
+							<h3 class="panel-title">
+	      						<a ng-click="bYearCollapsed=!bYearCollapsed" href="">
+									Build Year
+								</a>
+							</h3>
 						</div>
-						<div class="collapse" id="collapse11">
+						<div ng-show="bYearCollapsed">
 							<div class="panel-body">
 								<label class="number-size-left">From:</label>
 								<label class="number-size-right">To:</label>
