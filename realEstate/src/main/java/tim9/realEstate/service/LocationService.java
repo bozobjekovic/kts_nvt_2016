@@ -1,5 +1,6 @@
 package tim9.realEstate.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,25 @@ public class LocationService {
 	
 	public Location findByCityAndZipCodeAndPartOfTheCity(String city, int zipCode, String partOfTheCity) {
 		return locationRepositroy.findByCityAndZipCodeAndPartOfTheCity(city, zipCode, partOfTheCity);
+	}
+	
+	public List<String> getAllPartOfTheCities() {
+		return locationRepositroy.findAllPartOfTheCities();
+	}
+	
+	public List<String> getAllCities() {
+		return locationRepositroy.findDistinctCities();
+	}
+	
+	public List<String> getAllPartOfTheCitiesByCity(String city) {
+		List<String> partOfTheCities = new ArrayList<>();
+		List<Location> locations = locationRepositroy.findByCity(city);
+		
+		for (int i = 0; i < locations.size(); i++) {
+			partOfTheCities.add(locations.get(i).getPartOfTheCity());
+		}
+		
+		return partOfTheCities;
 	}
 	
 	/**

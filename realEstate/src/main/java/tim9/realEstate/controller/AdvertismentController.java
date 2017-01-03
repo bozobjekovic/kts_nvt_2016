@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import tim9.realEstate.dto.AdvertismentCreateDTO;
 import tim9.realEstate.dto.AdvertismentDTO;
 import tim9.realEstate.model.Advertisment;
+import tim9.realEstate.model.Location;
 import tim9.realEstate.model.RealEstate;
-import tim9.realEstate.model.User;
 import tim9.realEstate.security.UserUtils;
 import tim9.realEstate.service.AdvertismentService;
 import tim9.realEstate.service.LocationService;
@@ -106,9 +106,11 @@ public class AdvertismentController {
      */
     @RequestMapping(method=RequestMethod.POST)
     public ResponseEntity<AdvertismentCreateDTO> saveAdvertisment(@RequestBody AdvertismentCreateDTO advertismentDTO, ServletRequest request){
+    	System.out.println(advertismentDTO);
     	if(!checkInput(advertismentDTO)){
     		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     	}
+    	
     	Advertisment advertisment = new Advertisment();
     	advertisment.setName(advertismentDTO.getName());
     	advertisment.setPrice(advertismentDTO.getPrice());
@@ -117,12 +119,23 @@ public class AdvertismentController {
 		advertisment.setActiveUntil(advertismentDTO.getActiveUntil());
 		advertisment.setPurpose(advertismentDTO.getPurpose());
 		advertisment.setPhoneNumber(advertismentDTO.getPhoneNumber());
+		
 		if(advertismentService.findByPhoneNumber(advertisment.getPhoneNumber()) != null){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		advertisment.setPublisher((User)userUtils.getLoggedUser(request));
+
+		// TODO : 
+		//advertisment.setPublisher((User)userUtils.getLoggedUser(request));
 		RealEstate realEstate = new RealEstate();
-		realEstate.setLocation(locationService.findOne(advertismentDTO.getLocation().getId()));
+		
+		Location location = locationService.findByCityAndZipCodeAndPartOfTheCity(
+				advertismentDTO.getLocation().getCity(), advertismentDTO.getLocation().getZipCode(),
+				advertismentDTO.getLocation().getPartOfTheCity());
+		if (location == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		realEstate.setLocation(location);
 		realEstate.setAddress(advertismentDTO.getAddress());
 		realEstate.setLandSize(advertismentDTO.getLandSize());
 		realEstate.setTechEquipment(advertismentDTO.getTechEquipment());
@@ -132,12 +145,12 @@ public class AdvertismentController {
 		realEstate.setBuildYear(advertismentDTO.getBuildYear());
 		realEstate.setCategory(advertismentDTO.getCategory());
 		realEstate.setType(advertismentDTO.getType());
-		
+
 		advertisment.setRealEstate(realEstate);
+		System.out.println(advertisment);
+		//advertisment = advertismentService.save(advertisment);
 		
-		advertisment = advertismentService.save(advertisment);
-		
-		return new ResponseEntity<>(new AdvertismentCreateDTO(advertisment, realEstate), HttpStatus.CREATED);
+		return new ResponseEntity<>(advertismentDTO, HttpStatus.CREATED);
     }
     
     /**
@@ -147,6 +160,18 @@ public class AdvertismentController {
      */
     private boolean checkInput(AdvertismentCreateDTO advertismentDTO) {
     	if(advertismentDTO.getName() == null || advertismentDTO.getName().equals("")){
+    		return false;
+    	}
+    	else if(advertismentDTO.getAddress() == null || advertismentDTO.getAddress().equals("")){
+    		return false;
+    	}
+    	else if(advertismentDTO.getLocation().getCity() == null || advertismentDTO.getLocation().getCity().equals("")){
+    		return false;
+    	}
+    	else if(advertismentDTO.getHeatingType() == null || advertismentDTO.getHeatingType().equals("")){
+    		return false;
+    	}
+    	else if(advertismentDTO.getCategory() == null || advertismentDTO.getCategory().equals("")){
     		return false;
     	}
     	else if(advertismentDTO.getPurpose() == null || advertismentDTO.getPurpose().equals("")){

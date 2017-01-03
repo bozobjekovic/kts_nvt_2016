@@ -44,6 +44,12 @@ public class LocationDTO {
 		this.zipCode = zipCode;
 		this.partOfTheCity = partOfTheCity;
 	}
+	
+	@Override
+	public String toString() {
+		return "LocationDTO [id=" + id + ", companyCity=" + companyCity + ", zipCode=" + zipCode + ", partOfTheCity="
+				+ partOfTheCity + "]";
+	}
 
 	public Long getId() {
 		return id;

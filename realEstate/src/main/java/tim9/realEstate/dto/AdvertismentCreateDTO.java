@@ -15,12 +15,12 @@ public class AdvertismentCreateDTO {
 	private Date activeUntil;
 	private String purpose;
 	private String phoneNumber;
+	private double price;
 	private double rate;
 	
 	private Long realEstateId;
 	private String name;
 	private LocationDTO location;
-	private double price;
 	private int landSize;
 	private String techEquipment;
 	private String address;
@@ -100,6 +100,17 @@ public class AdvertismentCreateDTO {
 		this.buildYear = buildYear;
 		this.category = category;
 		this.type = type;
+	}
+	
+	@Override
+	public String toString() {
+		return "AdvertismentCreateDTO [advertismentId=" + advertismentId + ", activeUntil=" + activeUntil + ", purpose="
+				+ purpose + ", phoneNumber=" + phoneNumber + ", price=" + price + ", rate=" + rate + ", realEstateId="
+				+ realEstateId + ", name=" + name + ", location=" + location + ", landSize=" + landSize
+				+ ", techEquipment=" + techEquipment + ", address=" + address + ", heatingType=" + heatingType
+				+ ", image=" + image + ", numOfBathRooms=" + numOfBathRooms + ", numOfBedRooms=" + numOfBedRooms
+				+ ", numOfFlors=" + numOfFlors + ", buildYear=" + buildYear + ", category=" + category + ", type="
+				+ type + "]";
 	}
 
 	public Long getAdvertismentId() {

@@ -48,13 +48,11 @@
                 $scope.registrateUser = registrateUser;
 
                 $scope.ok_user = function() {
-                    console.log('user');
                     RegistrateFactory.registrateUser($scope.registrateUser);
                     $uibModalInstance.close('ok_user')
                 };
 
                 $scope.ok_clerk = function() {
-                    console.log('clerk');
                     RegistrateFactory.registrateClerk($scope.registrateUser);
                     $uibModalInstance.close('ok_clerk')
                 };

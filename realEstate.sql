@@ -49,11 +49,21 @@ INSERT INTO User VALUES (3, 'Kragujevacka', 'Kragujevac', 'user3@gmail.com', 'im
 INSERT INTO Location VALUES (1, 'Novi Sad', 'Liman', 21000);
 INSERT INTO Location VALUES (2, 'Beograd', 'Kosutnjak', 11000);
 INSERT INTO Location VALUES (3, 'Novi Sad', 'Bulevar', 21000);
-INSERT INTO Location VALUES (4, 'Nis', 'Deo Nisa', 23560);
+INSERT INTO Location VALUES (4, 'Nis', 'Deo Nisa', 12000);
 INSERT INTO Location VALUES (5, 'Beograd', 'Zemun', 23560);
-INSERT INTO Location VALUES (6, 'Kragujevac', 'Deo Kragujevca', 23560);
-INSERT INTO Location VALUES (7, 'Smederevo', 'Deo Smedereva', 23560);
-INSERT INTO Location VALUES (8, 'Nis', 'Deo Nisa', 23560);
+INSERT INTO Location VALUES (6, 'Kragujevac', 'Deo Kragujevca', 13000);
+INSERT INTO Location VALUES (7, 'Smederevo', 'Deo Smedereva', 14000);
+INSERT INTO Location VALUES (8, 'Nis', 'Deo Nisa 1', 12000);
+INSERT INTO Location VALUES (9, 'Novi Sad', 'Detelinara', 21000);
+INSERT INTO Location VALUES (10, 'Novi Sad', 'Petrovaradin', 21000);
+INSERT INTO Location VALUES (11, 'Novi Sad', 'Podbara', 21000);
+INSERT INTO Location VALUES (12, 'Novi Sad', 'Grbavica', 21000);
+
+INSERT INTO Location VALUES (13, 'Novi Sad', '', 21000);
+INSERT INTO Location VALUES (14, 'Beograd', '', 11000);
+INSERT INTO Location VALUES (15, 'Nis', '', 12000);
+INSERT INTO Location VALUES (16, 'Kragujevac', '', 13000);
+INSERT INTO Location VALUES (17, 'Smederevo', '', 14000);
 
 INSERT INTO Admin VALUES (1, 'Balzakova', 'Novi Sad', 'admin@gmail.com', 'image', 'Admin', 'a', '+381412941', 'Adminovski', 'admin', 1);
 

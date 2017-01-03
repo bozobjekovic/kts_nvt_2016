@@ -105,6 +105,10 @@ nav a:focus {
     -ms-transition: 0.5s all;
 	border-radius: 16px;
 }
+.requiredFiled {
+	color: #751717;
+	padding-left: 5px;
+}
 .social-icons i.icon:hover {
   background: #D4AF37    url(../images/img-sprite.png) no-repeat 0px 0px;
       transform: rotateY(360deg);
@@ -1263,7 +1267,7 @@ p.why-text {
     transition-delay: 1.3s;
 }
 .w3agile_Projects_grid figure:hover h4,.w3agile_Projects_grid figure:hover p {
-    
+
 }
 /*-- //portfolio --*/
 /*--project--*/
