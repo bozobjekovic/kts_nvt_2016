@@ -79,8 +79,8 @@ public class AdvertismentFilterController {
      * @param		filter	filter for Advertisement search
      * @return      ResponseEntity List with all DTO Advertisements and HttpStatus OK
      */
-    @RequestMapping(value="/category/{category}/filters", method = RequestMethod.GET)
-    public ResponseEntity<List<AdvertismentDTO>> filters(@PathVariable Category category, @RequestParam(value = "filter") String filter){
+    @RequestMapping(value="/purpose/{purpose}/category/{category}/filters", method = RequestMethod.GET)
+    public ResponseEntity<List<AdvertismentDTO>> filters(@PathVariable String purpose, @PathVariable Category category, @RequestParam(value = "filter") String filter){
     	AdvertismentSpecificationsBuilder builder = new AdvertismentSpecificationsBuilder();
     	
     	Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");
@@ -89,6 +89,7 @@ public class AdvertismentFilterController {
     	while (matcher.find()) {
             builder.with(matcher.group(1), matcher.group(2), matcher.group(3));
         }
+    	builder.with("purpose", ":", purpose);
     	builder.with("category", ":", category);
     	
     	Specification<Advertisment> spec = builder.build();

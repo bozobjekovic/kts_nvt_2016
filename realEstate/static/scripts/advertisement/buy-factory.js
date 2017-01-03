@@ -13,13 +13,6 @@ angular.module('realEstateClientApp')
     		});
 		};
 		
-		retVal.getAdvertisements = function() {
-			return Restangular.all("advertisments/purpose/sell").getList().then(function(entries) {
-				advertisements = entries;
-				return advertisements;
-    		});
-		};
-		
 		retVal.getAdvertisementsByCategory = function(purpose, category) {
 			return Restangular.one("advertisments/purpose", purpose).one("category", category).getList().then(function(entries) {
 				advertisements = entries;
@@ -29,6 +22,14 @@ angular.module('realEstateClientApp')
 		
 		retVal.getAdvertisementsByType = function(purpose, category, type) {
 			return Restangular.one("advertisments/purpose", purpose).one("category", category).one("type", type).getList().then(function(entries) {
+				advertisements = entries;
+				return advertisements;
+    		});
+		};
+		
+		retVal.filterAdvertisements = function(purpose, category, filterStr) {
+			var params = {filter: filterStr}
+			return Restangular.one("advertisments/purpose", purpose).one("category", category).all("filters").customGET("", params).then(function(entries) {
 				advertisements = entries;
 				return advertisements;
     		});
