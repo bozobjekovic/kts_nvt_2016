@@ -8,7 +8,8 @@ angular
         'restangular',
         'ui.bootstrap',
         'lodash',
-        'angular.filter'
+        'angular.filter',
+        'flow'
     ])
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider
