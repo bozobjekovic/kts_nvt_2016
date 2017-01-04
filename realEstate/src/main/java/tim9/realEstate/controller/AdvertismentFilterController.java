@@ -6,6 +6,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import tim9.realEstate.dto.AdvertismentDTO;
+import tim9.realEstate.dto.FilterDTO;
 import tim9.realEstate.model.Advertisment;
 import tim9.realEstate.model.Category;
 import tim9.realEstate.service.AdvertismentService;
@@ -80,7 +83,7 @@ public class AdvertismentFilterController {
      * @return      ResponseEntity List with all DTO Advertisements and HttpStatus OK
      */
     @RequestMapping(value="/purpose/{purpose}/category/{category}/filters", method = RequestMethod.GET)
-    public ResponseEntity<List<AdvertismentDTO>> filters(@PathVariable String purpose, @PathVariable Category category, @RequestParam(value = "filter") String filter){
+    public ResponseEntity<FilterDTO> filters(@PathVariable String purpose, @PathVariable Category category, @RequestParam(value = "filter") String filter, Pageable page){
     	AdvertismentSpecificationsBuilder builder = new AdvertismentSpecificationsBuilder();
     	
     	Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");
@@ -93,14 +96,16 @@ public class AdvertismentFilterController {
     	builder.with("category", ":", category);
     	
     	Specification<Advertisment> spec = builder.build();
-    	List<Advertisment> filteredAdvertisements = advertismentService.findAllBySpecification(spec);
+    	
+    	Page<Advertisment> filteredAdvertisements = advertismentService.findAllBySpecification(spec, page);
+    	int count = advertismentService.findAllBySpecification(spec).size();
     	List<AdvertismentDTO> filteredAdvertisementsDTO = new ArrayList<>();
     	
     	for (Advertisment advertisment : filteredAdvertisements) {
 			filteredAdvertisementsDTO.add(new AdvertismentDTO(advertisment));
 		}
     	
-    	return new ResponseEntity<>(filteredAdvertisementsDTO, HttpStatus.OK);
+    	return new ResponseEntity<>(new FilterDTO(filteredAdvertisementsDTO, count), HttpStatus.OK);
     }
 
 }

@@ -2,14 +2,19 @@
 	'use strict';
 	
 	angular.module('realEstateClientApp')
-		.controller('BuyCtrl', ['$scope', '$rootScope', '_', 'BuyFactory',
-		   function($scope, $rootScope, _, BuyFactory) {
+		.controller('BuyCtrl', ['$scope', '$rootScope', '$location', '_', 'BuyFactory',
+		   function($scope, $rootScope, $location, _, BuyFactory) {
 			
 				$rootScope.mainMenu = false;
 				$scope.purpose = "sell";
 				$scope.category = "Residental";
 				
-				$scope.filterForm = {
+				$scope.maxSize = 5;
+				$scope.itemsPerPage = 12;
+				$scope.totalItems = 0;
+				$scope.currentPage = 0;
+				
+				var filterForm = {
 						priceFrom     : '',
 						priceTo       : '',
 						landSizeFrom  : '',
@@ -27,41 +32,31 @@
 						buildYearTo   : ''
 						
 				};
+				
+				$scope.filterForm = filterForm;
 			
-				BuyFactory.getLocations().then(function(items) {
-				      $scope.locations = items;
+				BuyFactory.getCities().then(function(items) {
+				      $scope.cities = items;
+				});
+
+				BuyFactory.getPartsOfTheCities().then(function(items) {
+				      $scope.partsOfTheCities = items;
 				});
 				
-				BuyFactory.getAdvertisementsByCategory($scope.purpose, $scope.category).then(function(items) {
-				      $scope.buyAdvertisements = items;
-				});
-				
-				$scope.getAdvertisementsByType = function(type) {
-					$scope.type = type;
-					BuyFactory.getAdvertisementsByType($scope.purpose, $scope.category, $scope.type).then(function(items){
-						$scope.buyAdvertisements = items;
-					});
-				};
-				
-				$scope.getAdvertisementsByCategory = function() {
-					BuyFactory.getAdvertisementsByCategory($scope.purpose, $scope.category).then(function(items){
-						$scope.buyAdvertisements = items;
-					});
-				};
-				
-				$scope.filterAdvertisements = function(location, data, status) {
+				$scope.filterAdvertisements = function() {
 					$scope.filter = "";
+
 					if($scope.type != null && typeof $scope.type != 'undefined'){
 						$scope.filter += ",type:" + $scope.type;
 					}
+					/*
 					if(typeof location != 'undefined' && data === 'c' && status === true){
-						console.log(location.city);
-						$scope.filter += ",city:" + location.city;
+						$scope.filter += ",city:" + location;
 					}
 					if(typeof location != 'undefined' && data === 'p' && status === true){
-						console.log(location.partOfTheCity);
-						$scope.filter += ",partOfTheCity:" + location.partOfTheCity;
+						$scope.filter += ",partOfTheCity:" + location;
 					}
+					*/
 					if($scope.filterForm.priceFrom != null && $scope.filterForm.priceFrom != ''){
 						$scope.filter += ",price>" + $scope.filterForm.priceFrom;
 					}
@@ -104,28 +99,30 @@
 					if($scope.filterForm.buildYearTo != null && $scope.filterForm.buildYearTo != ''){
 						$scope.filter += ",buildYear<" + $scope.filterForm.buildYearTo;
 					}
-					BuyFactory.filterAdvertisements($scope.purpose, $scope.category , $scope.filter).then(function(items){
-						$scope.buyAdvertisements = items;
+
+					BuyFactory.filterAdvertisements($scope.purpose, $scope.category , $scope.filter, $scope.currentPage-1, $scope.itemsPerPage).then(function(object){
+						$scope.buyAdvertisements = object.advertisements;
+						$scope.totalItems = object.count;
 					});
 				};
 				
 				$scope.showMenu = function(category){
-					if(category === "Residental"){
-						$scope.category = "Residental";
-					}
-					else if(category === "Office"){
-						$scope.category = "Office";
-					}
-					else{
-						$scope.category = "Property";
-					}
+					$scope.type = null;
+					$scope.category = category;
 				}
-			
+
+				$scope.setType = function(type){
+					$scope.type = type;
+				}
+				
+				$scope.getAdvertisement = function(advertisement){
+					$rootScope.advertisement = advertisement;
+					$location.path('/advertisement');
+				}
+
+				$scope.setPage = function() {
+					$scope.filterAdvertisements();
+				}
 		
 		}])
-		.controller('PaginationCtrl', function ($scope) {	
-			  $scope.maxSize = 10;
-			  $scope.bigTotalItems = 100;
-			  $scope.bigCurrentPage = 1;
-		});
 })(angular);

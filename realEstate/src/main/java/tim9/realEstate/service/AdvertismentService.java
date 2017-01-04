@@ -92,6 +92,15 @@ public class AdvertismentService {
 	}
 	
 	/**
+	* This method finds all elements by specified Specification.
+	* @param		specifications Specification<Advertisment>
+	* @return		List of elements
+	*/
+	public Page<Advertisment> findAllBySpecification(Specification<Advertisment> specifications, Pageable page) {
+		return advertismentRepository.findAll(specifications, page);
+	}
+	
+	/**
 	* This method finds all elements by specified phone number.
 	* @param		phone phone number
 	* @return		List of elements

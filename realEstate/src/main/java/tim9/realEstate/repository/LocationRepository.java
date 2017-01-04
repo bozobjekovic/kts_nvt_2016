@@ -16,7 +16,7 @@ public interface LocationRepository extends JpaRepository<Location, Long>{
 	@Query("select distinct city from Location")
 	public List<String> findDistinctCities();
 	
-	@Query("select partOfTheCity from Location")
+	@Query("select partOfTheCity from Location where partOfTheCity != ''")
 	public List<String> findAllPartOfTheCities();
 
 }

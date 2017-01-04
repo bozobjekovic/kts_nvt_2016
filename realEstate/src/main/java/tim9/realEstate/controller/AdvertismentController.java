@@ -50,15 +50,9 @@ public class AdvertismentController {
      * and then creates a list of DTO objects.
      * @return      ResponseEntity List with all DTO Advertisements and HttpStatus OK
      */
-    @RequestMapping(value="/all", method = RequestMethod.GET)
-    public ResponseEntity<List<AdvertismentDTO>> getAllAdvertisment() {
-        List<Advertisment> advertisements = advertismentService.findAll();
-        
-        List<AdvertismentDTO> advertsDTO = new ArrayList<>();
-		for (Advertisment a : advertisements) {
-			advertsDTO.add(new AdvertismentDTO(a));
-		}
-        return new ResponseEntity<>(advertsDTO, HttpStatus.OK);
+    @RequestMapping(value="/size", method = RequestMethod.GET)
+    public ResponseEntity<Integer> getAdvertismentsSize() {
+        return new ResponseEntity<>(advertismentService.findAll().size(), HttpStatus.OK);
     }
     
     /**
