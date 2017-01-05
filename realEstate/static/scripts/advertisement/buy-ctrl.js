@@ -8,6 +8,8 @@
 				$rootScope.mainMenu = false;
 				$scope.purpose = "sell";
 				$scope.category = "Residental";
+				$scope.cityFilter = {};
+				$scope.partFilter = {};
 				
 				$scope.maxSize = 5;
 				$scope.itemsPerPage = 12;
@@ -46,18 +48,28 @@
 				$scope.filterAdvertisements = function() {
 					$scope.filter = "";
 					$scope.filter += "purpose:" + $scope.purpose;
-
+					
 					if($scope.type != null && typeof $scope.type != 'undefined'){
 						$scope.filter += ",type:" + $scope.type;
 					}
-					/*
-					if(typeof location != 'undefined' && data === 'c' && status === true){
-						$scope.filter += ",city:" + location;
+					$scope.filter += ",city:";
+					for (var property in $scope.cityFilter) {
+					    if ($scope.cityFilter.hasOwnProperty(property)) {
+					    	if($scope.cityFilter[property] === true){
+					    		$scope.filter += property + '_';
+					    	}
+					    }
 					}
-					if(typeof location != 'undefined' && data === 'p' && status === true){
-						$scope.filter += ",partOfTheCity:" + location;
+					$scope.filter = $scope.filter.substring(0, $scope.filter.length - 1);
+					$scope.filter += ",partOfTheCity:";
+					for (var property in $scope.partFilter) {
+					    if ($scope.partFilter.hasOwnProperty(property)) {
+					    	if($scope.partFilter[property] === true){
+					    		$scope.filter += property + '_';
+					    	}
+					    }
 					}
-					*/
+					$scope.filter = $scope.filter.substring(0, $scope.filter.length - 1);
 					if($scope.filterForm.priceFrom != null && $scope.filterForm.priceFrom != ''){
 						$scope.filter += ",price>" + $scope.filterForm.priceFrom;
 					}
@@ -106,6 +118,8 @@
 						$scope.totalItems = object.count;
 					});
 				};
+				
+				$scope.filterAdvertisements();
 				
 				$scope.showMenu = function(category){
 					$scope.type = null;

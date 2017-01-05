@@ -38,14 +38,14 @@ public class AdvertismentSpecificationsBuilder {
         	if (serchCriteria.getValue().toString().contains("_")) {
 				String[] params = serchCriteria.getValue().toString().split("_");
 				List<Specification<Advertisment>> orSpecs = new ArrayList<Specification<Advertisment>>();
-				
+			
 				for (String param : params) {
 					orSpecs.add(new AdvertismentSpecification(new SearchCriteria(serchCriteria.getKey(), serchCriteria.getOperation(), param)));
 				}
 				
 				Specification<Advertisment> orResult = orSpecs.get(0);
 				for (int j = 1; j < orSpecs.size(); j++) {
-					orResult = Specifications.where(orResult).or(orSpecs.get(i));
+					orResult = Specifications.where(orResult).or(orSpecs.get(j));
 				}
 				
 				result = Specifications.where(result).and(orResult);

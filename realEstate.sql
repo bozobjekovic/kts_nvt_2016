@@ -113,7 +113,7 @@ INSERT INTO Real_Estate VALUES (30, 'Balzakova 36', 1990, 1, 'radijatori', 456, 
 INSERT INTO Real_Estate VALUES (31, 'Safarikova 36', 2000, 1, 'radijatori', 456, 2, 3, 3, 0, 'TV,Klima', 'Sport Facility', 2);
 INSERT INTO Real_Estate VALUES (32, 'Brace Dronjak 36', 2006, 1, 'radijatori', 456, 2, 3, 3, 0, 'TV,Klima', 'Manufacturing Facility', 3);
 INSERT INTO Real_Estate VALUES (33, 'Balzakova 136', 2009, 0, 'radijatori', 456, 2, 3, 3, 0, 'TV,Klima', 'Room', 1);
-INSERT INTO Real_Estate VALUES (34, 'Bulevar Oslobodjenja 36', 2015, 0, 'radijatori', 456, 2, 3, 3, 0, 'TV,Klima', 'Garage', 2);
+INSERT INTO Real_Estate VALUES (34, 'Bulevar Oslobodjenja 36', 2015, 0, 'radijatori', 456, 2, 3, 3, 0, 'TV,Klima', 'Garage', 6);
 INSERT INTO Real_Estate VALUES (35, 'Bulevar cara Lazara 36', 2006, 1, 'radijatori', 456, 2, 3, 3, 0, 'TV,Klima', 'Hospitality Facility', 3);
 INSERT INTO Real_Estate VALUES (36, 'Mose Pijade 36', 1994, 1, 'radijatori', 456, 2, 3, 3, 0, 'TV,Klima', 'Manufacturing Facility', 1);
 
@@ -185,6 +185,10 @@ INSERT INTO Advertisment VALUES (63, '2016-12-20', 'images/house1.jpg', 0, '2016
 INSERT INTO Advertisment VALUES (64, '2016-12-20', 'images/house2.jpg', 0, '2016-12-23', 'Stan na brdu', 12,'+3447070', 3430242,'2017-12-20', 'sell', '5', null, 2, 33, 2);
 INSERT INTO Advertisment VALUES (65, '2016-12-20', 'images/house3.jpg', 0,'2016-12-23',  'Kuca sa bazenom', 49,'+5443420', 2423000424, '2017-12-20', 'sell', '3.2', null, 3, 34, 2);
 INSERT INTO Advertisment VALUES (66, '2016-12-20', 'images/house4.jpg', 0,'2016-12-23',  'Kuca sa bazenom', 48,'+52414400', 14230424, '2017-12-20', 'sell', '3.2', null, 1, 35, 1);
+INSERT INTO Advertisment VALUES (67, '2016-12-20', 'images/house1.jpg', 0, '2016-12-23', 'Kuca velika', 17, '+492420', 23014412, '2017-12-20', 'sell', '4', null, 1, 32, 1);
+INSERT INTO Advertisment VALUES (68, '2016-12-20', 'images/house2.jpg', 0, '2016-12-23', 'Stan na brdu', 12,'+37070', 3430242,'2017-12-20', 'sell', '5', null, 2, 33, 2);
+INSERT INTO Advertisment VALUES (69, '2016-12-20', 'images/house3.jpg', 0,'2016-12-23',  'Kuca sa bazenom', 49,'+54430', 2423000424, '2017-12-20', 'sell', '3.2', null, 3, 34, 2);
+INSERT INTO Advertisment VALUES (70, '2016-12-20', 'images/house4.jpg', 0,'2016-12-23',  'Kuca sa bazenom', 48,'+524400', 14230424, '2017-12-20', 'sell', '3.2', null, 1, 35, 1);
 
 INSERT INTO Inappropriate VALUES(1, '2017-12-20',"Inappropriate advertisement", "Inappropriate", 1, 1);
 INSERT INTO Inappropriate VALUES(2, '2017-12-20',"Inappropriate advertisement", "Inappropriate", 1, 2);
