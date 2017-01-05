@@ -26,8 +26,8 @@ angular.module('realEstateClientApp')
     		});
 		};
 		
-		retVal.filterAdvertisements = function(purpose, category, filterStr, page, size) {
-			return Restangular.one("advertisments/purpose", purpose).one("category", category).all("filters").customGET('', {
+		retVal.filterAdvertisements = function(category, filterStr, page, size) {
+			return Restangular.one("advertisments/category", category).all("filters").customGET('', {
 				filter: filterStr,
 				page: page,
 				size: size

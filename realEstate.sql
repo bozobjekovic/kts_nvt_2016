@@ -79,7 +79,7 @@ INSERT INTO User VALUES (4, 'Balzakova', 'Novi Sad', 'clerk@gmail.com', 'image',
 INSERT INTO User VALUES (5, 'Novosadska', 'Novi Sad', 'clerk2@gmail.com', 'image', 'Clerk2', '$2a$06$ESTR0aRvH5s4McmiWeiXl.DqRxveC/lruQKFD7UVkvBRwOEdp2Qty', '+15232', 'Clerkan2', 'clerk2', '9678678', true, true, 2, 2, 2, null, 2);
 
 INSERT INTO Real_Estate VALUES (1, 'Balzakova 6', 1890, 0, 'radijatori', 456, 2, 3, 3, 0, 'TV,Klima', 'Apartment', 1);
-INSERT INTO Real_Estate VALUES (2, 'Bul. Mihaila Pupina', 1950, 0, 'radijatori', 100, 3, 5, 4, 0, 'TV,Klima,Namestak', 'Room', 2);
+INSERT INTO Real_Estate VALUES (2, 'Bul. Mihaila Pupina', 1950, 0, 'radijatori', 100, 3, 5, 4, 0, 'TV,Klima,Namestak', 'Room', 4);
 INSERT INTO Real_Estate VALUES (3, 'Bul. Mihaila Pupina', 1960, 0, 'radijatori', 52, 2, 2, 2, 1, 'TV,Klima,Bazen', 'House', 3);
 INSERT INTO Real_Estate VALUES (4, 'Bulevar Oslobodjenja', 1994, 0, 'radijatori', 3506, 2, 3, 2, 0, 'Nista', 'Apartment', 4);
 INSERT INTO Real_Estate VALUES (5, 'Miselinova', 1994, 1, 'radijatori', 3506, 0, 3, 2, 0, 'Nista', 'House', 4);

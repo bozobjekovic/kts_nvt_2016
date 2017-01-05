@@ -13,6 +13,11 @@ public class SearchCriteria {
 		this.value = value;
 	}
 	
+	@Override
+	public String toString() {
+		return "SearchCriteria [key=" + key + ", operation=" + operation + ", value=" + value + "]";
+	}
+
 	public String getKey() {
 		return key;
 	}

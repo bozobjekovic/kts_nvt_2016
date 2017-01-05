@@ -77,4 +77,12 @@ public class AdvertismentSpecification implements Specification<Advertisment>{
         return null;
 	}
 
+	public SearchCriteria getCriteria() {
+		return criteria;
+	}
+
+	public void setCriteria(SearchCriteria criteria) {
+		this.criteria = criteria;
+	}
+	
 }

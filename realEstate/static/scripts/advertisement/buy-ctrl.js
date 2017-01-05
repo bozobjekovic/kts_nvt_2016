@@ -45,6 +45,7 @@
 				
 				$scope.filterAdvertisements = function() {
 					$scope.filter = "";
+					$scope.filter += "purpose:" + $scope.purpose;
 
 					if($scope.type != null && typeof $scope.type != 'undefined'){
 						$scope.filter += ",type:" + $scope.type;
@@ -100,7 +101,7 @@
 						$scope.filter += ",buildYear<" + $scope.filterForm.buildYearTo;
 					}
 
-					BuyFactory.filterAdvertisements($scope.purpose, $scope.category , $scope.filter, $scope.currentPage-1, $scope.itemsPerPage).then(function(object){
+					BuyFactory.filterAdvertisements($scope.category, $scope.filter, $scope.currentPage-1, $scope.itemsPerPage).then(function(object){
 						$scope.buyAdvertisements = object.advertisements;
 						$scope.totalItems = object.count;
 					});

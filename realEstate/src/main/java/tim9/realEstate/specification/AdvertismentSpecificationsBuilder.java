@@ -34,7 +34,24 @@ public class AdvertismentSpecificationsBuilder {
  
         Specification<Advertisment> result = specs.get(0);
         for (int i = 1; i < specs.size(); i++) {
-            result = Specifications.where(result).and(specs.get(i));
+        	SearchCriteria serchCriteria = ((AdvertismentSpecification)specs.get(i)).getCriteria();
+        	if (serchCriteria.getValue().toString().contains("_")) {
+				String[] params = serchCriteria.getValue().toString().split("_");
+				List<Specification<Advertisment>> orSpecs = new ArrayList<Specification<Advertisment>>();
+				
+				for (String param : params) {
+					orSpecs.add(new AdvertismentSpecification(new SearchCriteria(serchCriteria.getKey(), serchCriteria.getOperation(), param)));
+				}
+				
+				Specification<Advertisment> orResult = orSpecs.get(0);
+				for (int j = 1; j < orSpecs.size(); j++) {
+					orResult = Specifications.where(orResult).or(orSpecs.get(i));
+				}
+				
+				result = Specifications.where(result).and(orResult);
+			} else {
+				result = Specifications.where(result).and(specs.get(i));
+			}
         }
         
         return result;
