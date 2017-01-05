@@ -52,6 +52,21 @@ angular
                 controller: 'SellCtrl',
                 controllerAs: 'sell'
             })
+            .when('/profileVerifier', {
+                templateUrl: 'views/profileVerifier.html',
+                controller: '',
+                controllerAs: ''
+            })
+            .when('/profileAdmin', {
+                templateUrl: 'views/profileAdmin.html',
+                controller: '',
+                controllerAs: ''
+            })
+            .when('/profileClerk', {
+                templateUrl: 'views/profileClerk.html',
+                controller: '',
+                controllerAs: ''
+            })
             .otherwise({
                 redirectTo: '/'
             });
