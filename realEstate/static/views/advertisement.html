@@ -63,34 +63,34 @@
 	</div>
 		
 	<div class="adver-grid-right" style="margin-top: 18px;">
-		<h4>Contact</h4>
+		<h4>Publisher Contact</h4>
 		<br>
 	    <div class="table-responsive">          
 			<table class="table">
 		    	<tbody>
 		      		<tr>
 		        		<td>Name</td>
-		        		<td>Ana</td>
+		        		<td>{{publisher.name}}</td>
 		      		</tr>
 		      		<tr>
 		        		<td>Surname</td>
-		        		<td>Cig</td>
+		        		<td>{{publisher.surname}}</td>
+		      		</tr>
+					<tr>
+						<td>Email</td>
+						<td>{{publisher.email}}</td>
 		      		</tr>
 		      		<tr>
 		        		<td>Phone Number</td>
-		        		<td>0631844017</td>
+		        		<td>{{publisher.phoneNumber}}</td>
 		      		</tr>
-		      		<tr>
-		        		<td>Zip Code</td>
-		        		<td>21000</td>
-		      		</tr>
-		      		<tr>
+					<tr>
 		        		<td>City</td>
-		        		<td>Novi Sad</td>
+		        		<td>{{publisher.city}}</td>
 		      		</tr>
-		      		<tr>
-		        		<td>Republic</td>
-		        		<td>Serbia</td>
+					<tr>
+		        		<td>Rate</td>
+		        		<td>{{publisher.rate}}</td>
 		      		</tr>
 		  		</tbody>
 		  	</table>
@@ -109,51 +109,16 @@
 			    </div>
 			  </form>
 			</div>
-			<div class="profile-list" style="margin-top: 50px;">
+			<div class="profile-list" style="margin-top: 50px;" ng-repeat="comment in comments">
 				<div class="comment-listItem">
-					<div class="comment-grid-left" style="margin-top: 25px;">
-						<img src="images/house1.jpg" alt="" class="img-thumbnail">
+					<div class="comment-grid-left" >
+						<img src="{{comment.user.image}}" alt="" class="img-thumbnail">
 					</div>
 					<div class="comment-grid-right">
 						<div class="comment-listItem-text">
-							<h4>Komentar</h4>
-							<p>Mandjasndaj</p>
-							<p>da d e c  e c</p>
-						</div>
-					</div>
-				</div>
-				<div class="comment-listItem">
-					<div class="comment-grid-left" style="margin-top: 25px;">
-						<img src="images/house1.jpg" alt="" class="img-thumbnail">
-					</div>
-					<div class="comment-grid-right">
-						<div class="comment-listItem-text">
-							<h4>Comm</h4>
-							<p>Mandjasndaj</p>
-							<p>daeeda</p>
-						</div>
-					</div>
-				</div>
-				<div class="comment-listItem">
-					<div class="comment-grid-left" style="margin-top: 25px;">
-						<img src="images/house1.jpg" alt="" class="img-thumbnail">
-					</div>
-					<div class="comment-grid-right">
-						<div class="comment-listItem-text">
-							<h4>Comm3</h4>
-							<p>Mandjasndaj</p>
-						</div>
-					</div>
-				</div>
-				<div class="comment-listItem">
-					<div class="comment-grid-left" style="margin-top: 25px;">
-						<img src="images/house1.jpg" alt="" class="img-thumbnail">
-					</div>
-					<div class="comment-grid-right">
-						<div class="comment-listItem-text">
-							<h4>Comment 4</h4>
-							<p>Mandjasndaj</p>
-							<p>mamm</p>
+							<h4>{{comment.user.username}}</h4>
+							<p>{{comment.description}}</p>
+							<p>{{comment.date | date:'dd-MM-yyyy'}}</p>
 						</div>
 					</div>
 				</div>
@@ -161,7 +126,7 @@
 		</div>
 	</div>
 		
-	<div class="adver-grid-right" style="margin-top: 18px;">
+	<div class="adver-grid-right" style="margin-top: 18px;" ng-if="company">
 		<h4>Company</h4>
 		<br>
 	       	<div class="table-responsive">          
@@ -169,23 +134,27 @@
 		    	<tbody>
 		      		<tr>
 		        		<td>Name</td>
-		        		<td>Ana d.o.o.</td>
+		        		<td>{{company.name}}</td>
 		      		</tr>
 		      		<tr>
 		        		<td>Phone Number</td>
-		        		<td>0631844017</td>
+		        		<td>{{company.phoneNumber}}</td>
 		      		</tr>
 		      		<tr>
 		        		<td>Zip Code</td>
-		        		<td>21000</td>
+		        		<td>{{company.location.zipCode}}</td>
 		      		</tr>
 		      		<tr>
 		        		<td>City</td>
-		        		<td>Novi Sad</td>
+		        		<td>{{company.location.city}}</td>
 		      		</tr>
 		      		<tr>
-		        		<td>Republic</td>
-		        		<td>Serbia</td>
+		        		<td>Address</td>
+		        		<td>{{company.address}}</td>
+		      		</tr>
+					<tr>
+		        		<td>Site</td>
+		        		<td>{{company.site}}</td>
 		      		</tr>
 		  		</tbody>
 		  	</table>

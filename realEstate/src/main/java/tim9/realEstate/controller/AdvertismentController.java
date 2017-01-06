@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tim9.realEstate.dto.AdvertismentCreateDTO;
 import tim9.realEstate.dto.AdvertismentDTO;
+import tim9.realEstate.dto.CompanyDTO;
+import tim9.realEstate.dto.UserDTO;
 import tim9.realEstate.model.Advertisment;
 import tim9.realEstate.model.Location;
 import tim9.realEstate.model.RealEstate;
@@ -89,6 +91,45 @@ public class AdvertismentController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(new AdvertismentCreateDTO(advertisment, advertisment.getRealEstate()), HttpStatus.OK);
+	}
+    
+    /**
+     * This method gets Advertisement publisher.
+     * @param		id	an id of Advertisement
+     * @return      ResponseEntity List with DTO User and HttpStatus if OK,
+     * 				else null
+     */
+    @RequestMapping(value="/publisher/{id}", method=RequestMethod.GET)
+	public ResponseEntity<UserDTO> getPublisher(@PathVariable Long id){
+    	if(id == null){
+    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    	}
+    	Advertisment advertisment = advertismentService.findOne(id);
+		if(advertisment == null){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(new UserDTO(advertisment.getPublisher()), HttpStatus.OK);
+	}
+    
+    /**
+     * This method gets Advertisement publishers company.
+     * @param		id	an id of Advertisement
+     * @return      ResponseEntity Company DTO and HttpStatus if OK,
+     * 				else null
+     */
+    @RequestMapping(value="/company/{id}", method=RequestMethod.GET)
+	public ResponseEntity<CompanyDTO> getPublishersCompany(@PathVariable Long id){
+    	if(id == null){
+    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    	}
+    	Advertisment advertisment = advertismentService.findOne(id);
+		if(advertisment == null){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		if(advertisment.getPublisher().getCompany() == null){
+			return new ResponseEntity<>(null, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(new CompanyDTO(advertisment.getPublisher().getCompany()), HttpStatus.OK);
 	}
     
     /**

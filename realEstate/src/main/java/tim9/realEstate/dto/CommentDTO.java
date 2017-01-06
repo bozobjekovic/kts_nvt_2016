@@ -12,6 +12,7 @@ public class CommentDTO {
 	private Long id;
 	private Date date;
 	private String description;
+	private UserDTO user;
 	
 	/**
 	 * Constructor created from Superclass
@@ -26,7 +27,7 @@ public class CommentDTO {
 	 * @param c represents Comment object
 	 */
 	public CommentDTO(Comment c) {
-		this(c.getId(), c.getDate(), c.getDescription());
+		this(c.getId(), c.getDate(), c.getDescription(), new UserDTO(c.getUser()));
 	}
 
 	/**
@@ -37,11 +38,12 @@ public class CommentDTO {
 	 * @param title represents Title of the Comment
 	 * @param description represents Description of the Comment
 	 */
-	public CommentDTO(Long id, Date date, String description) {
+	public CommentDTO(Long id, Date date, String description, UserDTO user) {
 		super();
 		this.id = id;
 		this.date = date;
 		this.description = description;
+		this.user = user;
 	}
 
 	public Long getId() {
@@ -67,5 +69,15 @@ public class CommentDTO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public UserDTO getUser() {
+		return user;
+	}
+
+	public void setUser(UserDTO user) {
+		this.user = user;
+	}
+	
+	
 
 }
