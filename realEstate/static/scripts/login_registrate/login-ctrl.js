@@ -23,12 +23,14 @@
                 }
             }
         ])
-        .controller('LoginModalCtrl', ['$scope', '$uibModalInstance', 'loginUser', 'LoginFactory',
-            function($scope, $uibModalInstance, loginUser, LoginFactory) {
+        .controller('LoginModalCtrl', ['$scope', '$uibModalInstance', 'loginUser', 'LoginFactory', '$localStorage',
+            function($scope, $uibModalInstance, loginUser, LoginFactory, $localStorage) {
                 $scope.loginUser = loginUser;
 
                 $scope.ok = function() {
-                    LoginFactory.logInUser($scope.loginUser);
+                    LoginFactory.logInUser($scope.loginUser).then(function(token) {
+                        $localStorage.token = token;
+                    });
                     $uibModalInstance.close('ok')
                 }
 

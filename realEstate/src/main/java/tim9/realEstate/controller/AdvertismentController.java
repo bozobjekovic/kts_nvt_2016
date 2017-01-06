@@ -24,6 +24,7 @@ import tim9.realEstate.dto.AdvertismentDTO;
 import tim9.realEstate.model.Advertisment;
 import tim9.realEstate.model.Location;
 import tim9.realEstate.model.RealEstate;
+import tim9.realEstate.model.User;
 import tim9.realEstate.security.UserUtils;
 import tim9.realEstate.service.AdvertismentService;
 import tim9.realEstate.service.LocationService;
@@ -101,6 +102,11 @@ public class AdvertismentController {
     @RequestMapping(method=RequestMethod.POST)
     public ResponseEntity<AdvertismentCreateDTO> saveAdvertisment(@RequestBody AdvertismentCreateDTO advertismentDTO, ServletRequest request){
     	System.out.println(advertismentDTO);
+    	User user = (User)userUtils.getLoggedUser(request);
+    	if (user == null) {
+    		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		}
+    	
     	if(!checkInput(advertismentDTO)){
     		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     	}
@@ -118,8 +124,7 @@ public class AdvertismentController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		// TODO : 
-		//advertisment.setPublisher((User)userUtils.getLoggedUser(request));
+		advertisment.setPublisher(user);
 		RealEstate realEstate = new RealEstate();
 		
 		Location location = locationService.findByCityAndZipCodeAndPartOfTheCity(
@@ -142,7 +147,7 @@ public class AdvertismentController {
 
 		advertisment.setRealEstate(realEstate);
 		System.out.println(advertisment);
-		//advertisment = advertismentService.save(advertisment);
+		advertisment = advertismentService.save(advertisment);
 		
 		return new ResponseEntity<>(advertismentDTO, HttpStatus.CREATED);
     }

@@ -9,9 +9,10 @@ angular
         'ui.bootstrap',
         'lodash',
         'angular.filter',
-        'flow'
+        'flow',
+        'ngStorage'
     ])
-    .config(['$routeProvider', function($routeProvider) {
+    .config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
         $routeProvider
             .when('/', {
                 templateUrl: 'views/main.html',
@@ -70,6 +71,26 @@ angular
             .otherwise({
                 redirectTo: '/'
             });
+        $httpProvider
+            .interceptors.push(['$q', '$localStorage', '$location',
+                function($q, $localStorage, $location) {
+                    return {
+                        'request': function(config) {
+                            config.headers = config.headers || {};
+                            if($localStorage.token) {
+                                config.headers["X-Auth-Token"] = $localStorage.token;
+                            }
+                            return config;
+                        },
+                        'responseError': function(response) {
+                            if (response.status === 401 || response.status === 403) {
+                                $location.path('/');
+                            }
+                            return $q.reject(response);
+                        }
+                    };
+                }
+        ]);
     }])
     .run(['Restangular', '$log', function(Restangular, $log) {
         Restangular.setBaseUrl('realEstate');

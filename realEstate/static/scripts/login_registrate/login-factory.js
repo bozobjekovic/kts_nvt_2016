@@ -8,8 +8,7 @@
                     if (loginUser.username && loginUser.password) {
                         return Restangular.all('login').post(loginUser)
                             .then(function(token) {
-                                console.log(token.response);
-                                // save and do next logic
+                                return token.response;
                             })
                     }
                 };

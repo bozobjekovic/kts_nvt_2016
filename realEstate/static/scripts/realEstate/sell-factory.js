@@ -13,8 +13,7 @@
                         && advertisementCreate.purpose && advertisementCreate.phoneNumber) {
                         return Restangular.all('advertisments').post(advertisementCreate)
                             .then(function(data) {
-                                $window.alert('Woooho!');
-                                //$location.path('index.html');
+                                $location.path('/');
                             })
                     } else {
                         $window.alert('Fill required filleds!');
