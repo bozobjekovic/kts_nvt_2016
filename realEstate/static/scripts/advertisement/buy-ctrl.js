@@ -8,8 +8,10 @@
 				$rootScope.mainMenu = false;
 				$scope.purpose = "sell";
 				$scope.category = "Residental";
+
 				$scope.cityFilter = {};
 				$scope.partFilter = {};
+				$scope.heatingType = {};
 				
 				$scope.maxSize = 5;
 				$scope.itemsPerPage = 12;
@@ -23,7 +25,6 @@
 						landSizeTo    : '',
 						rateFrom      : '',
 						rateTo        : '',
-						heatingType   : '',
 						roomsFrom     : '',
 						roomsTo       : '',
 						floorsFrom    : '',
@@ -88,6 +89,16 @@
 					if($scope.filterForm.rateTo != null && $scope.filterForm.rateTo != ''){
 						$scope.filter += ",rate<" + $scope.filterForm.rateTo;
 					}
+					$scope.filter += ",heatingType:";
+					for (var property in $scope.heatingType) {
+					    if ($scope.heatingType.hasOwnProperty(property)) {
+					    	if($scope.heatingType[property] === true){
+					    		$scope.filter += property + '_';
+					    	}
+					    }
+					}
+					$scope.filter = $scope.filter.substring(0, $scope.filter.length - 1);
+					console.log($scope.filter);
 					if($scope.filterForm.roomsFrom != null && $scope.filterForm.roomsFrom != ''){
 						$scope.filter += ",numOfBedRooms>" + $scope.filterForm.roomsFrom;
 					}
@@ -137,6 +148,10 @@
 
 				$scope.setPage = function() {
 					$scope.filterAdvertisements();
+				}
+
+				$scope.rent = function(){
+					$location.path('/rent');
 				}
 		
 		}])
