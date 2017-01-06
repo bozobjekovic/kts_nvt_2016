@@ -8,6 +8,18 @@
 				AdvertisementFactory.getAdvertisement($rootScope.advertisement.id).then(function(item) {
 				      $scope.advert = item;
 				});
+
+				AdvertisementFactory.getPublisher($rootScope.advertisement.id).then(function(item) {
+				      $scope.publisher = item;
+				});
+
+				AdvertisementFactory.getCompany($rootScope.advertisement.id).then(function(item) {
+				      $scope.company = item;
+				});
+
+				AdvertisementFactory.getComments($rootScope.advertisement.id).then(function(items){
+					$scope.comments = items;
+				});
 			
 		}])
 })(angular);

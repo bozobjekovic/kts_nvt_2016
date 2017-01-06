@@ -4,11 +4,31 @@ angular.module('realEstateClientApp')
 		
 		var retVal = {};
 		var advertisement = {};
+		var publisher = {};
 		
 		retVal.getAdvertisement = function(id) {
 			return Restangular.one("advertisments", id).get().then(function(entry) {
 				advertisement = entry;
+				return advertisement;
+    		});
+		};
+
+		retVal.getPublisher = function(id) {
+			return Restangular.one("advertisments/publisher", id).get().then(function(entry) {
+				publisher = entry;
+				return publisher;
+    		});
+		};
+
+		retVal.getCompany = function(id) {
+			return Restangular.one("advertisments/company", id).get().then(function(entry) {
 				return entry;
+    		});
+		};
+
+		retVal.getComments = function(id) {
+			return Restangular.one("comments/all").customGET('', {id : id}).then(function(entries) {
+				return entries;
     		});
 		};
 		
