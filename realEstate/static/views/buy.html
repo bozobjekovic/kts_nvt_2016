@@ -73,7 +73,7 @@
 									<label><input type="radio" name="optradio" checked="">Buy</label>
 								</div>
 								<div class="radio">
-									<label><input type="radio" name="optradio">Rent</label>
+									<label><input type="radio" name="optradio" ng-click="rent()">Rent</label>
 								</div>
 							</div>
 						</div>
@@ -175,9 +175,9 @@
 						<div ng-show="heatingTypeCollapsed">
 							<div class="panel-body">
 								<div class="checkbox">
-									<label><input type="checkbox" ng-model="filterForm.heatingType">Forced Air</label>
-									<label><input type="checkbox" ng-model="filterForm.heatingType">Radiant</label>
-									<label><input type="checkbox" ng-model="filterForm.heatingType">Radiators</label>
+									<label><input type="checkbox" ng-model="heatingType['Forced Air']" ng-change="filterAdvertisements()">Forced Air</label>
+									<label><input type="checkbox" ng-model="heatingType['Radiant']" ng-change="filterAdvertisements()">Radiant</label>
+									<label><input type="checkbox" ng-model="heatingType['Radiators']" ng-change="filterAdvertisements()">Radiators</label>
  								</div>
 							</div>
 						</div>
