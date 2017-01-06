@@ -8,6 +8,7 @@ import javax.servlet.ServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -68,8 +69,9 @@ public class CommentController {
      * @param		commentDTO comment to be inserted
      * @return      ResponseEntity DTO Advertisements and HttpStatus CREATED
      */
-	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<CommentDTO> saveComment(@RequestBody CommentDTO commentDTO, @RequestParam Long id, ServletRequest request){
+	@RequestMapping(value="/{id}/new", method=RequestMethod.POST)
+	public ResponseEntity<CommentDTO> saveComment(@PathVariable Long id, @RequestBody CommentDTO commentDTO, ServletRequest request){
+		System.out.println("ovde");
 		if(id == null || commentDTO.getDescription() == null){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}

@@ -32,5 +32,13 @@ angular.module('realEstateClientApp')
     		});
 		};
 		
+		retVal.leaveComment = function(id, comment) {
+			console.log(comment);
+			return Restangular.one("comments/", id).all("new").post(comment).then(function(entry) {
+				console.log(entry);
+				return entry;
+    		});
+		};
+		
 		return retVal;
 	}]);

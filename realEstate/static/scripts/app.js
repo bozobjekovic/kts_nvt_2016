@@ -20,8 +20,7 @@ angular
             })
             .when('/about', {
                 templateUrl: 'views/about.html',
-                controller: 'AboutCtrl',
-                controllerAs: 'about'
+                controller: 'MainCtrl'
             })
             .when('/advertisement', {
                 templateUrl: 'views/advertisement.html',
@@ -35,8 +34,7 @@ angular
             })
             .when('/contact', {
                 templateUrl: 'views/contact.html',
-                controller: 'ContactCtrl',
-                controllerAs: 'contact'
+                controller: 'MainCtrl'
             })
             .when('/profile', {
                 templateUrl: 'views/profile.html',

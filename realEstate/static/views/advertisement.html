@@ -23,7 +23,7 @@
 	<h4 style="color: #751717;" class="tittle">{{advert.name}}</h4>
 	<br>
 	<div class="adver-grid-left">
-		<img src="{{advert.image}}" alt="" class="img-thumbnail">
+		<img src="images/house1.jpg" alt="" class="img-thumbnail">
   		<br><br>
 	</div>
 	
@@ -104,8 +104,8 @@
 			<div>
 			  <form>
 			    <div class="form-group">
-			      <textarea class="form-control" rows="4" id="comment" style="resize: none;"></textarea>
-			      <input type="submit" class="btn btn-success" value="Submit" style="margin-top:3px; float:right;">
+			      <textarea class="form-control" rows="4" id="comment" style="resize: none;" ng-model="comment.description"></textarea>
+			      <input type="submit" class="btn btn-success" value="Submit" style="margin-top:3px; float:right;" ng-click="leaveComment()">
 			    </div>
 			  </form>
 			</div>
