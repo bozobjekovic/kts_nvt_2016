@@ -4,9 +4,13 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="text-align: center;">
 				<nav class="menu menu--francisco" style="display: inline-block;">
 					<ul class="nav navbar-nav menu__list">
-						<li class="menu__item menu__item--current"><a ng-click="showResidentalMenu(); getAdvertisementsByCategory('rent', 'Residental')" class="menu__link"><span class="menu__helper">Residential</span></a></li>
-						<li class="menu__item"><a ng-click="showOfficeMenu(); getAdvertisementsByCategory('rent', 'Office')" class="menu__link"><span class="menu__helper">Office</span></a></li>
-						<li class="menu__item"><a ng-click="showPropertyMenu(); getAdvertisementsByCategory('rent', 'Property')" class="menu__link"><span class="menu__helper">Property</span></a></li>
+						<li class="menu__item"><a href="#" class="menu__link"><span class="menu__helper">Home</span></a></li>
+						<li class="menu__item menu__item--current" ><a ng-click="showMenu('Residental'); filterAdvertisements()" class="menu__link"><span class="menu__helper">Residential</span></a></li>
+						<li class="menu__item"><a ng-click="showMenu('Office'); filterAdvertisements()" class="menu__link"><span class="menu__helper">Office</span></a></li>
+						<li class="menu__item"><a ng-click="showMenu('Property'); filterAdvertisements()" class="menu__link"><span class="menu__helper">Property</span></a></li>
+						<li class="menu__item"><a ng-href="http://localhost:8080/#!/sell" class="menu__link"><span class="menu__helper">Sell</span></a></li>
+	  					<li class="menu__item"><a ng-href="http://localhost:8080/#!/about" class="menu__link"><span class="menu__helper">About</span></a></li>
+	  					<li class="menu__item"><a ng-href="http://localhost:8080/#!/contact" class="menu__link"><span class="menu__helper">Contact</span></a></li>
 					</ul>
 				</nav>
 			</div>
@@ -14,35 +18,34 @@
 	</nav>
 </div>
 
-<!-- Residental -->
 <div class="container, header-height">
 	<div class="header-bottom">
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="text-align: center;">
-					<nav class="menu menu--francisco" ng-if="menu == 'residental'" style="display: inline-block;">
+					<nav class="menu menu--francisco" ng-if="category == 'Residental'" style="display: inline-block;">
 						<ul class="nav navbar-nav menu__list, mini_menu_list">
-							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Residental', 'Apartment')" class="menu__link"><span class="menu__helper">Apartments</span></a></li>
-							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Residental', 'House')" class="menu__link"><span class="menu__helper">Houses</span></a></li>
-							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Residental', 'Room')" class="menu__link"><span class="menu__helper">Rooms</span></a></li>
-							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Residental', 'Garage')" class="menu__link"><span class="menu__helper">Garages</span></a></li>
+							<li class="menu__item"><a ng-click="setType('Apartment'); filterAdvertisements()" class="menu__link"><span class="menu__helper">Apartments</span></a></li>
+							<li class="menu__item"><a ng-click="setType('House'); filterAdvertisements()" class="menu__link"><span class="menu__helper">Houses</span></a></li>
+							<li class="menu__item"><a ng-click="setType('Room'); filterAdvertisements()" class="menu__link"><span class="menu__helper">Rooms</span></a></li>
+							<li class="menu__item"><a ng-click="setType('Garage'); filterAdvertisements()" class="menu__link"><span class="menu__helper">Garages</span></a></li>
 						</ul>
 					</nav>
 
-					<nav class="menu menu--francisco" ng-if="menu == 'office'" style="display: inline-block;">
+					<nav class="menu menu--francisco" ng-if="category == 'Office'" style="display: inline-block;">
 						<ul class="nav navbar-nav menu__list, mini_menu_list">
-							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Office', 'Office')" class="menu__link"><span class="menu__helper">Offices</span></a></li>
-							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Office', 'Warehouse')" class="menu__link"><span class="menu__helper">Warehouses</span></a></li>
-							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Office', 'Hospitality Facility')" class="menu__link"><span class="menu__helper">Hospitality Facilities</span></a></li>
-							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Office', 'Manufacturing Facility')" class="menu__link"><span class="menu__helper">Manufacturing Facilities</span></a></li>
-							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Office', 'Sport Facility')" class="menu__link"><span class="menu__helper">Sport Facilities</span></a></li>
+							<li class="menu__item"><a ng-click="setType('Office'); filterAdvertisements()" class="menu__link"><span class="menu__helper">Offices</span></a></li>
+							<li class="menu__item"><a ng-click="setType('Warehouse'); filterAdvertisements()" class="menu__link"><span class="menu__helper">Warehouses</span></a></li>
+							<li class="menu__item"><a ng-click="setType('Hospitality'); filterAdvertisements()" class="menu__link"><span class="menu__helper">Hospitality Facilities</span></a></li>
+							<li class="menu__item"><a ng-click="setType('Manufacturing'); filterAdvertisements()" class="menu__link"><span class="menu__helper">Manufacturing Facilities</span></a></li>
+							<li class="menu__item"><a ng-click="setType('Sport'); filterAdvertisements()" class="menu__link"><span class="menu__helper">Sport Facilities</span></a></li>
 						</ul>
 					</nav>
 
-					<nav class="menu menu--francisco" ng-if="menu == 'property'" style="display: inline-block;">
+					<nav class="menu menu--francisco" ng-if="category == 'Property'" style="display: inline-block;">
 						<ul class="nav navbar-nav menu__list, mini_menu_list">
-							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Property', 'Building Plot')" class="menu__link"><span class="menu__helper">Building Plots</span></a></li>
-							<li class="menu__item"><a ng-click="getAdvertisementsByType('rent', 'Property', 'Agricultural Plot')" class="menu__link"><span class="menu__helper">Agricultural Plots</span></a></li>
+							<li class="menu__item"><a ng-click="setType('BuildingPlot'); filterAdvertisements()" class="menu__link"><span class="menu__helper">Building Plots</span></a></li>
+							<li class="menu__item"><a ng-click="setType('AgriculturalPlot'); filterAdvertisements()" class="menu__link"><span class="menu__helper">Agricultural Plots</span></a></li>
 						</ul>
 					</nav>
 				</div>
@@ -51,7 +54,6 @@
 	</div>
 </div>
 
-<!--Projects-->
 <div class="content">
 	<div class="projects-agile">
 		<div class="container">
@@ -68,10 +70,10 @@
 						<div uib-collapse="purposeCollapsed">
 							<div class="panel-body">
 								<div class="radio">
-									<label><input type="radio" name="optradio">Buy</label>
+									<label><input type="radio" name="optradio" ng-click="buy()">Buy</label>
 								</div>
 								<div class="radio">
-									<label><input type="radio" name="optradio" checked>Rent</label>
+									<label><input type="radio" name="optradio" checked="">Rent</label>
 								</div>
 							</div>
 						</div>
@@ -85,9 +87,9 @@
 							</h3>
 						</div>
 						<div uib-collapse="cityCollapsed">
-							<div class="panel-scroll" ng-controller = "BuyCtrl">
-								<div class="checkbox" ng-repeat="location in locations | unique: 'city'">
-									<label><input type="checkbox">{{location.city}}</label>
+							<div class="panel-scroll">
+								<div class="checkbox" ng-repeat="city in cities">
+									<label><input type="checkbox" ng-model="cityFilter[city]" ng-change="filterAdvertisements()">{{city}}</label>
 								</div>
 							</div>
 						</div>
@@ -100,10 +102,10 @@
 								</a>
 							</h3>
 						</div>
-						<div uib-collapse="partOfTheCityCollapsed">
-							<div class="panel-scroll" ng-controller = "BuyCtrl">
-								<div class="checkbox" ng-repeat="location in locations | unique: 'partOfTheCity'">
-									<label><input type="checkbox">{{location.partOfTheCity}}</label>
+						<div  uib-collapse="partOfTheCityCollapsed">
+							<div class="panel-scroll">
+								<div class="checkbox" ng-repeat="part in partsOfTheCities">
+									<label><input type="checkbox" ng-model="partFilter[part]" ng-change="filterAdvertisements()">{{part}}</label>
 								</div>
 							</div>
 						</div>
@@ -112,7 +114,7 @@
 						<div class="panel-heading">
 							<h3 class="panel-title">
 	       						<a ng-click="priceCollapsed=!priceCollapsed" href="">
-									Price (RSD)
+									Price (USD)
 								</a>
 							</h3>
 						</div>
@@ -120,9 +122,9 @@
 							<div class="panel-body">
 								<label class="number-size-left">From:</label>
 								<label class="number-size-right">To:</label>
-								<input class="form-control, number-size-left" type="number" min="0" step="10000">
-								<input class="form-control, number-size-right" type="number" min="0" step="10000">
-								<button type="submit" class="btn btn-default, filter-button"><b>Filter</b></button>
+								<input class="form-control, number-size-left" type="number" min="0" step="1" ng-model="filterForm.priceFrom">
+								<input class="form-control, number-size-right" type="number" min="0" step="1" ng-model="filterForm.priceTo">
+								<button type="submit" class="btn btn-default, filter-button" ng-click="filterAdvertisements()"><b>Filter</b></button>
 							</div>
 						</div>
 					</div>
@@ -134,13 +136,13 @@
 								</a>
 							</h3>
 						</div>
-						<div ng-show="landSizeCollapsed">
+						<div  ng-show="landSizeCollapsed">
 							<div class="panel-body">
 								<label class="number-size-left">From:</label>
 								<label class="number-size-right">To:</label>
-								<input class="form-control, number-size-left" type="number" min="0" step="5">
-								<input class="form-control, number-size-right" type="number" min="0" step="5">
-								<button type="submit" class="btn btn-default, filter-button"><b>Filter</b></button>
+								<input class="form-control, number-size-left" type="number" min="0" step="1" ng-model="filterForm.landSizeFrom">
+								<input class="form-control, number-size-right" type="number" min="0" step="1" ng-model="filterForm.landSizeTo">
+								<button type="submit" class="btn btn-default, filter-button" ng-click="filterAdvertisements()"><b>Filter</b></button>
 							</div>
 						</div>
 					</div>
@@ -156,9 +158,9 @@
 							<div class="panel-body">
 								<label class="number-size-left">From:</label>
 								<label class="number-size-right">To:</label>
-								<input class="form-control, number-size-left" type="number" min="0" max="5" step="1">
-								<input class="form-control, number-size-right" type="number" min="0" max="5" step="1">
-								<button type="submit" class="btn btn-default, filter-button"><b>Filter</b></button>
+								<input class="form-control, number-size-left" type="number" min="0" max="5" step="1" ng-model="filterForm.rateFrom">
+								<input class="form-control, number-size-right" type="number" min="0" max="5" step="1" ng-model="filterForm.rateTo">
+								<button type="submit" class="btn btn-default, filter-button" ng-click="filterAdvertisements()"><b>Filter</b></button>
 							</div>
 						</div>
 					</div>
@@ -173,16 +175,16 @@
 						<div ng-show="heatingTypeCollapsed">
 							<div class="panel-body">
 								<div class="checkbox">
-									<label><input type="checkbox">Forced Air</label>
-									<label><input type="checkbox">Radiant</label>
-									<label><input type="checkbox">Radiators</label>
-								</div>
+									<label><input type="checkbox" ng-model="heatingType['Forced Air']" ng-change="filterAdvertisements()">Forced Air</label>
+									<label><input type="checkbox" ng-model="heatingType['Radiant']" ng-change="filterAdvertisements()">Radiant</label>
+									<label><input type="checkbox" ng-model="heatingType['Radiators']" ng-change="filterAdvertisements()">Radiators</label>
+ 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="panel panel-success">
 						<div class="panel-heading">
-							<h3 class="panel-title">
+							<h3 class="panel-title">	
 	       						<a ng-click="numOfRoomsCollapsed=!numOfRoomsCollapsed" href="">
 									Number Of Rooms
 								</a>
@@ -192,16 +194,16 @@
 							<div class="panel-body">
 								<label class="number-size-left">From:</label>
 								<label class="number-size-right">To:</label>
-								<input class="form-control, number-size-left" type="number" min="0" max="250" step="1">
-								<input class="form-control, number-size-right" type="number" min="0" max="250" step="1">
-								<button type="submit" class="btn btn-default, filter-button"><b>Filter</b></button>
+								<input class="form-control, number-size-left" type="number" min="0" max="250" step="1" ng-model="filterForm.roomsFrom">
+								<input class="form-control, number-size-right" type="number" min="0" max="250" step="1" ng-model="filterForm.roomsTo">
+								<button type="submit" class="btn btn-default, filter-button" ng-click="filterAdvertisements()"><b>Filter</b></button>
 							</div>
 						</div>
 					</div>
 					<div class="panel panel-success">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-	       						<a ng-click="numOfFloorsCollapsed=!numOfFloorsCollapsed" href="">
+	       						<a  ng-click="numOfFloorsCollapsed=!numOfFloorsCollapsed" href="">
 									Number Of Floors
 								</a>
 							</h3>
@@ -210,9 +212,9 @@
 							<div class="panel-body">
 								<label class="number-size-left">From:</label>
 								<label class="number-size-right">To:</label>
-								<input class="form-control, number-size-left" type="number" min="0" max="250" step="1">
-								<input class="form-control, number-size-right" type="number" min="0" max="250" step="1">
-								<button type="submit" class="btn btn-default, filter-button"><b>Filter</b></button>
+								<input class="form-control, number-size-left" type="number" min="0" max="250" step="1" ng-model="filterForm.floorsFrom">
+								<input class="form-control, number-size-right" type="number" min="0" max="250" step="1" ng-model="filterForm.floorsTo">
+								<button type="submit" class="btn btn-default, filter-button" ng-click="filterAdvertisements()"><b>Filter</b></button>
 							</div>
 						</div>
 					</div>
@@ -228,16 +230,16 @@
 							<div class="panel-body">
 								<label class="number-size-left">From:</label>
 								<label class="number-size-right">To:</label>
-								<input class="form-control, number-size-left" type="number" min="0" max="50" step="1">
-								<input class="form-control, number-size-right" type="number" min="0" max="50" step="1">
-								<button type="submit" class="btn btn-default, filter-button"><b>Filter</b></button>
+								<input class="form-control, number-size-left" type="number" min="0" max="50" step="1" ng-model="filterForm.bathroomsFrom">
+								<input class="form-control, number-size-right" type="number" min="0" max="50" step="1" ng-model="filterForm.bathroomsTo">
+								<button type="submit" class="btn btn-default, filter-button" ng-click="filterAdvertisements()"><b>Filter</b></button>
 							</div>
 						</div>
 					</div>
 					<div class="panel panel-success">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-	       						<a ng-click="bYearCollapsed=!bYearCollapsed" href="">
+	      						<a ng-click="bYearCollapsed=!bYearCollapsed" href="">
 									Build Year
 								</a>
 							</h3>
@@ -246,9 +248,9 @@
 							<div class="panel-body">
 								<label class="number-size-left">From:</label>
 								<label class="number-size-right">To:</label>
-								<input class="form-control, number-size-left" type="number" min="1678" max="2016" step="1" value="2000">
-								<input class="form-control, number-size-right" type="number" min="1678" max="2016" step="1" value="2016">
-								<button type="submit" class="btn btn-default, filter-button"><b>Filter</b></button>
+								<input class="form-control, number-size-left" type="number" min="1678" max="2016" step="1" ng-model="filterForm.buildYearFrom">
+								<input class="form-control, number-size-right" type="number" min="1678" max="2016" step="1" ng-model="filterForm.buildYearTo">
+								<button type="submit" class="btn btn-default, filter-button" ng-click="filterAdvertisements()"><b>Filter</b></button>
 							</div>
 						</div>
 					</div>
@@ -258,34 +260,27 @@
 				<h4 class="tittle" style="color: #751717;">Homes</h4>
 				<div class="portfolio_grid_w3lss">
 					<div class="col-md-4 w3agile_Projects_grid advertisementsDIV" ng-repeat="advertisement in rentAdvertisements">
-             			<figure>
-               				<div class="image-text">
- 								<img src="{{advertisement.image}}" alt="" class="img-responsive" />
-			                 	<p>
-			                 		<font size="4">{{advertisement.name}}</font> <br/>
-			                 		<font size="6">{{advertisement.price}}</font> <br/>
-			                 		<font size="5">{{advertisement.city}}</font>
-			                 	</p>
-			               	</div>
+						<figure ng-click="getAdvertisement(advertisement)">
+							<div class="image-text">
+								<img src="{{advertisement.image}}" alt="" class="img-responsive"/>
+								<p>
+									<font size="4">{{advertisement.name}} {{advertisement.id}}</font><br/>
+									<font size="6">{{advertisement.price | currency:"$"}}</font><br/>
+									<font size="5">{{advertisement.city}}</font>
+								</p>
+							</div>
 						</figure>
 					</div>
-					<div class="clearfix"> </div>
-					<div ng-controller="PaginationCtrl">
-						<ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true"></ul>
-					</div>
+				</div>
+
+				<div class="clearfix"></div>
+				<div>
+					<ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" items-per-page="itemsPerPage" class="pagination-sm" boundary-link-numbers="true" ng-click="setPage()"></ul>
 				</div>
 			</div>
+
 		</div>
 	</div>
 </div>
 
-<div class="clearfix"> </div>
-
-<!-- map-->
-<!-- <div class="serach-w3agile">
-	<h4 class="tittle">See It On The Map</h4>
-	<div class="map">
-		<iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAm5ArMg7a8PzEMJGW0bBk5kWyt8d7KJdM&q=Novi+Sad,Serbia" style="border:0" allowfullscreen></iframe>
-	</div>
-</div> -->
-<!--map -->
+<div class="clearfix"></div>
