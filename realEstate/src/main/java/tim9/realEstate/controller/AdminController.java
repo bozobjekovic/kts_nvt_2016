@@ -3,6 +3,8 @@ package tim9.realEstate.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import tim9.realEstate.dto.InappropriateDTO;
 import tim9.realEstate.dto.UserDTO;
 import tim9.realEstate.dto.VerifierDTO;
 import tim9.realEstate.mail.MailUtil;
+import tim9.realEstate.model.Admin;
 import tim9.realEstate.model.Advertisment;
 import tim9.realEstate.model.Inappropriate;
 import tim9.realEstate.model.User;
@@ -63,6 +66,18 @@ public class AdminController {
 	
 	@Autowired
 	UserUtils userUtils;
+	
+	
+	@RequestMapping(value="/", method = RequestMethod.GET)
+	public ResponseEntity<Admin> getAdmin(ServletRequest request) {
+		Admin admin = (Admin)userUtils.getLoggedUser(request);
+		
+    	if (admin == null) {
+    		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		}
+		
+		return new ResponseEntity<>(admin, HttpStatus.OK);
+	}
 	
 	/**
 	 * This method returns clerks that are not approved.

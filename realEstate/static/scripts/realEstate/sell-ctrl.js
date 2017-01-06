@@ -33,7 +33,7 @@
                     techEquipment: '',
                     address: '',
                     heatingType: '',
-                    image: '',
+                    images: [],
                     numOfBathRooms: '',
                     numOfBedRooms: '',
                     numOfFlors: '',
@@ -46,9 +46,16 @@
                     activeUntil: ''
                 };
 
+				$scope.img = [];
+
                 $scope.submitSellForm = function() {
 					SellFactory.submitSell($scope.advertisementCreate);
                 };
+
+				$scope.$on('flow::fileSubmitted', function (event, $flow, flowFile) {
+					event.preventDefault();//prevent file from uploading
+					console.log("asdasdadas");
+				});
 
 				$scope.getPartOfTheCities = function() {
 					SellFactory.getAllPartOfTheCities($scope.advertisementCreate.location.city)

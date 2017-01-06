@@ -9,11 +9,13 @@ select * from company;
 select * from inappropriate;
 select * from comment;
 select * from rent_real_estate;
+SELECT * FROM images;
 
 drop table Admin;
 drop table Comment;
 drop table Company;
 drop table Inappropriate;
+drop table images;
 drop table Advertisment;
 drop table User;
 drop table Real_estate;
@@ -29,6 +31,7 @@ truncate Admin;
 truncate Comment;
 truncate Inappropriate;
 truncate Company;
+truncate images;
 truncate Advertisment;
 truncate User;
 truncate Real_estate;
@@ -199,6 +202,15 @@ INSERT INTO rent_real_estate VALUES(1, '2017-02-02', '2017-03-02', 2);
 INSERT INTO rent_real_estate VALUES(2, '2017-04-09', '2017-04-30', 2);
 INSERT INTO rent_real_estate VALUES(3, '2017-05-01', '2017-05-31', 2);
 INSERT INTO rent_real_estate VALUES(4, '2017-06-05', '2017-06-22', 2);
+
+insert into images values('1', 'images/house1.jpg');
+insert into images values('1', 'images/house2.jpg');
+insert into images values('1', 'images/house3.jpg');
+insert into images values('1', 'images/house4.jpg');
+insert into images values('2', 'images/house1.jpg');
+insert into images values('3', 'images/house2.jpg');
+insert into images values('4', 'images/house3.jpg');
+insert into images values('5', 'images/house4.jpg');
 
 INSERT INTO Comment VALUES (1, '2016-04-24', 'Opis komentara', 1, 1);
 INSERT INTO Comment VALUES (2, '2016-01-23', 'Comm desc', 2, 2);

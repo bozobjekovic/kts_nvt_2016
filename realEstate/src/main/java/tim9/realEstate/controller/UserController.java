@@ -74,6 +74,17 @@ public class UserController {
 		return new ResponseEntity<>(userDTO, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/user", method = RequestMethod.GET)
+	public ResponseEntity<UserDTO> getUser(ServletRequest request) {
+		User user = (User)userUtils.getLoggedUser(request);
+		
+    	if (user == null) {
+    		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		}
+		
+		return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
+	}
+	
 	/**
      * This method sets a new rate for an User.
      * It gets a given rate as a parameter and then calculates

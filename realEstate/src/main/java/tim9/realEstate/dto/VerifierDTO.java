@@ -1,5 +1,7 @@
 package tim9.realEstate.dto;
 
+import tim9.realEstate.model.Verifier;
+
 /**
  * This class represent data transfer object for Verifier class
  */
@@ -29,6 +31,13 @@ public class VerifierDTO {
 		this.username = username;
 		this.password = password;
 	}
+	
+	public VerifierDTO(Verifier verifier) {
+		this.email = verifier.getEmail();
+		this.username = verifier.getUsername();
+		this.password = verifier.getPassword();
+	}
+
 
 	public String getEmail() {
 		return email;

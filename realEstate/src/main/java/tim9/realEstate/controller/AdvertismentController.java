@@ -142,8 +142,8 @@ public class AdvertismentController {
      */
     @RequestMapping(method=RequestMethod.POST)
     public ResponseEntity<AdvertismentCreateDTO> saveAdvertisment(@RequestBody AdvertismentCreateDTO advertismentDTO, ServletRequest request){
-    	System.out.println(advertismentDTO);
     	User user = (User)userUtils.getLoggedUser(request);
+    	
     	if (user == null) {
     		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
@@ -156,7 +156,12 @@ public class AdvertismentController {
     	advertisment.setName(advertismentDTO.getName());
     	advertisment.setPrice(advertismentDTO.getPrice());
     	advertisment.setPublicationDate(new Date());
-    	advertisment.setBackgroundImage(advertismentDTO.getImage());
+    	
+    	if (advertismentDTO.getImages().size() != 0) {
+    		advertisment.setBackgroundImage(advertismentDTO.getImages().get(0));
+    		advertisment.setImages(advertismentDTO.getImages());
+		}
+    	
 		advertisment.setActiveUntil(advertismentDTO.getActiveUntil());
 		advertisment.setPurpose(advertismentDTO.getPurpose());
 		advertisment.setPhoneNumber(advertismentDTO.getPhoneNumber());
@@ -187,7 +192,7 @@ public class AdvertismentController {
 		realEstate.setType(advertismentDTO.getType());
 
 		advertisment.setRealEstate(realEstate);
-		System.out.println(advertisment);
+
 		advertisment = advertismentService.save(advertisment);
 		
 		return new ResponseEntity<>(advertismentDTO, HttpStatus.CREATED);

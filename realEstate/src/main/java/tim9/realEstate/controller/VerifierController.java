@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import tim9.realEstate.dto.AdvertismentDTO;
 import tim9.realEstate.dto.ChangePasswordDTO;
+import tim9.realEstate.dto.VerifierDTO;
 import tim9.realEstate.model.Advertisment;
 import tim9.realEstate.model.Verifier;
 import tim9.realEstate.security.UserUtils;
@@ -43,6 +44,18 @@ public class VerifierController {
 	
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
+	
+	
+	@RequestMapping(value="/verifier", method = RequestMethod.GET)
+	public ResponseEntity<VerifierDTO> getVerifier(ServletRequest request) {
+		Verifier verifier = (Verifier)userUtils.getLoggedUser(request);
+		
+    	if (verifier == null) {
+    		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		}
+		
+		return new ResponseEntity<>(new VerifierDTO(verifier), HttpStatus.OK);
+	}
 	
 	/**
 	 * This method return all unverified advertisement

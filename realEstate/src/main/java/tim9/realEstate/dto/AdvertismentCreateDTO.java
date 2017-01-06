@@ -1,6 +1,7 @@
 package tim9.realEstate.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import tim9.realEstate.model.Advertisment;
 import tim9.realEstate.model.Category;
@@ -25,7 +26,7 @@ public class AdvertismentCreateDTO {
 	private String techEquipment;
 	private String address;
 	private String heatingType;
-	private String image;
+	private List<String> images;
 	private int numOfBathRooms;
 	private int numOfBedRooms;
 	private int numOfFlors;
@@ -48,7 +49,7 @@ public class AdvertismentCreateDTO {
 	public AdvertismentCreateDTO(Advertisment a, RealEstate e) {
 		this(a.getId(), a.getActiveUntil(), a.getPurpose(), e.getAddress(), a.getPhoneNumber(), a.getRate(), e.getId(), a.getName(),
 				new LocationDTO(e.getLocation()), a.getPrice(), e.getLandSize(), e.getTechEquipment(),
-				e.getHeatingType(), a.getBackgroundImage(), e.getNumOfBathRooms(),e.getNumOfBedRooms(), e.getNumOfFlors(),
+				e.getHeatingType(), a.getImages(), e.getNumOfBathRooms(),e.getNumOfBedRooms(), e.getNumOfFlors(),
 				e.getBuildYear(), e.getCategory(), e.getType());
 	}
 	
@@ -77,7 +78,7 @@ public class AdvertismentCreateDTO {
 	 */
 	public AdvertismentCreateDTO(Long advertismentId, Date activeUntil, String purpose, String address, String phoneNumber, double rate,
 			Long realEstateId, String name, LocationDTO location, double price, int landSize, String techEquipment,
-			String heatingType, String image, int numOfBathRooms, int numOfBedRooms, int numOfFlors, int buildYear,
+			String heatingType, List<String> images, int numOfBathRooms, int numOfBedRooms, int numOfFlors, int buildYear,
 			Category category, String type) {
 		super();
 		this.advertismentId = advertismentId;
@@ -93,7 +94,7 @@ public class AdvertismentCreateDTO {
 		this.landSize = landSize;
 		this.techEquipment = techEquipment;
 		this.heatingType = heatingType;
-		this.image = image;
+		this.images = images;
 		this.numOfBathRooms = numOfBathRooms;
 		this.numOfBedRooms = numOfBedRooms;
 		this.numOfFlors = numOfFlors;
@@ -108,7 +109,7 @@ public class AdvertismentCreateDTO {
 				+ purpose + ", phoneNumber=" + phoneNumber + ", price=" + price + ", rate=" + rate + ", realEstateId="
 				+ realEstateId + ", name=" + name + ", location=" + location + ", landSize=" + landSize
 				+ ", techEquipment=" + techEquipment + ", address=" + address + ", heatingType=" + heatingType
-				+ ", image=" + image + ", numOfBathRooms=" + numOfBathRooms + ", numOfBedRooms=" + numOfBedRooms
+				+ ", images=" + images + ", numOfBathRooms=" + numOfBathRooms + ", numOfBedRooms=" + numOfBedRooms
 				+ ", numOfFlors=" + numOfFlors + ", buildYear=" + buildYear + ", category=" + category + ", type="
 				+ type + "]";
 	}
@@ -201,12 +202,12 @@ public class AdvertismentCreateDTO {
 		this.heatingType = heatingType;
 	}
 
-	public String getImage() {
-		return image;
+	public List<String> getImages() {
+		return images;
 	}
 
-	public void setImage(String image) {
-		this.image = image;
+	public void setImages(List<String> images) {
+		this.images = images;
 	}
 
 	public int getNumOfBathRooms() {
