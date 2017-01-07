@@ -15,6 +15,10 @@
 			
 			$scope.accept = function(id){
 				VerifierFactory.acceptAdvertisement(id);
-			}
+			};
+			
+			$scope.reject = function(id){
+				VerifierFactory.rejectAdvertisement(id);
+			};
 	}]);
 })(angular);

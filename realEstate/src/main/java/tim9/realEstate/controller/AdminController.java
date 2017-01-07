@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import tim9.realEstate.dto.InappropriateDTO;
@@ -132,8 +132,8 @@ public class AdminController {
      * @param		id id of an User
      * @return      HttpStatus OK if OK, else NOT_FOUND
      */
-	@RequestMapping(value = "/accept", method = RequestMethod.PUT)
-	public ResponseEntity<Void> acceptClerk(@RequestParam Long id) {
+	@RequestMapping(value = "/accept/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> acceptClerk(@PathVariable Long id) {
 		if(id == null){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -166,8 +166,8 @@ public class AdminController {
      * @param		id id of an User
      * @return      HttpStatus OK if OK, else NOT_FOUND
      */
-	@RequestMapping(value = "/deny", method = RequestMethod.DELETE)
-	public ResponseEntity<Void> denyClerk(@RequestParam Long id) {
+	@RequestMapping(value = "/deny/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> denyClerk(@PathVariable Long id) {
 		if(id == null){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -212,8 +212,8 @@ public class AdminController {
      * it from the database, and sends mail to the user.
      * @return      id id of Inappropriate Advertisement
      */
-	@RequestMapping(value="/inappropriate/reject", method = RequestMethod.DELETE)
-	public ResponseEntity<List<Void>> rejectInappropriate(@RequestParam Long id) {
+	@RequestMapping(value="/inappropriate/reject/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<List<Void>> rejectInappropriate(@PathVariable Long id) {
 		if(id == null){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -240,8 +240,8 @@ public class AdminController {
      * to all users that have reported this advertisement.
      * @return      id id of Inappropriate Advertisement
      */
-	@RequestMapping(value="/inappropriate/accept", method = RequestMethod.DELETE)
-	public ResponseEntity<List<Void>> acceptInappropriate(@RequestParam Long id) {
+	@RequestMapping(value="/inappropriate/accept/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<List<Void>> acceptInappropriate(@PathVariable Long id) {
 		if(id == null){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}

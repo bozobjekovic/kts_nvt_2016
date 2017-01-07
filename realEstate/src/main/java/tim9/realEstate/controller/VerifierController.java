@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import tim9.realEstate.dto.AdvertismentDTO;
 import tim9.realEstate.dto.ChangePasswordDTO;
@@ -134,8 +133,8 @@ public class VerifierController {
 	 * @param id
 	 * @return HTTPSTATUS OK if advertisement exists, HTTPSTATUS NOT_FOUND if not
 	 */
-	@RequestMapping(value="/reject", method = RequestMethod.DELETE)
-	public ResponseEntity<Void> rejectAdvertisement(@RequestParam Long id) {
+	@RequestMapping(value="/reject/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> rejectAdvertisement(@PathVariable Long id) {
 		if (id == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}

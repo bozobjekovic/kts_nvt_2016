@@ -26,5 +26,13 @@ angular.module('realEstateClientApp')
     		});
 		};
 		
+		retVal.rejectAdvertisement = function(id) {
+			return Restangular.one("verifiers/reject", id).remove().then(function() {
+				_.remove(unverifiedAdvers, {
+          			id: id
+        		});
+    		});
+		};
+		
 		return retVal;
 	}]);

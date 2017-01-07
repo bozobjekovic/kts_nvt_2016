@@ -26,5 +26,37 @@ angular.module('realEstateClientApp')
     		});
 		};
 		
+		retVal.acceptInappropriate = function(id) {
+			return Restangular.one("admin/inappropriate/accept", id).remove().then(function() {
+				_.remove(inappropriates, {
+          			id: id
+        		});
+    		});
+		};
+		
+		retVal.rejectInappropriate = function(id) {
+			return Restangular.one("admin/inappropriate/reject", id).remove().then(function() {
+				_.remove(inappropriates, {
+          			id: id
+        		});
+    		});
+		};
+		
+		retVal.acceptClerk = function(id) {
+			return Restangular.one("admin/accept", id).put().then(function() {
+				_.remove(unapprovedClerks, {
+          			id: id
+        		});
+    		});
+		};
+		
+		retVal.denyClerk = function(id) {
+			return Restangular.one("admin/deny", id).remove().then(function() {
+				_.remove(unapprovedClerks, {
+          			id: id
+        		});
+    		});
+		};
+		
 		return retVal;
 	}]);

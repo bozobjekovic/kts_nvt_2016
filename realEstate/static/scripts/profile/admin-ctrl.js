@@ -17,5 +17,21 @@
 			AdminFactory.getAllInappropriates().then(function(items) {
 			    $scope.inappropriates = items;
 			});
+			
+			$scope.accept = function(id){
+				AdminFactory.acceptInappropriate(id);
+			};
+			
+			$scope.reject = function(id){
+				AdminFactory.rejectInappropriate(id);
+			};
+			
+			$scope.acceptClerk = function(id){
+				AdminFactory.acceptClerk(id);
+			};
+			
+			$scope.denyClerk = function(id){
+				AdminFactory.denyClerk(id);
+			};
 	}]);
 })(angular);
