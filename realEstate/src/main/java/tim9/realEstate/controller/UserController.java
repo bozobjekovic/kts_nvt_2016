@@ -3,17 +3,20 @@ package tim9.realEstate.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import tim9.realEstate.dto.AdvertismentDTO;
 import tim9.realEstate.dto.UserDTO;
 import tim9.realEstate.mail.MailUtil;
 import tim9.realEstate.model.Advertisment;
@@ -77,12 +80,23 @@ public class UserController {
 	@RequestMapping(value="/user", method = RequestMethod.GET)
 	public ResponseEntity<UserDTO> getUser(ServletRequest request) {
 		User user = (User)userUtils.getLoggedUser(request);
-		
-    	if (user == null) {
+
+		if (user == null) {
     		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 		
 		return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
+	}
+	
+	/**
+     * This method gets all Users publications from the database
+     * and then creates a list of DTO objects.
+     * @return      ResponseEntity List with all DTO Users and HttpStatus OK
+     */
+	@RequestMapping(value="/published/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Set<AdvertismentDTO>> getAllPublications(@PathVariable Long id) {
+		User user = userService.findOne(id);
+		return new ResponseEntity<>(null, HttpStatus.OK);
 	}
 	
 	/**

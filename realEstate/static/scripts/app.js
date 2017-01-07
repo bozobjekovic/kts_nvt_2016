@@ -38,8 +38,7 @@ angular
             })
             .when('/profile', {
                 templateUrl: 'views/profile.html',
-                controller: 'ProfileCtrl',
-                controllerAs: 'profile'
+                controller: 'UserCtrl'
             })
             .when('/rent', {
                 templateUrl: 'views/rent.html',

@@ -29,7 +29,7 @@
 					AdvertisementFactory.leaveComment($rootScope.advertisement.id, $scope.comment).then(function(item){
 						$scope.comments.unshift(item);		
 					});
-                };
+                		};
 			
 		}])
 })(angular);

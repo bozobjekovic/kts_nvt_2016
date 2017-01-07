@@ -71,7 +71,6 @@ public class CommentController {
      */
 	@RequestMapping(value="/{id}/new", method=RequestMethod.POST)
 	public ResponseEntity<CommentDTO> saveComment(@PathVariable Long id, @RequestBody CommentDTO commentDTO, ServletRequest request){
-		System.out.println("ovde");
 		if(id == null || commentDTO.getDescription() == null){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
