@@ -52,8 +52,8 @@
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<nav class="menu menu--francisco">
 							<ul class="nav navbar-nav menu__list, mini_menu_list">
-								<li class="menu__item menu__item--current"><a href="#" class="menu__link"><span class="menu__helper">All</span></a></li>
-								<li class="menu__item"><a class="menu__link" ng-click="getPublished()"><span class="menu__helper">Published</span></a></li>
+								<li class="menu__item menu__item--current"><a class="menu__link" ng-click="getPublished()"><span class="menu__helper">All</span></a></li>
+								<li class="menu__item"><a class="menu__link"><span class="menu__helper">Published</span></a></li>
 							</ul>
 						</nav>
 					</div>
@@ -70,55 +70,9 @@
 							<h4>{{publish.name}} {{publish.id}}</h4>
 							<p>{{publish.city}}</p>
 							<p>{{publish.price | currency:"$"}}</p>
+							<p>{{publish.publicationDate | date:'dd-MM-yyyy'}}</p>
 						</div>
-					</div>
-				</div>
-				<div class="profile-listItem">
-					<div class="profile-grid-left">
-						<img src="images/house1.jpg" alt="" class="img-thumbnail">
-					</div>
-					<div class="profile-grid-right">
-						<div class="profile-listItem-text">
-							<h4>Kuca</h4>
-							<p>Mandjasndaj</p>
-							<p>24.04.2016.</p>
-						</div>
-					</div>
-				</div>
-				<div class="profile-listItem">
-					<div class="profile-grid-left">
-						<img src="images/house1.jpg" alt="" class="img-thumbnail">
-					</div>
-					<div class="profile-grid-right">
-						<div class="profile-listItem-text">
-							<h4>Kuca</h4>
-							<p>Mandjasndaj</p>
-							<p>24.04.2016.</p>
-						</div>
-					</div>
-				</div>
-				<div class="profile-listItem">
-					<div class="profile-grid-left">
-						<img src="images/house1.jpg" alt="" class="img-thumbnail">
-					</div>
-					<div class="profile-grid-right">
-						<div class="profile-listItem-text">
-							<h4>Kuca</h4>
-							<p>Mandjasndaj</p>
-							<p>24.04.2016.</p>
-						</div>
-					</div>
-				</div>
-				<div class="profile-listItem">
-					<div class="profile-grid-left">
-						<img src="images/house1.jpg" alt="" class="img-thumbnail">
-					</div>
-					<div class="profile-grid-right">
-						<div class="profile-listItem-text">
-							<h4>Kuca</h4>
-							<p>Mandjasndaj</p>
-							<p>24.04.2016.</p>
-						</div>
+						<input type="button" value="Remove" style="float:right; margin: 1px;" class="btn btn-danger">
 					</div>
 				</div>
 			</div>

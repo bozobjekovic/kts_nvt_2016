@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import tim9.realEstate.dto.InappropriateDTO;
 import tim9.realEstate.model.Advertisment;
@@ -44,8 +44,8 @@ public class InappropriateController {
      * @param		companyDTO		a DTO Object
      * @return      ResponseEntity DTO Company and HttpStatus CREATED
      */
-	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<InappropriateDTO> saveInappropriate(@RequestBody InappropriateDTO inappropriateDTO, @RequestParam Long id, ServletRequest request){
+	@RequestMapping(value="/{id}/new", method=RequestMethod.POST)
+	public ResponseEntity<Void> saveInappropriate(@PathVariable Long id, @RequestBody InappropriateDTO inappropriateDTO, ServletRequest request){
 		if(inappropriateDTO.getDescription() == null){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -61,7 +61,7 @@ public class InappropriateController {
 		inappropriate.setUser((User)userUtils.getLoggedUser(request));
 		
 		inappropriate = inappropriateService.save(inappropriate);
-		return new ResponseEntity<>(new InappropriateDTO(inappropriate), HttpStatus.CREATED);
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
 }

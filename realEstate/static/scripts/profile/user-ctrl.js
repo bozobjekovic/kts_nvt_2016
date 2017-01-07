@@ -7,6 +7,7 @@
 
 			  UserFactory.getUser().then(function(item) {
 				      $scope.user = item;
+				      $scope.getPublished();
 			  });
 			  
 			  $scope.getPublished = function(){
@@ -45,8 +46,6 @@
                $scope.save = function() {
             	   UserFactory.updateUser($scope.user).then(function(item) {
             		   $scope.user = item;
-            		   console.log(item);
-            		   console.log($scope.user);
                    });
                    $uibModalInstance.close('ok')
                }

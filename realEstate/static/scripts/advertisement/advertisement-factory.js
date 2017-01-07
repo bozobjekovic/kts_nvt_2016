@@ -38,5 +38,9 @@ angular.module('realEstateClientApp')
     		});
 		};
 		
+		retVal.report = function(inappropriate) {
+			return Restangular.one("inappropriates/", inappropriate.id).all("new").post(inappropriate);
+		};
+		
 		return retVal;
 	}]);

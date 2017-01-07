@@ -1,5 +1,7 @@
 package tim9.realEstate.dto;
 
+import java.util.Date;
+
 import tim9.realEstate.model.Advertisment;
 
 /**
@@ -14,6 +16,7 @@ public class AdvertismentDTO {
 	private int landSize;
 	private String image;
 	private String type;
+	private Date publicationDate;
 	
 	/**
 	 * Constructor created from Superclass
@@ -29,7 +32,7 @@ public class AdvertismentDTO {
 	 */
 	public AdvertismentDTO(Advertisment a) {
 		this(a.getId(), a.getName(), a.getRealEstate().getLocation().getCity(), a.getPrice()
-				, a.getRealEstate().getLandSize(), a.getBackgroundImage(), a.getRealEstate().getType());
+				, a.getRealEstate().getLandSize(), a.getBackgroundImage(), a.getRealEstate().getType(), a.getPublicationDate());
 	}
 
 	/**
@@ -44,7 +47,7 @@ public class AdvertismentDTO {
 	 * @param type represents Type of the Real Estate
 	 */
 	public AdvertismentDTO(Long id, String name, String location, double price, int landSize, String image,
-			String type) {
+			String type, Date date) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -53,6 +56,7 @@ public class AdvertismentDTO {
 		this.landSize = landSize;
 		this.image = image;
 		this.type = type;
+		this.publicationDate = date;
 	}
 
 	public Long getId() {
@@ -111,4 +115,20 @@ public class AdvertismentDTO {
 		this.type = type;
 	}
 
+	public Date getPublicationDate() {
+		return publicationDate;
+	}
+
+	public void setPublicationDate(Date publicationDate) {
+		this.publicationDate = publicationDate;
+	}
+
+	@Override
+	public String toString() {
+		return "AdvertismentDTO [id=" + id + ", name=" + name + ", city=" + city + ", price=" + price + ", landSize="
+				+ landSize + ", image=" + image + ", type=" + type + ", publicationDate=" + publicationDate + "]";
+	}
+	
+	
+	
 }
