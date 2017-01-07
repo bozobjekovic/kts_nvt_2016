@@ -52,8 +52,8 @@ angular
             })
             .when('/profileVerifier', {
                 templateUrl: 'views/profileVerifier.html',
-                controller: '',
-                controllerAs: ''
+                controller: 'VerifierCtrl',
+                controllerAs: 'profileVerifier'
             })
             .when('/profileAdmin', {
                 templateUrl: 'views/profileAdmin.html',
