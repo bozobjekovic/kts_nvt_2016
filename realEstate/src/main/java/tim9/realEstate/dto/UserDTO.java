@@ -155,4 +155,13 @@ public class UserDTO {
 		this.image = image;
 	}
 
+	@Override
+	public String toString() {
+		return "UserDTO [id=" + id + ", email=" + email + ", username=" + username + ", name=" + name + ", surname="
+				+ surname + ", phoneNumber=" + phoneNumber + ", address=" + address + ", city=" + city + ", rate="
+				+ rate + ", bankAccount=" + bankAccount + ", image=" + image + "]";
+	}
+	
+	
+
 }

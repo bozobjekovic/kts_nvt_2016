@@ -68,7 +68,7 @@ INSERT INTO Location VALUES (15, 'Nis', '', 12000);
 INSERT INTO Location VALUES (16, 'Kragujevac', '', 13000);
 INSERT INTO Location VALUES (17, 'Smederevo', '', 14000);
 
-INSERT INTO Admin VALUES (1, 'Balzakova', 'Novi Sad', 'admin@gmail.com', 'image', 'Admin', 'a', '+381412941', 'Adminovski', 'admin', 1);
+INSERT INTO Admin VALUES (1, 'Balzakova', 'Novi Sad', 'admin@gmail.com', 'image', 'Admin', '$2a$04$L3XQT4cmboPgASNgTzgmAukeGbi7Oiio4pVjSUJQDL9gUle6pgwMu', '+381412941', 'Adminovski', 'admin', 1);
 
 INSERT INTO Verifier VALUES (1, 'verifier@gmail.com', '$2a$04$TjNk.I2AJ/QGBZKyOO6uruAx9MRoHsYKTJHcTd35rmmULDoM/XiXy','Verifier', 3);
 INSERT INTO Verifier VALUES (2, 'verifier2@gmail.com','$2a$04$TjNk.I2AJ/QGBZKyOO6uruAx9MRoHsYKTJHcTd35rmmULDoM/XiXy', 'Verifier2', 3);

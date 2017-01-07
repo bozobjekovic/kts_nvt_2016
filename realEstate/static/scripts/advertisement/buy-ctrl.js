@@ -98,7 +98,6 @@
 					    }
 					}
 					$scope.filter = $scope.filter.substring(0, $scope.filter.length - 1);
-					console.log($scope.filter);
 					if($scope.filterForm.roomsFrom != null && $scope.filterForm.roomsFrom != ''){
 						$scope.filter += ",numOfBedRooms>" + $scope.filterForm.roomsFrom;
 					}

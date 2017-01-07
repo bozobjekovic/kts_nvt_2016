@@ -3,7 +3,6 @@ package tim9.realEstate.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.ServletRequest;
 
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -94,9 +94,13 @@ public class UserController {
      * @return      ResponseEntity List with all DTO Users and HttpStatus OK
      */
 	@RequestMapping(value="/published/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Set<AdvertismentDTO>> getAllPublications(@PathVariable Long id) {
+	public ResponseEntity<List<AdvertismentDTO>> getAllPublications(@PathVariable Long id) {
 		User user = userService.findOne(id);
-		return new ResponseEntity<>(null, HttpStatus.OK);
+		ArrayList<AdvertismentDTO> advertismentDTOs = new ArrayList<AdvertismentDTO>();
+		for(Advertisment a : user.getPublishedAdvertisments()){
+			advertismentDTOs.add(new AdvertismentDTO(a));
+		}
+		return new ResponseEntity<>(advertismentDTOs, HttpStatus.OK);
 	}
 	
 	/**
@@ -291,6 +295,28 @@ public class UserController {
         String text = "Hello \n We are sorry but your request has been rejected";
         mailUtil.sendMail(email, subject, text);
     	return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	/**
+     * This method updates user
+     * @param user
+     * @return DTO of updated user
+     */
+	@RequestMapping(method=RequestMethod.PUT, consumes="application/json")
+	public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO){
+		User user = userService.findByEmail(userDTO.getEmail());
+		if (user == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		user.setName(userDTO.getName());
+		user.setSurname(userDTO.getSurname());
+		user.setPhoneNumber(userDTO.getPhoneNumber());
+		user.setAddress(userDTO.getAddress());
+		user.setCity(userDTO.getCity());
+		
+		user = userService.save(user);
+		return new ResponseEntity<>(userDTO, HttpStatus.OK);	
 	}
 	
 	/**

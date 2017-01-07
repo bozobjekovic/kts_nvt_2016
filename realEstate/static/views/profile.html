@@ -15,18 +15,34 @@
 		        		<td>{{user.surname}}</td>
 		      		</tr>
 		      		<tr>
+		        		<td>Username</td>
+		        		<td>{{user.username}}</td>
+		      		</tr>
+		      		<tr>
+		        		<td>Email</td>
+		        		<td>{{user.email}}</td>
+		      		</tr>
+		      		<tr>
 		        		<td>Phone Number</td>
 		        		<td>{{user.phoneNumber}}</td>
 		      		</tr>
 		      		<tr>
-		        		<td>Mail</td>
-		        		<td>{{user.email}}</td>
+		        		<td>Address</td>
+		        		<td>{{user.address}}</td>
+		      		</tr>
+		      		<tr>
+		        		<td>City</td>
+		        		<td>{{user.city}}</td>
+		      		</tr>
+		      		<tr>
+		        		<td>Rate</td>
+		        		<td>{{user.rate}}</td>
 		      		</tr>
 		  		</tbody>
 		  	</table>
 		</div>
   		<br>
-  		<button type="button" class="btn btn-warning" style="width: 100%"><b>Change</b></button>
+  		<button type="button" class="btn btn-warning" style="width: 100%" ng-click="openModal()"><b>Change</b></button>
 	</div>
 	<div class="profile-grid-right" style="border: 0.7px solid gray; border-radius: 5px; padding: 10px;">
 		<div class="profile-list-scroll">
@@ -45,15 +61,15 @@
 			</nav>
 			
 			<div class="profile-list">
-				<div class="profile-listItem">
+				<div class="profile-listItem" ng-repeat="publish in published">
 					<div class="profile-grid-left">
-						<img src="images/house1.jpg" alt="" class="img-thumbnail">
+						<img src="{{publish.image}}" alt="" class="img-thumbnail">
 					</div>
 					<div class="profile-grid-right">
 						<div class="profile-listItem-text">
-							<h4>Kuca</h4>
-							<p>Mandjasndaj</p>
-							<p>24.04.2016.</p>
+							<h4>{{publish.name}} {{publish.id}}</h4>
+							<p>{{publish.city}}</p>
+							<p>{{publish.price | currency:"$"}}</p>
 						</div>
 					</div>
 				</div>

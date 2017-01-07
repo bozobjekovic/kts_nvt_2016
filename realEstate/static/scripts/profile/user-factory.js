@@ -16,6 +16,13 @@ angular.module('realEstateClientApp')
     		});
 		};
 		
+		retVal.updateUser = function(userDTO) {
+			console.log(userDTO.email);
+			return Restangular.one("users/").customPUT(userDTO).then(function(entry) {
+				return entry;
+    		});
+		};
+		
 		
 		return retVal;
 	}]);
