@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -106,8 +107,8 @@ public class VerifierController {
 	 * @param request
 	 * @return HTTPSTATUS OK if advertisement exists, HTTPSTATUS NOT_FOUND if not
 	 */
-	@RequestMapping(value="/accept", method = RequestMethod.PUT)
-	public ResponseEntity<Void> acceptAdvertisement(@RequestParam Long id, ServletRequest request) {
+	@RequestMapping(value="/accept/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> acceptAdvertisement(@PathVariable Long id, ServletRequest request) {
 		if (id == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}

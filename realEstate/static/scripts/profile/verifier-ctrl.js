@@ -12,5 +12,9 @@
 			VerifierFactory.getAllUnverifiedAdvertisements().then(function(items) {
 			      $scope.unverifiedAdvers = items;
 			});
+			
+			$scope.accept = function(id){
+				VerifierFactory.acceptAdvertisement(id);
+			}
 	}]);
 })(angular);
