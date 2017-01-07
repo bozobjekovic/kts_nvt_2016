@@ -8,11 +8,11 @@
 		    	<tbody>
 		      		<tr>
 		        		<td>Name</td>
-		        		<td>Zana</td>
+		        		<td>{{admin.name}}</td>
 		      		</tr>
 		      		<tr>
 		        		<td>Surname</td>
-		        		<td>Bilbija</td>
+		        		<td>{{admin.surname}}</td>
 		      		</tr>
 		      		<tr>
 		        		<td>Phone Number</td>
@@ -34,58 +34,14 @@
 	<div class="profile-grid-left" style="width: 37%; border: 1px solid gray; border-radius: 5px; padding: 10px;">
 		<div class="profile-list-scroll">
 			<h4 style="color: #751717;" class="tittle">Inappropriate Requests</h4> <br> <br>
-			<div class="profile-list">
-				<div class="profile-listItem">
+			<div class="profile-list" ng-repeat="inapp in inappropriates">
+				<div class="profile-listItem" style="margin-bottom: -40px">
 					<div style="width: 70%; float: left; border: 1px solid gray; border-radius: 10px; padding: 20px;">
-						<h4>Fake Advertisement</h4>
-						<p>Mandjasndaj</p>
-						<p>24.04.2016.</p>
+						<h4>{{inapp.title}}</h4>
+						<p>{{inapp.description}}</p>
+						<p>{{inapp.date}}</p>
 					</div>
-					<div style="width: 25%; float: right; padding-top: 4%">
-						<button type="button" class="btn btn-success"><b>Accept</b></button>
-						<button type="button" class="btn btn-danger"><b>Decline</b></button>
-					</div>
-				</div>
-				<div class="profile-listItem">
-					<div style="width: 70%; float: left; border: 1px solid gray; border-radius: 10px; padding: 20px;">
-						<h4>Contains Curses</h4>
-						<p>Mandjasndaj</p>
-						<p>24.04.2016.</p>
-					</div>
-					<div style="width: 25%; float: right; padding-top: 4%">
-						<button type="button" class="btn btn-success"><b>Accept</b></button>
-						<button type="button" class="btn btn-danger"><b>Decline</b></button>
-					</div>
-				</div>
-				<div class="profile-listItem">
-					<div style="width: 70%; float: left; border: 1px solid gray; border-radius: 10px; padding: 20px;">
-						<h4>Inaccurate data</h4>
-						<p>Mandjasndaj</p>
-						<p>24.04.2016.</p>
-					</div>
-					<div style="width: 25%; float: right; padding-top: 4%">
-						<button type="button" class="btn btn-success"><b>Accept</b></button>
-						<button type="button" class="btn btn-danger"><b>Decline</b></button>
-					</div>
-				</div>
-				<div class="profile-listItem">
-					<div style="width: 70%; float: left; border: 1px solid gray; border-radius: 10px; padding: 20px;">
-						<h4>Does not exists</h4>
-						<p>Mandjasndaj</p>
-						<p>24.04.2016.</p>
-					</div>
-					<div style="width: 25%; float: right; padding-top: 4%">
-						<button type="button" class="btn btn-success"><b>Accept</b></button>
-						<button type="button" class="btn btn-danger"><b>Decline</b></button>
-					</div>
-				</div>
-				<div class="profile-listItem">
-					<div style="width: 70%; float: left; border: 1px solid gray; border-radius: 10px; padding: 20px;">
-						<h4>Not Owner</h4>
-						<p>Mandjasndaj</p>
-						<p>24.04.2016.</p>
-					</div>
-					<div style="width: 25%; float: right; padding-top: 4%">
+					<div style="width: 25%; float: right; padding-top: 2%">
 						<button type="button" class="btn btn-success"><b>Accept</b></button>
 						<button type="button" class="btn btn-danger"><b>Decline</b></button>
 					</div>
@@ -97,59 +53,13 @@
 	<div class="profile-grid-right" style="width: 37%; border: 1px solid gray; border-radius: 5px; padding: 10px;">
 		<div class="profile-list-scroll">
 			<h4 style="color: #751717;" class="tittle">Clerk Requests</h4> <br> <br>
-			
-			<div class="profile-list">
+			<div class="profile-list" ng-repeat="clerk in unapprovedClerks">
 				<div class="profile-listItem">
 					<div style="width: 70%; float: left; border: 1px solid gray; border-radius: 10px; padding: 20px;">
-						<h4>Marko Markovic</h4>
-						<p>Mandjasndaj</p>
-						<p>0101988801119</p>
+						<h4>{{clerk.name}} {{clerk.surname}}</h4>
+						<p>{{clerk.email}}</p>
 					</div>
-					<div style="width: 25%; float: right; padding-top: 4%">
-						<button type="button" class="btn btn-success"><b>Accept</b></button>
-						<button type="button" class="btn btn-danger"><b>Decline</b></button>
-					</div>
-				</div>
-				<div class="profile-listItem">
-					<div style="width: 70%; float: left; border: 1px solid gray; border-radius: 10px; padding: 20px;">
-						<h4>Marko Markovic</h4>
-						<p>Mandjasndaj</p>
-						<p>0101988801119</p>
-					</div>
-					<div style="width: 25%; float: right; padding-top: 4%">
-						<button type="button" class="btn btn-success"><b>Accept</b></button>
-						<button type="button" class="btn btn-danger"><b>Decline</b></button>
-					</div>
-				</div>
-				<div class="profile-listItem">
-					<div style="width: 70%; float: left; border: 1px solid gray; border-radius: 10px; padding: 20px;">
-						<h4>Marko Markovic</h4>
-						<p>Mandjasndaj</p>
-						<p>0101988801119</p>
-					</div>
-					<div style="width: 25%; float: right; padding-top: 4%">
-						<button type="button" class="btn btn-success"><b>Accept</b></button>
-						<button type="button" class="btn btn-danger"><b>Decline</b></button>
-					</div>
-				</div>
-				<div class="profile-listItem">
-					<div style="width: 70%; float: left; border: 1px solid gray; border-radius: 10px; padding: 20px;">
-						<h4>Marko Markovic</h4>
-						<p>Mandjasndaj</p>
-						<p>0101988801119</p>
-					</div>
-					<div style="width: 25%; float: right; padding-top: 4%">
-						<button type="button" class="btn btn-success"><b>Accept</b></button>
-						<button type="button" class="btn btn-danger"><b>Decline</b></button>
-					</div>
-				</div>
-				<div class="profile-listItem">
-					<div style="width: 70%; float: left; border: 1px solid gray; border-radius: 10px; padding: 20px;">
-						<h4>Marko Markovic</h4>
-						<p>Mandjasndaj</p>
-						<p>0101988801119</p>
-					</div>
-					<div style="width: 25%; float: right; padding-top: 4%">
+					<div style="width: 25%; float: right; padding-top: 2%">
 						<button type="button" class="btn btn-success"><b>Accept</b></button>
 						<button type="button" class="btn btn-danger"><b>Decline</b></button>
 					</div>
