@@ -100,7 +100,7 @@ public class AdminController {
      * @param		verifierDTO DTO for verifier registration
      * @return      ResponseEntity with HttpStatus CREATED
      */
-	@RequestMapping(value = "/registrate", method = RequestMethod.POST)
+	@RequestMapping(value = "/registrate/new", method = RequestMethod.POST)
 	public ResponseEntity<Void> registrateVerifier(@RequestBody VerifierDTO verifierDTO) {
 		if(verifierDTO.getEmail() == null || verifierDTO.getPassword() == null || verifierDTO.getUsername() == null){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

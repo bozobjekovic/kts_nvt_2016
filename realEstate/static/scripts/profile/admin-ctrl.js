@@ -2,8 +2,8 @@
 	'use strict';
 	
 	angular.module('realEstateClientApp')
-		.controller('AdminCtrl', ['$scope', '_', 'AdminFactory',
-		   function($scope, _, AdminFactory) {
+		.controller('AdminCtrl', ['$scope', '_', 'AdminFactory', '$uibModal',
+		   function($scope, _, AdminFactory, $uibModal) {
 			
 			AdminFactory.getAdmin().then(function(item) {
 				console.log(item);
@@ -33,5 +33,37 @@
 			$scope.denyClerk = function(id){
 				AdminFactory.denyClerk(id);
 			};
-	}]);
+            
+            $scope.openModal = function() {
+                var verifier = {
+                	  email			: '',
+                	  username		: '',
+                	  password		: ''
+  			  }
+                var modalInstance = $uibModal.open({
+                    templateUrl : 'views/modals/registerVerifier.html',
+                    controller  : 'regVerifierModalCtrl',
+                    scope       : $scope,
+                    resolve     : {
+                    	verifier : function() {
+                            return verifier;
+                        }
+                    }
+                });
+            }
+	}])
+	.controller('regVerifierModalCtrl', ['$scope', '$uibModalInstance', 'verifier', 'AdminFactory',
+       function($scope, $uibModalInstance, verifier, AdminFactory) {
+           $scope.verifier = verifier;
+
+           $scope.regVerifier = function() {
+        	   AdminFactory.regVerifier($scope.verifier);
+               $uibModalInstance.close('ok')
+           }
+
+           $scope.cancel = function() {
+               $uibModalInstance.close('cancel');
+           };
+       }
+   ]);
 })(angular);

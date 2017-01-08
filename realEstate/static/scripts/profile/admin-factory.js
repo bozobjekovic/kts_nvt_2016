@@ -58,5 +58,9 @@ angular.module('realEstateClientApp')
     		});
 		};
 		
+		retVal.regVerifier = function(verifier) {
+			return Restangular.one("admin/registrate").all("new").post(verifier);
+		};
+		
 		return retVal;
 	}]);

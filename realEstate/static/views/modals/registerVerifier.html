@@ -1,0 +1,19 @@
+<div class="modal-header">
+    <h4 class="modal-title">Register Verifier<i class="glyphicon glyphicon-log-in" aria-hidden="true"></i></h4>
+</div>
+<div class="modal-body">
+    <form>
+        <fieldset class="form-group">
+            <label for="email" style="font-size:17px;">Email:</label>
+            <input type="email" class="form-control" id="email" ng-model="verifier.email">
+            <label for="username" style="font-size:17px;">Username:</label>
+            <input type="text" class="form-control" id="username" ng-model="verifier.username">
+            <label for="password" style="font-size:17px;">Password:</label>
+            <input type="text" class="form-control" id="verPassword" ng-model="verifier.password">
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" type="button" ng-click="regVerifier()">Register</button>
+    <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+</div>
