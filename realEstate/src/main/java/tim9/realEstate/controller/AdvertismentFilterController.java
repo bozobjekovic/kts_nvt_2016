@@ -93,6 +93,7 @@ public class AdvertismentFilterController {
             builder.with(matcher.group(1), matcher.group(2), matcher.group(3));
         }
     	builder.with("category", ":", category);
+    	builder.with("isDeleted", ":", false);
     	
     	Specification<Advertisment> spec = builder.build();
     	

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import tim9.realEstate.model.Advertisment;
 import tim9.realEstate.model.Category;
 import tim9.realEstate.model.RealEstate;
+import tim9.realEstate.model.Status;
+import tim9.realEstate.model.User;
 import tim9.realEstate.repository.AdvertismentRepository;
 
 @Service
@@ -145,4 +147,16 @@ public class AdvertismentService {
 	public List<Advertisment> orderByRate(Pageable page){
 		return advertismentRepository.findByIsDeletedFalseAndVerifierNotNullOrderByRateDesc(page);
 	}
+	
+	/**
+	* This method  finds all elements by status and publisher.
+	* @param		status real estate status
+	* @param        publisher publisher
+	* @return		List of elements
+	*/
+	public List<Advertisment> findBySatusAndPublisher(Status status, User publisher){
+		return advertismentRepository.findByIsDeletedFalseAndVerifierIsNotNullAndRealEstate_StatusAndPublisher(status, publisher);
+	}
+	
+	
 }

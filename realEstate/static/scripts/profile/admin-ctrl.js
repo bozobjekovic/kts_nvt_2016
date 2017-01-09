@@ -2,8 +2,10 @@
 	'use strict';
 	
 	angular.module('realEstateClientApp')
-		.controller('AdminCtrl', ['$scope', '_', 'AdminFactory', '$uibModal',
-		   function($scope, _, AdminFactory, $uibModal) {
+		.controller('AdminCtrl', ['$scope', '$rootScope', '_', 'AdminFactory', '$uibModal',
+		   function($scope, $rootScope, _, AdminFactory, $uibModal) {
+			
+			$rootScope.mainMenu = true;
 			
 			AdminFactory.getAdmin().then(function(item) {
 				console.log(item);

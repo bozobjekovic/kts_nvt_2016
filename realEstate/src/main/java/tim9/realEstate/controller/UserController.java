@@ -112,11 +112,10 @@ public class UserController {
 	@RequestMapping(value="/published/{status}/user/{id}", method = RequestMethod.GET)
 	public ResponseEntity<List<AdvertismentDTO>> getAllActivePublications(@PathVariable Status status, @PathVariable Long id) {
 		User user = userService.findOne(id);
-		ArrayList<AdvertismentDTO> advertismentDTOs = new ArrayList<AdvertismentDTO>();
-		for(Advertisment a : user.getPublishedAdvertisments()){
-			if(a.getRealEstate().getStatus() == status){
-				advertismentDTOs.add(new AdvertismentDTO(a));
-			}
+		List<Advertisment> advertisments = advertisementService.findBySatusAndPublisher(status, user);
+		List<AdvertismentDTO> advertismentDTOs = new ArrayList<AdvertismentDTO>();
+		for (int i = 0; i < advertisments.size(); i++) {
+			advertismentDTOs.add(new AdvertismentDTO(advertisments.get(i)));
 		}
 		return new ResponseEntity<>(advertismentDTOs, HttpStatus.OK);
 	}

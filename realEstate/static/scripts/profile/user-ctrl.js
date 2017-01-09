@@ -4,6 +4,8 @@
 	angular.module('realEstateClientApp')
 		.controller('UserCtrl', ['$scope', '$rootScope', '$location',  '_', 'UserFactory', '$uibModal',
 		   function($scope, $rootScope, $location, _, UserFactory, $uibModal) {
+			
+			  $rootScope.mainMenu = true;
 
 			  UserFactory.getUser().then(function(item) {
 				      $scope.user = item;
