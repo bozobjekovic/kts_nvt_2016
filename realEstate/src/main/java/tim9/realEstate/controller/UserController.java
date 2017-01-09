@@ -104,6 +104,24 @@ public class UserController {
 	}
 	
 	/**
+     * This method gets all Users publications that are active, sold or rented
+     * @param status advertisement status
+     * @param id user id
+     * @return      ResponseEntity List with all DTO Users and HttpStatus OK
+     */
+	@RequestMapping(value="/published/{status}/user/{id}", method = RequestMethod.GET)
+	public ResponseEntity<List<AdvertismentDTO>> getAllActivePublications(@PathVariable Status status, @PathVariable Long id) {
+		User user = userService.findOne(id);
+		ArrayList<AdvertismentDTO> advertismentDTOs = new ArrayList<AdvertismentDTO>();
+		for(Advertisment a : user.getPublishedAdvertisments()){
+			if(a.getRealEstate().getStatus() == status){
+				advertismentDTOs.add(new AdvertismentDTO(a));
+			}
+		}
+		return new ResponseEntity<>(advertismentDTOs, HttpStatus.OK);
+	}
+	
+	/**
      * This method sets a new rate for an User.
      * It gets a given rate as a parameter and then calculates
      * the new average rate and saves it in the database.

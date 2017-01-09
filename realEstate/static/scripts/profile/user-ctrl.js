@@ -16,6 +16,16 @@
 				  });
 			  }
 			  
+			  $scope.getPublishedByStatus = function(status){
+				  UserFactory.getPublishedByStatus(status, $scope.user.id).then(function(items) {
+				      $scope.published = items;
+				  });
+			  }
+			  
+			  $scope.remove = function(id){
+				  UserFactory.remove(id);
+			  }
+			  
 			  $scope.openModal = function() {
                   var user = {
 					  name: $scope.user.name,

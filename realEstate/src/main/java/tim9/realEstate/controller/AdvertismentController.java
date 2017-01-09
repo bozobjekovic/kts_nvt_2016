@@ -311,8 +311,9 @@ public class AdvertismentController {
      * @param id
      * @return HttpStatus OK if exists else HttpStatus NOT_FOUND
      */
-    @RequestMapping(value="/delete", method=RequestMethod.PUT)
-    public ResponseEntity<Void> deteleAdvertisement(@RequestParam Long id) {
+    @RequestMapping(value="/delete/{id}", method=RequestMethod.PUT)
+    public ResponseEntity<Void> deteleAdvertisement(@PathVariable Long id) {
+    	System.out.println(id);
     	if(id == null){
     		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     	}
