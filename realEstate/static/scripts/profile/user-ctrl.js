@@ -10,6 +10,7 @@
 			  UserFactory.getUser().then(function(item) {
 				      $scope.user = item;
 				      $scope.getPublished();
+				      $scope.getCompany();
 			  });
 			  
 			  $scope.getPublished = function(){
@@ -26,6 +27,12 @@
 			  
 			  $scope.remove = function(id){
 				  UserFactory.remove(id);
+			  }
+			  
+			  $scope.getCompany = function(){
+				  UserFactory.getCompany($scope.user.id).then(function(item) {
+				      $scope.company = item;
+				  });
 			  }
 			  
 			  $scope.openModal = function() {

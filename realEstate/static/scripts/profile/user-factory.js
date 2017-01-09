@@ -37,7 +37,13 @@ angular.module('realEstateClientApp')
 				published = entries;
 				return published;
     		});
-		};		
+		};
+		
+		retVal.getCompany = function(id) {
+			return Restangular.one("users/company", id).get().then(function(entry) {
+				return entry;
+    		});
+		};
 		
 		return retVal;
 	}]);

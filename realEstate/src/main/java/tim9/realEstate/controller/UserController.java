@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import tim9.realEstate.dto.AdvertismentDTO;
+import tim9.realEstate.dto.CompanyDTO;
 import tim9.realEstate.dto.UserDTO;
 import tim9.realEstate.mail.MailUtil;
 import tim9.realEstate.model.Advertisment;
@@ -95,7 +96,13 @@ public class UserController {
      */
 	@RequestMapping(value="/published/{id}", method = RequestMethod.GET)
 	public ResponseEntity<List<AdvertismentDTO>> getAllPublications(@PathVariable Long id) {
+		if(id == null){
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		User user = userService.findOne(id);
+		if (user == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 		ArrayList<AdvertismentDTO> advertismentDTOs = new ArrayList<AdvertismentDTO>();
 		for(Advertisment a : user.getPublishedAdvertisments()){
 			advertismentDTOs.add(new AdvertismentDTO(a));
@@ -111,13 +118,41 @@ public class UserController {
      */
 	@RequestMapping(value="/published/{status}/user/{id}", method = RequestMethod.GET)
 	public ResponseEntity<List<AdvertismentDTO>> getAllActivePublications(@PathVariable Status status, @PathVariable Long id) {
+		if(id == null || status == null){
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		User user = userService.findOne(id);
+		if (user == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 		List<Advertisment> advertisments = advertisementService.findBySatusAndPublisher(status, user);
 		List<AdvertismentDTO> advertismentDTOs = new ArrayList<AdvertismentDTO>();
 		for (int i = 0; i < advertisments.size(); i++) {
 			advertismentDTOs.add(new AdvertismentDTO(advertisments.get(i)));
 		}
 		return new ResponseEntity<>(advertismentDTOs, HttpStatus.OK);
+	}
+	
+	/**
+     * This method gets User Company
+     * and then returns it.
+     * @param	id user id
+     * @return      ResponseEntity List with all DTO Users and HttpStatus OK
+     */
+	@RequestMapping(value="/company/{id}", method = RequestMethod.GET)
+	public ResponseEntity<CompanyDTO> getUsersCompany(@PathVariable Long id) {
+		if(id == null){
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		User user = userService.findOne(id);
+		if (user == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		if(user.getCompany() == null){
+			return new ResponseEntity<>(null, HttpStatus.OK);
+		}
+		
+		return new ResponseEntity<>(new CompanyDTO(user.getCompany()), HttpStatus.OK);
 	}
 	
 	/**

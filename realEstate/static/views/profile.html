@@ -83,5 +83,40 @@
 			</div>
 		</div>
 	</div>
+	<div class="profile-grid-left" style="border: 1px solid gray; border-radius: 5px; padding: 10px; margin-top: 10px;" ng-if="company != null">
+	    <div class="table-responsive">          
+			<table class="table">
+		    	<tbody>
+		      		<tr >
+		    			<th colspan="2" style="text-align: center; font-size: 16px; color: #751717">Company details</th>
+		    		</tr>
+		      		<tr>
+		        		<td>Name</td>
+		        		<td>{{company.name}}</td>
+		      		</tr>
+		      		<tr>
+		        		<td>Phone Number</td>
+		        		<td>{{company.phoneNumber}}</td>
+		      		</tr>
+		      		<tr>
+		        		<td>Zip Code</td>
+		        		<td>{{company.location.zipCode}}</td>
+		      		</tr>
+		      		<tr>
+		        		<td>City</td>
+		        		<td>{{company.location.city}}</td>
+		      		</tr>
+		      		<tr>
+		        		<td>Address</td>
+		        		<td>{{company.address}}</td>
+		      		</tr>
+					<tr>
+		        		<td>Site</td>
+		        		<td>{{company.site}}</td>
+		      		</tr>
+		  		</tbody>
+		  	</table>
+		</div>
+	</div>
 </div>
 <br><br><br>

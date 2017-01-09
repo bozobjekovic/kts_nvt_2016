@@ -62,8 +62,7 @@ angular
             })
             .when('/profileClerk', {
                 templateUrl: 'views/profileClerk.html',
-                controller: '',
-                controllerAs: ''
+                controller: 'UserCtrl'
             })
             .otherwise({
                 redirectTo: '/'
