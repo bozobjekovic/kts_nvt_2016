@@ -46,7 +46,9 @@
 			  $scope.getCompany = function(){
 				  UserFactory.getCompany($scope.user.id).then(function(item) {
 				      $scope.company = item;
-				      $scope.getAppliedUsers(item.id);
+				      if(item != null){
+				    	  $scope.getAppliedUsers(item.id);
+				      }
 				  });
 			  }
 			  
@@ -69,6 +71,10 @@
                               return user;
                           }
                       }
+                  }).closed.then(function(){
+                	  UserFactory.getUser().then(function(item) {
+                		  $scope.user = item;
+                	  });
                   });
               }
 			  
@@ -79,9 +85,9 @@
 
                $scope.save = function() {
             	   UserFactory.updateUser($scope.user).then(function(item) {
-            		   $scope.user = item;
+            		   $uibModalInstance.close('ok');
                    });
-                   $uibModalInstance.close('ok')
+                   
                }
 
                $scope.cancel = function() {
