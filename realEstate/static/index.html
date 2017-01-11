@@ -13,15 +13,14 @@
 	  	<div class="header" id="home">
 	  		<div class="header-top">
 	  			<div class="container">
-	  				<div class="deatils" >
-	  					<ul>
-	  						<li ng-controller="LoginCtrl"><i class="glyphicon glyphicon-log-in" aria-hidden="true"></i><a href="" ng-click="openModal()">Log In</a></li>
+	  				<div class="deatils" ng-controller="LoginCtrl">
+	  					<ul ng-if="!loggedUser">
+	  						<li><i class="glyphicon glyphicon-log-in" aria-hidden="true"></i><a href="" ng-click="openModal()">Log In</a></li>
 	  						<li ng-controller="RegistrateCtrl"><i class="glyphicon glyphicon-lock" aria-hidden="true"></i><a href="" ng-click="openModal()">Register</a></li>
-							<!--   -->
-							<!--
-							<li ng-controller="LoginCtrl"><i class="glyphicon glyphicon-user" aria-hidden="true"></i><a href="" >Ana Marojevic</a></li>
-	  						<li ng-controller="RegistrateCtrl"><i class="glyphicon glyphicon-log-out" aria-hidden="true"></i><a href="" >Log Out</a></li>
-							-->
+						</ul>
+						<ul ng-if="loggedUser">
+							<li><i class="glyphicon glyphicon-user" aria-hidden="true"></i><a href="" ng-click="profile()"><span ng-bind="logData.name"></span></a></li>
+	  						<li><i class="glyphicon glyphicon-log-out" aria-hidden="true"></i><a href="" ng-click="logOut()">Log Out</a></li>
 						</ul>
 	  				</div><br />
 	  				<div class="logo">

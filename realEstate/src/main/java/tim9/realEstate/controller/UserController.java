@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tim9.realEstate.dto.AdvertismentDTO;
 import tim9.realEstate.dto.CompanyDTO;
+import tim9.realEstate.dto.LoggedUserDTO;
 import tim9.realEstate.dto.UserDTO;
 import tim9.realEstate.mail.MailUtil;
 import tim9.realEstate.model.Advertisment;
@@ -87,6 +88,11 @@ public class UserController {
 		}
 		
 		return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/user/data", method = RequestMethod.GET)
+	public ResponseEntity<LoggedUserDTO> getUserData(ServletRequest request) {
+		return new ResponseEntity<>(userUtils.getLoggedUserData(request), HttpStatus.OK);
 	}
 	
 	/**

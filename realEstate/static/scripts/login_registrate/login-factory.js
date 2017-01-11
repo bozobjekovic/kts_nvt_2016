@@ -13,6 +13,13 @@
                     }
                 };
 
+                retVal.getLoggedUserData = function(token) {
+                    return Restangular.one('users/user/data').get()
+                        .then(function(loggedUserData) {
+                            return loggedUserData;
+                    })
+                };
+
                 return retVal;
             }]);
 })(angular);

@@ -6,7 +6,6 @@
             function($scope, $rootScope) {
                 $rootScope.mainMenu = true;
 
-
             }
         ]);
 })(angular);

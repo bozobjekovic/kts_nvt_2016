@@ -9,6 +9,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
+import tim9.realEstate.dto.LoggedUserDTO;
+import tim9.realEstate.model.Admin;
+import tim9.realEstate.model.User;
+import tim9.realEstate.model.Verifier;
 import tim9.realEstate.service.AdminService;
 import tim9.realEstate.service.UserService;
 import tim9.realEstate.service.VerifierService;
@@ -53,6 +57,29 @@ public class UserUtils {
 			return userService.findByUsername(details.getUsername());
 		} else if (details.getAuthorities().contains(new SimpleGrantedAuthority("VERIFIER"))) {
 			return verifierService.findByUsername(details.getUsername());
+		} else {
+			return null;
+		}
+	}
+	
+	public LoggedUserDTO getLoggedUserData(ServletRequest request) {
+		
+		HttpServletRequest httpRequest = (HttpServletRequest) request;
+		String token = httpRequest.getHeader("X-Auth-Token");
+		
+		UserDetails details = userDetailsService.loadUserByUsername(tokenUtils.getUsernameFromToken(token));
+		if (details.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))) {
+			Admin admin = adminService.findByUsername(details.getUsername());
+			return new LoggedUserDTO(admin.getName(), admin.getSurname(), "ADMIN");
+		} else if (details.getAuthorities().contains(new SimpleGrantedAuthority("USER"))) {
+			User user = userService.findByUsername(details.getUsername());
+			if (user.isClerk()) {
+				return new LoggedUserDTO(user.getName(), user.getSurname(), "CLERK");
+			}
+			return new LoggedUserDTO(user.getName(), user.getSurname(), "USER");
+		} else if (details.getAuthorities().contains(new SimpleGrantedAuthority("VERIFIER"))) {
+			Verifier verifier = verifierService.findByUsername(details.getUsername());
+			return new LoggedUserDTO(verifier.getUsername(), "", "VERIFIER");
 		} else {
 			return null;
 		}
