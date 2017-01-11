@@ -4,81 +4,129 @@
 <div class="modal-body">
 	<uib-tabset>
 		<uib-tab index="0" heading="User">
-			<form>
-				<fieldset class="form-group">
-					<label for="name" style="font-size:17px;">Name:</label>
-					<input type="text" class="form-control" required id="name" ng-model="registrateUser.name">
-					<label for="surname" style="font-size:17px;">Surname:</label>
-					<input type="text" class="form-control" id="surname" ng-model="registrateUser.surname">
-					<label for="email" style="font-size:17px;">Email:</label>
-					<input type="text" class="form-control" id="email" ng-model="registrateUser.email">
-					<label for="username" style="font-size:17px;">Username:</label>
-					<input type="text" class="form-control" id="username" ng-model="registrateUser.username">
-					<label for="password" style="font-size:17px;">Password:</label>
-					<input type="password" class="form-control" id="password" ng-model="registrateUser.password">
-					<label for="phonenumber" style="font-size:17px;">Phone number:</label>
+			<form name="registrateUserForm" novalidate ng-controller="RegistrateCtrl" nvt-submit="submitRegistrateUserForm()">
+				<div class="form-group" ng-class="{'has-error': nvt.registrateUserForm.needsAttention(registrateUserForm.name)}">
+					<label for="name" style="font-size:17px;">Name<span class="requiredFiled">*</span></label>
+					<input type="text" class="form-control" name="name" required id="name" ng-model="registrateUser.name">
+				</div>
+				<div class="form-group" ng-class="{'has-error': nvt.registrateUserForm.needsAttention(registrateUserForm.surname)}">
+					<label for="surname" style="font-size:17px;">Surname<span class="requiredFiled">*</span></label>
+					<input type="text" class="form-control" name="surname" required id="surname" ng-model="registrateUser.surname">
+				</div>
+				<div class="form-group" ng-class="{'has-error': nvt.registrateUserForm.needsAttention(registrateUserForm.email)}">
+					<label for="email" style="font-size:17px;">Email<span class="requiredFiled">*</span></label>
+					<input type="text" class="form-control" name="email" required id="email" ng-model="registrateUser.email">
+				</div>
+				<div class="form-group" ng-class="{'has-error': nvt.registrateUserForm.needsAttention(registrateUserForm.username)}">
+					<label for="username" style="font-size:17px;">Username<span class="requiredFiled">*</span></label>
+					<input type="text" class="form-control" name="username" required id="username" ng-model="registrateUser.username">
+				</div>
+				<div class="form-group" ng-class="{'has-error': nvt.registrateUserForm.needsAttention(registrateUserForm.password)}">
+					<label for="password" style="font-size:17px;">Password<span class="requiredFiled">*</span></label>
+					<input type="password" class="form-control" name="password" required id="password" ng-model="registrateUser.password">
+				</div>
+				<div class="form-group">
+					<label for="phonenumber" style="font-size:17px;">Phone number</label>
 					<input type="text" class="form-control" id="phonenumber" ng-model="registrateUser.phoneNumber">
-					<label for="address" style="font-size:17px;">Address:</label>
+				</div>
+				<div class="form-group">
+					<label for="address" style="font-size:17px;">Address</label>
 					<input type="text" class="form-control" id="address" ng-model="registrateUser.address">
-					<label for="city" style="font-size:17px;">City:</label>
+				</div>
+				<div class="form-group">
+					<label for="city" style="font-size:17px;">City</label>
 					<input type="text" class="form-control" id="city" ng-model="registrateUser.city">
-					<label for="image" style="font-size:17px;">Image:</label>
+				</div>
+				<div class="form-group">
+					<label for="image" style="font-size:17px;">Image</label>
 					<input type="text" class="form-control" id="image" ng-model="registrateUser.image">
-					<label for="bankaccount" style="font-size:17px;">Bank account:</label>
+				</div>
+				<div class="form-group">
+					<label for="bankaccount" style="font-size:17px;">Bank account</label>
 					<input type="text" class="form-control" id="bankaccount" ng-model="registrateUser.bankAccount">
-				</fieldset>
+				</div>
 				<div class="modal-footer">
-					<button class="btn btn-default" type="button" ng-click="ok_user()">OK</button>
+					<button class="btn btn-default" type="submit" >OK</button>
 					<button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
 				</div>
 			</form>
 		</uib-tab>
     	<uib-tab index="1" heading="Clerk">
-			<form>
+			<form name="registrateClerkForm" novalidate ng-controller="RegistrateCtrl" nvt-submit="submitRegistrateClerkForm()">
 				<div style="display: inline-block;">
-					<fieldset class="form-group">
-						<label for="name" style="font-size:17px;">Name:</label>
-						<input type="text" class="form-control" required id="name" ng-model="registrateUser.name">
-						<label for="surname" style="font-size:17px;">Surname:</label>
-						<input type="text" class="form-control" id="surname" ng-model="registrateUser.surname">
-						<label for="email" style="font-size:17px;">Email:</label>
-						<input type="text" class="form-control" id="email" ng-model="registrateUser.email">
-						<label for="username" style="font-size:17px;">Username:</label>
-						<input type="text" class="form-control" id="username" ng-model="registrateUser.username">
-						<label for="password" style="font-size:17px;">Password:</label>
-						<input type="password" class="form-control" id="password" ng-model="registrateUser.password">
-						<label for="phonenumber" style="font-size:17px;">Phone number:</label>
+					<div class="form-group" ng-class="{'has-error': nvt.registrateClerkForm.needsAttention(registrateClerkForm.name)}">
+						<label for="name" style="font-size:17px;">Name<span class="requiredFiled">*</span></label>
+						<input type="text" class="form-control" name="name" required id="name" ng-model="registrateUser.name">
+					</div>
+					<div class="form-group" ng-class="{'has-error': nvt.registrateClerkForm.needsAttention(registrateClerkForm.surname)}">
+						<label for="surname" style="font-size:17px;">Surname<span class="requiredFiled">*</span></label>
+						<input type="text" class="form-control" name="surname" required id="surname" ng-model="registrateUser.surname">
+					</div>
+					<div class="form-group" ng-class="{'has-error': nvt.registrateClerkForm.needsAttention(registrateClerkForm.email)}">
+						<label for="email" style="font-size:17px;">Email<span class="requiredFiled">*</span></label>
+						<input type="text" class="form-control" name="email" required id="email" ng-model="registrateUser.email">
+					</div>
+					<div class="form-group" ng-class="{'has-error': nvt.registrateClerkForm.needsAttention(registrateClerkForm.username)}">
+						<label for="username" style="font-size:17px;">Username<span class="requiredFiled">*</span></label>
+						<input type="text" class="form-control" name="username" required id="username" ng-model="registrateUser.username">
+					</div>
+					<div class="form-group" ng-class="{'has-error': nvt.registrateClerkForm.needsAttention(registrateClerkForm.password)}">
+						<label for="password" style="font-size:17px;">Password<span class="requiredFiled">*</span></label>
+						<input type="password" class="form-control" name="password" required id="password" ng-model="registrateUser.password">
+					</div>
+					<div class="form-group">
+						<label for="phonenumber" style="font-size:17px;">Phone number</label>
 						<input type="text" class="form-control" id="phonenumber" ng-model="registrateUser.phoneNumber">
-						<label for="address" style="font-size:17px;">Address:</label>
+					</div>
+					<div class="form-group">
+						<label for="address" style="font-size:17px;">Address</label>
 						<input type="text" class="form-control" id="address" ng-model="registrateUser.address">
-						<label for="city" style="font-size:17px;">City:</label>
+					</div>
+					<div class="form-group">
+						<label for="city" style="font-size:17px;">City</label>
 						<input type="text" class="form-control" id="city" ng-model="registrateUser.city">
-						<label for="image" style="font-size:17px;">Image:</label>
+					</div>
+					<div class="form-group">
+						<label for="image" style="font-size:17px;">Image</label>
 						<input type="text" class="form-control" id="image" ng-model="registrateUser.image">
-						<label for="bankaccount" style="font-size:17px;">Bank account:</label>
+					</div>
+					<div class="form-group">
+						<label for="bankaccount" style="font-size:17px;">Bank account</label>
 						<input type="text" class="form-control" id="bankaccount" ng-model="registrateUser.bankAccount">
-					</fieldset>
+					</div>
 				</div>
 				<div style="display: inline-block; float: right;">
-					<fieldset class="form-group">
-						<label for="companyname" style="font-size:17px;">Company Name:</label>
-						<input type="text" class="form-control" required id="companyname" ng-model="registrateUser.companyName">
-						<label for="companyphone" style="font-size:17px;">Company phone:</label>
-						<input type="text" class="form-control" id="companyphone" ng-model="registrateUser.companyPhoneNumber">
-						<label for="companysite" style="font-size:17px;">Company site:</label>
+					<div class="form-group" ng-class="{'has-error': nvt.registrateClerkForm.needsAttention(registrateClerkForm.companyName)}">
+						<label for="companyname" style="font-size:17px;">Company Name<span class="requiredFiled">*</span></label>
+						<input type="text" class="form-control" name="companyName" required id="companyname" ng-model="registrateUser.companyName">
+					</div>
+					<div class="form-group" ng-class="{'has-error': nvt.registrateClerkForm.needsAttention(registrateClerkForm.companyphone)}">
+						<label for="companyphone" style="font-size:17px;">Company phone<span class="requiredFiled">*</span></label>
+						<input type="text" class="form-control" name="companyphone" required id="companyphone" ng-model="registrateUser.companyPhoneNumber">
+					</div>
+					<div class="form-group">
+						<label for="companysite" style="font-size:17px;">Company site</label>
 						<input type="text" class="form-control" id="companysite" ng-model="registrateUser.site">
-						<label for="companyaddress" style="font-size:17px;">Company address:</label>
-						<input type="text" class="form-control" id="companyaddress" ng-model="registrateUser.companyAddress">
-						<label for="companycity" style="font-size:17px;">Company city:</label>
-						<input type="text" class="form-control" id="companycity" ng-model="registrateUser.companyLocation.city">
-						<label for="zipcode" style="font-size:17px;">Zip Code:</label>
+					</div>
+					<div class="form-group" ng-class="{'has-error': nvt.registrateClerkForm.needsAttention(registrateClerkForm.companyAddress)}">
+						<label for="companyaddress" style="font-size:17px;">Company address<span class="requiredFiled">*</span></label>
+						<input type="text" class="form-control" name="companyAddress" required id="companyaddress" ng-model="registrateUser.companyAddress">
+					</div>
+					<div class="form-group" ng-class="{'has-error': nvt.registrateClerkForm.needsAttention(registrateClerkForm.companyCity)}">
+						<label for="companycity" style="font-size:17px;">Company city<span class="requiredFiled">*</span></label>
+						<input type="text" class="form-control" name="companyCity" required id="companycity" ng-model="registrateUser.companyLocation.city">
+					</div>
+					<div class="form-group">
+						<label for="zipcode" style="font-size:17px;">Zip Code</label>
 						<input type="text" class="form-control" id="zipcode" ng-model="registrateUser.companyLocation.zipCode">
-						<label for="partCity" style="font-size:17px;">Part of the city:</label>
+					</div>
+					<div class="form-group">
+						<label for="partCity" style="font-size:17px;">Part of the city</label>
 						<input type="text" class="form-control" id="partCity" ng-model="registrateUser.companyLocation.partOfTheCity">
-					</fieldset>
+					</div>
 				</div>
 				<div class="modal-footer">
-					<button class="btn btn-default" type="button" ng-click="ok_clerk()">OK</button>
+					<button class="btn btn-default" type="submit" >OK</button>
 					<button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
 				</div>
 			</form>

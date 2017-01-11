@@ -2,16 +2,18 @@
     <h4 class="modal-title" >Sign In <i class="glyphicon glyphicon-log-in" aria-hidden="true"></i></h4>
 </div>
 <div class="modal-body">
-    <form>
-        <fieldset class="form-group">
+    <form name="signIn" novalidate ng-controller="LoginCtrl" nvt-submit="submitLoginForm()">
+        <div class="form-group" ng-class="{'has-error': nvt.signIn.needsAttention(signIn.username)}">
             <label for="username" style="font-size:17px;">Username:</label>
-            <input type="text" class="form-control" id="username" ng-model="loginUser.username">
+            <input type="text" class="form-control" name="username" required id="username" ng-model="loginUser.username">
+        </div>
+        <div class="form-group" ng-class="{'has-error': nvt.signIn.needsAttention(signIn.password)}">
             <label for="password" style="font-size:17px;">Password:</label>
-            <input type="password" class="form-control" id="password" ng-model="loginUser.password">
-        </fieldset>
+            <input type="password" class="form-control" name="password" required id="password" ng-model="loginUser.password">
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default" type="submit" >OK</button>
+            <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+        </div>
     </form>
-</div>
-<div class="modal-footer">
-    <button class="btn btn-default" type="button" ng-click="ok()">OK</button>
-    <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
 </div>

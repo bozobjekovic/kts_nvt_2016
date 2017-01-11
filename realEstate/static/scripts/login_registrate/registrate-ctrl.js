@@ -47,12 +47,12 @@
             function($scope, $uibModalInstance, registrateUser, RegistrateFactory) {
                 $scope.registrateUser = registrateUser;
 
-                $scope.ok_user = function() {
+                $scope.submitRegistrateUserForm = function() {
                     RegistrateFactory.registrateUser($scope.registrateUser);
                     $uibModalInstance.close('ok_user')
                 };
 
-                $scope.ok_clerk = function() {
+                $scope.submitRegistrateClerkForm = function() {
                     RegistrateFactory.registrateClerk($scope.registrateUser);
                     $uibModalInstance.close('ok_clerk')
                 };

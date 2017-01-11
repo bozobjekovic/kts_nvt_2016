@@ -67,7 +67,7 @@
             function($scope, $uibModalInstance, loginUser, LoginFactory, $localStorage) {
                 $scope.loginUser = loginUser;
 
-                $scope.ok = function() {
+                $scope.submitLoginForm = function() {
                     LoginFactory.logInUser($scope.loginUser).then(function(token) {
                         $localStorage.token = token;
                         $uibModalInstance.close('ok');
