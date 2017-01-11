@@ -26,6 +26,10 @@
 		<img src="images/house1.jpg" alt="" class="img-thumbnail">
 		<br><br>
 		<input type="button" value="Report" class="btn btn-danger" ng-click="openModal()">
+		<div style="float:right; margin-right: 10px;">
+			<h6>Rate:  {{advert.rate}}</h6>
+			<span  uib-rating ng-model="rate" max="max" read-only="isReadonly" on-leave="overStar = null" aria-labelledby="default-rating" ng-click="rateAdvert()"></span>
+		</div>
 	</div>
 	
 	<div class="adver-grid-right">
@@ -91,7 +95,7 @@
 		      		</tr>
 					<tr>
 		        		<td>Rate</td>
-		        		<td>{{publisher.rate}}</td>
+		        		<td><span uib-rating ng-model="rateUser" max="max" read-only="isReadonly" on-leave="overStar = null" aria-labelledby="default-rating" ng-click="giveRateUser()"></span>&nbsp;&nbsp;&nbsp;Avg : {{publisher.rate}}</td>
 		      		</tr>
 		  		</tbody>
 		  	</table>

@@ -5,16 +5,21 @@
 		.controller('AdvertisementCtrl', ['$scope', '$rootScope', 'AdvertisementFactory', '$uibModal',
 		    function($scope, $rootScope, AdvertisementFactory, $uibModal) {
 			
+				$scope.max = 5;
+				$scope.isReadonly = false;
+			
 				$scope.comment = {
 					description : ''
 				}
 				
 				AdvertisementFactory.getAdvertisement($rootScope.advertisement.id).then(function(item) {
 				      $scope.advert = item;
+				      $scope.rate = $scope.advert.rate;
 				});
 
 				AdvertisementFactory.getPublisher($rootScope.advertisement.id).then(function(item) {
 				      $scope.publisher = item;
+				      $scope.rateUser = $scope.publisher.rate;
 				});
 
 				AdvertisementFactory.getCompany($rootScope.advertisement.id).then(function(item) {
@@ -28,6 +33,20 @@
 				$scope.leaveComment = function() {
 					AdvertisementFactory.leaveComment($rootScope.advertisement.id, $scope.comment).then(function(item){
 						$scope.comments.unshift(item);		
+					});
+                };
+                
+                $scope.rateAdvert = function() {
+                	AdvertisementFactory.rate($rootScope.advertisement.id, $scope.rate).then(function(item){
+                		$scope.advert = item;
+                		$scope.rate = item.rate;
+					});
+                };
+                
+               $scope.giveRateUser = function() {
+                	AdvertisementFactory.rateUser($scope.publisher.id, $scope.rateUser).then(function(item){
+                		$scope.rateUser = item.rate;
+                		$scope.publisher.rate = item.rate;
 					});
                 };
                 

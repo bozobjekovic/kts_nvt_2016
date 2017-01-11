@@ -33,13 +33,26 @@ angular.module('realEstateClientApp')
 		};
 		
 		retVal.leaveComment = function(id, comment) {
-			return Restangular.one("comments/", id).all("new").post(comment).then(function(entry) {
+			return Restangular.one('comments/', id).all('new').post(comment).then(function(entry) {
 				return entry;
     		});
 		};
 		
 		retVal.report = function(inappropriate) {
-			return Restangular.one("inappropriates/", inappropriate.id).all("new").post(inappropriate);
+			return Restangular.one('inappropriates/', inappropriate.id).all('new').post(inappropriate);
+		};
+		
+		retVal.rate = function(id, rate) {
+			return Restangular.one('advertisments/advertisment', id).one('rate', rate).put().then(function(entry) {
+				advertisement = entry;
+				return advertisement;
+    		});
+		};
+		
+		retVal.rateUser = function(id, rate) {
+			return Restangular.one('users/user', id).one('rate', rate).put().then(function(entry) {
+				return entry;
+    		});
 		};
 		
 		return retVal;

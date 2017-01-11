@@ -4,6 +4,7 @@ angular.module('realEstateClientApp')
 		
 		var retVal = {};
 		var published = [];
+		var appliedUsers = [];
 		
 		retVal.getUser = function() {
 			return Restangular.one("users/user").get().then(function(entries) {
@@ -42,6 +43,29 @@ angular.module('realEstateClientApp')
 		retVal.getCompany = function(id) {
 			return Restangular.one("users/company", id).get().then(function(entry) {
 				return entry;
+    		});
+		};
+		
+		retVal.getAppliedUsers = function(id) {
+			return Restangular.one("users/company", id).one('applied').get().then(function(entries) {
+				appliedUsers = entries;
+				return appliedUsers;
+    		});
+		};
+		
+		retVal.accept = function(id, id_company) {
+			return Restangular.one("users/accept", id).one('company', id_company).put().then(function() {
+				_.remove(appliedUsers, {
+					id : id
+				});
+    		});
+		};
+		
+		retVal.deny = function(id) {
+			return Restangular.one("users/deny", id).put().then(function() {
+				_.remove(appliedUsers, {
+					id : id
+				});
     		});
 		};
 		

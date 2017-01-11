@@ -13,6 +13,12 @@
 				      $scope.getCompany();
 			  });
 			  
+			  $scope.getAppliedUsers = function(id){
+				  UserFactory.getAppliedUsers(id).then(function(items) {
+					  $scope.appliedUsers = items;
+				  });
+			  }
+			  
 			  $scope.getPublished = function(){
 				  UserFactory.getPublished($scope.user.id).then(function(items) {
 				      $scope.published = items;
@@ -29,9 +35,18 @@
 				  UserFactory.remove(id);
 			  }
 			  
+			  $scope.accept = function(id){
+				  UserFactory.accept(id, $scope.company.id);
+			  }
+			  
+			  $scope.deny = function(id){
+				  UserFactory.deny(id);
+			  }
+			  
 			  $scope.getCompany = function(){
 				  UserFactory.getCompany($scope.user.id).then(function(item) {
 				      $scope.company = item;
+				      $scope.getAppliedUsers(item.id);
 				  });
 			  }
 			  

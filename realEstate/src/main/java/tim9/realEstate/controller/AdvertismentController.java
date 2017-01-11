@@ -260,8 +260,8 @@ public class AdvertismentController {
      * @return      ResponseEntity DTO Advertisement and HttpStatus OK if OK,
      * 				else NOT_FOUND status
      */
-    @RequestMapping(value="/rate", method = RequestMethod.PUT)
-    public ResponseEntity<AdvertismentCreateDTO> rateAdvertisment(@RequestParam Long id, @RequestParam int rate){
+    @RequestMapping(value="advertisment/{id}/rate/{rate}", method = RequestMethod.PUT)
+    public ResponseEntity<AdvertismentCreateDTO> rateAdvertisment(@PathVariable Long id, @PathVariable int rate){
     	if(id == null || rate < 1 || rate > 5){
     		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     	}

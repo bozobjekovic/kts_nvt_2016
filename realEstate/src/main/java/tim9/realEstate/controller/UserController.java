@@ -170,8 +170,8 @@ public class UserController {
      * @return      ResponseEntity DTO User and HttpStatus OK if OK,
      * 				else NOT_FOUND status
      */
-	@RequestMapping(value="/rate", method = RequestMethod.PUT)
-    public ResponseEntity<UserDTO> rateUser(@RequestParam Long id, @RequestParam double rate){
+	@RequestMapping(value="/user/{id}/rate/{rate}", method = RequestMethod.PUT)
+    public ResponseEntity<UserDTO> rateUser(@PathVariable Long id, @PathVariable double rate){
 		if(id == null || rate < 1 || rate > 5){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -301,6 +301,28 @@ public class UserController {
 	}
 	
 	/**
+     * This method gets all applied user to specified
+     * company.
+     * @param       id id of a Company
+     * @return      HttpStatus OK if OK, else NOT_FOUND
+     */
+    @RequestMapping(value = "/company/{id}/applied", method = RequestMethod.GET)
+    public ResponseEntity<List<UserDTO>> getAppliedUsers(@PathVariable Long id) {
+        if(id == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        Company company = companyService.findOne(id);
+        if(company == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        List<UserDTO> userDTOs = new ArrayList<>();
+        for(User u : company.getUsersToApprove()){
+            userDTOs.add(new UserDTO(u));
+        }
+        return new ResponseEntity<>(userDTOs, HttpStatus.OK);
+    }
+	
+	/**
      * This method allows clerk to accept user to join
      * the company.
      * After that, mail is being sent to the user.
@@ -308,8 +330,8 @@ public class UserController {
      * @param		id_company id of a Company
      * @return      HttpStatus OK if OK, else NOT_FOUND
      */
-	@RequestMapping(value = "/accept", method = RequestMethod.PUT)
-	public ResponseEntity<Void> acceptUser(@RequestParam Long id, @RequestParam Long id_company) {
+	@RequestMapping(value = "/accept/{id}/company/{id_company}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> acceptUser(@PathVariable Long id, @PathVariable Long id_company) {
 		if(id == null || id_company == null){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -336,8 +358,8 @@ public class UserController {
      * @param		id id of an User
      * @return      HttpStatus OK if OK, else NOT_FOUND
      */
-	@RequestMapping(value = "/deny", method = RequestMethod.PUT)
-	public ResponseEntity<Void> denyClerk(@RequestParam Long id) {
+	@RequestMapping(value = "/deny/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> denyClerk(@PathVariable Long id) {
 		if(id == null){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}

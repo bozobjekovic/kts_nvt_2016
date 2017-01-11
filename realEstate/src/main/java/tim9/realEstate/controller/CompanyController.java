@@ -67,7 +67,6 @@ public class CompanyController {
 		company.setPhoneNumber(companyDTO.getPhoneNumber());
 		company.setSite(companyDTO.getSite());
 		
-		System.out.println("***************" + company);
 		company = companyService.save(company);
 		return new ResponseEntity<>(new CompanyDTO(company), HttpStatus.CREATED);
 	}
