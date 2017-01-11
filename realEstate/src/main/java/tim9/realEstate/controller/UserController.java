@@ -285,8 +285,8 @@ public class UserController {
      * @param		id_company id of Company
      * @return      HttpStatus OK if OK, else NOT_FOUND
      */
-	@RequestMapping(value = "/apply", method = RequestMethod.PUT)
-	public ResponseEntity<Void> applyToCompany(@RequestParam Long id_company, ServletRequest request) {
+	@RequestMapping(value = "/apply/{id_company}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> applyToCompany(@PathVariable Long id_company, ServletRequest request) {
 		if(id_company == null){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}

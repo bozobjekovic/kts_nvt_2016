@@ -65,7 +65,7 @@
 				</div>
 			</nav>
 			
-			<div class="profile-list">
+			<div class="profile-list" style="min-height: 600px;">
 				<div class="profile-listItem" ng-repeat="publish in published">
 					<div class="profile-grid-left">
 						<img src="{{publish.image}}" alt="" class="img-thumbnail">
@@ -116,6 +116,17 @@
 		      		</tr>
 		  		</tbody>
 		  	</table>
+		</div>
+	</div>
+	<div class="profile-grid-left" style="border: 1px solid gray; border-radius: 5px; padding: 10px; margin-top: 10px; height: 400px; overflow: auto;" ng-if="companies != null">
+		<div class="profile-listItem" style="text-align: center; font-size: 16px;" >
+			<div ng-repeat="company in companies">
+				<h5>{{company.name}}</h5>
+				<h6>{{company.site}}</h6>
+				<h6>{{company.phoneNumber}}</h6><br/>
+				<button type="button" class="btn btn-warning" style="width: 70%; background-color: #751717; border-color: #751717;" ng-click="apply(company.id)"><b>Ask to Join</b></button>
+				<hr/>
+			</div>
 		</div>
 	</div>
 </div>

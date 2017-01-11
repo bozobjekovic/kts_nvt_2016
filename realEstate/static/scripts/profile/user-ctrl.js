@@ -43,12 +43,25 @@
 				  UserFactory.deny(id);
 			  }
 			  
+			  $scope.apply = function(id){
+				  UserFactory.apply(id);
+			  }
+			  
 			  $scope.getCompany = function(){
 				  UserFactory.getCompany($scope.user.id).then(function(item) {
 				      $scope.company = item;
 				      if(item != null){
 				    	  $scope.getAppliedUsers(item.id);
 				      }
+				      else{
+				    	  $scope.getCompanies();
+				      }
+				  });
+			  }
+			  
+			  $scope.getCompanies = function(){
+				  UserFactory.getAllCompanies().then(function(items) {
+				      $scope.companies = items;
 				  });
 			  }
 			  

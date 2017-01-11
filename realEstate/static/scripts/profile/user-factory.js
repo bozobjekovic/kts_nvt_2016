@@ -69,5 +69,15 @@ angular.module('realEstateClientApp')
     		});
 		};
 		
+		retVal.getAllCompanies = function() {
+			return Restangular.all("companies/all").getList().then(function(entries) {
+				return entries;
+    		});
+		};
+		
+		retVal.apply = function(id_company) {
+			return Restangular.one("users/apply", id_company).put();
+		};
+		
 		return retVal;
 	}]);

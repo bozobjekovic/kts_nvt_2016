@@ -2,7 +2,7 @@
     <h4 class="modal-title" >Update profile</h4>
 </div>
 <div class="modal-body">
-    <form name="updateUser" novalidate ng-controller="UserCtrl" nvt-submit="save()">
+    <form name="updateUser" novalidate nvt-submit="save()">
         <div class="form-group" ng-class="{'has-error': nvt.updateUser.needsAttention(updateUser.name)}">
             <label for="name" style="font-size:17px;">Name:</label>
             <input type="text" class="form-control" name="name" required id="name" ng-model="user.name">
