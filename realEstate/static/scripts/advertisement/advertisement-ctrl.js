@@ -1,18 +1,18 @@
 (function (angular) {
 	'use strict';
-	
+
 	angular.module('realEstateClientApp')
 		.controller('AdvertisementCtrl', ['$scope', '$routeParams', 'AdvertisementFactory', '$uibModal',
 		    function($scope, $routeParams, AdvertisementFactory, $uibModal) {
-			
+
 				$scope.max = 5;
 				$scope.isReadonly = false;
 				var param = $routeParams.param;
-			
+
 				$scope.comment = {
 					description : ''
 				}
-				
+
 				AdvertisementFactory.getAdvertisement(param).then(function(item) {
 				      $scope.advert = item;
 				      $scope.rate = $scope.advert.rate;
@@ -30,27 +30,27 @@
 				AdvertisementFactory.getComments(param).then(function(items){
 					$scope.comments = items;
 				});
-				
+
 				$scope.leaveComment = function() {
 					AdvertisementFactory.leaveComment(param, $scope.comment).then(function(item){
-						$scope.comments.unshift(item);		
+						$scope.comments.unshift(item);
 					});
                 };
-                
+
                 $scope.rateAdvert = function() {
                 	AdvertisementFactory.rate(param, $scope.rate).then(function(item){
                 		$scope.advert = item;
                 		$scope.rate = item.rate;
 					});
                 };
-                
+
                $scope.giveRateUser = function() {
                 	AdvertisementFactory.rateUser($scope.publisher.id, $scope.rateUser).then(function(item){
                 		$scope.rateUser = item.rate;
                 		$scope.publisher.rate = item.rate;
 					});
                 };
-                
+
                 $scope.openModal = function() {
                     var inappropriate = {
   					  title       : '',
@@ -68,15 +68,16 @@
                         }
                     });
                 }
-			
+
 		}])
 		.controller('InappropriateModalCtrl', ['$scope', '$uibModalInstance', 'inappropriate', 'AdvertisementFactory',
             function($scope, $uibModalInstance, inappropriate, AdvertisementFactory) {
                 $scope.inappropriate = inappropriate;
 
                 $scope.report = function() {
-                	AdvertisementFactory.report($scope.inappropriate);
-                    $uibModalInstance.close('ok')
+                	AdvertisementFactory.report($scope.inappropriate).then(function(succeeded) {
+						$uibModalInstance.close('ok');
+					});
                 }
 
                 $scope.cancel = function() {

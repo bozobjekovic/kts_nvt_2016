@@ -46,21 +46,33 @@ public class InappropriateController {
      */
 	@RequestMapping(value="/{id}/new", method=RequestMethod.POST)
 	public ResponseEntity<Void> saveInappropriate(@PathVariable Long id, @RequestBody InappropriateDTO inappropriateDTO, ServletRequest request){
+		User user = (User)userUtils.getLoggedUser(request);
+    	if (user == null) {
+    		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		}
+		
 		if(inappropriateDTO.getDescription() == null){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+		
 		Advertisment advertisment = advertismentService.findOne(id);
 		if(advertisment == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+		
+		if (inappropriateService.findByAdvertisementAndUser(advertisment, user) != null) {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
+		
 		Inappropriate inappropriate = new Inappropriate();
 		inappropriate.setDescription(inappropriateDTO.getDescription());
 		inappropriate.setTitle(inappropriateDTO.getTitle());
 		inappropriate.setDate(new Date());
 		inappropriate.setAdvertisment(advertisment);
-		inappropriate.setUser((User)userUtils.getLoggedUser(request));
+		inappropriate.setUser(user);
 		
 		inappropriate = inappropriateService.save(inappropriate);
+		
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 

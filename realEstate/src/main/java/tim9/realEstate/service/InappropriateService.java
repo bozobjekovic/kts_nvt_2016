@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import tim9.realEstate.model.Advertisment;
 import tim9.realEstate.model.Inappropriate;
+import tim9.realEstate.model.User;
 import tim9.realEstate.repository.InappropriateRepository;
 
 @Service
@@ -39,6 +40,10 @@ public class InappropriateService {
 	*/
 	public List<Inappropriate> findByAdvertisement(Advertisment advertisment) {
 		return inappropriateRepository.findByAdvertisment(advertisment);
+	}
+	
+	public Inappropriate findByAdvertisementAndUser(Advertisment advertisment, User user) {
+		return inappropriateRepository.findByAdvertismentAndUser(advertisment, user);
 	}
 	
 	/**

@@ -1,5 +1,5 @@
 angular.module('realEstateClientApp')
-	.factory('AdminFactory', ['Restangular', '_', function(Restangular, _) {
+	.factory('AdminFactory', ['Restangular', '_', '$window', function(Restangular, _, $window) {
 		'use strict';
 
 		var retVal = {};
@@ -59,7 +59,15 @@ angular.module('realEstateClientApp')
 		};
 
 		retVal.regVerifier = function(verifier) {
-			return Restangular.one("admin/registrate").all("new").post(verifier);
+			return Restangular.one("admin/registrate").all("new").post(verifier)
+				.then(function() {
+					return true;
+				}, function(response) {
+					if (response.status === 409) {
+						$window.alert('Email or username already exist!');
+					}
+					return false;
+				});
 		};
 
 		return retVal;

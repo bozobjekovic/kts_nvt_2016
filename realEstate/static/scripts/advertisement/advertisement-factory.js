@@ -1,5 +1,5 @@
 angular.module('realEstateClientApp')
-	.factory('AdvertisementFactory', ['Restangular', function(Restangular) {
+	.factory('AdvertisementFactory', ['Restangular', '$window', function(Restangular, $window) {
 		'use strict';
 
 		var retVal = {};
@@ -39,7 +39,15 @@ angular.module('realEstateClientApp')
 		};
 
 		retVal.report = function(inappropriate) {
-			return Restangular.one('inappropriates/', inappropriate.id).all('new').post(inappropriate);
+			return Restangular.one('inappropriates/', inappropriate.id).all('new').post(inappropriate)
+				.then(function() {
+					return true;
+				}, function(response) {
+					if (response.status === 409) {
+						$window.alert('You have already reported this advertisement!');
+					}
+					return false;
+				});
 		};
 
 		retVal.rate = function(id, rate) {

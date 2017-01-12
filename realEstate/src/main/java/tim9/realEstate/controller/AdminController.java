@@ -107,7 +107,7 @@ public class AdminController {
 		}
 		
 		if (!userUtils.checkUniqueEmailAndUsername(verifierDTO.getEmail(), verifierDTO.getUsername())) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
 		
 		String password = verifierDTO.getPassword();

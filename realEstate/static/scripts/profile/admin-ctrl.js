@@ -1,14 +1,13 @@
 (function (angular) {
 	'use strict';
-	
+
 	angular.module('realEstateClientApp')
 		.controller('AdminCtrl', ['$scope', '$rootScope', '_', 'AdminFactory', '$uibModal',
 		   function($scope, $rootScope, _, AdminFactory, $uibModal) {
-			
+
 			$rootScope.mainMenu = true;
-			
+
 			AdminFactory.getAdmin().then(function(item) {
-				console.log(item);
 				$scope.admin = item;
 			});
 
@@ -19,23 +18,23 @@
 			AdminFactory.getAllInappropriates().then(function(items) {
 			    $scope.inappropriates = items;
 			});
-			
+
 			$scope.accept = function(id){
 				AdminFactory.acceptInappropriate(id);
 			};
-			
+
 			$scope.reject = function(id){
 				AdminFactory.rejectInappropriate(id);
 			};
-			
+
 			$scope.acceptClerk = function(id){
 				AdminFactory.acceptClerk(id);
 			};
-			
+
 			$scope.denyClerk = function(id){
 				AdminFactory.denyClerk(id);
 			};
-            
+
             $scope.openModal = function() {
                 var verifier = {
                 	  email			: '',
@@ -59,8 +58,11 @@
            $scope.verifier = verifier;
 
            $scope.regVerifier = function() {
-        	   AdminFactory.regVerifier($scope.verifier);
-               $uibModalInstance.close('ok')
+        	   AdminFactory.regVerifier($scope.verifier).then(function(succeeded) {
+				   if (succeeded) {
+				   		$uibModalInstance.close('ok');
+				   }
+			   });
            }
 
            $scope.cancel = function() {
