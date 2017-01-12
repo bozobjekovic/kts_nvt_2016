@@ -35,7 +35,7 @@
 				</div>
 				<div class="form-group">
 					<label for="city" style="font-size:17px;">City</label>
-					<input type="text" class="form-control" id="city" ng-model="registrateUser.city">
+					<input type="text" class="form-control" id="city" ng-model="registrateUser.city" uib-typeahead="city for city in cities | filter:$viewValue">
 				</div>
 				<div class="form-group">
 					<label for="image" style="font-size:17px;">Image</label>
@@ -114,11 +114,11 @@
 					</div>
 					<div class="form-group" ng-class="{'has-error': nvt.registrateClerkForm.needsAttention(registrateClerkForm.companyCity)}">
 						<label for="companycity" style="font-size:17px;">Company city<span class="requiredFiled">*</span></label>
-						<input type="text" class="form-control" name="companyCity" required id="companycity" ng-model="registrateUser.companyLocation.city">
+						<input type="text" class="form-control" name="companyCity" required id="companycity" ng-model="registrateUser.companyLocation.city" uib-typeahead="city for city in cities | filter:$viewValue">
 					</div>
-					<div class="form-group">
-						<label for="zipcode" style="font-size:17px;">Zip Code</label>
-						<input type="text" class="form-control" id="zipcode" ng-model="registrateUser.companyLocation.zipCode">
+					<div class="form-group" ng-class="{'has-error': nvt.registrateClerkForm.needsAttention(registrateClerkForm.zipcode)}">
+						<label for="zipcode" style="font-size:17px;">Zip Code<span class="requiredFiled">*</span></label>
+						<input type="text" class="form-control" name="zipcode" required id="zipcode" ng-model="registrateUser.companyLocation.zipCode">
 					</div>
 					<div class="form-group">
 						<label for="partCity" style="font-size:17px;">Part of the city</label>

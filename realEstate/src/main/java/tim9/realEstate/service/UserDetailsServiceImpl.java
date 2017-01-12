@@ -45,11 +45,10 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 			throw new UsernameNotFoundException(String.format("No person found with username '%s'.", username));
 		} else {
 			if (user != null) {
-				if (((User)user).isClerk() && !((User)user).isApproved()) {
-					System.out.println("Your account is not approved!");
-					throw new UsernameNotFoundException("Your account is not approved!");
-				}
 				List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+				if (((User)user).isClerk() && !((User)user).isApproved()) {
+					return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities.stream().collect(Collectors.toList()));
+				}
 				grantedAuthorities.add(new SimpleGrantedAuthority(user.getAuthority().getName()));				
 				return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities.stream().collect(Collectors.toList()));
 			} else if (verifier != null) {

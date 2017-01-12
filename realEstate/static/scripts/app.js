@@ -12,7 +12,8 @@ angular
         'flow',
         'ngStorage'
     ])
-    .config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
+    .config(['$routeProvider', '$httpProvider', 'RestangularProvider', function($routeProvider, $httpProvider, RestangularProvider) {
+        RestangularProvider.setFullResponse(true);
         $routeProvider
             .when('/', {
                 templateUrl: 'views/main.html',

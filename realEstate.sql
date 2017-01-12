@@ -49,7 +49,7 @@ INSERT INTO Location VALUES (1, 'Novi Sad', 'Liman', 21000);
 INSERT INTO Location VALUES (2, 'Beograd', 'Kosutnjak', 11000);
 INSERT INTO Location VALUES (3, 'Novi Sad', 'Bulevar', 21000);
 INSERT INTO Location VALUES (4, 'Nis', 'Deo Nisa', 12000);
-INSERT INTO Location VALUES (5, 'Beograd', 'Zemun', 23560);
+INSERT INTO Location VALUES (5, 'Beograd', 'Zemun', 11000);
 INSERT INTO Location VALUES (6, 'Kragujevac', 'Deo Kragujevca', 13000);
 INSERT INTO Location VALUES (7, 'Smederevo', 'Deo Smedereva', 14000);
 INSERT INTO Location VALUES (8, 'Nis', 'Deo Nisa 1', 12000);

@@ -2,8 +2,16 @@
     'use strict';
 
     angular.module('realEstateClientApp')
-        .controller('RegistrateCtrl', ['$scope', '$uibModal',
-            function($scope, $uibModal) {
+        .controller('RegistrateCtrl', ['$scope', '$uibModal', 'RegistrateFactory',
+            function($scope, $uibModal, RegistrateFactory) {
+
+                /* for location */
+				$scope.cities = [];
+
+				RegistrateFactory.getAllCities().then(function(cities) {
+					$scope.cities = cities;
+				});
+
                 $scope.openModal = function() {
                     var registrateUser = {
                         email : '',
@@ -48,13 +56,19 @@
                 $scope.registrateUser = registrateUser;
 
                 $scope.submitRegistrateUserForm = function() {
-                    RegistrateFactory.registrateUser($scope.registrateUser);
-                    $uibModalInstance.close('ok_user')
+                    RegistrateFactory.registrateUser($scope.registrateUser).then(function(succeeded) {
+                        if (succeeded) {
+                            $uibModalInstance.close('ok_user');
+                        }
+                    });
                 };
 
                 $scope.submitRegistrateClerkForm = function() {
-                    RegistrateFactory.registrateClerk($scope.registrateUser);
-                    $uibModalInstance.close('ok_clerk')
+                    RegistrateFactory.registrateClerk($scope.registrateUser).then(function(succeeded) {
+                        if (succeeded) {
+                            $uibModalInstance.close('ok_clerk');
+                        }
+                    });
                 };
 
                 $scope.cancel = function() {

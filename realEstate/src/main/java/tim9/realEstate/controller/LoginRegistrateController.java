@@ -87,13 +87,18 @@ public class LoginRegistrateController {
 	public ResponseEntity<StringResponse> login(@RequestBody LoginUserDTO loginUser) {
 		if (checkInputParams(loginUser)) {
 			try {
+				UserDetails details = userDetailsService.loadUserByUsername(loginUser.getUsername());
+
+	            if (details.getAuthorities().size() == 0) {
+	            	return new ResponseEntity<>(new StringResponse(""), HttpStatus.UNPROCESSABLE_ENTITY);
+				}
+	            
 	        	UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
 	        			loginUser.getUsername(), loginUser.getPassword());
-	        	
-	            Authentication authentication = authenticationManager.authenticate(token);
+
+	        	Authentication authentication = authenticationManager.authenticate(token);
 	            SecurityContextHolder.getContext().setAuthentication(authentication);
 	            
-	            UserDetails details = userDetailsService.loadUserByUsername(loginUser.getUsername());
 	            return new ResponseEntity<>(new StringResponse(tokenUtils.generateToken(details)), HttpStatus.OK);
 	        } catch (Exception ex) {
 	            return new ResponseEntity<>(new StringResponse("Invalid login"), HttpStatus.BAD_REQUEST);
@@ -112,7 +117,11 @@ public class LoginRegistrateController {
 	public ResponseEntity<Void> registrate(@RequestBody RegistrateUserDTO registrateUser) {
 		if (!checkInputParamsRegistrate(registrateUser) ) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		} 
+		}
+		
+		if (!checkExistingInputParamsRegistrate(registrateUser)) {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
 		
 		registrateUser.setPassword(passwordEncoder.encode(registrateUser.getPassword()));
         if ("user".equals(registrateUser.getAuthority())) {
@@ -125,7 +134,7 @@ public class LoginRegistrateController {
 					registrateUser.getCompanyLocation().getPartOfTheCity());
 			
 			if (location == null) {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
 			}
 			
 			registrateUser.setCompanyLocation(new LocationDTO(location));
@@ -147,6 +156,19 @@ public class LoginRegistrateController {
 		} else if (registrateUser.getAuthority().equals("clerk")) {
 			if (!checkUserParams(registrateUser)) { return false; }
 			if (!checkCompanyParams(registrateUser)) { return false; } 
+		} else {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	private boolean checkExistingInputParamsRegistrate(RegistrateUserDTO registrateUser) {
+		if (registrateUser.getAuthority().equals("user")) {
+			if (!checkExistingUserParams(registrateUser)) { return false; }
+		} else if (registrateUser.getAuthority().equals("clerk")) {
+			if (!checkExistingUserParams(registrateUser)) { return false; }
+			if (!checkExistingCompanyParams(registrateUser)) { return false; } 
 		} else {
 			return false;
 		}
@@ -176,12 +198,16 @@ public class LoginRegistrateController {
 	 */
 	private boolean checkUserParams(RegistrateUserDTO registrateUser) {
 		if (registrateUser.getEmail() == null || registrateUser.getEmail().equals("")) { return false; }
-		if (userService.findByEmail(registrateUser.getEmail()) != null) { return false; }
 		if (registrateUser.getUsername() == null || registrateUser.getUsername().equals("")) { return false; }
-		if (userService.findByUsername(registrateUser.getUsername()) != null) { return false; }
 		if (registrateUser.getPassword() == null || registrateUser.getPassword().equals("")) { return false; }
 		if (registrateUser.getName() == null || registrateUser.getName().equals("")) { return false; }
 		if (registrateUser.getSurname() == null || registrateUser.getSurname().equals("")) { return false; }
+		return true;
+	}
+	
+	private boolean checkExistingUserParams(RegistrateUserDTO registrateUser) { 
+		if (userService.findByEmail(registrateUser.getEmail()) != null) { return false; }
+		if (userService.findByUsername(registrateUser.getUsername()) != null) { return false; }
 		return true;
 	}
 	
@@ -192,11 +218,15 @@ public class LoginRegistrateController {
 	 */
 	private boolean checkCompanyParams(RegistrateUserDTO registrateUser) {
 		if (registrateUser.getCompanyName() == null || registrateUser.getCompanyName().equals("")) { return false; }
-		if (companySevice.findByName(registrateUser.getCompanyName()) != null) { return false; }
 		if (registrateUser.getCompanyPhoneNumber() == null || registrateUser.getCompanyPhoneNumber().equals("")) { return false; }
-		if (companySevice.findByPhoneNumber(registrateUser.getCompanyPhoneNumber()) != null) { return false; }
 		if (registrateUser.getCompanyAddress() == null || registrateUser.getCompanyAddress().equals("")) { return false; }
 		if (registrateUser.getCompanyLocation().getCity() == null || registrateUser.getCompanyLocation().getCity().equals("")) { return false; }
+		return true;
+	}
+	
+	private boolean checkExistingCompanyParams(RegistrateUserDTO registrateUser) {
+		if (companySevice.findByName(registrateUser.getCompanyName()) != null) { return false; }
+		if (companySevice.findByPhoneNumber(registrateUser.getCompanyPhoneNumber()) != null) { return false; }
 		return true;
 	}
 

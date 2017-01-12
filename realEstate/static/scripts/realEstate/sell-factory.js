@@ -14,7 +14,13 @@
                         return Restangular.all('advertisments').post(advertisementCreate)
                             .then(function(data) {
                                 $location.path('/');
-                            })
+                            }, function(response) {
+                                if (response.status === 422) {
+                                    $window.alert('Check location details!');
+                                } else {
+                                    $window.alert('Phone number already exist!');
+                                }
+                            });
                     } else {
                         $window.alert('Fill required filleds!');
                     }
@@ -23,14 +29,14 @@
                 retVal.getAllPartOfTheCities = function(city) {
                     return Restangular.all('locations/city/partOfTheCity').customGET('', {city: city})
                         .then(function(partOfTheCities) {
-                            return partOfTheCities;
+                            return partOfTheCities.data;
                         })
                 };
 
                 retVal.getAllCities = function() {
                     return Restangular.all('locations/city').getList()
                         .then(function(cities) {
-                            return cities;
+                            return cities.data;
                         })
                 };
 

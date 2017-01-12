@@ -167,7 +167,7 @@ public class AdvertismentController {
 		advertisment.setPhoneNumber(advertismentDTO.getPhoneNumber());
 		
 		if(advertismentService.findByPhoneNumber(advertisment.getPhoneNumber()) != null){
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
 
 		advertisment.setPublisher(user);
@@ -177,7 +177,7 @@ public class AdvertismentController {
 				advertismentDTO.getLocation().getCity(), advertismentDTO.getLocation().getZipCode(),
 				advertismentDTO.getLocation().getPartOfTheCity());
 		if (location == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
 		}
 		
 		realEstate.setLocation(location);
