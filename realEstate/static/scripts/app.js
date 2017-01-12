@@ -23,7 +23,7 @@ angular
                 templateUrl: 'views/about.html',
                 controller: 'MainCtrl'
             })
-            .when('/advertisement', {
+            .when('/advertisement/:param', {
                 templateUrl: 'views/advertisement.html',
                 controller: 'AdvertisementCtrl',
                 controllerAs: 'advertisement'

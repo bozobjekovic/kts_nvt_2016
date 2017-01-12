@@ -313,7 +313,6 @@ public class AdvertismentController {
      */
     @RequestMapping(value="/delete/{id}", method=RequestMethod.PUT)
     public ResponseEntity<Void> deteleAdvertisement(@PathVariable Long id) {
-    	System.out.println(id);
     	if(id == null){
     		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     	}

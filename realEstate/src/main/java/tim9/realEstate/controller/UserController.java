@@ -111,7 +111,9 @@ public class UserController {
 		}
 		ArrayList<AdvertismentDTO> advertismentDTOs = new ArrayList<AdvertismentDTO>();
 		for(Advertisment a : user.getPublishedAdvertisments()){
-			advertismentDTOs.add(new AdvertismentDTO(a));
+			if(a.isDeleted() == false){
+				advertismentDTOs.add(new AdvertismentDTO(a));
+			}
 		}
 		return new ResponseEntity<>(advertismentDTOs, HttpStatus.OK);
 	}

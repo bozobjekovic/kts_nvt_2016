@@ -141,8 +141,7 @@
 				}
 				
 				$scope.getAdvertisement = function(advertisement){
-					$rootScope.advertisement = advertisement;
-					$location.path('/advertisement');
+					$location.path('/advertisement/' + advertisement.id);
 				}
 
 				$scope.setPage = function() {

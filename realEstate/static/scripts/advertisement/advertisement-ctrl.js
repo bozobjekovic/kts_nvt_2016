@@ -2,11 +2,13 @@
 	'use strict';
 	
 	angular.module('realEstateClientApp')
-		.controller('AdvertisementCtrl', ['$scope', '$rootScope', 'AdvertisementFactory', '$uibModal',
-		    function($scope, $rootScope, AdvertisementFactory, $uibModal) {
+		.controller('AdvertisementCtrl', ['$scope', '$rootScope', '$routeParams', 'AdvertisementFactory', '$uibModal',
+		    function($scope, $rootScope, $routeParams, AdvertisementFactory, $uibModal) {
 			
 				$scope.max = 5;
 				$scope.isReadonly = false;
+				var param = $routeParams.param;
+				console.log(param);
 			
 				$scope.comment = {
 					description : ''

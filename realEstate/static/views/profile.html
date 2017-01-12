@@ -72,12 +72,14 @@
 					</div>
 					<div class="profile-grid-right">
 						<div class="profile-listItem-text">
+							<input ng-if="publish.status == 'Active'" type="button" value="Remove" style="float:right;" ng-click="remove(publish.id)">
 							<h4>{{publish.name}} {{publish.id}}</h4>
 							<p>{{publish.price | currency:"$"}}</p>
 							<p>{{publish.publicationDate | date:'dd-MM-yyyy'}}</p>
 							<p>{{publish.status}}</p>
+							
 						</div>
-						<input ng-if="publish.status == 'Active'" type="button" value="Remove" style="float:right; margin: 1px;" class="btn btn-danger" ng-click="remove(publish.id)">
+						
 					</div>
 				</div>
 			</div>

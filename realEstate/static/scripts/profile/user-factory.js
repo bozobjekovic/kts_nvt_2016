@@ -8,20 +8,20 @@ angular.module('realEstateClientApp')
 		
 		retVal.getUser = function() {
 			return Restangular.one("users/user").get().then(function(entries) {
-				return entries;
+				return entries.data;
     		});
 		};
 		
 		retVal.getPublished = function(id) {
 			return Restangular.one("users/published", id).getList().then(function(entries) {
-				published = entries;
+				published = entries.data;
 				return published;
     		});
 		};
 		
 		retVal.updateUser = function(userDTO) {
 			return Restangular.one("users/").customPUT(userDTO).then(function(entry) {
-				return entry;
+				return entry.data;
     		});
 		};
 		
@@ -35,20 +35,20 @@ angular.module('realEstateClientApp')
 		
 		retVal.getPublishedByStatus = function(status, id) {
 			return Restangular.one("users/published/", status).one('user', id).getList().then(function(entries) {
-				published = entries;
+				published = entries.data;
 				return published;
     		});
 		};
 		
 		retVal.getCompany = function(id) {
 			return Restangular.one("users/company", id).get().then(function(entry) {
-				return entry;
+				return entry.data;
     		});
 		};
 		
 		retVal.getAppliedUsers = function(id) {
 			return Restangular.one("users/company", id).one('applied').get().then(function(entries) {
-				appliedUsers = entries;
+				appliedUsers = entries.data;
 				return appliedUsers;
     		});
 		};
@@ -71,7 +71,7 @@ angular.module('realEstateClientApp')
 		
 		retVal.getAllCompanies = function() {
 			return Restangular.all("companies/all").getList().then(function(entries) {
-				return entries;
+				return entries.data;
     		});
 		};
 		
