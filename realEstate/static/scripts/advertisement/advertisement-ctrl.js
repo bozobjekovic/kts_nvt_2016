@@ -2,44 +2,43 @@
 	'use strict';
 	
 	angular.module('realEstateClientApp')
-		.controller('AdvertisementCtrl', ['$scope', '$rootScope', '$routeParams', 'AdvertisementFactory', '$uibModal',
-		    function($scope, $rootScope, $routeParams, AdvertisementFactory, $uibModal) {
+		.controller('AdvertisementCtrl', ['$scope', '$routeParams', 'AdvertisementFactory', '$uibModal',
+		    function($scope, $routeParams, AdvertisementFactory, $uibModal) {
 			
 				$scope.max = 5;
 				$scope.isReadonly = false;
 				var param = $routeParams.param;
-				console.log(param);
 			
 				$scope.comment = {
 					description : ''
 				}
 				
-				AdvertisementFactory.getAdvertisement($rootScope.advertisement.id).then(function(item) {
+				AdvertisementFactory.getAdvertisement(param).then(function(item) {
 				      $scope.advert = item;
 				      $scope.rate = $scope.advert.rate;
 				});
 
-				AdvertisementFactory.getPublisher($rootScope.advertisement.id).then(function(item) {
+				AdvertisementFactory.getPublisher(param).then(function(item) {
 				      $scope.publisher = item;
 				      $scope.rateUser = $scope.publisher.rate;
 				});
 
-				AdvertisementFactory.getCompany($rootScope.advertisement.id).then(function(item) {
+				AdvertisementFactory.getCompany(param).then(function(item) {
 				      $scope.company = item;
 				});
 
-				AdvertisementFactory.getComments($rootScope.advertisement.id).then(function(items){
+				AdvertisementFactory.getComments(param).then(function(items){
 					$scope.comments = items;
 				});
 				
 				$scope.leaveComment = function() {
-					AdvertisementFactory.leaveComment($rootScope.advertisement.id, $scope.comment).then(function(item){
+					AdvertisementFactory.leaveComment(param, $scope.comment).then(function(item){
 						$scope.comments.unshift(item);		
 					});
                 };
                 
                 $scope.rateAdvert = function() {
-                	AdvertisementFactory.rate($rootScope.advertisement.id, $scope.rate).then(function(item){
+                	AdvertisementFactory.rate(param, $scope.rate).then(function(item){
                 		$scope.advert = item;
                 		$scope.rate = item.rate;
 					});
