@@ -21,33 +21,26 @@
 		  	</table>
 		</div>
 	</div>
-	<div class="profile-grid-right" style="border: 1px solid gray; border-radius: 5px; padding: 10px;">
+	<div class="profile-grid-right" style="border: 1px solid gray; border-radius: 5px; padding: 10px; min-height: 600px;">
 		<div class="profile-list-scroll">
-			<h4 style="color: #751717;" class="tittle">Advertisement Requests</h4> <br>
-			<div class="profile-list" ng-repeat="advertisement in unverifiedAdvers">
+			<h4 style="color: #751717;" class="tittle">Reported advertisements</h4> <br> <br>
+			
+			<div class="profile-list" ng-repeat="inapp in inappropriates">
 				<div class="profile-listItem">
-					<div class="profile-grid-left">
-						<img ng-src="{{advertisement.image}}" alt="" class="img-thumbnail">
-					</div>
-					<div class="profile-grid-right">
-						<div class="profile-listItem-text">
-							<h4>{{advertisement.name}} {{advertisement.id}}</h4>
-							<p>{{advertisement.price | currency:"$"}}</p>
-							<p>{{advertisement.city}}</p>
-						</div>
+					<div style="width: 70%; float: right; border: 1px solid gray; border-radius: 10px; padding: 20px;">
+						<h4>{{inapp.title}}</h4>
+						<p>{{inapp.description}}</p>
+						<p>{{inapp.advertisementDTO.name}}</p>
 					</div>
 					<div class="clearfix"></div>
 					<br>
 					<div style="width: 100%; padding-left: 40%">
-						<button type="button" class="btn btn-success" ng-click="accept(advertisement.id)"><b>Accept</b></button>
-						<button type="button" class="btn btn-danger" ng-click="reject(advertisement.id)"><b>Decline</b></button>
+						<button type="button" class="btn btn-success" ng-click="accept(inapp.id)"><b>Accept</b></button>
+						<button type="button" class="btn btn-danger" ng-click="reject(inapp.id)"><b>Decline</b></button>
 					</div>
-					<div class="clearfix"></div>
-					<br>
 				</div>
-				<br>
 				<div class="clearfix"></div>
-				<br><br>
+				<br>
 			</div>
 		</div>
 	</div>

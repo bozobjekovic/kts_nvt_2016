@@ -4,7 +4,6 @@ angular.module('realEstateClientApp')
 
 		var retVal = {};
 		var unapprovedClerks = [];
-		var inappropriates = [];
 
 		retVal.getAdmin = function() {
 			return Restangular.one('admin/').get().then(function(item) {
@@ -16,29 +15,6 @@ angular.module('realEstateClientApp')
 			return Restangular.all("admin/unapproved/clerks").getList().then(function(entries) {
 				unapprovedClerks = entries.data;
 				return unapprovedClerks;
-    		});
-		};
-
-		retVal.getAllInappropriates = function() {
-			return Restangular.all("admin/inappropriate").getList().then(function(entries) {
-				inappropriates = entries.data;
-				return inappropriates;
-    		});
-		};
-
-		retVal.acceptInappropriate = function(id) {
-			return Restangular.one("admin/inappropriate/accept", id).remove().then(function() {
-				_.remove(inappropriates, {
-          			id: id
-        		});
-    		});
-		};
-
-		retVal.rejectInappropriate = function(id) {
-			return Restangular.one("admin/inappropriate/reject", id).remove().then(function() {
-				_.remove(inappropriates, {
-          			id: id
-        		});
     		});
 		};
 

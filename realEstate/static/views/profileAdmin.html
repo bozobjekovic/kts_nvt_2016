@@ -23,36 +23,23 @@
   		<br>
   		<button type="button" class="btn btn-success" style="width: 100%; background-color: #751717; border-color: #751717;" ng-click="openModal()"><b>Registrate Verifier</b></button>
 	</div>
-	
-	<div class="profile-grid-left" style="width: 37%; border: 1px solid gray; border-radius: 5px; padding: 10px;">
-		<div class="profile-list-scroll">
-			<h4 style="color: #751717;" class="tittle">Inappropriate Requests</h4> <br> <br>
-			<div class="profile-list" ng-repeat="inapp in inappropriates">
-				<div class="profile-listItem" style="margin-bottom: -40px">
-					<div style="width: 70%; float: left; border: 1px solid gray; border-radius: 10px; padding: 20px;">
-						<h4>{{inapp.title}}</h4>
-						<p>{{inapp.description}}</p>
-						<p>{{inapp.advertisementDTO.name}}</p>
-					</div>
-					<div style="width: 25%; float: right; padding-top: 2%">
-						<button type="button" class="btn btn-success" ng-click="accept(inapp.id)"><b>Accept</b></button>
-						<button type="button" class="btn btn-danger" ng-click="reject(inapp.id)"><b>Decline</b></button>
-					</div>
-				</div>				
-			</div>
-		</div>
-	</div>
-	
-	<div class="profile-grid-right" style="width: 37%; border: 1px solid gray; border-radius: 5px; padding: 10px;">
+
+	<div class="profile-grid-right" style="border: 1px solid gray; border-radius: 5px; padding: 10px; min-height: 600px;">
 		<div class="profile-list-scroll">
 			<h4 style="color: #751717;" class="tittle">Clerk Requests</h4> <br> <br>
+			
 			<div class="profile-list" ng-repeat="clerk in unapprovedClerks">
 				<div class="profile-listItem">
+					<div class="profile-grid-left">
+						<img ng-src="{{clerk.image}}" alt="" class="img-thumbnail" style="height: 80px; width: 100px; float: right; margin-right: 30px;">
+					</div>
 					<div style="width: 70%; float: left; border: 1px solid gray; border-radius: 10px; padding: 20px;">
 						<h4>{{clerk.name}} {{clerk.surname}}</h4>
 						<p>{{clerk.email}}</p>
 					</div>
-					<div style="width: 25%; float: right; padding-top: 2%">
+					<div class="clearfix"></div>
+					<br>
+					<div style="width: 100%; padding-left: 40%">
 						<button type="button" class="btn btn-success" ng-click="acceptClerk(clerk.id)"><b>Accept</b></button>
 						<button type="button" class="btn btn-danger" ng-click="denyClerk(clerk.id)"><b>Decline</b></button>
 					</div>

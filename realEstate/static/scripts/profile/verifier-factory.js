@@ -3,7 +3,7 @@ angular.module('realEstateClientApp')
 		'use strict';
 
 		var retVal = {};
-		var unverifiedAdvers = [];
+		var inappropriates = [];
 
 		retVal.getVerifier = function() {
 			return Restangular.one('verifiers/verifier').get().then(function(item) {
@@ -11,24 +11,24 @@ angular.module('realEstateClientApp')
 			});
 		};
 
-		retVal.getAllUnverifiedAdvertisements = function() {
-			return Restangular.all("verifiers/advertisement/unverified").getList().then(function(entries) {
-				unverifiedAdvers = entries.data;
-				return unverifiedAdvers;
+		retVal.getAllInappropriates = function() {
+			return Restangular.all("verifiers/inappropriate").getList().then(function(entries) {
+				inappropriates = entries.data;
+				return inappropriates;
     		});
 		};
 
-		retVal.acceptAdvertisement = function(id) {
-			return Restangular.one("verifiers/accept", id).put().then(function() {
-				_.remove(unverifiedAdvers, {
+		retVal.acceptInappropriate = function(id) {
+			return Restangular.one("verifiers/inappropriate/accept", id).remove().then(function() {
+				_.remove(inappropriates, {
           			id: id
         		});
     		});
 		};
 
-		retVal.rejectAdvertisement = function(id) {
-			return Restangular.one("verifiers/reject", id).remove().then(function() {
-				_.remove(unverifiedAdvers, {
+		retVal.rejectInappropriate = function(id) {
+			return Restangular.one("verifiers/inappropriate/reject", id).remove().then(function() {
+				_.remove(inappropriates, {
           			id: id
         		});
     		});

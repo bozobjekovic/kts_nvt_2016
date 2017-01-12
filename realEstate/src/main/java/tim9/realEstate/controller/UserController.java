@@ -86,7 +86,6 @@ public class UserController {
 		if (user == null) {
     		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
-		
 		return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
 	}
 	

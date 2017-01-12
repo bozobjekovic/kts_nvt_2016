@@ -9,16 +9,17 @@
 				$scope.verifier = item;
 			});
 
-			VerifierFactory.getAllUnverifiedAdvertisements().then(function(items) {
-			      $scope.unverifiedAdvers = items;
+			VerifierFactory.getAllInappropriates().then(function(items) {
+			    $scope.inappropriates = items;
 			});
 			
 			$scope.accept = function(id){
-				VerifierFactory.acceptAdvertisement(id);
+				console.log(id);
+				VerifierFactory.acceptInappropriate(id);
 			};
 			
 			$scope.reject = function(id){
-				VerifierFactory.rejectAdvertisement(id);
+				VerifierFactory.rejectInappropriate(id);
 			};
 	}]);
 })(angular);

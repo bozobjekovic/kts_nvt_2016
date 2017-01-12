@@ -18,6 +18,7 @@ public class UserDTO {
 	private double rate;
 	private int bankAccount;
 	private String image;
+	private boolean isApplied;
 	
 	/**
 	 * Constructor created from Superclass
@@ -34,6 +35,9 @@ public class UserDTO {
 	public UserDTO(User u) {
 		this(u.getId(), u.getEmail(), u.getUsername(), u.getName(), u.getSurname(), u.getPhoneNumber(), u.getAddress(),
 				u.getCity(), u.getRate(), u.getBankAccount(), u.getImage());
+		if(u.getAppliedCompany() != null){
+			this.isApplied = true;
+		}
 	}
 	
 	/**
@@ -155,13 +159,20 @@ public class UserDTO {
 		this.image = image;
 	}
 
+	public boolean isApplied() {
+		return isApplied;
+	}
+
+	public void setApplied(boolean isApplied) {
+		this.isApplied = isApplied;
+	}
+
 	@Override
 	public String toString() {
 		return "UserDTO [id=" + id + ", email=" + email + ", username=" + username + ", name=" + name + ", surname="
 				+ surname + ", phoneNumber=" + phoneNumber + ", address=" + address + ", city=" + city + ", rate="
-				+ rate + ", bankAccount=" + bankAccount + ", image=" + image + "]";
+				+ rate + ", bankAccount=" + bankAccount + ", image=" + image + ", isApplied=" + isApplied + "]";
 	}
-	
 	
 
 }

@@ -126,7 +126,7 @@
 				<h5>{{company.name}}</h5>
 				<h6>{{company.site}}</h6>
 				<h6>{{company.phoneNumber}}</h6><br/>
-				<button type="button" class="btn btn-warning" style="width: 70%; background-color: #751717; border-color: #751717;" ng-click="apply(company.id)"><b>Ask to Join</b></button>
+				<button type="button" class="btn btn-warning" style="width: 70%; background-color: #751717; border-color: #751717;" ng-disabled="user.applied == true" ng-click="apply(company.id)"><b>Ask to Join</b></button>
 				<hr/>
 			</div>
 		</div>
