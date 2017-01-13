@@ -7,11 +7,11 @@
 				<nav class="menu menu--francisco" style="display: inline-block;">
 					<ul class="nav navbar-nav menu__list">
 						<li class="menu__item menu__item--current"><a href="#" class="menu__link"><span class="menu__helper">Home</span></a></li>
-						<li class="menu__item"><a ng-href="http://localhost:8080/#!/buy" class="menu__link"><span class="menu__helper">Buy</span></a></li>
-						<li class="menu__item"><a ng-href="http://localhost:8080/#!/rent" class="menu__link"><span class="menu__helper">Rent</span></a></li>
-						<li class="menu__item"><a ng-href="http://localhost:8080/#!/sell" class="menu__link"><span class="menu__helper">Sell</span></a></li>
-						<li class="menu__item"><a ng-href="http://localhost:8080/#!/about" class="menu__link"><span class="menu__helper">About</span></a></li>
-						<li class="menu__item"><a ng-href="http://localhost:8080/#!/contact" class="menu__link"><span class="menu__helper">Contact</span></a></li>
+						<li class="menu__item"><a ng-href="/#/buy" class="menu__link"><span class="menu__helper">Buy</span></a></li>
+						<li class="menu__item"><a ng-href="/#/rent" class="menu__link"><span class="menu__helper">Rent</span></a></li>
+						<li class="menu__item"><a ng-href="/#/sell" class="menu__link"><span class="menu__helper">Sell</span></a></li>
+						<li class="menu__item"><a ng-href="/#/about" class="menu__link"><span class="menu__helper">About</span></a></li>
+						<li class="menu__item"><a ng-href="/#/contact" class="menu__link"><span class="menu__helper">Contact</span></a></li>
 					</ul>
 				</nav>
 			</div>
@@ -31,11 +31,11 @@
 			<span  uib-rating ng-model="rate" max="max" read-only="isReadonly" on-leave="overStar = null" aria-labelledby="default-rating" ng-click="rateAdvert()"></span>
 		</div>
 	</div>
-	
+
 	<div class="adver-grid-right">
 		<h4>Details</h4>
 		<br>
-	    <div class="table-responsive">          
+	    <div class="table-responsive">
 			<table class="table">
 		    	<tbody>
 		      		<tr>
@@ -66,11 +66,11 @@
 		  	</table>
 		</div>
 	</div>
-		
+
 	<div class="adver-grid-right" style="margin-top: 18px;">
 		<h4>Publisher Contact</h4>
 		<br>
-	    <div class="table-responsive">          
+	    <div class="table-responsive">
 			<table class="table">
 		    	<tbody>
 		      		<tr>
@@ -101,7 +101,7 @@
 		  	</table>
 		</div>
 	</div>
-	
+
 	<div class="adver-grid-left" style="margin-top: 15px;">
 		<div class="comment-list-scroll">
 			<h4>Comments</h4>
@@ -130,11 +130,11 @@
 			</div>
 		</div>
 	</div>
-		
+
 	<div class="adver-grid-right" style="margin-top: 18px;" ng-if="company">
 		<h4>Company</h4>
 		<br>
-	       	<div class="table-responsive">          
+	       	<div class="table-responsive">
 			<table class="table">
 		    	<tbody>
 		      		<tr>
@@ -170,3 +170,7 @@
 <div class="clearfix"></div>
 <br>
 <br>
+
+<div class="map" style="border: 1px solid;">
+	<iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAm5ArMg7a8PzEMJGW0bBk5kWyt8d7KJdM&q=Bulevar+cara+Lazara+108,'{{publisher.city}}',Serbia" style="border:0" allowfullscreen></iframe>
+</div>

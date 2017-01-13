@@ -12,7 +12,8 @@ angular
         'flow',
         'ngStorage'
     ])
-    .config(['$routeProvider', '$httpProvider', 'RestangularProvider', function($routeProvider, $httpProvider, RestangularProvider) {
+    .config(['$routeProvider', '$httpProvider', 'RestangularProvider', '$locationProvider', function($routeProvider, $httpProvider, RestangularProvider, $locationProvider) {
+        $locationProvider.hashPrefix('');
         RestangularProvider.setFullResponse(true);
         $routeProvider
             .when('/', {
