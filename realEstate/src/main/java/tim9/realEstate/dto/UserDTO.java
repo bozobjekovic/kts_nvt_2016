@@ -19,6 +19,7 @@ public class UserDTO {
 	private int bankAccount;
 	private String image;
 	private boolean isApplied;
+	private CompanyDTO company;
 	
 	/**
 	 * Constructor created from Superclass
@@ -35,6 +36,9 @@ public class UserDTO {
 	public UserDTO(User u) {
 		this(u.getId(), u.getEmail(), u.getUsername(), u.getName(), u.getSurname(), u.getPhoneNumber(), u.getAddress(),
 				u.getCity(), u.getRate(), u.getBankAccount(), u.getImage());
+		if(u.getCompany() != null){
+			this.company =  new CompanyDTO(u.getCompany());
+		}
 		if(u.getAppliedCompany() != null){
 			this.isApplied = true;
 		}
@@ -165,6 +169,14 @@ public class UserDTO {
 
 	public void setApplied(boolean isApplied) {
 		this.isApplied = isApplied;
+	}
+
+	public CompanyDTO getCompany() {
+		return company;
+	}
+
+	public void setCompany(CompanyDTO company) {
+		this.company = company;
 	}
 
 	@Override

@@ -64,6 +64,11 @@
 				      $scope.companies = items;
 				  });
 			  }
+
+			  $scope.advertisementPage = function(advertisement){
+				  console.log(advertisement);
+					$location.path('/advertisement/' + advertisement.id);
+				}
 			  
 			  $scope.openModal = function() {
                   var user = {

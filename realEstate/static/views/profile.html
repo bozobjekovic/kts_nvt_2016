@@ -68,7 +68,9 @@
 			<div class="profile-list" style="min-height: 600px;">
 				<div class="profile-listItem" ng-repeat="publish in published">
 					<div class="profile-grid-left">
-						<img ng-src="{{publish.image}}" alt="" class="img-thumbnail">
+						<a class="menu__link" ng-click="advertisementPage(publish)">
+							<img ng-src="{{publish.image}}" alt="" class="img-thumbnail">
+						</a>
 					</div>
 					<div class="profile-grid-right">
 						<div class="profile-listItem-text">

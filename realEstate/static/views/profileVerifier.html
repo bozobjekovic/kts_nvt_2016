@@ -21,28 +21,27 @@
 		  	</table>
 		</div>
 	</div>
-	<div class="profile-grid-right" style="border: 1px solid gray; border-radius: 5px; padding: 10px; min-height: 600px;">
-		<div class="profile-list-scroll">
-			<h4 style="color: #751717;" class="tittle">Reported advertisements</h4> <br> <br>
-			
-			<div class="profile-list" ng-repeat="inapp in inappropriates">
-				<div class="profile-listItem">
-					<div style="width: 70%; float: right; border: 1px solid gray; border-radius: 10px; padding: 20px;">
-						<h4>{{inapp.title}}</h4>
-						<p>{{inapp.description}}</p>
-						<p>{{inapp.advertisementDTO.name}}</p>
-					</div>
-					<div class="clearfix"></div>
-					<br>
-					<div style="width: 100%; padding-left: 40%">
-						<button type="button" class="btn btn-success" ng-click="accept(inapp.id)"><b>Accept</b></button>
-						<button type="button" class="btn btn-danger" ng-click="reject(inapp.id)"><b>Decline</b></button>
-					</div>
+	<div class="profile-grid-right profile-list-scroll" style="padding: 10px; min-height: 600px;">
+		<h4 style="color: #751717;" class="tittle">Reported advertisements</h4> <br> <br>
+		
+		<div class="profile-list" ng-repeat="inapp in inappropriates">
+			<div class="profile-listItem">
+				<div class="profile-grid-left" ng-click="advertisementPage(inapp.advertisementDTO.id)">
+					<img ng-src="{{inapp.advertisementDTO.image}}" alt="" class="img-thumbnail" style="height: 100px; width: 150px; float: right; margin-right: 30px;">
 				</div>
-				<div class="clearfix"></div>
-				<br>
+				<div style="width: 70%; float: left; border: 1px solid gray; border-radius: 10px; padding: 20px;">
+					<h4>{{inapp.title}}</h4>
+					<p>{{inapp.description}}</p>
+					<p>{{inapp.advertisementDTO.name}}</p>
+					<p>{{inapp.advertisementDTO.status}}</p>
+				</div>
+				<div class="profile-grid-left" style="width: 100%; padding-left: 50%; margin: 10px;">
+					<button type="button" class="btn btn-success" ng-click="accept(inapp.id)"><b>Delete</b></button>
+					<button type="button" class="btn btn-danger" ng-click="reject(inapp.id)"><b>Reject</b></button>
+				</div>
 			</div>
 		</div>
 	</div>
+	
 </div>
 <br><br><br>

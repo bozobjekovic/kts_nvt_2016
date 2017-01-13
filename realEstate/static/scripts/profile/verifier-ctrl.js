@@ -2,8 +2,8 @@
 	'use strict';
 	
 	angular.module('realEstateClientApp')
-		.controller('VerifierCtrl', ['$scope', '_', 'VerifierFactory',
-		   function($scope, _, VerifierFactory) {
+		.controller('VerifierCtrl', ['$scope', '_', '$location', 'VerifierFactory',
+		   function($scope, _, $location, VerifierFactory) {
 			
 			VerifierFactory.getVerifier().then(function(item) {
 				$scope.verifier = item;
@@ -21,5 +21,9 @@
 			$scope.reject = function(id){
 				VerifierFactory.rejectInappropriate(id);
 			};
+
+			$scope.advertisementPage = function(id){
+				$location.path('/advertisement/' + id);
+			}
 	}]);
 })(angular);
