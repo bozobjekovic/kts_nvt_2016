@@ -13,13 +13,14 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import tim9.Selenium.login.LoginPage;
+import tim9.Selenium.update.UpdateProfileDataPage;
 
 public class ProfileClerkPageTest {
 
 	private WebDriver browser;
 	MainPage mainPage;
 	ProfileClerkPage profileClerkPage;
-	ProfileClerkUpdateDataPage profileClerkUpdateDataPage;
+	UpdateProfileDataPage profileClerkUpdateDataPage;
 	LoginPage loginPage;
 	
 	@BeforeMethod
@@ -32,12 +33,12 @@ public class ProfileClerkPageTest {
 
 		mainPage = PageFactory.initElements(browser, MainPage.class);
 		profileClerkPage = PageFactory.initElements(browser, ProfileClerkPage.class);
-		profileClerkUpdateDataPage = PageFactory.initElements(browser, ProfileClerkUpdateDataPage.class);
+		profileClerkUpdateDataPage = PageFactory.initElements(browser, UpdateProfileDataPage.class);
 		loginPage = PageFactory.initElements(browser, LoginPage.class);
 	}
 	
 	@Test
-	public void testAcceptRejectReportedAdver() {
+	public void testClerkPage() {
 		
 		// Login
 		assertTrue(mainPage.getLogInLink().isDisplayed());

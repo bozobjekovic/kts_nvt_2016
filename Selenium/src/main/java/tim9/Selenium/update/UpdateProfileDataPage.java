@@ -1,4 +1,4 @@
-package tim9.Selenium;
+package tim9.Selenium.update;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,11 +7,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class ProfileClerkUpdateDataPage {
+public class UpdateProfileDataPage {
 
 	private WebDriver driver;
 	
-	public ProfileClerkUpdateDataPage(WebDriver driver) {
+	public UpdateProfileDataPage(WebDriver driver) {
 		this.driver = driver;
 	}
 	

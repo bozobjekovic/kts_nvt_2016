@@ -37,7 +37,7 @@ public class ProfileAdminPageTest {
 	}
 	
 	@Test
-	public void testAcceptRejectReportedAdver() {
+	public void testAdminPage() {
 		
 		// Login
 		assertTrue(mainPage.getLogInLink().isDisplayed());
