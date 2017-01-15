@@ -1,10 +1,10 @@
 (function (angular) {
 	'use strict';
-	
+
 	angular.module('realEstateClientApp')
 		.controller('BuyCtrl', ['$scope', '$rootScope', '$location', '_', 'BuyFactory',
 		   function($scope, $rootScope, $location, _, BuyFactory) {
-			
+
 				$rootScope.mainMenu = false;
 				$scope.purpose = "sell";
 				$scope.category = "Residental";
@@ -12,12 +12,12 @@
 				$scope.cityFilter = {};
 				$scope.partFilter = {};
 				$scope.heatingType = {};
-				
+
 				$scope.maxSize = 5;
 				$scope.itemsPerPage = 12;
 				$scope.totalItems = 0;
 				$scope.currentPage = 0;
-				
+
 				var filterForm = {
 						priceFrom     : '',
 						priceTo       : '',
@@ -33,11 +33,11 @@
 						bathroomsTo   : '',
 						buildYearFrom : '',
 						buildYearTo   : ''
-						
+
 				};
-				
+
 				$scope.filterForm = filterForm;
-			
+
 				BuyFactory.getCities().then(function(items) {
 				      $scope.cities = items;
 				});
@@ -45,11 +45,11 @@
 				BuyFactory.getPartsOfTheCities().then(function(items) {
 				      $scope.partsOfTheCities = items;
 				});
-				
+
 				$scope.filterAdvertisements = function() {
 					$scope.filter = "";
 					$scope.filter += "purpose:" + $scope.purpose;
-					
+
 					if($scope.type != null && typeof $scope.type != 'undefined'){
 						$scope.filter += ",type:" + $scope.type;
 					}
@@ -128,9 +128,9 @@
 						$scope.totalItems = object.count;
 					});
 				};
-				
+
 				$scope.filterAdvertisements();
-				
+
 				$scope.showMenu = function(category){
 					$scope.type = null;
 					$scope.category = category;
@@ -139,7 +139,7 @@
 				$scope.setType = function(type){
 					$scope.type = type;
 				}
-				
+
 				$scope.getAdvertisement = function(advertisement){
 					$location.path('/advertisement/' + advertisement.id);
 				}
@@ -151,6 +151,6 @@
 				$scope.rent = function(){
 					$location.path('/rent');
 				}
-		
+
 		}])
 })(angular);
