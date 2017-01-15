@@ -24,7 +24,7 @@ public class AdvertisementPage {
 	@FindBy(id = "description")
 	private WebElement inputDescription;
 	
-	@FindBy(xpath = "//input[@value=\"Send\"]")
+	@FindBy(xpath = "//button[@id=\"reportButton\"]")
 	private WebElement OKButton;
 
 	public WebElement getReportButton() {
@@ -35,16 +35,20 @@ public class AdvertisementPage {
 		return inputTitle;
 	}
 
-	public void setInputTitle(WebElement inputTitle) {
-		this.inputTitle = inputTitle;
+	public void setInputTitle(String inputTitle) {
+		WebElement el = getInputTitle();
+		el.clear();
+		el.sendKeys(inputTitle);
 	}
 
 	public WebElement getInputDescription() {
 		return inputDescription;
 	}
 
-	public void setInputDescription(WebElement inputDescription) {
-		this.inputDescription = inputDescription;
+	public void setInputDescription(String inputDescription) {
+		WebElement el = getInputDescription();
+		el.clear();
+		el.sendKeys(inputDescription);
 	}
 
 	public WebElement getOKButton() {
