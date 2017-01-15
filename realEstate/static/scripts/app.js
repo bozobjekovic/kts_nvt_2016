@@ -10,7 +10,8 @@ angular
         'lodash',
         'angular.filter',
         'flow',
-        'ngStorage'
+        'ngStorage',
+        'ngMap'
     ])
     .config(['$routeProvider', '$httpProvider', 'RestangularProvider', '$locationProvider', function($routeProvider, $httpProvider, RestangularProvider, $locationProvider) {
         $locationProvider.hashPrefix('');
