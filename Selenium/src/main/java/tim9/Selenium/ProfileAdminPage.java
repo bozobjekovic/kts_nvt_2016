@@ -17,9 +17,12 @@ public class ProfileAdminPage {
 
 	@FindBy(xpath="//button[@ng-click=\"acceptClerk(clerk.id)\"]")
 	private WebElement acceptButton;
-	
+
 	@FindBy(xpath="//button[@ng-click=\"denyClerk(clerk.id)\"]")
 	private WebElement rejectButton;
+
+	@FindBy(xpath="//button[@ng-click=\"openModal()\"]")
+	private WebElement registerVerifierButton;
 
 	public void ensureCanAccept() {
 		(new WebDriverWait(driver, 10))
@@ -29,12 +32,13 @@ public class ProfileAdminPage {
 	public WebElement getAcceptButton() {
 		return acceptButton;
 	}
-	
 	public WebElement getRejectButton() {
 		return rejectButton;
 	}
-	
-	public int getReportedAdversListSize() {
+	public WebElement getRegisterVerifierButton() {
+		return registerVerifierButton;
+	}
+	public int getClerkRequestListSize() {
 		return driver.findElements(By.className("profile-listItem")).size();
 	}
 }

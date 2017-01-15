@@ -19,6 +19,7 @@ public class ProfileAdminPageTest {
 	private WebDriver browser;
 	MainPage mainPage;
 	ProfileAdminPage profileAdminPage;
+	ProfileAdminRegisterVerifierPage profileAdminRegisterVerifierPage;
 	LoginPage loginPage;
 	
 	@BeforeMethod
@@ -31,6 +32,7 @@ public class ProfileAdminPageTest {
 
 		mainPage = PageFactory.initElements(browser, MainPage.class);
 		profileAdminPage = PageFactory.initElements(browser, ProfileAdminPage.class);
+		profileAdminRegisterVerifierPage = PageFactory.initElements(browser, ProfileAdminRegisterVerifierPage.class);
 		loginPage = PageFactory.initElements(browser, LoginPage.class);
 	}
 	
@@ -55,15 +57,33 @@ public class ProfileAdminPageTest {
 		mainPage.getProfileLink().click();
 		assertEquals("http://localhost:8080/#/profileAdmin", browser.getCurrentUrl());
 		
+		//open modal
+		assertTrue(profileAdminPage.getRegisterVerifierButton().isDisplayed());
+		profileAdminPage.getRegisterVerifierButton().click();
+		
+		profileAdminRegisterVerifierPage.ensureIsDisplayed();
+		
+		assertTrue(profileAdminRegisterVerifierPage.getEmail().isDisplayed());
+		assertTrue(profileAdminRegisterVerifierPage.getUsername().isDisplayed());
+		assertTrue(profileAdminRegisterVerifierPage.getVerPassword().isDisplayed());
+
+		profileAdminRegisterVerifierPage.setEmail("majamiljic2@gmail.com");
+		profileAdminRegisterVerifierPage.setUsername("majami");
+		profileAdminRegisterVerifierPage.setVerPassword("m");
+
+		//profileAdminRegisterVerifierPage.getOkButton().click();
+		profileAdminRegisterVerifierPage.getCancelButton().click();
+		
+		// Accept/Reject 
 		profileAdminPage.ensureCanAccept();
 		
-		//int noOfReportedAdvers = profileVerifierPage.getReportedAdversListSize();
+		// int noOfClerkRequests = profileAdminPage.getClerkRequestListSize();
 		
 		profileAdminPage.getAcceptButton().click();
-		// assertEquals(noOfReportedAdvers, noOfReportedAdvers-1);
+		// assertEquals(noOfClerkRequests, noOfClerkRequests-1);
 		
 		profileAdminPage.getRejectButton().click();
-		// assertEquals(noOfReportedAdvers, noOfReportedAdvers-1);
+		// assertEquals(noOfClerkRequests, noOfClerkRequests-1);
 	}
 	
 	@AfterMethod
