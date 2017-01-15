@@ -25,6 +25,9 @@ realEstate/src/main/resources/application.properties
 # Sonar
 .sonar
 
+#Tests
+test-output/
+
 # Eclipse Core
 .project
 

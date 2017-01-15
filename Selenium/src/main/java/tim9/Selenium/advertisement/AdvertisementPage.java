@@ -26,6 +26,12 @@ public class AdvertisementPage {
 	
 	@FindBy(xpath = "//button[@id=\"reportButton\"]")
 	private WebElement OKButton;
+	
+	@FindBy(id = "comment")
+	private WebElement inputComment;
+	
+	@FindBy(xpath = "//input[@ng-click=\"leaveComment()\"]")
+	private WebElement submitButton;
 
 	public WebElement getReportButton() {
 		return reportButton;
@@ -55,10 +61,34 @@ public class AdvertisementPage {
 		return OKButton;
 	}
 
-	public void ensureIsDisplayed() {
+	public WebElement getInputComment() {
+		return inputComment;
+	}
+
+	public void setInputComment(String inputComment) {
+		WebElement el = getInputComment();
+		el.clear();
+		el.sendKeys(inputComment);
+	}
+
+	public WebElement getSubmitButton() {
+		return submitButton;
+	}
+
+	public void ensureModalIsDisplayed() {
 		(new WebDriverWait(browser, 10))
 				  .until(ExpectedConditions.presenceOfElementLocated(
 						  By.id("title")));
+	}
+	
+	public void ensureIsDisplayed() {
+		(new WebDriverWait(browser, 10))
+				  .until(ExpectedConditions.presenceOfElementLocated(
+						  By.xpath("//input[@value=\"Report\"]")));
+	}
+	
+	public int getCommentsSize() {
+		return browser.findElements(By.className("profile-list")).size();
 	}
 	
 }
