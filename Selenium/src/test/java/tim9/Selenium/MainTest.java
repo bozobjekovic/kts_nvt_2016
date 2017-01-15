@@ -13,7 +13,7 @@ public class MainTest {
 	
 	@BeforeMethod
 	public void setupSelenium() {
-		System.setProperty("webdriver.chrome.driver", "D:/Documents/Downloads/chromedriver_win32/chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "C:/Program Files/chromedriver_win32/chromedriver.exe");
 		browser = new ChromeDriver();
 		browser.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		browser.manage().window().maximize();

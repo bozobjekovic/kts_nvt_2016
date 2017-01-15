@@ -36,7 +36,7 @@ public class MainPage {
 	@FindBy(xpath = "//a[text()=\"Log In\"]")
 	private WebElement logInLink;
 	
-	@FindBy(xpath = "//a[id=\"profile\"]")
+	@FindBy(xpath = "//a[@id=\"profile\"]")
 	private WebElement profileLink;
 
 	public WebElement getHomeLink() {
