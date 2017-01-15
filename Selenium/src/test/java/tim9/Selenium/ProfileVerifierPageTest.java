@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 
 import tim9.Selenium.login.LoginPage;
 
-public class ProfileVerifierTest {
+public class ProfileVerifierPageTest {
 
 	private WebDriver browser;
 	MainPage mainPage;
@@ -56,7 +56,7 @@ public class ProfileVerifierTest {
 		
 		profileVerifierPage.ensureCanAccept();
 		
-		int noOfReportedAdvers = profileVerifierPage.getReportedAdversListSize();
+		//int noOfReportedAdvers = profileVerifierPage.getReportedAdversListSize();
 		
 		profileVerifierPage.getAcceptButton().click();
 		// assertEquals(noOfReportedAdvers, noOfReportedAdvers-1);
