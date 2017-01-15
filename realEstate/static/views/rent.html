@@ -285,3 +285,19 @@
 </div>
 
 <div class="clearfix"></div>
+
+<div map-lazy-load="https://maps.google.com/maps/api/js?key=AIzaSyBktbpk5Joy4CYb6X3cLtQcno-ystYnEU0" class="map" style="border: 1px solid;">
+	<ng-map center="Serbia" zoom="6">
+	  	<marker ng-repeat="advert in rentAdvertisements"
+				position="{{advert.city}}, {{advert.address}}"
+				title="{{advert.city}}, {{advert.address}}">
+				<!-- on-click="showDetails(advert)"> -->
+		</marker>
+
+		<!-- <info-window id="advert-details">
+			<div ng-non-bindable="">
+
+			</div>
+		</info-window> -->
+	</ng-map>
+</div>
