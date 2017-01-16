@@ -59,10 +59,10 @@ public class ProfileVerifierPageTest {
 		//int noOfReportedAdvers = profileVerifierPage.getReportedAdversListSize();
 		
 		profileVerifierPage.getAcceptButton().click();
-		// assertEquals(noOfReportedAdvers, noOfReportedAdvers-1);
+		// assertEquals(profileVerifierPage.getReportedAdversListSize(), noOfReportedAdvers-1);
 		
 		profileVerifierPage.getRejectButton().click();
-		// assertEquals(noOfReportedAdvers, noOfReportedAdvers-1);
+		// assertEquals(profileVerifierPage.getReportedAdversListSize(), noOfReportedAdvers-1);
 	}
 	
 	@AfterMethod

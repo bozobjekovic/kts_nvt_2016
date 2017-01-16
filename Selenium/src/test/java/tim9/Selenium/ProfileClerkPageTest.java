@@ -37,9 +37,8 @@ public class ProfileClerkPageTest {
 		loginPage = PageFactory.initElements(browser, LoginPage.class);
 	}
 	
-	@Test
-	public void testClerkPage() {
-		
+	public void login() {
+
 		// Login
 		assertTrue(mainPage.getLogInLink().isDisplayed());
 		mainPage.getLogInLink().click();
@@ -49,7 +48,7 @@ public class ProfileClerkPageTest {
 		assertTrue(loginPage.getInputPassword().isDisplayed());
 		assertTrue(loginPage.getOKButton().isDisplayed());
 		
-		loginPage.setInputUsername("clerk");
+		loginPage.setInputUsername("clerk2");
 		loginPage.setInputPassword("c");
 		loginPage.getOKButton().click();
 		
@@ -57,8 +56,13 @@ public class ProfileClerkPageTest {
 		mainPage.ensureIsDisplayed();
 		mainPage.getProfileLink().click();
 		assertEquals("http://localhost:8080/#/profileClerk", browser.getCurrentUrl());
+	}
+	
+	@Test
+	public void testUpdateProfileData() {
+		 login();
 		
-		//open modal
+		// Open modal
 		assertTrue(profileClerkPage.getChangeButton().isDisplayed());
 		profileClerkPage.getChangeButton().click();
 		
@@ -75,6 +79,23 @@ public class ProfileClerkPageTest {
 		profileClerkUpdateDataPage.setCity("Novi Sad");
 
 		profileClerkUpdateDataPage.getSaveButton().click();
+	}
+
+	@Test
+	public void testAcceptRejectUserRequests() {
+		
+		login();
+		
+		// Accept/Reject 
+		profileClerkPage.ensureCanAccept();
+		
+		// int noOfUserRequests = profileClerkPage.getUserRequestListSize();
+		
+		profileClerkPage.getAcceptButton().click();
+		// assertEquals(profileClerkPage.getUserRequestListSize(), noOfUserRequests-1);
+		
+		profileClerkPage.getRejectButton().click();
+		// assertEquals(profileClerkPage.getUserRequestListSize(), noOfUserRequests-1);
 	}
 	
 	@AfterMethod

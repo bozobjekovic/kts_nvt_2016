@@ -49,7 +49,6 @@
 	</div>
 	<div class="profile-grid-right" style="border: 0.7px solid gray; border-radius: 5px; padding: 10px;">
 		<div class="profile-list-scroll">
-
 			<nav class="navbar navbar-default">
 				<div class="container-fluid">
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -64,7 +63,6 @@
 					</div>
 				</div>
 			</nav>
-			
 			<div class="profile-list" style="min-height: 600px;">
 				<div class="profile-listItem" ng-repeat="publish in published">
 					<div class="profile-grid-left">
@@ -74,14 +72,12 @@
 					</div>
 					<div class="profile-grid-right">
 						<div class="profile-listItem-text">
-							<input ng-if="publish.status == 'Active'" type="button" value="Remove" style="float:right;" ng-click="remove(publish.id)">
+							<input ng-if="publish.status == 'Active'" type="button" id="removeAdver" value="Remove" style="float:right;" ng-click="remove(publish.id)">
 							<h4>{{publish.name}} {{publish.id}}</h4>
 							<p>{{publish.price | currency:"$"}}</p>
 							<p>{{publish.publicationDate | date:'dd-MM-yyyy'}}</p>
 							<p>{{publish.status}}</p>
-							
 						</div>
-						
 					</div>
 				</div>
 			</div>

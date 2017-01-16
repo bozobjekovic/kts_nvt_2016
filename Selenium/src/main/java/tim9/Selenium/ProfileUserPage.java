@@ -18,11 +18,32 @@ public class ProfileUserPage {
 	@FindBy(xpath="//button[@ng-click=\"openModal()\"]")
 	private WebElement changeButton;
 
+	@FindBy(xpath="//button[@ng-click=\"apply(company.id)\"]")
+	private WebElement askToJoinButton;
+
+	@FindBy(id="removeAdver")
+	private WebElement removeButton;
+
 	public void ensureIsDisplayed() {
 		(new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[@ng-click=\"openModal()\"]")));
+	}
+	public void ensureCanAskToJoin() {
+		(new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@ng-click=\"apply(company.id)\"]")));
+	}
+	public void ensureCanRemove() {
+		(new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(By.id("removeAdver")));
 	}
 	
 	public WebElement getChangeButton() {
 		return changeButton;
+	}
+	public WebElement getAskToJoinButton() {
+		return askToJoinButton;
+	}
+	public WebElement getRemoveButton() {
+		return removeButton;
+	}
+	public int getAdverListSize() {
+		return driver.findElements(By.className("profile-listItem")).size();
 	}
 }

@@ -18,11 +18,32 @@ public class ProfileClerkPage {
 	@FindBy(xpath="//button[@ng-click=\"openModal()\"]")
 	private WebElement changeButton;
 
+	@FindBy(xpath="//button[@ng-click=\"accept(applied.id)\"]")
+	private WebElement acceptButton;
+	
+	@FindBy(xpath="//button[@ng-click=\"deny(applied.id)\"]")
+	private WebElement rejectButton;
+
 	public void ensureIsDisplayed() {
 		(new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[@ng-click=\"openModal()\"]")));
 	}
-	
+	public void ensureCanAccept() {
+		(new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[@ng-click=\"accept(applied.id)\"]")));
+	}
+	public void ensureCanReject() {
+		(new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[@ng-click=\"deny(applied.id)\"]")));
+	}
+
 	public WebElement getChangeButton() {
 		return changeButton;
+	}
+	public WebElement getAcceptButton() {
+		return acceptButton;
+	}
+	public WebElement getRejectButton() {
+		return rejectButton;
+	}
+	public int getUserRequestsListSize() {
+		return driver.findElements(By.className("profile-listItem")).size();
 	}
 }

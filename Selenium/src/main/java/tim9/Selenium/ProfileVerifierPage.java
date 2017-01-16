@@ -29,11 +29,9 @@ public class ProfileVerifierPage {
 	public WebElement getAcceptButton() {
 		return acceptButton;
 	}
-	
 	public WebElement getRejectButton() {
 		return rejectButton;
 	}
-	
 	public int getReportedAdversListSize() {
 		return driver.findElements(By.className("profile-listItem")).size();
 	}
