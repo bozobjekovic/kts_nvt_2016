@@ -15,7 +15,7 @@ public class AdvertisementPage {
 		this.browser = browser;
 	}
 	
-	@FindBy(xpath = "//input[@value=\"Report\"]")
+	@FindBy(xpath = "//input[@id=\"rprt\"]")
 	private WebElement reportButton;
 	
 	@FindBy(id = "title")
@@ -32,6 +32,9 @@ public class AdvertisementPage {
 	
 	@FindBy(xpath = "//input[@ng-click=\"leaveComment()\"]")
 	private WebElement submitButton;
+	
+	@FindBy(xpath = "//span[@ng-model=\"rate\"]")
+	private WebElement rate;
 
 	public WebElement getReportButton() {
 		return reportButton;
@@ -75,6 +78,10 @@ public class AdvertisementPage {
 		return submitButton;
 	}
 
+	public WebElement getRate() {
+		return rate;
+	}
+
 	public void ensureModalIsDisplayed() {
 		(new WebDriverWait(browser, 10))
 				  .until(ExpectedConditions.presenceOfElementLocated(
@@ -84,11 +91,19 @@ public class AdvertisementPage {
 	public void ensureIsDisplayed() {
 		(new WebDriverWait(browser, 10))
 				  .until(ExpectedConditions.presenceOfElementLocated(
-						  By.xpath("//input[@value=\"Report\"]")));
+						  By.xpath("//input[@id=\"rprt\"]")));
+	}
+	
+	public void ensureIsAdded(int numberOfComments) {
+		System.out.println(numberOfComments);
+		(new WebDriverWait(browser, 10))
+		  .until(ExpectedConditions.visibilityOfElementLocated(
+				  By.xpath("(//div[@class='comment-listItem'])[" + (numberOfComments + 1) + "]")));
+		
 	}
 	
 	public int getCommentsSize() {
-		return browser.findElements(By.className("profile-list")).size();
+		return browser.findElements(By.className("comment-listItem")).size();
 	}
 	
 }

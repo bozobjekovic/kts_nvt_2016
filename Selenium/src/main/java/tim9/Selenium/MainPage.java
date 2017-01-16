@@ -74,6 +74,6 @@ public class MainPage {
 	public void ensureIsDisplayed() {
 		(new WebDriverWait(browser, 10))
 				  .until(ExpectedConditions.presenceOfElementLocated(
-						  By.linkText("Buy")));
+						  By.xpath("//a[@ng-href=\"/#/buy\"]")));
 	}
 }

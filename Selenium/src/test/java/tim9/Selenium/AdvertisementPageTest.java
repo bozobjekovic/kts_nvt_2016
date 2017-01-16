@@ -121,7 +121,40 @@ public class AdvertisementPageTest {
 		advertisementPage.setInputComment("I'm leaving this comment");
 		advertisementPage.getSubmitButton().click();
 
+		advertisementPage.ensureIsAdded(commentsSize);
 		assertEquals(advertisementPage.getCommentsSize(), commentsSize + 1);
+		
+	}
+	
+	@Test
+	public void testRate() {
+		
+		mainPage.getLogInLink().click();
+		loginPage.ensureIsDisplayed();
+		
+		assertTrue(loginPage.getOKButton().isDisplayed());
+		
+		assertTrue(loginPage.getInputUsername().isDisplayed());
+		assertTrue(loginPage.getInputPassword().isDisplayed());
+		
+		loginPage.setInputUsername("user");
+		loginPage.setInputPassword("u");
+		
+		loginPage.getOKButton().click();
+		
+		mainPage.ensureIsDisplayed();
+		
+		mainPage.getBuyLink().click();
+		assertEquals("http://localhost:8080/#/buy", browser.getCurrentUrl());
+		
+		buyPage.getAdvertisementLink().click();
+		assertEquals("http://localhost:8080/#/advertisement/2", browser.getCurrentUrl());
+		
+		assertTrue(advertisementPage.getReportButton().isDisplayed());
+		
+		advertisementPage.getRate().click();
+		
+		// CHECK RATE ?
 		
 	}
 	

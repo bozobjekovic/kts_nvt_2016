@@ -196,7 +196,7 @@ INSERT INTO Advertisment VALUES (69, '2016-12-20', 'images/house3.jpg', 0,'2016-
 INSERT INTO Advertisment VALUES (70, '2016-12-20', 'images/house4.jpg', 0,'2016-12-23',  'Kuca sa bazenom', 48,'+524400', 14230424, '2017-12-20', 'sell', '3.2', null, 1, 35, null);
 
 INSERT INTO Inappropriate VALUES(1, '2017-12-20',"Inappropriate advertisement", "Inappropriate", 1, 1);
-INSERT INTO Inappropriate VALUES(2, '2017-12-20',"Inappropriate advertisement", "Inappropriate", 1, 2);
+INSERT INTO Inappropriate VALUES(2, '2017-12-20',"Inappropriate advertisement", "Inappropriate", 1, 5);
 INSERT INTO Inappropriate VALUES(3, '2017-12-20',"Inappropriate advertisement", "Inappropriate", 5, 1);
 INSERT INTO Inappropriate VALUES(4, '2017-12-20',"Inappropriate advertisement", "Inappropriate", 3, 3);
 
