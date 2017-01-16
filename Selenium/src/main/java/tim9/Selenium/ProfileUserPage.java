@@ -33,6 +33,11 @@ public class ProfileUserPage {
 	public void ensureCanRemove() {
 		(new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(By.id("removeAdver")));
 	}
+	public void ensureIsRemoved(int numberOfAdvers) {
+		(new WebDriverWait(driver, 10))
+		  .until(ExpectedConditions.invisibilityOfElementLocated(
+				  By.xpath("//div[@class=\"profile-listItem-text\"])[" + (numberOfAdvers+1) + "]")));
+	}
 	
 	public WebElement getChangeButton() {
 		return changeButton;

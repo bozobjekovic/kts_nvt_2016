@@ -33,10 +33,7 @@ public class ProfileVerifierPageTest {
 		loginPage = PageFactory.initElements(browser, LoginPage.class);
 	}
 	
-	@Test
-	public void testVerifierPage() {
-		
-		// Login
+	public void login() {
 		assertTrue(mainPage.getLogInLink().isDisplayed());
 		mainPage.getLogInLink().click();
 		
@@ -49,20 +46,31 @@ public class ProfileVerifierPageTest {
 		loginPage.setInputPassword("v");
 		loginPage.getOKButton().click();
 		
-		// Go to profile
 		mainPage.ensureIsDisplayed();
 		mainPage.getProfileLink().click();
 		assertEquals("http://localhost:8080/#/profileVerifier", browser.getCurrentUrl());
+	}
+	
+	@Test
+	public void testAcceptAverRequest() {
+		login();
 		
 		profileVerifierPage.ensureCanAccept();
 		
-		//int noOfReportedAdvers = profileVerifierPage.getReportedAdversListSize();
-		
+		int noOfReportedAdvers = profileVerifierPage.getReportedAdversListSize();
 		profileVerifierPage.getAcceptButton().click();
-		// assertEquals(profileVerifierPage.getReportedAdversListSize(), noOfReportedAdvers-1);
+		profileVerifierPage.ensureIsRemoved(noOfReportedAdvers);
+	}
+	
+	@Test
+	public void testRejectAverRequest() {
+		login();
 		
+		profileVerifierPage.ensureCanAccept();
+		
+		int noOfReportedAdvers = profileVerifierPage.getReportedAdversListSize();
 		profileVerifierPage.getRejectButton().click();
-		// assertEquals(profileVerifierPage.getReportedAdversListSize(), noOfReportedAdvers-1);
+		profileVerifierPage.ensureIsRemoved(noOfReportedAdvers);
 	}
 	
 	@AfterMethod

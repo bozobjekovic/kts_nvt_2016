@@ -28,6 +28,11 @@ public class ProfileAdminPage {
 		(new WebDriverWait(driver, 10))
 		  .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@ng-click=\"acceptClerk(clerk.id)\"]")));
 	}
+	public void ensureIsRemoved(int numberOfClerkRequests) {
+		(new WebDriverWait(driver, 10))
+		  .until(ExpectedConditions.invisibilityOfElementLocated(
+				  By.xpath("//div[@class=\"profile-listItem-text\"])[" + (numberOfClerkRequests+1) + "]")));
+	}
 
 	public WebElement getAcceptButton() {
 		return acceptButton;

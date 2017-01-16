@@ -38,8 +38,6 @@ public class ProfileClerkPageTest {
 	}
 	
 	public void login() {
-
-		// Login
 		assertTrue(mainPage.getLogInLink().isDisplayed());
 		mainPage.getLogInLink().click();
 		
@@ -52,7 +50,6 @@ public class ProfileClerkPageTest {
 		loginPage.setInputPassword("c");
 		loginPage.getOKButton().click();
 		
-		// Go to profile
 		mainPage.ensureIsDisplayed();
 		mainPage.getProfileLink().click();
 		assertEquals("http://localhost:8080/#/profileClerk", browser.getCurrentUrl());
@@ -62,7 +59,6 @@ public class ProfileClerkPageTest {
 	public void testUpdateProfileData() {
 		 login();
 		
-		// Open modal
 		assertTrue(profileClerkPage.getChangeButton().isDisplayed());
 		profileClerkPage.getChangeButton().click();
 		
@@ -82,20 +78,27 @@ public class ProfileClerkPageTest {
 	}
 
 	@Test
-	public void testAcceptRejectUserRequests() {
-		
+	public void testAcceptUserRequest() {
 		login();
 		
-		// Accept/Reject 
 		profileClerkPage.ensureCanAccept();
-		
-		// int noOfUserRequests = profileClerkPage.getUserRequestListSize();
+
+		int noOfUserRequests = profileClerkPage.getUserRequestsListSize();
 		
 		profileClerkPage.getAcceptButton().click();
-		// assertEquals(profileClerkPage.getUserRequestListSize(), noOfUserRequests-1);
+		profileClerkPage.ensureIsRemoved(noOfUserRequests);
+	}
+
+	@Test
+	public void testRejectUserRequest() {
+		login();
+		
+		profileClerkPage.ensureCanAccept();
+
+		int noOfUserRequests = profileClerkPage.getUserRequestsListSize();
 		
 		profileClerkPage.getRejectButton().click();
-		// assertEquals(profileClerkPage.getUserRequestListSize(), noOfUserRequests-1);
+		profileClerkPage.ensureIsRemoved(noOfUserRequests);
 	}
 	
 	@AfterMethod

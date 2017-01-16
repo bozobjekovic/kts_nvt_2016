@@ -33,6 +33,11 @@ public class ProfileClerkPage {
 	public void ensureCanReject() {
 		(new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[@ng-click=\"deny(applied.id)\"]")));
 	}
+	public void ensureIsRemoved(int numberOfUserRequests) {
+		(new WebDriverWait(driver, 10))
+		  .until(ExpectedConditions.invisibilityOfElementLocated(
+				  By.xpath("//div[@class=\"profile-listItem\"])[" + (numberOfUserRequests+1) + "]")));
+	}
 
 	public WebElement getChangeButton() {
 		return changeButton;

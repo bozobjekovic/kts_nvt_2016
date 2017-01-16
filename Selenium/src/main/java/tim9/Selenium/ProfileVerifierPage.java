@@ -25,6 +25,11 @@ public class ProfileVerifierPage {
 		(new WebDriverWait(driver, 10))
 		  .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@ng-click=\"accept(inapp.id)\"]")));
 	}
+	public void ensureIsRemoved(int numberOfReportedAdvers) {
+		(new WebDriverWait(driver, 10))
+		  .until(ExpectedConditions.invisibilityOfElementLocated(
+				  By.xpath("//div[@class=\"profile-listItem\"])[" + (numberOfReportedAdvers+1) + "]")));
+	}
 
 	public WebElement getAcceptButton() {
 		return acceptButton;

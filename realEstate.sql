@@ -82,6 +82,7 @@ INSERT INTO User VALUES (4, 'Balzakova', 'Novi Sad', 'clerk@gmail.com', 'images/
 INSERT INTO User VALUES (5, 'Novosadska', 'Novi Sad', 'clerk2@gmail.com', 'images/user2.jpg', 'Clerk2', '$2a$06$ESTR0aRvH5s4McmiWeiXl.DqRxveC/lruQKFD7UVkvBRwOEdp2Qty', '+15232', 'Clerkan2', 'clerk2', '9678678', true, true, 2, 3, 2, null, 2);
 INSERT INTO User VALUES (6, 'Beogradska', 'Beograd', 'clerk3@gmail.com', 'images/user2.jpg', 'Clerk3', '$2a$06$ESTR0aRvH5s4McmiWeiXl.DqRxveC/lruQKFD7UVkvBRwOEdp2Qty', '+1523232', 'Clerkan3', 'clerk3', '231132123', false, true, 2, 5, 2, null, 3);
 INSERT INTO User VALUES (7, 'Nislijska', 'Nis', 'clerk4@gmail.com', 'images/user3.jpg', 'Clerk4', '$2a$06$ESTR0aRvH5s4McmiWeiXl.DqRxveC/lruQKFD7UVkvBRwOEdp2Qty', '+15233122', 'Clerkan4', 'clerk4', '322332', false, true, 2, 4, 2, null, 4);
+INSERT INTO User VALUES (8, 'Boska Buhe', 'Novi Sad', 'user4@gmail.com', 'images/user1.jpg', 'User4', '$2a$08$qOdUxqqtQG0v6ZetGVFDBO0cET/mK5tQZ8cOrkivyPqMP3WkJCJYq', '+3646360213', 'Useran4', 'user4', '32502125', false, false, 2, 2, 2, 2, null);
 
 INSERT INTO Real_Estate VALUES (1, 'Balzakova 6', 1890, 0, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Apartment', 1);
 INSERT INTO Real_Estate VALUES (2, 'Bul. Mihaila Pupina', 1950, 0, 'Radiant', 100, 3, 5, 4, 2, 'TV,Klima,Namestak', 'Room', 4);

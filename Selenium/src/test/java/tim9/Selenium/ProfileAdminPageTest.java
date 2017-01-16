@@ -37,8 +37,6 @@ public class ProfileAdminPageTest {
 	}
 	
 	void login() {
-
-		// Login
 		assertTrue(mainPage.getLogInLink().isDisplayed());
 		mainPage.getLogInLink().click();
 		
@@ -51,7 +49,6 @@ public class ProfileAdminPageTest {
 		loginPage.setInputPassword("a");
 		loginPage.getOKButton().click();
 		
-		// Go to profile
 		mainPage.ensureIsDisplayed();
 		mainPage.getProfileLink().click();
 		assertEquals("http://localhost:8080/#/profileAdmin", browser.getCurrentUrl());
@@ -59,10 +56,8 @@ public class ProfileAdminPageTest {
 	
 	@Test
 	public void testUpdateProfileData() {
-		
 		login();
 		
-		// Open modal
 		assertTrue(profileAdminPage.getRegisterVerifierButton().isDisplayed());
 		profileAdminPage.getRegisterVerifierButton().click();
 		
@@ -98,20 +93,25 @@ public class ProfileAdminPageTest {
 	}
 
 	@Test
-	public void testAcceptRejectClerk() {
-		
+	public void testAcceptClerk() {
 		login();
 		
-		// Accept/Reject 
 		profileAdminPage.ensureCanAccept();
 		
-		// int noOfClerkRequests = profileAdminPage.getClerkRequestListSize();
-		
+		int noOfClerkRequests = profileAdminPage.getClerkRequestListSize();
 		profileAdminPage.getAcceptButton().click();
-		// assertEquals(profileAdminPage.getClerkRequestListSize(), noOfClerkRequests-1);
+		profileAdminPage.ensureIsRemoved(noOfClerkRequests);
+	}
+
+	@Test
+	public void testRejectClerk() {
+		login();
 		
+		profileAdminPage.ensureCanAccept();
+		
+		int noOfClerkRequests = profileAdminPage.getClerkRequestListSize();
 		profileAdminPage.getRejectButton().click();
-		// assertEquals(profileAdminPage.getClerkRequestListSize(), noOfClerkRequests-1);
+		profileAdminPage.ensureIsRemoved(noOfClerkRequests);
 	}
 	
 	@AfterMethod

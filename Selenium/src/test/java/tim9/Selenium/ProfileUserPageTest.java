@@ -38,8 +38,6 @@ public class ProfileUserPageTest {
 	}
 	
 	public void login() {
-
-		// Login
 		assertTrue(mainPage.getLogInLink().isDisplayed());
 		mainPage.getLogInLink().click();
 		
@@ -52,7 +50,6 @@ public class ProfileUserPageTest {
 		loginPage.setInputPassword("u");
 		loginPage.getOKButton().click();
 		
-		// Go to profile
 		mainPage.ensureIsDisplayed();
 		mainPage.getProfileLink().click();
 		assertEquals("http://localhost:8080/#/profile", browser.getCurrentUrl());
@@ -60,10 +57,7 @@ public class ProfileUserPageTest {
 	
 	@Test
 	public void testUpdateProfileData() {
-		
 		login();
-		
-		// Open modal
 		assertTrue(profileUserPage.getChangeButton().isDisplayed());
 		profileUserPage.getChangeButton().click();
 		
@@ -83,25 +77,19 @@ public class ProfileUserPageTest {
 	
 	@Test
 	public void testAskToJoin() {
-		
 		login();
-		
-		// Ask to Join
 		profileUserPage.ensureCanAskToJoin();
 		profileUserPage.getAskToJoinButton().click();
 	}
 	
 	@Test
 	public void testRemoveAdvertisement() {
-		
 		login();
 		
-		// Remove Advertisement
-		// int adverListSize = profileUserPage.getAdverListSize();
-		
+		int adverListSize = profileUserPage.getAdverListSize();
 		profileUserPage.ensureCanRemove();
 		profileUserPage.getRemoveButton().click();
-		// assertEquals(profileUserPage.getAdverListSize(), adverListSize-1);
+		profileUserPage.ensureIsRemoved(adverListSize);
 	}
 	
 	@AfterMethod
