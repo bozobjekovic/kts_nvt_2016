@@ -143,10 +143,9 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Upload Images</label>
 			<div class="col-sm-10">
-				<div class="fileinput fileinput-new" data-provides="fileinput" flow-init="{target:'/upload'}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1,csv:1}[$file.getExtension()]">
+				<div class="fileinput fileinput-new" data-provides="fileinput" flow-init flow-object="flowObject" test-chunks="false">
 					<div>
 						<div class="fileinput-preview thumbnail advertisementPicture" ng-repeat="file in $flow.files">
-							<input type="text" ng-value="$flow.files[$index]" ng-model="img[$flow.files[$index]]" />
 							<img flow-img="file"/>
 							<hr>
 							<a href="" class="btn btn-danger" ng-click="$flow.removeFile(file)">Remove</a>

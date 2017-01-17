@@ -2,8 +2,8 @@
 	'use strict';
 
 	angular.module('realEstateClientApp')
-        .controller('SellCtrl', ['$scope', '$rootScope', '_', 'SellFactory',
-            function($scope, $rootScope, _, SellFactory) {
+        .controller('SellCtrl', ['$scope', '$rootScope', '_', 'SellFactory', 'flowFactory',
+            function($scope, $rootScope, _, SellFactory, flowFactory) {
                 $rootScope.mainMenu = true;
 
 				/* for type combobox */
@@ -48,14 +48,14 @@
 
 				$scope.img = [];
 
-                $scope.submitSellForm = function() {
-					SellFactory.submitSell($scope.advertisementCreate);
-                };
+				$scope.flowObject = flowFactory.create({
 
-				$scope.$on('flow::fileSubmitted', function (event, $flow, flowFile) {
-					event.preventDefault();//prevent file from uploading
-					console.log("asdasdadas");
 				});
+
+                $scope.submitSellForm = function() {
+					console.log($scope.flowObject.files);
+					//SellFactory.submitSell($scope.advertisementCreate);
+                };
 
 				$scope.getPartOfTheCities = function() {
 					SellFactory.getAllPartOfTheCities($scope.advertisementCreate.location.city)
