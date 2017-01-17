@@ -47,7 +47,7 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Part of the city</label>
 			<div class="col-sm-10">
-		  		<input type="text" class="form-control" placeholder="Part of the city" ng-model="advertisementCreate.location.partOfTheCity" uib-typeahead="partOfTheCity for partOfTheCity in partOfTheCities | filter:$viewValue">
+		  		<input type="text" class="form-control" name="partofthecity" placeholder="Part of the city" ng-model="advertisementCreate.location.partOfTheCity" uib-typeahead="partOfTheCity for partOfTheCity in partOfTheCities | filter:$viewValue">
 			</div>
 		</div>
 		<div class="form-group" ng-class="{'has-error': nvt.sellForm.needsAttention(sellForm.landsize)}">
@@ -62,13 +62,13 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Equipment</label>
 			<div class="col-sm-10">
-		  		<input type="text" class="form-control" placeholder="Equipment" ng-model="advertisementCreate.techEquipment">
+		  		<input type="text" class="form-control" name="equipment" placeholder="Equipment" ng-model="advertisementCreate.techEquipment">
 			</div>
 		</div>
 		<div class="form-group" ng-class="{'has-error': nvt.sellForm.needsAttention(sellForm.heatingtype)}">
-		 	<label class="col-sm-2 control-label">Heating type<span class="requiredFiled">*</span></label>
-			<div class="col-sm-10">
-			  	<select class="form-control" required name="heatingtype" ng-model="advertisementCreate.heatingType">
+		 	<label class="col-sm-2 control-label">Heating type</label>
+			<div class="col-sm-10" id="htDiv">
+			  	<select class="form-control" name="heatingtype" ng-model="advertisementCreate.heatingType">
 			  		<option>Forced Air</option>
 					<option>Radiant</option>
 					<option>Radiators</option>
@@ -76,27 +76,27 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label">Bath rooms</label>
+			<label class="col-sm-2 control-label">Bathrooms</label>
 			<div class="col-sm-10">
-		  		<input type="number" min="0" class="form-control" placeholder="Bath rooms" ng-model="advertisementCreate.numOfBathRooms">
+		  		<input type="number" min="0" class="form-control" name="bathrooms" placeholder="Bathrooms" ng-model="advertisementCreate.numOfBathRooms">
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label">Bed rooms</label>
+			<label class="col-sm-2 control-label">Bedrooms</label>
 			<div class="col-sm-10">
-		  		<input type="number" min="0" class="form-control" placeholder="Bed rooms" ng-model="advertisementCreate.numOfBedRooms">
+		  		<input type="number" min="0" class="form-control" name="bedrooms" placeholder="Bedrooms" ng-model="advertisementCreate.numOfBedRooms">
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label">Flors</label>
+			<label class="col-sm-2 control-label">Floors</label>
 			<div class="col-sm-10">
-		  		<input type="number" min="0" class="form-control" placeholder="Flors" ng-model="advertisementCreate.numOfFlors">
+		  		<input type="number" min="0" class="form-control" name="floors" placeholder="Floors" ng-model="advertisementCreate.numOfFlors">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Build year</label>
 			<div class="col-sm-10">
-		  		<input type="number" min="0" class="form-control" placeholder="Build year" ng-model="advertisementCreate.buildYear">
+		  		<input type="number" min="0" class="form-control" name="buildyear" placeholder="Build year" ng-model="advertisementCreate.buildYear">
 			</div>
 		</div>
 		<div class="form-group" ng-class="{'has-error': nvt.sellForm.needsAttention(sellForm.category)}">
@@ -128,7 +128,7 @@
 		<div class="form-group" ng-class="{'has-error': nvt.sellForm.needsAttention(sellForm.phonenumber)}">
   			<label class="col-sm-2 control-label">Phone Number<span class="requiredFiled">*</span></label>
   			<div class="col-sm-10">
-  		  		<input type="number" min="0" class="form-control" name="phonenumber" required placeholder="Phone Number" ng-model="advertisementCreate.phoneNumber">
+  		  		<input type="text" class="form-control" name="phonenumber" required placeholder="Phone Number" ng-model="advertisementCreate.phoneNumber">
   			</div>
   	  	</div>
 		<div class="form-group" ng-class="{'has-error': nvt.sellForm.needsAttention(sellForm.purpose)}">
@@ -158,7 +158,7 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label"></label>
 			<div class="col-sm-10">
-				<button type="submit" class="btn btn-success" style="background-color: #751717; border-color: #751717; width: 100%;">Submit</button>
+				<button type="submit" class="btn btn-success" id="submit" style="background-color: #751717; border-color: #751717; width: 100%;">Submit</button>
 			</div>
 		</div>
 	</form>

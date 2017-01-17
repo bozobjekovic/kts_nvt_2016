@@ -68,9 +68,6 @@ public class ProfileAdminPageTest {
 		assertTrue(profileAdminRegisterVerifierPage.getVerPassword().isDisplayed());
 
 		// Empty data
-		profileAdminRegisterVerifierPage.setEmail("");
-		profileAdminRegisterVerifierPage.setUsername("");
-		profileAdminRegisterVerifierPage.setVerPassword("");
 		profileAdminRegisterVerifierPage.getOkButton().click();
 		
 		// Email not correctly inputted
