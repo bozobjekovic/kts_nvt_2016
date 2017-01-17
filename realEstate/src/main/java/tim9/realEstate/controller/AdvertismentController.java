@@ -1,15 +1,11 @@
 package tim9.realEstate.controller;
 
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.ServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import tim9.realEstate.dto.AdvertismentCreateDTO;
-import tim9.realEstate.dto.AdvertismentDTO;
 import tim9.realEstate.dto.CompanyDTO;
 import tim9.realEstate.dto.UserDTO;
 import tim9.realEstate.model.Advertisment;
@@ -47,34 +42,6 @@ public class AdvertismentController {
     
     @Autowired
     UserUtils userUtils;
-    
-    /**
-     * This method gets all Advertisements from the database
-     * and then creates a list of DTO objects.
-     * @return      ResponseEntity List with all DTO Advertisements and HttpStatus OK
-     */
-    @RequestMapping(value="/size", method = RequestMethod.GET)
-    public ResponseEntity<Integer> getAdvertismentsSize() {
-        return new ResponseEntity<>(advertismentService.findAll().size(), HttpStatus.OK);
-    }
-    
-    /**
-     * This method gets all Advertisements from the database
-     * with specified page number and page size,
-     * and then creates a list of DTO objects.
-     * @param		page	Spring object
-     * @return      ResponseEntity List with all DTO Advertisements and HttpStatus OK
-     */
-    @RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<AdvertismentDTO>> getAdvertisementPage(Pageable page) {
-		Page<Advertisment> advertisements = advertismentService.findAll(page);
-		
-		List<AdvertismentDTO> advertsDTO = new ArrayList<>();
-		for (Advertisment a : advertisements) {
-			advertsDTO.add(new AdvertismentDTO(a));
-		}
-		return new ResponseEntity<>(advertsDTO, HttpStatus.OK);
-	}
     
     /**
      * This method gets Advertisement with specified ID.
@@ -230,26 +197,6 @@ public class AdvertismentController {
     	}
     	return true;		
 	}
-
-	/**
-     * This method gets all Advertisements with a 
-     * specified purpose.
-     * @param		purpose	Advertisement's purpose
-     * @return      ResponseEntity List of DTO Advertisements and HttpStatus OK
-     */
-    @RequestMapping(value="/purpose/{purpose}", method = RequestMethod.GET)
-    public ResponseEntity<List<AdvertismentDTO>> getAdvertismentsByPurpose(@PathVariable String purpose, Pageable page){
-    	if(purpose == null){
-    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    	}
-    	Page<Advertisment> advertisements = advertismentService.findByPurpose(purpose, page);
-
-    	List<AdvertismentDTO> advertsDTO = new ArrayList<>();
-		for (Advertisment a : advertisements) {
-			advertsDTO.add(new AdvertismentDTO(a));
-		}
-    	return new ResponseEntity<>(advertsDTO, HttpStatus.OK);
-    }
     
     /**
      * This method sets a new rate for an Advertisement.

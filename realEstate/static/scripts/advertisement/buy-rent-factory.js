@@ -6,12 +6,6 @@ angular.module('realEstateClientApp')
 		var locations = [];
 		var retVal = {};
 
-		retVal.getAdvertisementSize = function() {
-			return Restangular.all('advertisments/size').get().then(function(size) {
-				return size.data;
-			});
-		};
-
 		retVal.getCities = function() {
 			return Restangular.all("locations/city").getList().then(function(entries) {
 				locations = entries.data;

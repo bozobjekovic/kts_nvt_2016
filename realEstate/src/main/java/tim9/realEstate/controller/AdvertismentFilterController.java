@@ -33,47 +33,6 @@ public class AdvertismentFilterController {
 	
 	@Autowired
     AdvertismentService advertismentService;
-	
-	/**
-     * This method gets all Advertisements from the database
-     * that have given category.
-     * @param		category	Advertisment's category
-     * @return      ResponseEntity List with all DTO Advertisements and HttpStatus OK
-     */
-	@RequestMapping(value="/purpose/{purpose}/category/{category}", method = RequestMethod.GET)
-    public ResponseEntity<List<AdvertismentDTO>> getAdvertismentsByCategory(@PathVariable String purpose, @PathVariable Category category){
-		if(purpose == null || category == null){
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-    	List<Advertisment> advertisements = advertismentService.findByRealEstate_Category(purpose, category);
-    	
-    	List<AdvertismentDTO> advertsDTO = new ArrayList<>();
-		for (Advertisment a : advertisements) {
-			advertsDTO.add(new AdvertismentDTO(a));
-		}
-    	return new ResponseEntity<>(advertsDTO, HttpStatus.OK);
-    }
-    
-	/**
-     * This method gets all Advertisements from the database
-     * that have given type.
-     * @param		category	Advertisment's category
-     * @param		type	Advertisment's type
-     * @return      ResponseEntity List with all DTO Advertisements and HttpStatus OK
-     */
-    @RequestMapping(value="/purpose/{purpose}/category/{category}/type/{type}", method = RequestMethod.GET)
-    public ResponseEntity<List<AdvertismentDTO>> getAdvertismentsByType(@PathVariable String purpose, @PathVariable Category category, @PathVariable String type){
-    	if(purpose == null || category == null || type == null){
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-    	List<Advertisment> advertisements = advertismentService.findByRealEstate_Type(purpose, type);
-    	
-    	List<AdvertismentDTO> advertsDTO = new ArrayList<>();
-		for (Advertisment a : advertisements) {
-			advertsDTO.add(new AdvertismentDTO(a));
-		}
-    	return new ResponseEntity<>(advertsDTO, HttpStatus.OK);
-    }
     
     /**
      * This method gets all Advertisements from the database
