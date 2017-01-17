@@ -13,95 +13,82 @@
 		</div>
 		<div class="form-group" ng-class="{'has-error': nvt.updateAdvertisement.needsAttention(updateAdvertisement.city)}">
 			<label style="font-size:17px;">City<span class="requiredFiled">*</span></label>
-		  		<input type="text" class="form-control" placeholder="City" name="city" required ng-model="advertisement.location.city" uib-typeahead="city for city in cities | filter:$viewValue" ng-blur="getPartOfTheCities()">
+		  	<input type="text" class="form-control" placeholder="City" name="city" required ng-model="advertisement.location.city" uib-typeahead="city for city in cities | filter:$viewValue" ng-blur="getPartOfTheCities()">
 		</div>
 		<div class="form-group" ng-class="{'has-error': nvt.updateAdvertisement.needsAttention(updateAdvertisement.zipcode)}">
 			<label style="font-size:17px;">Zip code<span class="requiredFiled">*</span></label>
-		  		<input type="number" min="0" class="form-control" name="zipcode" placeholder="Zip code" required ng-model="advertisement.location.zipCode">
+		  	<input type="number" min="0" class="form-control" name="zipcode" placeholder="Zip code" required ng-model="advertisement.location.zipCode">
 		</div>
 		<div class="form-group">
 			<label style="font-size:17px;">Part of the city</label>
-		  		<input type="text" class="form-control" placeholder="Part of the city" ng-model="advertisement.location.partOfTheCity" uib-typeahead="partOfTheCity for partOfTheCity in partOfTheCities | filter:$viewValue">
+		  	<input type="text" class="form-control" placeholder="Part of the city" ng-model="advertisement.location.partOfTheCity" uib-typeahead="partOfTheCity for partOfTheCity in partOfTheCities | filter:$viewValue">
 		</div>
 		<div class="form-group" ng-class="{'has-error': nvt.updateAdvertisement.needsAttention(updateAdvertisement.landsize)}">
   			<label style="font-size:17px;">Land Size<span class="requiredFiled">*</span></label>
-  			    <div class="input-group">
-  			        <span class="input-group-addon">m<sup>2</sup></span>
-  			        <input type="number" min="0" step="0.01" name="landsize" data-number-to-fixed="2"  required data-number-stepfactor="100" class="form-control currency" ng-model="advertisement.landSize"/>
-  			    </div>
+		    <div class="input-group">
+		        <span class="input-group-addon">m<sup>2</sup></span>
+		        <input type="number" min="0" step="0.01" name="landsize" data-number-to-fixed="2"  required data-number-stepfactor="100" class="form-control currency" ng-model="advertisement.landSize"/>
+		    </div>
 		</div>
 		<div class="form-group">
 			<label style="font-size:17px;">Equipment</label>
-		  		<input type="text" class="form-control" placeholder="Equipment" ng-model="advertisement.techEquipment">
+		  	<input type="text" class="form-control" placeholder="Equipment" ng-model="advertisement.techEquipment">
 		</div>
 		<div class="form-group" ng-class="{'has-error': nvt.updateAdvertisement.needsAttention(updateAdvertisement.heatingtype)}">
 		 	<label style="font-size:17px;">Heating type<span class="requiredFiled">*</span></label>
-			  	<select class="form-control" required name="heatingtype" ng-model="advertisement.heatingType">
-			  		<option>Forced Air</option>
-					<option>Radiant</option>
-					<option>Radiators</option>
-			  	</select>
+		  	<select class="form-control" required name="heatingtype" ng-model="advertisement.heatingType">
+		  		<option>Forced Air</option>
+				<option>Radiant</option>
+				<option>Radiators</option>
+		  	</select>
 		</div>
 		<div class="form-group">
 			<label style="font-size:17px;">Bath rooms</label>
-		  		<input type="number" min="0" class="form-control" placeholder="Bath rooms" ng-model="advertisement.numOfBathRooms">
+		  	<input type="number" min="0" class="form-control" placeholder="Bath rooms" ng-model="advertisement.numOfBathRooms">
 		</div>
 		<div class="form-group">
 			<label style="font-size:17px;">Bed rooms</label>
-		  		<input type="number" min="0" class="form-control" placeholder="Bed rooms" ng-model="advertisement.numOfBedRooms">
+		  	<input type="number" min="0" class="form-control" placeholder="Bed rooms" ng-model="advertisement.numOfBedRooms">
 		</div>
 		<div class="form-group">
 			<label style="font-size:17px;">Flors</label>
-		  		<input type="number" min="0" class="form-control" placeholder="Flors" ng-model="advertisement.numOfFlors">
+		  	<input type="number" min="0" class="form-control" placeholder="Flors" ng-model="advertisement.numOfFlors">
 		</div>
 		<div class="form-group">
 			<label style="font-size:17px;">Build year</label>
-		  		<input type="number" min="0" class="form-control" placeholder="Build year" ng-model="advertisement.buildYear">
-		</div>
-		<div class="form-group" ng-class="{'has-error': nvt.updateAdvertisement.needsAttention(updateAdvertisement.category)}">
-		 	<label style="font-size:17px;">Category<span class="requiredFiled">*</span></label>
-			  	<select class="form-control" required name="category" ng-model="advertisement.category" ng-change="updateType()">
-			  		<option>Residental</option>
-					<option>Office</option>
-					<option>Property</option>
-			  	</select>
-		</div>
-		<div class="form-group" ng-class="{'has-error': nvt.updateAdvertisement.needsAttention(updateAdvertisement.type)}">
-		 	<label style="font-size:17px;">Type<span class="requiredFiled">*</span></label>
-			  	<select class="form-control" required name="type" ng-model="advertisement.type" ng-options="option for option in typeOptions" ng-disabled="isTypesDisabled">
-			  	</select>
+		  	<input type="number" min="0" class="form-control" placeholder="Build year" ng-model="advertisement.buildYear">
 		</div>
 		<div class="form-group" ng-class="{'has-error': nvt.updateAdvertisement.needsAttention(updateAdvertisement.price)}">
 			<label style="font-size:17px;">Price<span class="requiredFiled">*</span></label>
-				<div class="input-group">
-					<span class="input-group-addon">RSD</span>
-					<input type="number" min="0" step="0.01" name="price" required data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" ng-model="advertisement.price"/>
-				</div>
+			<div class="input-group">
+				<span class="input-group-addon">RSD</span>
+				<input type="number" min="0" step="0.01" name="price" required data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" ng-model="advertisement.price"/>
+			</div>
 		</div>
 		<div class="form-group" ng-class="{'has-error': nvt.updateAdvertisement.needsAttention(updateAdvertisement.phonenumber)}">
   			<label style="font-size:17px;">Phone Number<span class="requiredFiled">*</span></label>
-  		  		<input class="form-control" name="phonenumber" required placeholder="Phone Number" ng-model="advertisement.phoneNumber">
+  		  	<input class="form-control" name="phonenumber" required placeholder="Phone Number" ng-model="advertisement.phoneNumber">
   	  	</div>
 		<div class="form-group" ng-class="{'has-error': nvt.updateAdvertisement.needsAttention(updateAdvertisement.purpose)}">
 		 	<label style="font-size:17px;">Purpose<span class="requiredFiled">*</span></label>
-			  	<select class="form-control" name="purpose" ng-model="advertisement.purpose" required>
-			  		<option>Rent</option>
-					<option>Sell</option>
-			  	</select>
+		  	<select class="form-control" name="purpose" ng-model="advertisement.purpose" required>
+		  		<option>Rent</option>
+				<option>Sell</option>
+		  	</select>
 		</div>
 		<div class="form-group">
 			<label style="font-size:17px;">Upload Images</label>
-				<div class="fileinput fileinput-new" data-provides="fileinput" flow-init="{target:'/upload'}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1,csv:1}[$file.getExtension()]">
-					<div>
-						<div class="fileinput-preview thumbnail advertisementPicture" ng-repeat="file in $flow.files">
-							<input type="text" ng-value="$flow.files[$index]" ng-model="img[$flow.files[$index]]" />
-							<img flow-img="file"/>
-							<hr>
-							<a href="" class="btn btn-danger" ng-click="$flow.removeFile(file)">Remove</a>
-						</div>
+			<div class="fileinput fileinput-new" data-provides="fileinput" flow-init="{target:'/upload'}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1,csv:1}[$file.getExtension()]">
+				<div>
+					<div class="fileinput-preview thumbnail advertisementPicture" ng-repeat="file in $flow.files">
+						<input type="text" ng-value="$flow.files[$index]" ng-model="img[$flow.files[$index]]" />
+						<img flow-img="file"/>
+						<hr>
+						<a href="" class="btn btn-danger" ng-click="$flow.removeFile(file)">Remove</a>
 					</div>
-					<input type="file" class="btn btn-primary" ng-disabled="$flow.files.length >= 5" flow-btn flow-attrs="{accept:'image/*'}" style="width: 125px"/>
 				</div>
+				<input type="file" class="btn btn-primary" ng-disabled="$flow.files.length >= 5" flow-btn flow-attrs="{accept:'image/*'}" style="width: 125px"/>
+			</div>
 	  	</div>
 		<div class="modal-footer">
             <button class="btn btn-default" type="submit" id="save">Save</button>

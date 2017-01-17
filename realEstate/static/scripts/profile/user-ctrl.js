@@ -45,6 +45,7 @@
 			  
 			  $scope.apply = function(id){
 				  UserFactory.apply(id);
+				  $scope.user.applied = true;
 			  }
 			  
 			  $scope.getCompany = function(){
@@ -105,6 +106,10 @@
 	                              return advertisement;
 	                          }
 	                      }
+	                  }).result.then(function (result) {
+	                      if(result.status == "ok"){
+	                    	  $scope.getPublished();
+	                      }
 	                  });
 				  });
                   
@@ -158,7 +163,10 @@
                 $scope.advertisement = advertisement;
                 $scope.save = function() {
                 	AdvertisementFactory.updateAdvertisement($scope.advertisement).then(function(item) {
-             		   $uibModalInstance.close('ok');
+             		   $uibModalInstance.close({
+             			   status: 'ok',
+             			   item: item
+             		   });
                     });
                     
                 }

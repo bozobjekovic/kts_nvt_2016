@@ -16,7 +16,13 @@ angular.module('realEstateClientApp')
 		retVal.updateAdvertisement = function(advertisement) {
 			return Restangular.one('advertisments/').customPUT(advertisement).then(function(entry) {
 				return entry.data;
-			})
+			}, function(response) {
+                if (response.status === 422) {
+                    $window.alert('Check location details!');
+                } else {
+                    $window.alert('Phone number already exist!');
+                }
+            });
 		};
 
 		retVal.getPublisher = function(id) {

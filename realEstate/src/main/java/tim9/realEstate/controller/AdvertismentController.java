@@ -198,7 +198,8 @@ public class AdvertismentController {
 		advertisment.setPurpose(advertismentDTO.getPurpose());
 		advertisment.setPhoneNumber(advertismentDTO.getPhoneNumber());
 		
-		if(advertismentService.findByPhoneNumber(advertisment.getPhoneNumber()) != null){
+		Advertisment a = advertismentService.findByPhoneNumber(advertisment.getPhoneNumber());
+		if(a != null && a.getId() != advertisment.getId()){
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
 
