@@ -2,8 +2,8 @@
 	'use strict';
 	
 	angular.module('realEstateClientApp')
-		.controller('UserCtrl', ['$scope', '$rootScope', '$location',  '_', 'UserFactory', '$uibModal',
-		   function($scope, $rootScope, $location, _, UserFactory, $uibModal) {
+		.controller('UserCtrl', ['$scope', '$rootScope', '$location',  '_', 'UserFactory', 'AdvertisementFactory', '$uibModal',
+		   function($scope, $rootScope, $location, _, UserFactory, AdvertisementFactory, $uibModal) {
 			
 			  $rootScope.mainMenu = true;
 
@@ -66,9 +66,49 @@
 			  }
 
 			  $scope.advertisementPage = function(advertisement){
-				  console.log(advertisement);
 					$location.path('/advertisement/' + advertisement.id);
-				}
+			  }
+			  
+			  $scope.updateModal = function(id) {
+				  var advertisement = {};
+				  AdvertisementFactory.getAdvertisement(id).then(function(item) {
+					  advertisement = {
+						  advertismentId : item.advertismentId,
+	            		  name: item.name,
+	                      location: {
+	                          city : item.location.city,
+	                          zipCode : item.location.zipCode,
+	                          partOfTheCity : item.location.partOfTheCity
+	                      },
+	                      landSize: item.landSize,
+	                      techEquipment: item.techEquipment,
+	                      address: item.address,
+	                      heatingType: item.heatingType,
+	                      images: [],
+	                      numOfBathRooms: item.numOfBathRooms,
+	                      numOfBedRooms: item.numOfBedRooms,
+	                      numOfFlors: item.numOfFlors,
+	                      buildYear: item.buildYear,
+	                      category: item.category,
+	                      type: item.type,
+	                      price: item.price,
+	                      phoneNumber: item.phoneNumber,
+	                      purpose: item.purpose,
+	                      activeUntil: item.activeUntil
+					  }
+					  var modalInstance = $uibModal.open({
+	                      templateUrl : 'views/modals/updateAdvertisement.html',
+	                      controller  : 'UpdateAdvertisementModalCtrl',
+	                      scope       : $scope,
+	                      resolve     : {
+	                    	  advertisement : function() {
+	                              return advertisement;
+	                          }
+	                      }
+	                  });
+				  });
+                  
+              }
 			  
 			  $scope.openModal = function() {
                   var user = {
@@ -112,5 +152,20 @@
                    $uibModalInstance.close('cancel');
                };
            }
-       ]);
+        ])
+		.controller('UpdateAdvertisementModalCtrl', ['$scope', '$uibModalInstance', 'advertisement', 'AdvertisementFactory',
+            function($scope, $uibModalInstance, advertisement, AdvertisementFactory) {
+                $scope.advertisement = advertisement;
+                $scope.save = function() {
+                	AdvertisementFactory.updateAdvertisement($scope.advertisement).then(function(item) {
+             		   $uibModalInstance.close('ok');
+                    });
+                    
+                }
+
+                $scope.cancel = function() {
+                    $uibModalInstance.close('cancel');
+                };
+            }
+        ]);
 })(angular);

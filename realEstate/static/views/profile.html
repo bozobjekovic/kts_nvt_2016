@@ -73,6 +73,7 @@
 					<div class="profile-grid-right">
 						<div class="profile-listItem-text">
 							<input ng-if="publish.status == 'Active'" type="button" id="removeAdver" value="Remove" style="float:right;" ng-click="remove(publish.id)">
+							<input ng-if="publish.status == 'Active'" type="button" id="update" value="Update" style="float:right;" ng-click="updateModal(publish.id)">
 							<h4>{{publish.name}} {{publish.id}}</h4>
 							<p>{{publish.price | currency:"$"}}</p>
 							<p>{{publish.publicationDate | date:'dd-MM-yyyy'}}</p>

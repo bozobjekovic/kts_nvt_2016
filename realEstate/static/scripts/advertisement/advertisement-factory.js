@@ -13,6 +13,12 @@ angular.module('realEstateClientApp')
     		});
 		};
 
+		retVal.updateAdvertisement = function(advertisement) {
+			return Restangular.one('advertisments/').customPUT(advertisement).then(function(entry) {
+				return entry.data;
+			})
+		};
+
 		retVal.getPublisher = function(id) {
 			return Restangular.one("advertisments/publisher", id).get().then(function(entry) {
 				publisher = entry.data;

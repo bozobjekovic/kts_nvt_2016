@@ -166,6 +166,70 @@ public class AdvertismentController {
     }
     
     /**
+     * This method updates Advertisement and Real estate
+     * and saves them to the database.
+     * @param		advertismentDTO		a DTO Object
+     * @return      ResponseEntity DTO Advertisement and HttpStatus CREATED if OK,
+     * 				else null
+     */
+    @RequestMapping(method=RequestMethod.PUT)
+    public ResponseEntity<AdvertismentCreateDTO> updateAdvertisment(@RequestBody AdvertismentCreateDTO advertismentDTO, ServletRequest request){
+    	User user = (User)userUtils.getLoggedUser(request);
+    	
+    	if (user == null) {
+    		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		}
+    	
+    	if(!checkInput(advertismentDTO)){
+    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    	}
+    	
+    	Advertisment advertisment = advertismentService.findOne(advertismentDTO.getAdvertismentId());
+    	advertisment.setModificationDate(new Date());
+    	advertisment.setName(advertismentDTO.getName());
+    	advertisment.setPrice(advertismentDTO.getPrice());
+    	
+    	if (advertismentDTO.getImages().size() != 0) {
+    		advertisment.setBackgroundImage(advertismentDTO.getImages().get(0));
+    		advertisment.setImages(advertismentDTO.getImages());
+		}
+    	
+		advertisment.setActiveUntil(advertismentDTO.getActiveUntil());
+		advertisment.setPurpose(advertismentDTO.getPurpose());
+		advertisment.setPhoneNumber(advertismentDTO.getPhoneNumber());
+		
+		if(advertismentService.findByPhoneNumber(advertisment.getPhoneNumber()) != null){
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
+
+		RealEstate realEstate = advertisment.getRealEstate();
+		
+		Location location = locationService.findByCityAndZipCodeAndPartOfTheCity(
+				advertismentDTO.getLocation().getCity(), advertismentDTO.getLocation().getZipCode(),
+				advertismentDTO.getLocation().getPartOfTheCity());
+		if (location == null) {
+			return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+		}
+		
+		realEstate.setLocation(location);
+		realEstate.setAddress(advertismentDTO.getAddress());
+		realEstate.setLandSize(advertismentDTO.getLandSize());
+		realEstate.setTechEquipment(advertismentDTO.getTechEquipment());
+		realEstate.setNumOfBathRooms(advertismentDTO.getNumOfBathRooms());
+		realEstate.setNumOfBedRooms(advertismentDTO.getNumOfBedRooms());
+		realEstate.setNumOfFlors(advertismentDTO.getNumOfFlors());
+		realEstate.setBuildYear(advertismentDTO.getBuildYear());
+		realEstate.setCategory(advertismentDTO.getCategory());
+		realEstate.setType(advertismentDTO.getType());
+
+		advertisment.setRealEstate(realEstate);
+
+		advertisment = advertismentService.save(advertisment);
+		
+		return new ResponseEntity<>(advertismentDTO, HttpStatus.OK);
+    }
+    
+    /**
      * This method checks if all input fields are valid.
      * @param		advertismentDTO	Advertisement DTO
      * @return      true if OK, else false
