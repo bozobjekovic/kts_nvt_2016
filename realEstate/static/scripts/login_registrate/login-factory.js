@@ -1,7 +1,7 @@
 (function(angular) {
     angular.module('realEstateClientApp')
-        .factory('LoginFactory', ['Restangular', '_', '$window',
-            function(Restangular, _, $window) {
+        .factory('LoginFactory', ['Restangular', '_', 'toastr',
+            function(Restangular, _, toastr) {
                 var retVal = {};
 
                 retVal.logInUser = function(loginUser) {
@@ -14,9 +14,9 @@
                                 };
                             }, function(response) {
                                 if (response.status === 422) {
-                                    $window.alert('Your account is not approved!');
+                                    toastr.error('Your account is not approved!', 'Error');
                                 } else {
-                                    $window.alert('Username or password are incorrect!');
+                                    toastr.error('Username or password are incorrect!', 'Error');
                                 }
                                 return {
                                     token: '',

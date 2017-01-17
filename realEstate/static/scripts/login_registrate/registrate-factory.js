@@ -1,7 +1,7 @@
 (function(angular) {
     angular.module('realEstateClientApp')
-        .factory('RegistrateFactory', ['Restangular', '_', '$window',
-            function(Restangular, _, $window) {
+        .factory('RegistrateFactory', ['Restangular', '_', 'toastr',
+            function(Restangular, _, toastr) {
                 var retVal = {};
 
                 retVal.registrateUser = function(registrateUser) {
@@ -10,16 +10,16 @@
                         && registrateUser.name && registrateUser.surname) {
                         return Restangular.all('registrate').post(registrateUser)
                             .then(function() {
-                                $window.alert('Registration successful! Please log in now!');
+                                toastr.success('Registration successful!', 'Please log in now!');
                                 return true;
                             }, function(response) {
                                 if (response.status === 409) {
-                                    $window.alert('Username or email already exists!');
+                                    toastr.warning('Username or email already exists!', 'Warning');
                                     return false;
                                 }
                             });
                     } else {
-                        $window.alert('Fill required filleds!');
+                        toastr.error('Fill required filleds!', 'Error');
                     }
                 };
 
@@ -31,18 +31,18 @@
                         && registrateUser.companyLocation.city) {
                             return Restangular.all('registrate').post(registrateUser)
                                 .then(function() {
-                                    $window.alert('Registration successful! Please log in now!');
+                                    toastr.success('Registration successful!', 'Please log in now!');
                                     return true;
                                 }, function(response) {
                                     if (response.status === 422) {
-                                        $window.alert('Check location details!');
+                                        toastr.warning('Check location details!', 'Warning');
                                     } else {
-                                        $window.alert('Username or email or name of phone number already exists!');
+                                        toastr.warning('Username or email or name of phone number already exists!', 'Warning');
                                     }
                                     return false;
                                 });
                     } else {
-                        $window.alert('Fill required filleds!');
+                        toastr.error('Fill required filleds!', 'Error');
                     }
                 };
 

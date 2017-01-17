@@ -1,5 +1,5 @@
 angular.module('realEstateClientApp')
-	.factory('AdvertisementFactory', ['Restangular', '$window', function(Restangular, $window) {
+	.factory('AdvertisementFactory', ['Restangular', 'toastr', function(Restangular, toastr) {
 		'use strict';
 
 		var retVal = {};
@@ -18,9 +18,9 @@ angular.module('realEstateClientApp')
 				return entry.data;
 			}, function(response) {
                 if (response.status === 422) {
-                    $window.alert('Check location details!');
+                    toastr.warning('Check location details!', 'Warning');
                 } else {
-                    $window.alert('Phone number already exist!');
+					toastr.warning('Phone number already exist!', 'Warning');
                 }
             });
 		};
@@ -56,7 +56,7 @@ angular.module('realEstateClientApp')
 					return true;
 				}, function(response) {
 					if (response.status === 409) {
-						$window.alert('You have already reported this advertisement!');
+						toastr.warning('You have already reported this advertisement!', 'Warning');
 					}
 					return false;
 				});

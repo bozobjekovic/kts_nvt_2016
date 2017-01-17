@@ -1,5 +1,5 @@
 angular.module('realEstateClientApp')
-	.factory('AdminFactory', ['Restangular', '_', '$window', function(Restangular, _, $window) {
+	.factory('AdminFactory', ['Restangular', '_', 'toastr', function(Restangular, _, toastr) {
 		'use strict';
 
 		var retVal = {};
@@ -40,7 +40,7 @@ angular.module('realEstateClientApp')
 					return true;
 				}, function(response) {
 					if (response.status === 409) {
-						$window.alert('Email or username already exist!');
+						toastr.warning('Username or email already exists!', 'Warning');
 					}
 					return false;
 				});

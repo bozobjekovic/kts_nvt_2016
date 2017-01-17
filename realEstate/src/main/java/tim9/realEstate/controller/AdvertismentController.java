@@ -2,6 +2,7 @@ package tim9.realEstate.controller;
 
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletRequest;
 
@@ -25,6 +26,7 @@ import tim9.realEstate.model.User;
 import tim9.realEstate.security.UserUtils;
 import tim9.realEstate.service.AdvertismentService;
 import tim9.realEstate.service.LocationService;
+import tim9.realEstate.service.RealEstateService;
 
 /**
  * This class represents controller for Advertisement
@@ -36,6 +38,9 @@ public class AdvertismentController {
 
     @Autowired
     AdvertismentService advertismentService;
+    
+    @Autowired
+    RealEstateService realEstateService;
     
     @Autowired
     LocationService locationService;
@@ -147,17 +152,41 @@ public class AdvertismentController {
 			return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
 		}
 		
-		realEstate.setLocation(location);
-		realEstate.setAddress(advertismentDTO.getAddress());
-		realEstate.setLandSize(advertismentDTO.getLandSize());
-		realEstate.setTechEquipment(advertismentDTO.getTechEquipment());
-		realEstate.setNumOfBathRooms(advertismentDTO.getNumOfBathRooms());
-		realEstate.setNumOfBedRooms(advertismentDTO.getNumOfBedRooms());
-		realEstate.setNumOfFlors(advertismentDTO.getNumOfFlors());
-		realEstate.setBuildYear(advertismentDTO.getBuildYear());
-		realEstate.setCategory(advertismentDTO.getCategory());
-		realEstate.setType(advertismentDTO.getType());
-
+		List<RealEstate> existRealEstates = realEstateService.findByAddressAndCity(
+				advertismentDTO.getAddress(), advertismentDTO.getLocation().getCity());
+		if (existRealEstates.size() > 0) {
+			if (existRealEstates.size() == 1) {
+				realEstate = existRealEstates.get(0);
+			} else {
+				if (advertismentDTO.getLocation().getPartOfTheCity().equals("")) {
+					for (int i = 0; i < existRealEstates.size(); i++) {
+						if (existRealEstates.get(i).getLocation().getPartOfTheCity().equals("")) {
+							realEstate = existRealEstates.get(i);
+							break;
+						}
+					}
+				} else {
+					for (int i = 0; i < existRealEstates.size(); i++) {
+						if (!existRealEstates.get(i).getLocation().getPartOfTheCity().equals("")) {
+							realEstate = existRealEstates.get(i);
+							break;
+						}
+					}
+				}
+			}
+		} else {
+			realEstate.setLocation(location);
+			realEstate.setAddress(advertismentDTO.getAddress());
+			realEstate.setLandSize(advertismentDTO.getLandSize());
+			realEstate.setTechEquipment(advertismentDTO.getTechEquipment());
+			realEstate.setNumOfBathRooms(advertismentDTO.getNumOfBathRooms());
+			realEstate.setNumOfBedRooms(advertismentDTO.getNumOfBedRooms());
+			realEstate.setNumOfFlors(advertismentDTO.getNumOfFlors());
+			realEstate.setBuildYear(advertismentDTO.getBuildYear());
+			realEstate.setCategory(advertismentDTO.getCategory());
+			realEstate.setType(advertismentDTO.getType());
+		}
+		
 		advertisment.setRealEstate(realEstate);
 
 		advertisment = advertismentService.save(advertisment);

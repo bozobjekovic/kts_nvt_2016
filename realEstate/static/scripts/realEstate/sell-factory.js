@@ -1,7 +1,7 @@
 (function(angular) {
     angular.module('realEstateClientApp')
-        .factory('SellFactory', ['Restangular', '_', '$location', '$window',
-            function(Restangular, _, $location, $window) {
+        .factory('SellFactory', ['Restangular', '_', '$location', 'toastr',
+            function(Restangular, _, $location, toastr) {
                 'use strict';
 
                 var retVal = {};
@@ -16,9 +16,9 @@
                                 $location.path('/');
                             }, function(response) {
                                 if (response.status === 422) {
-                                    $window.alert('Check location details!');
+                                    toastr.warning('Check location details!', 'Warning');
                                 } else {
-                                    $window.alert('Phone number already exist!');
+                                    toastr.warning('Phone number already exist!', 'Warning');
                                 }
                             });
                     } else {

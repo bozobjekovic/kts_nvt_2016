@@ -34,6 +34,10 @@ public class RealEstateService {
 		return realEstateRepository.findByAddress(address);
 	}
 	
+	public List<RealEstate> findByAddressAndCity(String address, String city) {
+		return realEstateRepository.findByAddressAndLocation_City(address, city);
+	}
+	
 	/**
 	* This method finds all elements from specified Table.
 	* @return		List of elements

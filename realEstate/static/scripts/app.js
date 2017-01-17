@@ -11,7 +11,9 @@ angular
         'angular.filter',
         'flow',
         'ngStorage',
-        'ngMap'
+        'ngMap',
+        'toastr',
+        'ngAnimate'
     ])
     .config(['$routeProvider', '$httpProvider', 'RestangularProvider', '$locationProvider', function($routeProvider, $httpProvider, RestangularProvider, $locationProvider) {
         $locationProvider.hashPrefix('');
