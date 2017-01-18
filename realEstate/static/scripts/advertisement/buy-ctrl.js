@@ -18,7 +18,7 @@
 				$scope.totalItems = 0;
 				$scope.currentPage = 0;
 
-				var filterForm = {
+				$scope.filterForm = {
 						priceFrom     : '',
 						priceTo       : '',
 						landSizeFrom  : '',
@@ -35,8 +35,6 @@
 						buildYearTo   : ''
 
 				};
-
-				$scope.filterForm = filterForm;
 
 				BuyFactory.getCities().then(function(items) {
 				      $scope.cities = items;
@@ -122,6 +120,8 @@
 					if($scope.filterForm.buildYearTo != null && $scope.filterForm.buildYearTo != ''){
 						$scope.filter += ",buildYear<" + $scope.filterForm.buildYearTo;
 					}
+					console.log($scope.filter);
+					console.log($scope.filterForm.buildYearFrom);
 
 					BuyFactory.filterAdvertisements($scope.category, $scope.filter, $scope.currentPage-1, $scope.itemsPerPage).then(function(object){
 						$scope.buyAdvertisements = object.advertisements;

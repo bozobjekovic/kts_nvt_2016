@@ -79,5 +79,9 @@ angular.module('realEstateClientApp')
 			return Restangular.one("users/apply", id_company).put();
 		};
 		
+		retVal.rent = function(rent) {
+			return Restangular.one("users/rent", rent.id).one('from', rent.rentDateFrom).one('to', rent.rentDateTo).put();
+		};
+		
 		return retVal;
 	}]);

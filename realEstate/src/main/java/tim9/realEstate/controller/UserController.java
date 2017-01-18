@@ -233,8 +233,8 @@ public class UserController {
 	 * @param rentDateTo
 	 * @return
 	 */
-	@RequestMapping(value="/rent", method = RequestMethod.PUT)
-	public ResponseEntity<Void> rentRealEstate(@RequestParam Long id, @RequestParam Date rentDateFrom, @RequestParam Date rentDateTo) {
+	@RequestMapping(value="/rent/{id}/from/{rentDateFrom}/to/{rentDateTo}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> rentRealEstate(@PathVariable Long id, @PathVariable Date rentDateFrom, @PathVariable Date rentDateTo) {
 		
 		if (id == null || rentDateFrom == null || rentDateTo == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

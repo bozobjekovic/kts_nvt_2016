@@ -22,7 +22,7 @@
 <div class='container'>
 	<h4 style="color: #751717;" class="tittle">{{advert.name}}</h4>
 	<br>
-	<div class="adver-grid-left">
+	<div class="adver-grid-left" style="height: 600px;">
 		<img ng-src="{{advert.backgroungImage}}" alt="" class="img-thumbnail">
 		<br><br>
 		<input type="button" id="rprt" value="Report" class="btn btn-danger" ng-click="openModal()">
@@ -47,6 +47,30 @@
 		        		<td>{{advert.address}}</td>
 		      		</tr>
 		      		<tr>
+		        		<td>City</td>
+		        		<td>{{advert.location.city}}</td>
+		      		</tr>
+		      		<tr>
+		        		<td>Purpose</td>
+		        		<td>{{advert.purpose}}</td>
+		      		</tr>
+		      		<tr>
+		        		<td>Category</td>
+		        		<td>{{advert.category}}</td>
+		      		</tr>
+		      		<tr>
+		        		<td>Type</td>
+		        		<td>{{advert.type}}</td>
+		      		</tr>
+		      		<tr>
+		        		<td>Phone number</td>
+		        		<td>{{advert.phoneNumber}}</td>
+		      		</tr>
+		      		<tr>
+		        		<td>Price</td>
+		        		<td>{{advert.price}}</td>
+		      		</tr>
+		      		<tr>
 		        		<td>Number of Rooms</td>
 		        		<td>{{advert.numOfBedRooms}}</td>
 		      		</tr>
@@ -54,6 +78,11 @@
 		        		<td>Number of Bathrooms</td>
 		        		<td>{{advert.numOfBathRooms}}</td>
 		      		</tr>
+		      		<tr>
+		        		<td>Number of Floors</td>
+		        		<td>{{advert.numOfFlors}}</td>
+		      		</tr>
+		      		<tr>
 		      		<tr>
 		        		<td>Heating type</td>
 		        		<td>{{advert.heatingType}}</td>

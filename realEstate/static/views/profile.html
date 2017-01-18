@@ -48,21 +48,21 @@
   		<button type="button" class="btn btn-warning" style="width: 100%; background-color: #751717; border-color: #751717;" ng-click="openModal()"><b>Change</b></button>
 	</div>
 	<div class="profile-grid-right" style="border: 0.7px solid gray; border-radius: 5px; padding: 10px;">
-		<div class="profile-list-scroll">
-			<nav class="navbar navbar-default">
-				<div class="container-fluid">
-					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-						<nav class="menu menu--francisco">
-							<ul class="nav navbar-nav menu__list, mini_menu_list">
-								<li class="menu__item menu__item--current"><a class="menu__link" ng-click="getPublished()"><span class="menu__helper">All</span></a></li>
-								<li class="menu__item"><a class="menu__link" ng-click="getPublishedByStatus('Active')"><span class="menu__helper">Active</span></a></li>
-								<li class="menu__item"><a class="menu__link" ng-click="getPublishedByStatus('Sold')"><span class="menu__helper">Sold</span></a></li>
-								<li class="menu__item"><a class="menu__link" ng-click="getPublishedByStatus('Rented')"><span class="menu__helper">Rented</span></a></li>
-							</ul>
-						</nav>
-					</div>
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<nav class="menu menu--francisco">
+						<ul class="nav navbar-nav menu__list, mini_menu_list">
+							<li class="menu__item menu__item--current"><a class="menu__link" ng-click="getPublished()"><span class="menu__helper">All</span></a></li>
+							<li class="menu__item"><a class="menu__link" ng-click="getPublishedByStatus('Active')"><span class="menu__helper">Active</span></a></li>
+							<li class="menu__item"><a class="menu__link" ng-click="getPublishedByStatus('Sold')"><span class="menu__helper">Sold</span></a></li>
+							<li class="menu__item"><a class="menu__link" ng-click="getPublishedByStatus('Rented')"><span class="menu__helper">Rented</span></a></li>
+						</ul>
+					</nav>
 				</div>
-			</nav>
+			</div>
+		</nav>
+		<div class="profile-list-scroll">
 			<div class="profile-list" style="min-height: 600px;">
 				<div class="profile-listItem" ng-repeat="publish in published">
 					<div class="profile-grid-left">
@@ -74,6 +74,7 @@
 						<div class="profile-listItem-text">
 							<input ng-if="publish.status == 'Active'" type="button" id="removeAdver" value="Remove" style="float:right;" ng-click="remove(publish.id)">
 							<input ng-if="publish.status == 'Active'" type="button" id="update" value="Update" style="float:right;" ng-click="updateModal(publish.id)">
+							<input ng-if="publish.status == 'Active'" type="button" id="rent" value="Rent" style="float:right;" ng-click="rentModal(publish.id)">
 							<h4>{{publish.name}} {{publish.id}}</h4>
 							<p>{{publish.price | currency:"$"}}</p>
 							<p>{{publish.publicationDate | date:'dd-MM-yyyy'}}</p>

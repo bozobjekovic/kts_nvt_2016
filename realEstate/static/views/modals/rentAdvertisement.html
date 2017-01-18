@@ -1,0 +1,33 @@
+<div class="modal-header">
+    <h4 class="modal-title" >Rent Advertisement <i class="glyphicon glyphicon-log-in" aria-hidden="true"></i></h4>
+</div>
+<div class="modal-body">
+    <form name="rentForm" novalidate nvt-submit="save()">
+        <div class="form-group" ng-class="{'has-error': nvt.rentForm.needsAttention(rentForm.rentDateFrom)}">
+            <label for="rentDateFrom" style="font-size:17px;">From:</label>
+          	<div >
+        		<p class="input-group">
+          		<input type="text" class="form-control" uib-datepicker-popup="{{format}}" show-button-bar="false" ng-model="dt1" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+            	<span class="input-group-btn">
+            		<button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+	        	</span>
+	        	</p>
+	      	</div>
+        </div>
+        <div class="form-group" ng-class="{'has-error': nvt.rentForm.needsAttention(rentForm.rentDateTo)}">
+            <label for="rentDateTo" style="font-size:17px;">To:</label>
+            <div>
+        		<p class="input-group">
+            	<input type="text" class="form-control" uib-datepicker-popup="{{format}}" show-button-bar="false" ng-model="dt2" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+	        	<span class="input-group-btn">
+	        		<button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+        		</span>
+	        	</p>
+	      	</div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default" type="submit">OK</button>
+            <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </form>
+</div>

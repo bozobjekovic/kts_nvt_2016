@@ -141,6 +141,24 @@
                   });
               }
 			  
+			  $scope.rentModal = function(id) {
+                  var rent = {
+                	 id: id,
+                	 rentDateFrom : '',
+                	 rentDateTo : ''
+    			  }
+                  var modalInstance = $uibModal.open({
+                      templateUrl : 'views/modals/rentAdvertisement.html',
+                      controller  : 'RentModalCtrl',
+                      scope       : $scope,
+                      resolve     : {
+                    	  rent : function() {
+                              return rent;
+                          }
+                      }
+                  });
+              }
+			  
 		}])
 		.controller('UpdateUserModalCtrl', ['$scope', '$uibModalInstance', 'user', 'UserFactory',
            function($scope, $uibModalInstance, user, UserFactory) {
@@ -161,6 +179,7 @@
 		.controller('UpdateAdvertisementModalCtrl', ['$scope', '$uibModalInstance', 'advertisement', 'AdvertisementFactory',
             function($scope, $uibModalInstance, advertisement, AdvertisementFactory) {
                 $scope.advertisement = advertisement;
+                
                 $scope.save = function() {
                 	AdvertisementFactory.updateAdvertisement($scope.advertisement).then(function(item) {
              		   $uibModalInstance.close({
@@ -175,5 +194,51 @@
                     $uibModalInstance.close('cancel');
                 };
             }
-        ]);
+        ])
+        .controller('RentModalCtrl', ['$scope', '$uibModalInstance', 'rent', 'UserFactory',
+	         function($scope, $uibModalInstance, rent, UserFactory) {
+	             $scope.rent = rent;
+				 $scope.format = 'dd.MM.yyyy';
+				 $scope.dt1 = new Date();
+				 $scope.dt2 = new Date();
+				 
+				 $scope.dateOptions = {
+				    maxDate: new Date(2020, 5, 22),
+				    minDate: new Date(),
+				    startingDay: 1
+				 };
+				 
+				 $scope.popup1 = {
+				    opened: false
+				  };
+				 
+				 $scope.open1 = function() {
+				    $scope.popup1.opened = true;
+				 };
+				 
+				 $scope.popup2 = {
+				    opened: false
+				  };
+				 
+				 $scope.open2 = function() {
+				    $scope.popup2.opened = true;
+				 };
+	             
+	             $scope.save = function() {
+	            	$scope.rent.rentDateFrom = $scope.dt1;
+	            	$scope.rent.rentDateTo = $scope.dt2;
+	             	UserFactory.rent($scope.rent).then(function(item) {
+	          		   $uibModalInstance.close({
+	          			   status: 'ok',
+	          			   item: item
+	          		   });
+	                 });
+	                 
+	             }
+	
+	             $scope.cancel = function() {
+	                 $uibModalInstance.close('cancel');
+	             };
+	         }
+	     ]);
 })(angular);
