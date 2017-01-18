@@ -24,7 +24,7 @@
                         city : '',
                         authority : '',
                         bankAccount : '',
-                        image : '',
+                        image : 'images/user1.jpg',
                         //
                         companyName : '',
                         companyPhoneNumber : '',
