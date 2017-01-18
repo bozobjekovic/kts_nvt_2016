@@ -235,35 +235,30 @@ public class UserController {
 	 */
 	@RequestMapping(value="/rent/{id}/from/{rentDateFrom}/to/{rentDateTo}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> rentRealEstate(@PathVariable Long id, @PathVariable Date rentDateFrom, @PathVariable Date rentDateTo) {
-		
 		if (id == null || rentDateFrom == null || rentDateTo == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		
-		RealEstate realEstate = realEstateService.findOne(id);
-		
-		if (realEstate == null) {
+		Advertisment advertisment = advertisementService.findOne(id);
+		if (advertisment == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		
+		RealEstate realEstate = advertisment.getRealEstate();
 		if (realEstate.getStatus() == Status.Sold) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		
 		if (rentDateFrom.before(new Date()) || rentDateTo.before(new Date()) || rentDateFrom.after(rentDateTo)) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		
 		List<RentRealEstate> rentRealEstates = rentRealEstateService.findByRealEstate(realEstate);
 		for (RentRealEstate rentRealEstate : rentRealEstates) {
 			if (rentRealEstate.getRentedFrom().after(rentDateFrom)) {
 				if (!rentRealEstate.getRentedFrom().after(rentDateTo)) {
-					return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+					return new ResponseEntity<>(HttpStatus.CONFLICT);
 				}
 			}
 			else if (rentRealEstate.getRentedTo().before(rentDateTo)) {
 				if (!rentRealEstate.getRentedTo().before(rentDateFrom)) {
-					return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+					return new ResponseEntity<>(HttpStatus.CONFLICT);
 				}
 			}
 		}

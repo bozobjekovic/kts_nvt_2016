@@ -1,5 +1,5 @@
 angular.module('realEstateClientApp')
-	.factory('UserFactory', ['Restangular', '_',  function(Restangular, _) {
+	.factory('UserFactory', ['Restangular', '_', 'toastr',  function(Restangular, _, toastr) {
 		'use strict';
 		
 		var retVal = {};
@@ -80,7 +80,19 @@ angular.module('realEstateClientApp')
 		};
 		
 		retVal.rent = function(rent) {
-			return Restangular.one("users/rent", rent.id).one('from', rent.rentDateFrom).one('to', rent.rentDateTo).put();
+			if(rent.rentDateFrom > rent.rentDateTo){
+				toastr.warning('From date can not be after To Date!', 'Warning');
+				return;
+			}
+			return Restangular.one("users/rent", rent.id).one('from', new Date(rent.rentDateFrom))
+			.one('to', new Date(rent.rentDateTo)).put().then(function() {
+                    	toastr.success('Renting real estate successful!');
+                    	return true;
+                	},function(response) {
+	                    if (response.status === 409) {
+	                        toastr.warning('Real estate is already rented in this period!', 'Warning');
+	                    }
+                });
 		};
 		
 		return retVal;

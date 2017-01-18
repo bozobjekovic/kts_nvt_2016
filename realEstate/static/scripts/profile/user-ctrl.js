@@ -227,12 +227,8 @@
 	             $scope.save = function() {
 	            	$scope.rent.rentDateFrom = $scope.dt1;
 	            	$scope.rent.rentDateTo = $scope.dt2;
-	             	UserFactory.rent($scope.rent).then(function(item) {
-	          		   $uibModalInstance.close({
-	          			   status: 'ok',
-	          			   item: item
-	          		   });
-	                 });
+	             	UserFactory.rent($scope.rent);
+	          		$uibModalInstance.close('ok');
 	                 
 	             }
 	

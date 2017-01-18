@@ -48,20 +48,20 @@ insert into authority (name) values ('VERIFIER');
 INSERT INTO Location VALUES (1, 'Novi Sad', 'Liman', 21000);
 INSERT INTO Location VALUES (2, 'Beograd', 'Kosutnjak', 11000);
 INSERT INTO Location VALUES (3, 'Novi Sad', 'Bulevar', 21000);
-INSERT INTO Location VALUES (4, 'Nis', 'Deo Nisa', 12000);
+INSERT INTO Location VALUES (4, 'Nis', 'Cele Kula', 18000);
 INSERT INTO Location VALUES (5, 'Beograd', 'Zemun', 11000);
-INSERT INTO Location VALUES (6, 'Kragujevac', 'Deo Kragujevca', 13000);
-INSERT INTO Location VALUES (7, 'Smederevo', 'Deo Smedereva', 14000);
-INSERT INTO Location VALUES (8, 'Nis', 'Deo Nisa 1', 12000);
+INSERT INTO Location VALUES (6, 'Kragujevac', 'Pivara', 34000);
+INSERT INTO Location VALUES (7, 'Smederevo', 'Carina', 11300);
+INSERT INTO Location VALUES (8, 'Nis', 'Kicevo', 18000);
 INSERT INTO Location VALUES (9, 'Novi Sad', 'Detelinara', 21000);
 INSERT INTO Location VALUES (10, 'Novi Sad', 'Petrovaradin', 21000);
 INSERT INTO Location VALUES (11, 'Novi Sad', 'Podbara', 21000);
 INSERT INTO Location VALUES (12, 'Novi Sad', 'Grbavica', 21000);
 
 INSERT INTO Company VALUES (1, 'Balzakova 6', 'Kompanija Neka', '+3819214814', 'www.kompanijaneka.com', 1);
-INSERT INTO Company VALUES (2, 'Bul. Mihaila Pupina', 'Nasa Kompanija', '+38142342', 'www.nasakompanija.com', 2);
+INSERT INTO Company VALUES (2, 'Albanska', 'Nasa Kompanija', '+38142342', 'www.nasakompanija.com', 5);
 INSERT INTO Company VALUES (3, 'Bulevar Oslobodjenja', 'Company', '+38164564', 'www.comany.com', 3);
-INSERT INTO Company VALUES (4, 'Miselinova', 'Kompanija DOO', '+3816456456', 'www.kompanijadoo.com', 4);
+INSERT INTO Company VALUES (4, 'Anete Andrejević', 'Kompanija DOO', '+3816456456', 'www.kompanijadoo.com', 4);
 
 INSERT INTO User VALUES (1, 'Balzakova', 'Novi Sad', 'user@gmail.com', 'images/user1.jpg', 'User', '$2a$08$qOdUxqqtQG0v6ZetGVFDBO0cET/mK5tQZ8cOrkivyPqMP3WkJCJYq', '+4129494', 'Useran', 'user', '52389028', false, false, 2, 5, 2, null, null);
 INSERT INTO User VALUES (2, 'Niska', 'Nis', 'user2@gmail.com', 'images/user2.jpg', 'User2', '$2a$08$qOdUxqqtQG0v6ZetGVFDBO0cET/mK5tQZ8cOrkivyPqMP3WkJCJYq', '+523525', 'Useran2', 'user2', '646546', false, false, 3, 2, 2, null, 1);
@@ -69,9 +69,9 @@ INSERT INTO User VALUES (3, 'Kragujevacka', 'Kragujevac', 'user3@gmail.com', 'im
 
 INSERT INTO Location VALUES (13, 'Novi Sad', '', 21000);
 INSERT INTO Location VALUES (14, 'Beograd', '', 11000);
-INSERT INTO Location VALUES (15, 'Nis', '', 12000);
-INSERT INTO Location VALUES (16, 'Kragujevac', '', 13000);
-INSERT INTO Location VALUES (17, 'Smederevo', '', 14000);
+INSERT INTO Location VALUES (15, 'Nis', '', 18000);
+INSERT INTO Location VALUES (16, 'Kragujevac', '', 34000);
+INSERT INTO Location VALUES (17, 'Smederevo', '', 11300);
 
 INSERT INTO Admin VALUES (1, 'Balzakova', 'Novi Sad', 'admin@gmail.com', 'image', 'Admin', '$2a$04$L3XQT4cmboPgASNgTzgmAukeGbi7Oiio4pVjSUJQDL9gUle6pgwMu', '+381412941', 'Adminovski', 'admin', 1);
 
@@ -85,43 +85,43 @@ INSERT INTO User VALUES (7, 'Nislijska', 'Nis', 'clerk4@gmail.com', 'images/user
 INSERT INTO User VALUES (8, 'Boska Buhe', 'Novi Sad', 'user4@gmail.com', 'images/user1.jpg', 'User4', '$2a$08$qOdUxqqtQG0v6ZetGVFDBO0cET/mK5tQZ8cOrkivyPqMP3WkJCJYq', '+3646360213', 'Useran4', 'user4', '32502125', false, false, 2, 2, 2, 2, null);
 
 INSERT INTO Real_Estate VALUES (1, 'Balzakova 6', 1890, 0, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Apartment', 1);
-INSERT INTO Real_Estate VALUES (2, 'Bul. Mihaila Pupina', 1950, 0, 'Radiant', 100, 3, 5, 4, 2, 'TV,Klima,Namestak', 'Room', 4);
-INSERT INTO Real_Estate VALUES (3, 'Bul. Mihaila Pupina', 1960, 0, 'Radiators', 52, 2, 2, 2, 1, 'TV,Klima,Bazen', 'House', 3);
-INSERT INTO Real_Estate VALUES (4, 'Bulevar Oslobodjenja', 1994, 0, 'Radiant', 3506, 2, 3, 2, 0, 'Nista', 'Apartment', 4);
-INSERT INTO Real_Estate VALUES (5, 'Miselinova', 1994, 1, 'radijatori', 3506, 0, 3, 2, 0, 'Nista', 'House', 4);
+INSERT INTO Real_Estate VALUES (2, 'Bagremova', 1950, 0, 'Radiant', 100, 3, 5, 4, 2, 'TV,Klima,Namestak', 'Room', 4);
+INSERT INTO Real_Estate VALUES (3, 'Narodnog Fronta 66', 1960, 0, 'Radiators', 52, 2, 2, 2, 1, 'TV,Klima,Bazen', 'House', 3);
+INSERT INTO Real_Estate VALUES (4, 'Bohinjska', 1994, 0, 'Radiant', 3506, 2, 3, 2, 0, 'Nista', 'Apartment', 4);
+INSERT INTO Real_Estate VALUES (5, 'Visibaba', 1994, 1, 'radijatori', 3506, 0, 3, 2, 0, 'Nista', 'House', 4);
 
 INSERT INTO Real_Estate VALUES (6, 'Balzakova 6', 1990, 1, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Office', 1);
-INSERT INTO Real_Estate VALUES (7, 'Safarikova 6', 2000, 1, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Warehouse', 2);
+INSERT INTO Real_Estate VALUES (7, 'Bana Mladena 6', 2000, 1, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Warehouse', 2);
 INSERT INTO Real_Estate VALUES (8, 'Brace Dronjak 6', 2006, 1, 'Forced Air', 456, 2, 3, 3, 0, 'TV,Klima', 'Warehouse', 3);
 INSERT INTO Real_Estate VALUES (9, 'Balzakova 16', 2009, 0, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Apartment', 1);
-INSERT INTO Real_Estate VALUES (10, 'Bulevar Oslobodjenja 6', 2015, 0, 'Forced Air', 456, 2, 3, 3, 0, 'TV,Klima', 'House', 2);
-INSERT INTO Real_Estate VALUES (11, 'Bulevar cara Lazara 6', 2006, 2, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Building Plot', 3);
-INSERT INTO Real_Estate VALUES (12, 'Mose Pijade 6', 1994, 2, 'Radiant', 456, 2, 3, 3, 0, 'TV,Klima', 'Agricultural Plot', 1);
-INSERT INTO Real_Estate VALUES (13, 'Balzakova 16', 1990, 1, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Office', 1);
-INSERT INTO Real_Estate VALUES (14, 'Safarikova 16', 2000, 1, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Warehouse', 2);
-INSERT INTO Real_Estate VALUES (15, 'Brace Dronjak 16', 2006, 1, 'Forced Air', 456, 2, 3, 3, 0, 'TV,Klima', 'Warehouse', 3);
+INSERT INTO Real_Estate VALUES (10, 'Bohorska 6', 2015, 0, 'Forced Air', 456, 2, 3, 3, 0, 'TV,Klima', 'House', 2);
+INSERT INTO Real_Estate VALUES (11, 'Bulevar Cara Lazara 6', 2006, 2, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Building Plot', 3);
+INSERT INTO Real_Estate VALUES (12, 'Trifkovicev Trg', 1994, 2, 'Radiant', 456, 2, 3, 3, 0, 'TV,Klima', 'Agricultural Plot', 1);
+INSERT INTO Real_Estate VALUES (13, 'Balzakova 36', 1990, 1, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Office', 1);
+INSERT INTO Real_Estate VALUES (14, 'Brankova 16', 2000, 1, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Warehouse', 2);
+INSERT INTO Real_Estate VALUES (15, 'Novosadskog sajma 20', 2006, 1, 'Forced Air', 456, 2, 3, 3, 0, 'TV,Klima', 'Warehouse', 3);
 INSERT INTO Real_Estate VALUES (16, 'Balzakova 116', 2009, 0, 'Forced Air', 456, 2, 3, 3, 0, 'TV,Klima', 'Apartment', 1);
-INSERT INTO Real_Estate VALUES (17, 'Bulevar Oslobodjenja 16', 2015, 0, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'House', 2);
-INSERT INTO Real_Estate VALUES (18, 'Bulevar cara Lazara 16', 2006, 2, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Building Plot', 3);
-INSERT INTO Real_Estate VALUES (19, 'Mose Pijade 16', 1994, 2, 'Radiant', 456, 2, 3, 3, 0, 'TV,Klima', 'Agricultural Plot', 1);
-INSERT INTO Real_Estate VALUES (20, 'Balzakova 26', 1990, 1, 'Forced Air', 456, 2, 3, 3, 0, 'TV,Klima', 'Office', 1);
-INSERT INTO Real_Estate VALUES (21, 'Safarikova 26', 2000, 1, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Warehouse', 2);
-INSERT INTO Real_Estate VALUES (22, 'Brace Dronjak 26', 2006, 1, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Warehouse', 3);
-INSERT INTO Real_Estate VALUES (23, 'Balzakova 126', 2009, 0, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Apartment', 1);
-INSERT INTO Real_Estate VALUES (24, 'Bulevar Oslobodjenja 26', 2015, 0, 'Forced Air', 456, 2, 3, 3, 0, 'TV,Klima', 'House', 2);
-INSERT INTO Real_Estate VALUES (25, 'Bulevar cara Lazara 26', 2006, 2, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Building Plot', 3);
-INSERT INTO Real_Estate VALUES (26, 'Mose Pijade 26', 1994, 2, 'Forced Air', 456, 2, 3, 3, 0, 'TV,Klima', 'Agricultural Plot', 1);
+INSERT INTO Real_Estate VALUES (17, 'Velebitska', 2015, 0, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'House', 2);
+INSERT INTO Real_Estate VALUES (18, 'Bulevar Cara Lazara 120', 2006, 2, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Building Plot', 3);
+INSERT INTO Real_Estate VALUES (19, 'Bulevar Despota Stefana 7', 1994, 2, 'Radiant', 456, 2, 3, 3, 0, 'TV,Klima', 'Agricultural Plot', 1);
+INSERT INTO Real_Estate VALUES (20, 'Alekse Santica 12', 1990, 1, 'Forced Air', 456, 2, 3, 3, 0, 'TV,Klima', 'Office', 1);
+INSERT INTO Real_Estate VALUES (21, 'Gardijska 26', 2000, 1, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Warehouse', 2);
+INSERT INTO Real_Estate VALUES (22, 'Puskinova 17', 2006, 1, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Warehouse', 3);
+INSERT INTO Real_Estate VALUES (23, 'Cirpanova 77', 2009, 0, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Apartment', 1);
+INSERT INTO Real_Estate VALUES (24, 'Gunjak', 2015, 0, 'Forced Air', 456, 2, 3, 3, 0, 'TV,Klima', 'House', 2);
+INSERT INTO Real_Estate VALUES (25, 'Narodnog Fronta 77', 2006, 2, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Building Plot', 3);
+INSERT INTO Real_Estate VALUES (26, 'Banovic Strahinje 60', 1994, 2, 'Forced Air', 456, 2, 3, 3, 0, 'TV,Klima', 'Agricultural Plot', 1);
 
-INSERT INTO Real_Estate VALUES (27, 'Bulevar Oslobodjenja 36', 2015, 0, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Room', 2);
-INSERT INTO Real_Estate VALUES (28, 'Bulevar cara Lazara 36', 2006, 1, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Manufacturing Facility', 3);
-INSERT INTO Real_Estate VALUES (29, 'Mose Pijade 36', 1994, 1, 'Radiant', 456, 2, 3, 3, 0, 'TV,Klima', 'Manufacturing Facility', 1);
+INSERT INTO Real_Estate VALUES (27, 'Drinska', 2015, 0, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Room', 2);
+INSERT INTO Real_Estate VALUES (28, 'Mise Dimitrijevica 44', 2006, 1, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Manufacturing Facility', 3);
+INSERT INTO Real_Estate VALUES (29, 'Mise Dimitrijevica 36', 1994, 1, 'Radiant', 456, 2, 3, 3, 0, 'TV,Klima', 'Manufacturing Facility', 1);
 INSERT INTO Real_Estate VALUES (30, 'Balzakova 36', 1990, 1, 'Radiant', 456, 2, 3, 3, 0, 'TV,Klima', 'Hospitality Facility', 1);
 INSERT INTO Real_Estate VALUES (31, 'Safarikova 36', 2000, 1, 'Radiant', 456, 2, 3, 3, 0, 'TV,Klima', 'Sport Facility', 2);
-INSERT INTO Real_Estate VALUES (32, 'Brace Dronjak 36', 2006, 1, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Manufacturing Facility', 3);
+INSERT INTO Real_Estate VALUES (32, 'Emila Zole', 2006, 1, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Manufacturing Facility', 3);
 INSERT INTO Real_Estate VALUES (33, 'Balzakova 136', 2009, 0, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Room', 1);
-INSERT INTO Real_Estate VALUES (34, 'Bulevar Oslobodjenja 36', 2015, 0, 'Forced Air', 456, 2, 3, 3, 0, 'TV,Klima', 'Garage', 6);
-INSERT INTO Real_Estate VALUES (35, 'Bulevar cara Lazara 36', 2006, 1, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Hospitality Facility', 3);
-INSERT INTO Real_Estate VALUES (36, 'Mose Pijade 36', 1994, 1, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Manufacturing Facility', 1);
+INSERT INTO Real_Estate VALUES (34, 'Ane Frank', 2015, 0, 'Forced Air', 456, 2, 3, 3, 0, 'TV,Klima', 'Garage', 6);
+INSERT INTO Real_Estate VALUES (35, 'Bulevar Cara Lazara 6', 2006, 1, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Hospitality Facility', 3);
+INSERT INTO Real_Estate VALUES (36, 'Suboticki Bulevar', 1994, 1, 'Radiators', 456, 2, 3, 3, 0, 'TV,Klima', 'Manufacturing Facility', 1);
 
 INSERT INTO Advertisment VALUES (1, '2016-12-20', 'images/house1.jpg', 0, '2016-12-23', 'Kuca velika', 10, '+481924842', 234412, '2017-12-20', 'sell', '4', null, 4, 2, 1);
 INSERT INTO Advertisment VALUES (2, '2016-12-20', 'images/house2.jpg', 0, '2016-12-23', 'Stan na brdu', 11,'+3453535', 43242,'2017-12-20', 'sell', '5', null, 2, 1, 2);
