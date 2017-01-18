@@ -58,7 +58,13 @@ public class VerifierController {
 	
 	@RequestMapping(value="/verifier", method = RequestMethod.GET)
 	public ResponseEntity<VerifierDTO> getVerifier(ServletRequest request) {
-		Verifier verifier = (Verifier)userUtils.getLoggedUser(request);
+		Verifier verifier = null;
+		
+		try {
+			verifier = (Verifier)userUtils.getLoggedUser(request);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
 		
     	if (verifier == null) {
     		return new ResponseEntity<>(HttpStatus.FORBIDDEN);

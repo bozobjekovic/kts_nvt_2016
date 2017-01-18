@@ -81,7 +81,13 @@ public class UserController {
 	
 	@RequestMapping(value="/user", method = RequestMethod.GET)
 	public ResponseEntity<UserDTO> getUser(ServletRequest request) {
-		User user = (User)userUtils.getLoggedUser(request);
+		User user = null;
+		
+		try {
+			user = (User)userUtils.getLoggedUser(request);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
 
 		if (user == null) {
     		return new ResponseEntity<>(HttpStatus.FORBIDDEN);

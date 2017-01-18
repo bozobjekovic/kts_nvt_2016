@@ -59,7 +59,13 @@ public class AdminController {
 	
 	@RequestMapping(value="/", method = RequestMethod.GET)
 	public ResponseEntity<Admin> getAdmin(ServletRequest request) {
-		Admin admin = (Admin)userUtils.getLoggedUser(request);
+		Admin admin = null;
+		
+		try {
+			admin = (Admin)userUtils.getLoggedUser(request);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
 		
     	if (admin == null) {
     		return new ResponseEntity<>(HttpStatus.FORBIDDEN);

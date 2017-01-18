@@ -11,10 +11,10 @@
 	</head>
 
 	<body ng-app="realEstateClientApp">
-	  	<div class="header" id="home">
+	  	<div class="header" id="home" ng-controller="LoginCtrl">
 	  		<div class="header-top">
 	  			<div class="container">
-	  				<div class="deatils" ng-controller="LoginCtrl">
+	  				<div class="deatils">
 	  					<ul ng-if="!loggedUser">
 	  						<li><i class="glyphicon glyphicon-log-in" aria-hidden="true"></i><a href="" ng-click="openModal()" id="login">Log In</a></li>
 	  						<li ng-controller="RegistrateCtrl"><i class="glyphicon glyphicon-lock" aria-hidden="true"></i><a href="" ng-click="openModal()">Register</a></li>
@@ -39,7 +39,8 @@
 	  									<li class="menu__item menu__item--current"><a href="#" class="menu__link"><span class="menu__helper">Home</span></a></li>
 	  									<li class="menu__item"><a ng-href="/#/buy" class="menu__link"><span class="menu__helper">Buy</span></a></li>
 	  									<li class="menu__item"><a ng-href="/#/rent" class="menu__link"><span class="menu__helper">Rent</span></a></li>
-	  									<li class="menu__item"><a ng-href="/#/sell" class="menu__link"><span class="menu__helper">Sell</span></a></li>
+	  									<li class="menu__item" ng-if="currentUser"><a ng-href="/#/sell" class="menu__link"><span class="menu__helper">Sell</span></a></li>
+										<li class="menu__item" ng-if="!currentUser"><a href="" ng-click="openModal('/sell')" class="menu__link"><span class="menu__helper">Sell</span></a></li>
 	  									<li class="menu__item"><a ng-href="/#/about" class="menu__link"><span class="menu__helper">About</span></a></li>
 	  									<li class="menu__item"><a ng-href="/#/contact" class="menu__link"><span class="menu__helper">Contact</span></a></li>
 	  								</ul>

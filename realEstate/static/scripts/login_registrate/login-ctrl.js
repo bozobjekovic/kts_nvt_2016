@@ -2,8 +2,9 @@
     'use strict';
 
     angular.module('realEstateClientApp')
-        .controller('LoginCtrl', ['$scope', '$uibModal', '$localStorage', 'LoginFactory', '$location',
-            function($scope, $uibModal, $localStorage, LoginFactory, $location) {
+        .controller('LoginCtrl', ['$scope', '$rootScope', '$uibModal', '$localStorage', 'LoginFactory', '$location',
+            function($scope, $rootScope, $uibModal, $localStorage, LoginFactory, $location) {
+                $rootScope.mainMenu = true;
 
                 $scope.loggedUser = ($localStorage.token) ? true : false;
 
@@ -15,6 +16,8 @@
                                 role : loggedUser.role
                             };
                             $scope.loggedUser = true;
+                            $rootScope.currentUser = true;
+                            $localStorage.currentUser = loggedUser;
                         });
                 };
 
@@ -25,6 +28,7 @@
                 $scope.logOut = function() {
                     $localStorage.$reset();
                     $scope.loggedUser = false;
+                    $rootScope.currentUser = false;
                     $location.path('/');
                 };
 
@@ -40,7 +44,7 @@
                     }
                 };
 
-                $scope.openModal = function() {
+                $scope.openModal = function(path) {
                     var loginUser = {
                         username : '',
                         password : ''
@@ -55,9 +59,12 @@
                                 return loginUser;
                             }
                         }
-                    }).closed.then(function(){
-                        if ($localStorage.token) {
+                    }).result.then(function(status){
+                        if (status === 'ok') {
                             getLoggedUserData();
+                            if (path) {
+                                $location.path(path);
+                            }
                         }
                     });
                 };

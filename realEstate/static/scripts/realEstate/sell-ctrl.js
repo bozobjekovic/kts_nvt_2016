@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular.module('realEstateClientApp')
-        .controller('SellCtrl', ['$scope', '$rootScope', '_', 'SellFactory', 'flowFactory', '$q',
+        .controller('SellCtrl', ['$scope', '$rootScope', '_', 'SellFactory', 'flowFactory', '$q', 
             function($scope, $rootScope, _, SellFactory, flowFactory, $q) {
                 $rootScope.mainMenu = true;
 

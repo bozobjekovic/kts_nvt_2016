@@ -2,8 +2,9 @@
 	'use strict';
 
 	angular.module('realEstateClientApp')
-		.controller('AdvertisementCtrl', ['$scope', '$routeParams', 'AdvertisementFactory', '$uibModal',
-		    function($scope, $routeParams, AdvertisementFactory, $uibModal) {
+		.controller('AdvertisementCtrl', ['$scope', '$rootScope', '$routeParams', 'AdvertisementFactory', '$uibModal',
+		    function($scope, $rootScope, $routeParams, AdvertisementFactory, $uibModal) {
+				$rootScope.mainMenu = false;
 
 				$scope.max = 5;
 				$scope.isReadonly = false;
