@@ -26,6 +26,7 @@ public class AdvertismentCreateDTO {
 	private String techEquipment;
 	private String address;
 	private String heatingType;
+	private String backgroungImage;
 	private List<String> images;
 	private int numOfBathRooms;
 	private int numOfBedRooms;
@@ -49,7 +50,7 @@ public class AdvertismentCreateDTO {
 	public AdvertismentCreateDTO(Advertisment a, RealEstate e) {
 		this(a.getId(), a.getActiveUntil(), a.getPurpose(), e.getAddress(), a.getPhoneNumber(), a.getRate(), e.getId(), a.getName(),
 				new LocationDTO(e.getLocation()), a.getPrice(), e.getLandSize(), e.getTechEquipment(),
-				e.getHeatingType(), a.getImages(), e.getNumOfBathRooms(),e.getNumOfBedRooms(), e.getNumOfFlors(),
+				e.getHeatingType(), a.getBackgroundImage(), a.getImages(), e.getNumOfBathRooms(),e.getNumOfBedRooms(), e.getNumOfFlors(),
 				e.getBuildYear(), e.getCategory(), e.getType());
 	}
 	
@@ -78,7 +79,7 @@ public class AdvertismentCreateDTO {
 	 */
 	public AdvertismentCreateDTO(Long advertismentId, Date activeUntil, String purpose, String address, String phoneNumber, double rate,
 			Long realEstateId, String name, LocationDTO location, double price, int landSize, String techEquipment,
-			String heatingType, List<String> images, int numOfBathRooms, int numOfBedRooms, int numOfFlors, int buildYear,
+			String heatingType, String backgroungImage, List<String> images, int numOfBathRooms, int numOfBedRooms, int numOfFlors, int buildYear,
 			Category category, String type) {
 		super();
 		this.advertismentId = advertismentId;
@@ -94,6 +95,7 @@ public class AdvertismentCreateDTO {
 		this.landSize = landSize;
 		this.techEquipment = techEquipment;
 		this.heatingType = heatingType;
+		this.backgroungImage = backgroungImage;
 		this.images = images;
 		this.numOfBathRooms = numOfBathRooms;
 		this.numOfBedRooms = numOfBedRooms;
@@ -272,6 +274,14 @@ public class AdvertismentCreateDTO {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getBackgroungImage() {
+		return backgroungImage;
+	}
+
+	public void setBackgroungImage(String backgroungImage) {
+		this.backgroungImage = backgroungImage;
 	}
 	
 }

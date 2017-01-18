@@ -34,6 +34,7 @@
 				$scope.leaveComment = function() {
 					AdvertisementFactory.leaveComment(param, $scope.comment).then(function(item){
 						$scope.comments.unshift(item);
+						$scope.comment.description = '';
 					});
                 };
 

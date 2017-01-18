@@ -23,7 +23,7 @@
 	<h4 style="color: #751717;" class="tittle">{{advert.name}}</h4>
 	<br>
 	<div class="adver-grid-left">
-		<img src="images/house1.jpg" alt="" class="img-thumbnail">
+		<img ng-src="{{advert.backgroungImage}}" alt="" class="img-thumbnail">
 		<br><br>
 		<input type="button" id="rprt" value="Report" class="btn btn-danger" ng-click="openModal()">
 		<div style="float:right; margin-right: 10px;">
@@ -106,15 +106,18 @@
 		<div class="comment-list-scroll">
 			<h4>Comments</h4>
 			<br>
-			<div>
-			  <form>
-			    <div class="form-group">
-			      <textarea class="form-control" rows="4" id="comment" style="resize: none;" ng-model="comment.description"></textarea>
-			      <input type="submit" class="btn btn-success" value="Submit" style="margin-top:3px; float:right;" ng-click="leaveComment()">
+			<div style="height: 150px;">
+			  <form name="commentForm" novalidate nvt-submit="leaveComment()">
+			    <div class="form-group" ng-class="{'has-error': nvt.commentForm.needsAttention(commentForm.comm)}">
+			      <textarea class="form-control" rows="4" required name="comm" id="comment" style="resize: none;" ng-model="comment.description"></textarea>
+			    </div>
+				<div class="form-group">
+			      <input type="submit" class="btn btn-success" value="Submit" style="margin-top:3px; float:right;">
 			    </div>
 			  </form>
 			</div>
-			<div class="profile-list" style="margin-top: 50px;" ng-repeat="comment in comments">
+			<hr>
+			<div style="" ng-repeat="comment in comments">
 				<div class="comment-listItem">
 					<div class="comment-grid-left" >
 						<img ng-src="{{comment.user.image}}" alt="" class="img-thumbnail">

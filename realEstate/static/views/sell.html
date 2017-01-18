@@ -66,9 +66,9 @@
 			</div>
 		</div>
 		<div class="form-group" ng-class="{'has-error': nvt.sellForm.needsAttention(sellForm.heatingtype)}">
-		 	<label class="col-sm-2 control-label">Heating type</label>
+		 	<label class="col-sm-2 control-label">Heating type<span class="requiredFiled">*</span></label>
 			<div class="col-sm-10" id="htDiv">
-			  	<select class="form-control" name="heatingtype" ng-model="advertisementCreate.heatingType">
+			  	<select class="form-control" name="heatingtype" required ng-model="advertisementCreate.heatingType">
 			  		<option>Forced Air</option>
 					<option>Radiant</option>
 					<option>Radiators</option>

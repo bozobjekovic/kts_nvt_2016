@@ -2,8 +2,8 @@
 	'use strict';
 
 	angular.module('realEstateClientApp')
-        .controller('SellCtrl', ['$scope', '$rootScope', '_', 'SellFactory', 'flowFactory',
-            function($scope, $rootScope, _, SellFactory, flowFactory) {
+        .controller('SellCtrl', ['$scope', '$rootScope', '_', 'SellFactory', 'flowFactory', '$q',
+            function($scope, $rootScope, _, SellFactory, flowFactory, $q) {
                 $rootScope.mainMenu = true;
 
 				/* for type combobox */
@@ -46,15 +46,33 @@
                     activeUntil: ''
                 };
 
-				$scope.img = [];
+				$scope.flowObject = flowFactory.create({});
 
-				$scope.flowObject = flowFactory.create({
+				var readImagePath = function() {
+					var deferred = $q.defer();
+					var redImagesCounter = 0;
+					for (var i in $scope.flowObject.files) {
+						(function(file) {
+							var fileReader = new FileReader();
+							fileReader.readAsDataURL(file.file);
+							fileReader.onload = function (event) {
+								$scope.advertisementCreate.images.push(event.target.result);
+								redImagesCounter++;
 
-				});
+								if (redImagesCounter === $scope.flowObject.files.length) {
+									deferred.resolve();
+								}
+							}
+						})($scope.flowObject.files[i]);
+					}
+
+					return deferred.promise;
+				}
 
                 $scope.submitSellForm = function() {
-					console.log($scope.flowObject.files);
-					//SellFactory.submitSell($scope.advertisementCreate);
+					readImagePath().then(function() {
+						SellFactory.submitSell($scope.advertisementCreate);
+					});
                 };
 
 				$scope.getPartOfTheCities = function() {

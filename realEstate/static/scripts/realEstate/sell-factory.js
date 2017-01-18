@@ -22,7 +22,7 @@
                                 }
                             });
                     } else {
-                        $window.alert('Fill required filleds!');
+                        toastr.error('Fill required filleds!', 'Error');
                     }
                 };
 
