@@ -4,7 +4,7 @@
     angular.module('realEstateClientApp')
         .controller('LoginCtrl', ['$scope', '$rootScope', '$uibModal', '$localStorage', 'LoginFactory', '$location',
             function($scope, $rootScope, $uibModal, $localStorage, LoginFactory, $location) {
-                $rootScope.mainMenu = true;
+                //$rootScope.mainMenu = true;
 
                 $scope.loggedUser = ($localStorage.token) ? true : false;
 
