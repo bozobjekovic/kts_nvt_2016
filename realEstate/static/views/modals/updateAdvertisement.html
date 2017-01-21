@@ -76,6 +76,14 @@
 				<option>Sell</option>
 		  	</select>
 		</div>
+		<div class="form-group" ng-class="{'has-error': nvt.updateAdvertisement.needsAttention(updateAdvertisement.status)}">
+		 	<label style="font-size:17px;">Status<span class="requiredFiled">*</span></label>
+		  	<select class="form-control" name="status" ng-model="advertisement.status" required>
+		  		<option>Active</option>
+				<option ng-if="advertisement.purpose == 'Rent'">Rented</option>
+				<option ng-if="advertisement.purpose == 'Sell'">Sold</option>
+		  	</select>
+		</div>
 		<div class="form-group">
 			<label style="font-size:17px;">Upload Images</label>
 			<div class="fileinput fileinput-new" data-provides="fileinput" flow-init="{target:'/upload'}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1,csv:1}[$file.getExtension()]">

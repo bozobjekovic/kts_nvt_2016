@@ -262,7 +262,7 @@
 					<div class="col-md-4 w3agile_Projects_grid advertisementsDIV" ng-repeat="advertisement in rentAdvertisements">
 						<figure ng-click="getAdvertisement(advertisement)">
 							<div class="image-text">
-								<img ng-src="{{advertisement.image}}" alt="" class="img-responsive"/>
+								<img ng-src="{{advertisement.image}}" alt="" class="img-responsive" style="height: 140px; width: 250px;"/>
 								<p>
 									<font size="4">{{advertisement.name}} {{advertisement.id}}</font><br/>
 									<font size="6">{{advertisement.price | currency:"$"}}</font><br/>

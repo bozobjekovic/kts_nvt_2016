@@ -35,6 +35,7 @@ public class Company implements Serializable{
 	@Column(nullable = false, unique = true)
 	private String phoneNumber;
 	private String site;
+	private boolean verified;
 	@OneToMany(mappedBy = "appliedCompany", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<User> usersToApprove = new HashSet<User>(0);
 	
@@ -127,6 +128,14 @@ public class Company implements Serializable{
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public boolean isVerified() {
+		return verified;
+	}
+
+	public void setVerified(boolean verified) {
+		this.verified = verified;
 	}
 
 	@Override

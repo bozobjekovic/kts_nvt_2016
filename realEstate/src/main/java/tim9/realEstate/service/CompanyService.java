@@ -49,7 +49,7 @@ public class CompanyService {
 	* @return		List of elements
 	*/
 	public List<Company> findAll() {
-		return companyRepository.findAll();
+		return companyRepository.findByVerifiedTrue();
 	}
 	
 	/**

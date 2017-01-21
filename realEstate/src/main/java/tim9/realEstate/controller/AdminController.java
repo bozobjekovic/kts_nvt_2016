@@ -136,6 +136,7 @@ public class AdminController {
 		}
 
 		user.setApproved(true);
+		user.getCompany().setVerified(true);
 		userService.save(user);
 
 		String email = user.getEmail();

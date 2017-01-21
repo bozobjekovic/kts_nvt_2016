@@ -21,6 +21,7 @@ import tim9.realEstate.dto.UserDTO;
 import tim9.realEstate.model.Advertisment;
 import tim9.realEstate.model.Location;
 import tim9.realEstate.model.RealEstate;
+import tim9.realEstate.model.Status;
 import tim9.realEstate.model.User;
 import tim9.realEstate.security.UserUtils;
 import tim9.realEstate.service.AdvertismentService;
@@ -192,6 +193,7 @@ public class AdvertismentController {
 			realEstate.setBuildYear(advertismentDTO.getBuildYear());
 			realEstate.setCategory(advertismentDTO.getCategory());
 			realEstate.setType(advertismentDTO.getType());
+			realEstate.setStatus(Status.Active);
 		}
 
 		advertisment.setRealEstate(realEstate);
@@ -256,6 +258,7 @@ public class AdvertismentController {
 		realEstate.setBuildYear(advertismentDTO.getBuildYear());
 		realEstate.setCategory(advertismentDTO.getCategory());
 		realEstate.setType(advertismentDTO.getType());
+		realEstate.setStatus(advertismentDTO.getStatus());
 
 		advertisment.setRealEstate(realEstate);
 

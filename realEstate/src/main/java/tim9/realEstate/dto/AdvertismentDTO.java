@@ -20,6 +20,7 @@ public class AdvertismentDTO {
 	private Date publicationDate;
 	private Status status;
 	private String address;
+	private String purpose;
 	
 	/**
 	 * Constructor created from Superclass
@@ -36,7 +37,7 @@ public class AdvertismentDTO {
 	public AdvertismentDTO(Advertisment a) {
 		this(a.getId(), a.getName(), a.getRealEstate().getLocation().getCity(), a.getPrice()
 				, a.getRealEstate().getLandSize(), a.getBackgroundImage(), a.getRealEstate().getType(), a.getPublicationDate()
-				, a.getRealEstate().getStatus(), a.getRealEstate().getAddress());
+				, a.getRealEstate().getStatus(), a.getRealEstate().getAddress(), a.getPurpose());
 	}
 
 	/**
@@ -51,7 +52,7 @@ public class AdvertismentDTO {
 	 * @param type represents Type of the Real Estate
 	 */
 	public AdvertismentDTO(Long id, String name, String city, double price, int landSize, String image,
-			String type, Date date, Status status, String address) {
+			String type, Date date, Status status, String address, String purpose) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -63,6 +64,7 @@ public class AdvertismentDTO {
 		this.publicationDate = date;
 		this.status = status;
 		this.address = address;
+		this.purpose = purpose;
 	}
 
 	public Long getId() {
@@ -143,6 +145,14 @@ public class AdvertismentDTO {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getPurpose() {
+		return purpose;
+	}
+
+	public void setPurpose(String purpose) {
+		this.purpose = purpose;
 	}
 
 	@Override

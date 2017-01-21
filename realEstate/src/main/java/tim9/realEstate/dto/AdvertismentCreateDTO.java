@@ -6,6 +6,7 @@ import java.util.List;
 import tim9.realEstate.model.Advertisment;
 import tim9.realEstate.model.Category;
 import tim9.realEstate.model.RealEstate;
+import tim9.realEstate.model.Status;
 
 /**
  * This class represent data transfer object for Advertisement class
@@ -34,6 +35,7 @@ public class AdvertismentCreateDTO {
 	private int buildYear;
 	private Category category;
 	private String type;
+	private Status status;
 	
 	/**
 	 * Constructor created from Superclass
@@ -51,7 +53,7 @@ public class AdvertismentCreateDTO {
 		this(a.getId(), a.getActiveUntil(), a.getPurpose(), e.getAddress(), a.getPhoneNumber(), a.getRate(), e.getId(), a.getName(),
 				new LocationDTO(e.getLocation()), a.getPrice(), e.getLandSize(), e.getTechEquipment(),
 				e.getHeatingType(), a.getBackgroundImage(), a.getImages(), e.getNumOfBathRooms(),e.getNumOfBedRooms(), e.getNumOfFlors(),
-				e.getBuildYear(), e.getCategory(), e.getType());
+				e.getBuildYear(), e.getCategory(), e.getType(), e.getStatus());
 	}
 	
 	/**
@@ -80,7 +82,7 @@ public class AdvertismentCreateDTO {
 	public AdvertismentCreateDTO(Long advertismentId, Date activeUntil, String purpose, String address, String phoneNumber, double rate,
 			Long realEstateId, String name, LocationDTO location, double price, int landSize, String techEquipment,
 			String heatingType, String backgroungImage, List<String> images, int numOfBathRooms, int numOfBedRooms, int numOfFlors, int buildYear,
-			Category category, String type) {
+			Category category, String type, Status status) {
 		super();
 		this.advertismentId = advertismentId;
 		this.activeUntil = activeUntil;
@@ -103,6 +105,7 @@ public class AdvertismentCreateDTO {
 		this.buildYear = buildYear;
 		this.category = category;
 		this.type = type;
+		this.status = status;
 	}
 	
 	@Override
@@ -283,5 +286,14 @@ public class AdvertismentCreateDTO {
 	public void setBackgroungImage(String backgroungImage) {
 		this.backgroungImage = backgroungImage;
 	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+	
 	
 }

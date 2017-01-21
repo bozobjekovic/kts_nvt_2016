@@ -95,8 +95,10 @@
 	                      price: item.price,
 	                      phoneNumber: item.phoneNumber,
 	                      purpose: item.purpose,
-	                      activeUntil: item.activeUntil
+	                      activeUntil: item.activeUntil,
+	                      status : item.status
 					  }
+					  console.log(advertisement.purpose);
 					  var modalInstance = $uibModal.open({
 	                      templateUrl : 'views/modals/updateAdvertisement.html',
 	                      controller  : 'UpdateAdvertisementModalCtrl',
