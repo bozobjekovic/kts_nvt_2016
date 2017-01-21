@@ -22,57 +22,56 @@ import tim9.realEstate.service.AdvertismentService;
 import tim9.realEstate.service.InappropriateService;
 
 /**
- * This class represents controller for Inappropriate
- * Advertisement.
+ * This class represents controller for Inappropriate Advertisement.
  */
 @Controller
-@RequestMapping(value="realEstate/inappropriates")
+@RequestMapping(value = "realEstate/inappropriates")
 public class InappropriateController {
-	
+
 	@Autowired
 	InappropriateService inappropriateService;
-	
+
 	@Autowired
 	AdvertismentService advertismentService;
-	
+
 	@Autowired
 	UserUtils userUtils;
-	
+
 	/**
-     * This method creates new Inappropriate Advertisement
-     * and saves it to the database.
-     * @param		companyDTO		a DTO Object
-     * @return      ResponseEntity DTO Company and HttpStatus CREATED
-     */
-	@RequestMapping(value="/{id}/new", method=RequestMethod.POST)
-	public ResponseEntity<Void> saveInappropriate(@PathVariable Long id, @RequestBody InappropriateDTO inappropriateDTO, ServletRequest request){
-		User user = (User)userUtils.getLoggedUser(request);
-    	if (user == null) {
-    		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-		}
-		
-		if(inappropriateDTO.getDescription() == null){
+	 * This method creates new Inappropriate Advertisement and saves it to the
+	 * database.
+	 * 
+	 * @param companyDTO
+	 *            a DTO Object
+	 * @return ResponseEntity DTO Company and HttpStatus CREATED
+	 */
+	@RequestMapping(value = "/{id}/new", method = RequestMethod.POST)
+	public ResponseEntity<Void> saveInappropriate(@PathVariable Long id, @RequestBody InappropriateDTO inappropriateDTO,
+			ServletRequest request) {
+		User user = (User) userUtils.getLoggedUser(request);
+
+		if (inappropriateDTO.getDescription() == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		
+
 		Advertisment advertisment = advertismentService.findOne(id);
-		if(advertisment == null){
+		if (advertisment == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		
+
 		if (inappropriateService.findByAdvertisementAndUser(advertisment, user) != null) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
-		
+
 		Inappropriate inappropriate = new Inappropriate();
 		inappropriate.setDescription(inappropriateDTO.getDescription());
 		inappropriate.setTitle(inappropriateDTO.getTitle());
 		inappropriate.setDate(new Date());
 		inappropriate.setAdvertisment(advertisment);
 		inappropriate.setUser(user);
-		
+
 		inappropriate = inappropriateService.save(inappropriate);
-		
+
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 

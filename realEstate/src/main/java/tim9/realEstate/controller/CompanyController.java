@@ -17,57 +17,64 @@ import tim9.realEstate.service.CompanyService;
 import tim9.realEstate.service.LocationService;
 
 /**
- * This class represents controller for Company
- * and manages with all Company functionalities.
+ * This class represents controller for Company and manages with all Company
+ * functionalities.
  */
 @Controller
-@RequestMapping(value="realEstate/companies")
+@RequestMapping(value = "realEstate/companies")
 public class CompanyController {
-	
+
 	@Autowired
 	CompanyService companyService;
 
 	@Autowired
 	LocationService locationService;
-	
+
 	/**
-     * This method gets all Comments from the database
-     * and then creates a list of DTO objects.
-     * @return      ResponseEntity List with all DTO Companies and HttpStatus OK
-     */
-	@RequestMapping(value="/all", method = RequestMethod.GET)
+	 * This method gets all Comments from the database and then creates a list
+	 * of DTO objects.
+	 * 
+	 * @return ResponseEntity List with all DTO Companies and HttpStatus OK
+	 */
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public ResponseEntity<List<CompanyDTO>> getAllCompanies() {
 		List<Company> companies = companyService.findAll();
-		
+
 		List<CompanyDTO> companyDTO = new ArrayList<>();
-		for(Company c : companies){
+		for (Company c : companies) {
 			companyDTO.add(new CompanyDTO(c));
 		}
+
 		return new ResponseEntity<>(companyDTO, HttpStatus.OK);
 	}
-	
+
 	/**
-     * This method creates new Company
-     * and saves it to the database.
-     * @param		companyDTO		a DTO Object
-     * @return      ResponseEntity DTO Company and HttpStatus CREATED
-     */
-	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<CompanyDTO> saveCompany(@RequestBody CompanyDTO companyDTO){
-		if(companyDTO.getName() == null){
+	 * This method creates new Company and saves it to the database.
+	 * 
+	 * @param companyDTO
+	 *            a DTO Object
+	 * @return ResponseEntity DTO Company and HttpStatus CREATED
+	 */
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<CompanyDTO> saveCompany(@RequestBody CompanyDTO companyDTO) {
+		if (companyDTO.getName() == null) {
 			return new ResponseEntity<>(companyDTO, HttpStatus.BAD_REQUEST);
 		}
-		if(companyService.findByName(companyDTO.getName()) != null || companyService.findByPhoneNumber(companyDTO.getPhoneNumber()) != null){
+
+		if (companyService.findByName(companyDTO.getName()) != null
+				|| companyService.findByPhoneNumber(companyDTO.getPhoneNumber()) != null) {
 			return new ResponseEntity<>(companyDTO, HttpStatus.BAD_REQUEST);
 		}
+
 		Company company = new Company();
 		company.setLocation(locationService.findOne(companyDTO.getLocation().getId()));
 		company.setName(companyDTO.getName());
 		company.setAddress(companyDTO.getAddress());
 		company.setPhoneNumber(companyDTO.getPhoneNumber());
 		company.setSite(companyDTO.getSite());
-		
+
 		company = companyService.save(company);
+
 		return new ResponseEntity<>(new CompanyDTO(company), HttpStatus.CREATED);
 	}
 }

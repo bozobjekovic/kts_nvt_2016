@@ -73,8 +73,8 @@ angular
                 redirectTo: '/'
             });
         $httpProvider
-            .interceptors.push(['$q', '$localStorage', '$location',
-                function($q, $localStorage, $location) {
+            .interceptors.push(['$q', '$localStorage', '$location', '$injector',
+                function($q, $localStorage, $location, $injector) {
                     return {
                         'request': function(config) {
                             config.headers = config.headers || {};
@@ -85,7 +85,8 @@ angular
                         },
                         'responseError': function(response) {
                             if (response.status === 401 || response.status === 403) {
-                                $location.path('/');
+                                var toastr = $injector.get('toastr');
+                                toastr.warning('You do not have permission', 'Warning');
                             }
                             return $q.reject(response);
                         }

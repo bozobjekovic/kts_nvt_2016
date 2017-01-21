@@ -27,7 +27,7 @@
                 };
 
                 retVal.getLoggedUserData = function(token) {
-                    return Restangular.one('users/user/data').get()
+                    return Restangular.one('user/data').get()
                         .then(function(loggedUserData) {
                             return loggedUserData.data;
                     })

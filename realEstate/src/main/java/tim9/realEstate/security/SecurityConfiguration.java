@@ -3,6 +3,7 @@ package tim9.realEstate.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -27,6 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	/**
 	 * This method configures authentication manager
+	 * 
 	 * @param authenticationManagerBuilder
 	 * @throws Exception
 	 */
@@ -42,6 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	/**
 	 * Method witch returns new instance of PasswordEncoder
+	 * 
 	 * @return
 	 */
 	@Bean
@@ -60,6 +63,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	/**
 	 * This method returns instance of AuthenticationTokenFilter
+	 * 
 	 * @return
 	 * @throws Exception
 	 */
@@ -82,17 +86,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and()
 			.authorizeRequests()
-				.antMatchers("/realEstate").permitAll().and().csrf().disable();
-				//.antMatchers(HttpMethod.POST, "/api/**")
-				//	.hasAuthority("ROLE_ADMIN"); //only administrator can add and edit data
-				//.anyRequest().authenticated();
-				//if we use AngularJS on client side
-				//.and().csrf().csrfTokenRepository(csrfTokenRepository()); 
-		
-		//add filter for adding CSRF token in the request 
-		//httpSecurity.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class);
-		
-		// Custom JWT based authentication
+				.antMatchers("/realEstate/admin/**").hasAuthority("ADMIN")
+				.antMatchers("/realEstate/verifiers/**").hasAuthority("VERIFIER")
+				.antMatchers("/realEstate/users/**").hasAuthority("USER")
+				.antMatchers(HttpMethod.POST, "/realEstate/advertisments/**").hasAuthority("USER")
+				.antMatchers(HttpMethod.PUT, "/realEstate/advertisments/**").hasAuthority("USER")
+				.antMatchers(HttpMethod.POST, "/realEstate/comments/**").hasAuthority("USER")
+				.antMatchers("/realEstate/inappropriates/**").hasAuthority("USER")
+				.and().csrf().disable();
+
 		httpSecurity.addFilterBefore(authenticationTokenFilterBean(),
 				UsernamePasswordAuthenticationFilter.class);
 	}

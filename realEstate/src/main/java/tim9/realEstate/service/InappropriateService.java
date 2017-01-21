@@ -31,8 +31,9 @@ public class InappropriateService {
 	* @return		List of elements
 	*/
 	public List<Inappropriate> findAll() {
-		return inappropriateRepository.findAll();
+		return inappropriateRepository.findAllByOrderByAdvertisment_Id();
 	}
+	
 	
 	/**
 	* This method finds all elements with specified Advertisement.

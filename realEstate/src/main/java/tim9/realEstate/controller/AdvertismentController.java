@@ -1,6 +1,5 @@
 package tim9.realEstate.controller;
 
-
 import java.util.Date;
 import java.util.List;
 
@@ -27,133 +26,141 @@ import tim9.realEstate.security.UserUtils;
 import tim9.realEstate.service.AdvertismentService;
 import tim9.realEstate.service.LocationService;
 import tim9.realEstate.service.RealEstateService;
+import tim9.realEstate.service.UserService;
 
 /**
- * This class represents controller for Advertisement
- * and manages with all Advertisement functionalities.
+ * This class represents controller for Advertisement and manages with all
+ * Advertisement functionalities.
  */
 @RestController
-@RequestMapping(value="realEstate/advertisments")
+@RequestMapping(value = "realEstate/advertisments")
 public class AdvertismentController {
 
-    @Autowired
-    AdvertismentService advertismentService;
-    
-    @Autowired
-    RealEstateService realEstateService;
-    
-    @Autowired
-    LocationService locationService;
-    
-    @Autowired
-    UserUtils userUtils;
-    
-    /**
-     * This method gets Advertisement with specified ID.
-     * @param		id	an id of Advertisement
-     * @return      ResponseEntity List with DTO Advertisement and HttpStatus if OK,
-     * 				else null
-     */
-    @RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<AdvertismentCreateDTO> getAdvertisment(@PathVariable Long id){
-    	if(id == null){
-    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    	}
-    	Advertisment advertisment = advertismentService.findOne(id);
-		if(advertisment == null){
+	@Autowired
+	AdvertismentService advertismentService;
+
+	@Autowired
+	RealEstateService realEstateService;
+
+	@Autowired
+	LocationService locationService;
+
+	@Autowired
+	UserUtils userUtils;
+
+	@Autowired
+	UserService userService;
+
+	/**
+	 * This method gets Advertisement with specified ID.
+	 * 
+	 * @param id
+	 *            an id of Advertisement
+	 * @return ResponseEntity List with DTO Advertisement and HttpStatus if OK,
+	 *         else null
+	 */
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<AdvertismentCreateDTO> getAdvertisment(@PathVariable Long id) {
+		if (id == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		Advertisment advertisment = advertismentService.findOne(id);
+		if (advertisment == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(new AdvertismentCreateDTO(advertisment, advertisment.getRealEstate()), HttpStatus.OK);
+		return new ResponseEntity<>(new AdvertismentCreateDTO(advertisment, advertisment.getRealEstate()),
+				HttpStatus.OK);
 	}
-    
-    /**
-     * This method gets Advertisement publisher.
-     * @param		id	an id of Advertisement
-     * @return      ResponseEntity List with DTO User and HttpStatus if OK,
-     * 				else null
-     */
-    @RequestMapping(value="/publisher/{id}", method=RequestMethod.GET)
-	public ResponseEntity<UserDTO> getPublisher(@PathVariable Long id){
-    	if(id == null){
-    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    	}
-    	Advertisment advertisment = advertismentService.findOne(id);
-		if(advertisment == null){
+
+	/**
+	 * This method gets Advertisement publisher.
+	 * 
+	 * @param id
+	 *            an id of Advertisement
+	 * @return ResponseEntity List with DTO User and HttpStatus if OK, else null
+	 */
+	@RequestMapping(value = "/publisher/{id}", method = RequestMethod.GET)
+	public ResponseEntity<UserDTO> getPublisher(@PathVariable Long id) {
+		if (id == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		Advertisment advertisment = advertismentService.findOne(id);
+		if (advertisment == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(new UserDTO(advertisment.getPublisher()), HttpStatus.OK);
 	}
-    
-    /**
-     * This method gets Advertisement publishers company.
-     * @param		id	an id of Advertisement
-     * @return      ResponseEntity Company DTO and HttpStatus if OK,
-     * 				else null
-     */
-    @RequestMapping(value="/company/{id}", method=RequestMethod.GET)
-	public ResponseEntity<CompanyDTO> getPublishersCompany(@PathVariable Long id){
-    	if(id == null){
-    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    	}
-    	Advertisment advertisment = advertismentService.findOne(id);
-		if(advertisment == null){
+
+	/**
+	 * This method gets Advertisement publishers company.
+	 * 
+	 * @param id
+	 *            an id of Advertisement
+	 * @return ResponseEntity Company DTO and HttpStatus if OK, else null
+	 */
+	@RequestMapping(value = "/company/{id}", method = RequestMethod.GET)
+	public ResponseEntity<CompanyDTO> getPublishersCompany(@PathVariable Long id) {
+		if (id == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		Advertisment advertisment = advertismentService.findOne(id);
+		if (advertisment == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		if(advertisment.getPublisher().getCompany() == null){
+		if (advertisment.getPublisher().getCompany() == null) {
 			return new ResponseEntity<>(null, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(new CompanyDTO(advertisment.getPublisher().getCompany()), HttpStatus.OK);
 	}
-    
-    /**
-     * This method creates new Advertisement and Real estate
-     * and saves them to the database.
-     * @param		advertismentDTO		a DTO Object
-     * @return      ResponseEntity DTO Advertisement and HttpStatus CREATED if OK,
-     * 				else null
-     */
-    @RequestMapping(method=RequestMethod.POST)
-    public ResponseEntity<AdvertismentCreateDTO> saveAdvertisment(@RequestBody AdvertismentCreateDTO advertismentDTO, ServletRequest request){
-    	User user = (User)userUtils.getLoggedUser(request);
-    	
-    	if (user == null) {
-    		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+
+	/**
+	 * This method creates new Advertisement and Real estate and saves them to
+	 * the database.
+	 * 
+	 * @param advertismentDTO
+	 *            a DTO Object
+	 * @return ResponseEntity DTO Advertisement and HttpStatus CREATED if OK,
+	 *         else null
+	 */
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<AdvertismentCreateDTO> saveAdvertisment(@RequestBody AdvertismentCreateDTO advertismentDTO,
+			ServletRequest request) {
+
+		if (!checkInput(advertismentDTO)) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-    	
-    	if(!checkInput(advertismentDTO)){
-    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    	}
-    	
-    	Advertisment advertisment = new Advertisment();
-    	advertisment.setName(advertismentDTO.getName());
-    	advertisment.setPrice(advertismentDTO.getPrice());
-    	advertisment.setPublicationDate(new Date());
-    	
-    	if (advertismentDTO.getImages().size() != 0) {
-    		advertisment.setBackgroundImage(advertismentDTO.getImages().get(0));
-    		advertisment.setImages(advertismentDTO.getImages());
+
+		Advertisment advertisment = new Advertisment();
+		advertisment.setName(advertismentDTO.getName());
+		advertisment.setPrice(advertismentDTO.getPrice());
+		advertisment.setPublicationDate(new Date());
+
+		if (advertismentDTO.getImages().size() != 0) {
+			advertisment.setBackgroundImage(advertismentDTO.getImages().get(0));
+			advertisment.setImages(advertismentDTO.getImages());
 		}
-    	
+
 		advertisment.setActiveUntil(advertismentDTO.getActiveUntil());
 		advertisment.setPurpose(advertismentDTO.getPurpose());
 		advertisment.setPhoneNumber(advertismentDTO.getPhoneNumber());
-		
-		if(advertismentService.findByPhoneNumber(advertisment.getPhoneNumber()) != null){
+
+		if (advertismentService.findByPhoneNumber(advertisment.getPhoneNumber()) != null) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
 
-		advertisment.setPublisher(user);
+		advertisment.setPublisher((User) userUtils.getLoggedUser(request));
+
 		RealEstate realEstate = new RealEstate();
-		
+
 		Location location = locationService.findByCityAndZipCodeAndPartOfTheCity(
 				advertismentDTO.getLocation().getCity(), advertismentDTO.getLocation().getZipCode(),
 				advertismentDTO.getLocation().getPartOfTheCity());
 		if (location == null) {
 			return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
 		}
-		
-		List<RealEstate> existRealEstates = realEstateService.findByAddressAndCity(
-				advertismentDTO.getAddress(), advertismentDTO.getLocation().getCity());
+
+		List<RealEstate> existRealEstates = realEstateService.findByAddressAndCity(advertismentDTO.getAddress(),
+				advertismentDTO.getLocation().getCity());
 		if (existRealEstates.size() > 0) {
 			if (existRealEstates.size() == 1) {
 				realEstate = existRealEstates.get(0);
@@ -186,61 +193,59 @@ public class AdvertismentController {
 			realEstate.setCategory(advertismentDTO.getCategory());
 			realEstate.setType(advertismentDTO.getType());
 		}
-		
+
 		advertisment.setRealEstate(realEstate);
 
 		advertisment = advertismentService.save(advertisment);
-		
+
 		return new ResponseEntity<>(advertismentDTO, HttpStatus.CREATED);
-    }
-    
-    /**
-     * This method updates Advertisement and Real estate
-     * and saves them to the database.
-     * @param		advertismentDTO		a DTO Object
-     * @return      ResponseEntity DTO Advertisement and HttpStatus CREATED if OK,
-     * 				else null
-     */
-    @RequestMapping(method=RequestMethod.PUT)
-    public ResponseEntity<AdvertismentCreateDTO> updateAdvertisment(@RequestBody AdvertismentCreateDTO advertismentDTO, ServletRequest request){
-    	User user = (User)userUtils.getLoggedUser(request);
-    	
-    	if (user == null) {
-    		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+	}
+
+	/**
+	 * This method updates Advertisement and Real estate and saves them to the
+	 * database.
+	 * 
+	 * @param advertismentDTO
+	 *            a DTO Object
+	 * @return ResponseEntity DTO Advertisement and HttpStatus CREATED if OK,
+	 *         else null
+	 */
+	@RequestMapping(method = RequestMethod.PUT)
+	public ResponseEntity<AdvertismentCreateDTO> updateAdvertisment(@RequestBody AdvertismentCreateDTO advertismentDTO,
+			ServletRequest request) {
+
+		if (!checkInput(advertismentDTO)) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-    	
-    	if(!checkInput(advertismentDTO)){
-    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    	}
-    	
-    	Advertisment advertisment = advertismentService.findOne(advertismentDTO.getAdvertismentId());
-    	advertisment.setModificationDate(new Date());
-    	advertisment.setName(advertismentDTO.getName());
-    	advertisment.setPrice(advertismentDTO.getPrice());
-    	
-    	if (advertismentDTO.getImages().size() != 0) {
-    		advertisment.setBackgroundImage(advertismentDTO.getImages().get(0));
-    		advertisment.setImages(advertismentDTO.getImages());
+
+		Advertisment advertisment = advertismentService.findOne(advertismentDTO.getAdvertismentId());
+		advertisment.setModificationDate(new Date());
+		advertisment.setName(advertismentDTO.getName());
+		advertisment.setPrice(advertismentDTO.getPrice());
+
+		if (advertismentDTO.getImages().size() != 0) {
+			advertisment.setBackgroundImage(advertismentDTO.getImages().get(0));
+			advertisment.setImages(advertismentDTO.getImages());
 		}
-    	
+
 		advertisment.setActiveUntil(advertismentDTO.getActiveUntil());
 		advertisment.setPurpose(advertismentDTO.getPurpose());
 		advertisment.setPhoneNumber(advertismentDTO.getPhoneNumber());
-		
+
 		Advertisment a = advertismentService.findByPhoneNumber(advertisment.getPhoneNumber());
-		if(a != null && a.getId() != advertisment.getId()){
+		if (a != null && a.getId() != advertisment.getId()) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
 
 		RealEstate realEstate = advertisment.getRealEstate();
-		
+
 		Location location = locationService.findByCityAndZipCodeAndPartOfTheCity(
 				advertismentDTO.getLocation().getCity(), advertismentDTO.getLocation().getZipCode(),
 				advertismentDTO.getLocation().getPartOfTheCity());
 		if (location == null) {
 			return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
 		}
-		
+
 		realEstate.setLocation(location);
 		realEstate.setAddress(advertismentDTO.getAddress());
 		realEstate.setLandSize(advertismentDTO.getLandSize());
@@ -255,138 +260,179 @@ public class AdvertismentController {
 		advertisment.setRealEstate(realEstate);
 
 		advertisment = advertismentService.save(advertisment);
-		
-		return new ResponseEntity<>(advertismentDTO, HttpStatus.OK);
-    }
-    
-    /**
-     * This method checks if all input fields are valid.
-     * @param		advertismentDTO	Advertisement DTO
-     * @return      true if OK, else false
-     */
-    private boolean checkInput(AdvertismentCreateDTO advertismentDTO) {
-    	if(advertismentDTO.getName() == null || advertismentDTO.getName().equals("")){
-    		return false;
-    	}
-    	else if(advertismentDTO.getAddress() == null || advertismentDTO.getAddress().equals("")){
-    		return false;
-    	}
-    	else if(advertismentDTO.getLocation().getCity() == null || advertismentDTO.getLocation().getCity().equals("")){
-    		return false;
-    	}
-    	else if(advertismentDTO.getHeatingType() == null || advertismentDTO.getHeatingType().equals("")){
-    		return false;
-    	}
-    	else if(advertismentDTO.getCategory() == null || advertismentDTO.getCategory().equals("")){
-    		return false;
-    	}
-    	else if(advertismentDTO.getPurpose() == null || advertismentDTO.getPurpose().equals("")){
-    		return false;
-    	}
-    	else if(advertismentDTO.getPhoneNumber() == null || advertismentDTO.getPhoneNumber().equals("")){
-    		return false;
-    	}
-    	else if(advertismentDTO.getType() == null || advertismentDTO.getType().equals("")){
-    		return false;
-    	}
-    	return true;		
-	}
-    
-    /**
-     * This method sets a new rate for an Advertisement.
-     * It gets a given rate as a parameter and then calculates
-     * the new average rate and saves it in the database.
-     * @param		id	Advertisement's id
-     * @param		rate	given rate
-     * @return      ResponseEntity DTO Advertisement and HttpStatus OK if OK,
-     * 				else NOT_FOUND status
-     */
-    @RequestMapping(value="advertisment/{id}/rate/{rate}", method = RequestMethod.PUT)
-    public ResponseEntity<AdvertismentCreateDTO> rateAdvertisment(@PathVariable Long id, @PathVariable int rate){
-    	if(id == null || rate < 1 || rate > 5){
-    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    	}
-    	Advertisment advertisment = advertismentService.findOne(id);
-    	if(advertisment == null){
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-    	advertisment.setNumberOfRates(advertisment.getNumberOfRates() + 1);
-    	advertisment.setRate(round(
-    			((advertisment.getRate()*(advertisment.getNumberOfRates()-1)) + rate) / advertisment.getNumberOfRates(), 2));
-    	advertismentService.save(advertisment);
-		return new ResponseEntity<>(new AdvertismentCreateDTO(advertisment, advertisment.getRealEstate()), HttpStatus.OK);
-    }
-    
-    /**
-     * This method prolongs an Advertisement
-     * until given Date.
-     * @param		idAdvertisment	Advertisement's id
-     * @param		date	date until it's valid
-     * @return      ResponseEntity DTO Advertisement and HttpStatus OK if OK,
-     * 				else NOT_FOUND status
-     */
-    @RequestMapping(value="/prolong", method = RequestMethod.PUT)
-    public ResponseEntity<AdvertismentCreateDTO> prolongAdvertisment(@RequestParam Long idAdvertisment, @RequestParam Date date){
-    	if(idAdvertisment == null || date == null){
-    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    	}
-    	
-    	Advertisment advertisment = advertismentService.findOne(idAdvertisment);
-    	
-    	if(advertisment == null){
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-    	
-    	if (date.before(new Date())) {
-    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-    	
-    	advertisment.setActiveUntil(date);
-    	advertismentService.save(advertisment);
-    	
-    	return new ResponseEntity<>(new AdvertismentCreateDTO(advertisment, advertisment.getRealEstate()), HttpStatus.OK);
-    }
-    
-    /**
-     * This method deletes advertisement with given id
-     * @param id
-     * @return HttpStatus OK if exists else HttpStatus NOT_FOUND
-     */
-    @RequestMapping(value="/delete/{id}", method=RequestMethod.PUT)
-    public ResponseEntity<Void> deteleAdvertisement(@PathVariable Long id) {
-    	if(id == null){
-    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    	}
-    	
-    	Advertisment advertisement = advertismentService.findOne(id);
-    	
-    	if (advertisement == null) {
-    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-    	
-    	if (advertisement.isDeleted()) {
-    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-    	
-    	advertisement.setDeleted(true);
-		advertismentService.save(advertisement);
-		return new ResponseEntity<>(HttpStatus.OK);
-    }
-    
-    /**
-     * This method rounds double value on two 
-     * decimals
-     * @param value
-     * @param places
-     * @return double value with two decimals
-     */
-    private double round(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
 
-        long factor = (long) Math.pow(10, places);
-        value = value * factor;
-        long tmp = Math.round(value);
-        return (double) tmp / factor;
-    }
+		return new ResponseEntity<>(advertismentDTO, HttpStatus.OK);
+	}
+
+	/**
+	 * This method checks if all input fields are valid.
+	 * 
+	 * @param advertismentDTO
+	 *            Advertisement DTO
+	 * @return true if OK, else false
+	 */
+	private boolean checkInput(AdvertismentCreateDTO advertismentDTO) {
+		if (advertismentDTO.getName() == null || advertismentDTO.getName().equals("")) {
+			return false;
+		} else if (advertismentDTO.getAddress() == null || advertismentDTO.getAddress().equals("")) {
+			return false;
+		} else if (advertismentDTO.getLocation().getCity() == null
+				|| advertismentDTO.getLocation().getCity().equals("")) {
+			return false;
+		} else if (advertismentDTO.getHeatingType() == null || advertismentDTO.getHeatingType().equals("")) {
+			return false;
+		} else if (advertismentDTO.getCategory() == null || advertismentDTO.getCategory().equals("")) {
+			return false;
+		} else if (advertismentDTO.getPurpose() == null || advertismentDTO.getPurpose().equals("")) {
+			return false;
+		} else if (advertismentDTO.getPhoneNumber() == null || advertismentDTO.getPhoneNumber().equals("")) {
+			return false;
+		} else if (advertismentDTO.getType() == null || advertismentDTO.getType().equals("")) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * This method sets a new rate for an Advertisement. It gets a given rate as
+	 * a parameter and then calculates the new average rate and saves it in the
+	 * database.
+	 * 
+	 * @param id
+	 *            Advertisement's id
+	 * @param rate
+	 *            given rate
+	 * @return ResponseEntity DTO Advertisement and HttpStatus OK if OK, else
+	 *         NOT_FOUND status
+	 */
+	@RequestMapping(value = "advertisment/{id}/rate/{rate}", method = RequestMethod.PUT)
+	public ResponseEntity<AdvertismentCreateDTO> rateAdvertisment(@PathVariable Long id, @PathVariable int rate) {
+		if (id == null || rate < 1 || rate > 5) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		Advertisment advertisment = advertismentService.findOne(id);
+		if (advertisment == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		advertisment.setNumberOfRates(advertisment.getNumberOfRates() + 1);
+		advertisment.setRate(round(((advertisment.getRate() * (advertisment.getNumberOfRates() - 1)) + rate)
+				/ advertisment.getNumberOfRates(), 2));
+		advertismentService.save(advertisment);
+
+		return new ResponseEntity<>(new AdvertismentCreateDTO(advertisment, advertisment.getRealEstate()),
+				HttpStatus.OK);
+	}
+
+	/**
+	 * This method sets a new rate for an User. It gets a given rate as a
+	 * parameter and then calculates the new average rate and saves it in the
+	 * database.
+	 * 
+	 * @param id
+	 *            User's id
+	 * @param rate
+	 *            given rate
+	 * @return ResponseEntity DTO User and HttpStatus OK if OK, else NOT_FOUND
+	 *         status
+	 */
+	@RequestMapping(value = "/user/{id}/rate/{rate}", method = RequestMethod.PUT)
+	public ResponseEntity<UserDTO> rateUser(@PathVariable Long id, @PathVariable double rate) {
+		if (id == null || rate < 1 || rate > 5) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		User user = userService.findOne(id);
+
+		if (user == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		user.setNumOfRates(user.getNumOfRates() + 1);
+		user.setRate(round(((user.getRate() * (user.getNumOfRates() - 1)) + rate) / user.getNumOfRates(), 2));
+		userService.save(user);
+
+		return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
+	}
+
+	/**
+	 * This method prolongs an Advertisement until given Date.
+	 * 
+	 * @param idAdvertisment
+	 *            Advertisement's id
+	 * @param date
+	 *            date until it's valid
+	 * @return ResponseEntity DTO Advertisement and HttpStatus OK if OK, else
+	 *         NOT_FOUND status
+	 */
+	@RequestMapping(value = "/prolong", method = RequestMethod.PUT)
+	public ResponseEntity<AdvertismentCreateDTO> prolongAdvertisment(@RequestParam Long idAdvertisment,
+			@RequestParam Date date) {
+		if (idAdvertisment == null || date == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		Advertisment advertisment = advertismentService.findOne(idAdvertisment);
+
+		if (advertisment == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		if (date.before(new Date())) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		advertisment.setActiveUntil(date);
+		advertismentService.save(advertisment);
+
+		return new ResponseEntity<>(new AdvertismentCreateDTO(advertisment, advertisment.getRealEstate()),
+				HttpStatus.OK);
+	}
+
+	/**
+	 * This method deletes advertisement with given id
+	 * 
+	 * @param id
+	 * @return HttpStatus OK if exists else HttpStatus NOT_FOUND
+	 */
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> deteleAdvertisement(@PathVariable Long id) {
+
+		if (id == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		Advertisment advertisement = advertismentService.findOne(id);
+
+		if (advertisement == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		if (advertisement.isDeleted()) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		advertisement.setDeleted(true);
+		advertismentService.save(advertisement);
+
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	/**
+	 * This method rounds double value on two decimals
+	 * 
+	 * @param value
+	 * @param places
+	 * @return double value with two decimals
+	 */
+	private double round(double value, int places) {
+		if (places < 0)
+			throw new IllegalArgumentException();
+
+		long factor = (long) Math.pow(10, places);
+		value = value * factor;
+		long tmp = Math.round(value);
+
+		return (double) tmp / factor;
+	}
 
 }

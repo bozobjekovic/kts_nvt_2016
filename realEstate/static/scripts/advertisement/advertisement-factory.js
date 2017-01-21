@@ -70,7 +70,7 @@ angular.module('realEstateClientApp')
 		};
 
 		retVal.rateUser = function(id, rate) {
-			return Restangular.one('users/user', id).one('rate', rate).put().then(function(entry) {
+			return Restangular.one('advertisments/user', id).one('rate', rate).put().then(function(entry) {
 				return entry.data;
     		});
 		};

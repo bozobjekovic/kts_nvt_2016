@@ -12,6 +12,8 @@ public interface InappropriateRepository extends JpaRepository<Inappropriate, Lo
 	
 	List<Inappropriate> findByAdvertisment(Advertisment advertisment);
 	
+	List<Inappropriate> findAllByOrderByAdvertisment_Id();
+	
 	Inappropriate findByAdvertismentAndUser(Advertisment advertisment, User user);
 
 }

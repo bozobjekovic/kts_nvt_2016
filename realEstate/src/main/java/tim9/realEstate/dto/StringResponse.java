@@ -1,4 +1,4 @@
-package tim9.realEstate.controller;
+package tim9.realEstate.dto;
 
 import java.io.Serializable;
 
