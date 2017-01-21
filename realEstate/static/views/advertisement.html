@@ -1,4 +1,27 @@
-<style>tr:nth-child(even){background-color: #f2f2f2}</style>
+<style>
+	tr:nth-child(even){background-color: #f2f2f2}
+	hr.lineHR {
+		margin-top: 49px;
+	    padding: 0;
+	    border: none;
+	    border-top: medium double #333;
+	    color: #333;
+	    text-align: center;
+	}
+	hr.lineHR:after {
+	    content: "§";
+	    display: inline-block;
+	    position: relative;
+	    top: -0.7em;
+	    font-size: 1.5em;
+	    padding: 0 0.25em;
+	    background: white;
+		-webkit-transform: rotate(60deg);
+		-moz-transform: rotate(60deg);
+		transform: rotate(60deg);
+	}
+
+</style>
 
 <div class="header-bottom">
 	<nav class="navbar navbar-default">
@@ -22,14 +45,20 @@
 <div class='container'>
 	<h4 style="color: #751717;" class="tittle">{{advert.name}}</h4>
 	<br>
-	<div class="adver-grid-left" style="height: 549px;">
-		<img ng-src="{{advert.backgroungImage}}" alt="" class="img-thumbnail">
+	<div class="adver-grid-left" style="height: 585px;">
+		<div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+			<div uib-slide ng-repeat="image in advert.images">
+				<img ng-src="{{image}}" alt="" class="img-thumbnail">
+			</div>
+		</div>
 		<br><br>
 		<input type="button" id="rprt" value="Report" class="btn btn-danger" ng-click="openModal()">
 		<div style="float:right; margin-right: 10px;">
 			<h6>Rate:  {{advert.rate}}</h6>
 			<span  uib-rating ng-model="rate" max="max" read-only="isReadonly" on-leave="overStar = null" aria-labelledby="default-rating" ng-click="rateAdvert()"></span>
 		</div>
+		<hr>
+		<hr class="lineHR">
 	</div>
 
 	<div class="adver-grid-right">

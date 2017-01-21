@@ -10,6 +10,12 @@
 				$scope.isReadonly = false;
 				var param = $routeParams.param;
 
+				$scope.myInterval = 5000;
+				$scope.noWrapSlides = false;
+				$scope.active = 0;
+				//var slides = $scope.slides = [];
+				var currIndex = 0;
+
 				$scope.comment = {
 					description : ''
 				}
