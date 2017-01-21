@@ -61,6 +61,11 @@ public class UserController {
 	@Autowired
 	MailUtil mailUtil;
 
+	/**
+	 * This method gets Users data and then creates DTO object.
+	 * 
+	 * @return ResponseEntity List with all DTO Users and HttpStatus OK
+	 */
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public ResponseEntity<UserDTO> getUser(ServletRequest request) {
 		User user = (User) userUtils.getLoggedUser(request);
@@ -85,19 +90,19 @@ public class UserController {
 		if (user == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		
+
 		List<AdvertismentDTO> advertismentDTOs = new ArrayList<AdvertismentDTO>();
-		if(user.isClerk()){
+		if (user.isClerk()) {
 			List<Advertisment> advertisments = advertisementService
 					.findByPublisher_Company_IdAndIsDeletedFalseOrderById(user.getCompany().getId());
 			for (Advertisment a : advertisments) {
 				advertismentDTOs.add(new AdvertismentDTO(a));
 			}
-			
+
 			return new ResponseEntity<>(advertismentDTOs, HttpStatus.OK);
 		}
 		List<Advertisment> advertisments = advertisementService.findByPublisherAndIsDeletedFalseOrderById(user);
-		
+
 		for (Advertisment a : advertisments) {
 			advertismentDTOs.add(new AdvertismentDTO(a));
 		}
@@ -125,16 +130,18 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		List<AdvertismentDTO> advertismentDTOs = new ArrayList<AdvertismentDTO>();
-		if(user.isClerk()){
-			List<Advertisment> advertisments = advertisementService.findByPublisher_Company_IdAndIsDeletedFalseAndRealEstate_StatusOrderById(status, user.getCompany().getId());
-			
+		if (user.isClerk()) {
+			List<Advertisment> advertisments = advertisementService
+					.findByPublisher_Company_IdAndIsDeletedFalseAndRealEstate_StatusOrderById(status,
+							user.getCompany().getId());
+
 			for (int i = 0; i < advertisments.size(); i++) {
 				advertismentDTOs.add(new AdvertismentDTO(advertisments.get(i)));
 			}
 			return new ResponseEntity<>(advertismentDTOs, HttpStatus.OK);
 		}
 		List<Advertisment> advertisments = advertisementService.findBySatusAndPublisher(status, user);
-		
+
 		for (int i = 0; i < advertisments.size(); i++) {
 			advertismentDTOs.add(new AdvertismentDTO(advertisments.get(i)));
 		}

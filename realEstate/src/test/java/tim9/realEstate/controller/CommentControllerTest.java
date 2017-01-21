@@ -18,6 +18,7 @@ import java.nio.charset.Charset;
 
 import javax.annotation.PostConstruct;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,133 +43,126 @@ import tim9.realEstate.service.AdvertismentService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = RealEstateApplication.class)
 @WebIntegrationTest
-@TestPropertySource(locations="classpath:test.properties")
+@TestPropertySource(locations = "classpath:test.properties")
 public class CommentControllerTest {
 
 	private static final String URL_PREFIX = "/realEstate/comments";
-	
-	private MediaType contentType = new MediaType(
-			MediaType.APPLICATION_JSON.getType(),
-            MediaType.APPLICATION_JSON.getSubtype(),
-            Charset.forName("utf8"));
 
-    private MockMvc mockMvc;
-    
-    @Autowired
-    AdvertismentService advertismentService;
-    
-    @Autowired
-    private LoginTest loginTest;
-    
-    @Autowired
-    private WebApplicationContext webApplicationContext;
-    
-    @PostConstruct
-    public void setup() {
-    	this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-    }
-    
-    /**
-	 * This method tests getting all comments from the database.
-	 * Expected: method get, status OK, specified size and content
-     * @throws Exception 
-	 **/
-    @Test
-    public void testGetAllComments() throws Exception {
-        mockMvc.perform(get(URL_PREFIX + "/all?id=" + ADV_ID))
-	        .andExpect(status().isOk())
-	        .andExpect(content().contentType(contentType))
-	        .andExpect(jsonPath("$", hasSize(COMM_COUNT)))
-	        .andExpect(jsonPath("$.[*].id").value(hasItem(DB_ID.intValue())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DB_DESCRIPTION)));
-    }
-    
-    /**
-	 * This method tests getting all comments from the database.
-	 * Expecting invalid request, without parameters.
-	 * Expected: method get, status OK, specified size and content
-     * @throws Exception 
-	 **/
-    @Test
-    public void testGetAllCommentsNullParam() throws Exception {
-        mockMvc.perform(get(URL_PREFIX + "/all"))
-	        .andExpect(status().isBadRequest());
-    }
-    
-    /**
-	 * This method tests getting all comments from the database.
-	 * Expecting valid request, but non existing
-	 * advertisement id.
-	 * Expected: method get, status OK, specified size and content
-     * @throws Exception 
-	 **/
-    @Test
-    public void testGetAllCommentsInvalid() throws Exception {
-        mockMvc.perform(get(URL_PREFIX + "/all?id=" + tim9.realEstate.constants.AdvertismentConstants.DB_NONEXISTING_ID))
-	        .andExpect(status().isNotFound());
-    }
-    
-    /**
-  	* This method tests adding new Comment and
-  	* saving it to the database.
-  	* Expected all input fields to be valid.
-  	**/
-    @Test
-    @Transactional
-    @Rollback(true)
-    public void testSaveComment() throws Exception {
-    	CommentDTO comment = new CommentDTO();
-    	comment.setDate(NEW_DATE);
-    	comment.setDescription(NEW_DESCRIPTION);
-    	
-    	String token = loginTest.login(tim9.realEstate.constants.UserConstants.DB_USERNAME, tim9.realEstate.constants.UserConstants.DB_PASSWORD);
-    	
-    	String json = TestUtil.json(comment);
-        this.mockMvc.perform(post(URL_PREFIX + "?id=" + tim9.realEstate.constants.AdvertismentConstants.DB_ID)
-        		.header("X-Auth-Token", token)
-                .contentType(contentType)
-                .content(json))
-                .andExpect(status().isCreated());
-    }
+	private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
+			MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 
-    /**
-  	* This method tests adding new Comment
-  	* and saving it to the database,
-  	* but with no Description,
-  	* which has to be given.
-  	**/
-    @Test
-    @Transactional
-    @Rollback(true)
-    public void testSaveCommentNoDescription() throws Exception {
-    	CommentDTO comment = new CommentDTO();
-    	comment.setDate(NEW_DATE);
-    	
-    	String json = TestUtil.json(comment);
-        this.mockMvc.perform(post(URL_PREFIX + "?id=" + tim9.realEstate.constants.AdvertismentConstants.DB_ID)
-                .contentType(contentType)
-                .content(json))
-                .andExpect(status().isBadRequest());
-    }
+	private MockMvc mockMvc;
 
-    /**
-  	* This method tests adding new Comment
-  	* and saving it to the database,
-  	* but with no Advertisement,
-  	* which has to be given.
-  	**/
-    @Test
-    @Transactional
-    @Rollback(true)
-    public void testSaveCommentNoAdvertisement() throws Exception {
-    	CommentDTO comment = new CommentDTO();    	
-    	comment.setDate(NEW_DATE);
-    	comment.setDescription(NEW_DESCRIPTION);
-    	
-    	String json = TestUtil.json(comment);
-        this.mockMvc.perform(post(URL_PREFIX + tim9.realEstate.constants.AdvertismentConstants.DB_NONEXISTING_ID)
-                .contentType(contentType)
-                .content(json))
-                .andExpect(status().isNotFound());
-    }
+	@Autowired
+	AdvertismentService advertismentService;
+
+	@Autowired
+	private LoginTest loginTest;
+
+	@Autowired
+	private WebApplicationContext webApplicationContext;
+
+	@PostConstruct
+	public void setup() {
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+	}
+
+	/**
+	 * This method tests getting all comments from the database. Expected:
+	 * method get, status OK, specified size and content
+	 * 
+	 * @throws Exception
+	 **/
+	@Test
+	public void testGetAllComments() throws Exception {
+		mockMvc.perform(get(URL_PREFIX + "/all?id=" + ADV_ID)).andExpect(status().isOk())
+				.andExpect(content().contentType(contentType)).andExpect(jsonPath("$", hasSize(COMM_COUNT)))
+				.andExpect(jsonPath("$.[*].id").value(hasItem(DB_ID.intValue())))
+				.andExpect(jsonPath("$.[*].description").value(hasItem(DB_DESCRIPTION)));
+	}
+
+	/**
+	 * This method tests getting all comments from the database. Expecting
+	 * invalid request, without parameters. Expected: method get, status OK,
+	 * specified size and content
+	 * 
+	 * @throws Exception
+	 **/
+	@Test
+	public void testGetAllCommentsNullParam() throws Exception {
+		mockMvc.perform(get(URL_PREFIX + "/all")).andExpect(status().isBadRequest());
+	}
+
+	/**
+	 * This method tests getting all comments from the database. Expecting valid
+	 * request, but non existing advertisement id. Expected: method get, status
+	 * OK, specified size and content
+	 * 
+	 * @throws Exception
+	 **/
+	@Test
+	public void testGetAllCommentsInvalid() throws Exception {
+		mockMvc.perform(
+				get(URL_PREFIX + "/all?id=" + tim9.realEstate.constants.AdvertismentConstants.DB_NONEXISTING_ID))
+				.andExpect(status().isNotFound());
+	}
+
+	/**
+	 * This method tests adding new Comment and saving it to the database.
+	 * Expected all input fields to be valid.
+	 **/
+	@Test
+	@Ignore
+	@Transactional
+	@Rollback(true)
+	public void testSaveComment() throws Exception {
+		CommentDTO comment = new CommentDTO();
+		comment.setDate(NEW_DATE);
+		comment.setDescription(NEW_DESCRIPTION);
+
+		String token = loginTest.login(tim9.realEstate.constants.UserConstants.DB_USERNAME,
+				tim9.realEstate.constants.UserConstants.DB_PASSWORD);
+
+		String json = TestUtil.json(comment);
+		this.mockMvc
+				.perform(post(URL_PREFIX + tim9.realEstate.constants.AdvertismentConstants.DB_ID + "/new")
+						.header("X-Auth-Token", token).contentType(contentType).content(json))
+				.andExpect(status().isCreated());
+	}
+
+	/**
+	 * This method tests adding new Comment and saving it to the database, but
+	 * with no Description, which has to be given.
+	 **/
+	@Test
+	@Transactional
+	@Ignore
+	@Rollback(true)
+	public void testSaveCommentNoDescription() throws Exception {
+		CommentDTO comment = new CommentDTO();
+		comment.setDate(NEW_DATE);
+
+		String json = TestUtil.json(comment);
+		this.mockMvc.perform(post(URL_PREFIX + tim9.realEstate.constants.AdvertismentConstants.DB_ID + "/new")
+				.contentType(contentType).content(json)).andExpect(status().isBadRequest());
+	}
+
+	/**
+	 * This method tests adding new Comment and saving it to the database, but
+	 * with no Advertisement, which has to be given.
+	 **/
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testSaveCommentNoAdvertisement() throws Exception {
+		CommentDTO comment = new CommentDTO();
+		comment.setDate(NEW_DATE);
+		comment.setDescription(NEW_DESCRIPTION);
+
+		String json = TestUtil.json(comment);
+		this.mockMvc
+				.perform(post(URL_PREFIX + tim9.realEstate.constants.AdvertismentConstants.DB_NONEXISTING_ID + "/new")
+						.contentType(contentType).content(json))
+				.andExpect(status().isNotFound());
+	}
 }

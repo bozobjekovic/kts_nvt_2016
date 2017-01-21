@@ -63,7 +63,7 @@ public class CompanyController {
 
 		if (companyService.findByName(companyDTO.getName()) != null
 				|| companyService.findByPhoneNumber(companyDTO.getPhoneNumber()) != null) {
-			return new ResponseEntity<>(companyDTO, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(companyDTO, HttpStatus.CONFLICT);
 		}
 
 		Company company = new Company();

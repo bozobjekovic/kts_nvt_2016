@@ -30,40 +30,73 @@ import tim9.realEstate.constants.LocationConstants;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = RealEstateApplication.class)
 @WebIntegrationTest
-@TestPropertySource(locations="classpath:test.properties")
+@TestPropertySource(locations = "classpath:test.properties")
 public class LocationControllerTest {
-	
+
 	private static final String URL_PREFIX = "/realEstate/locations";
-	
-	private MediaType contentType = new MediaType(
-			MediaType.APPLICATION_JSON.getType(),
-            MediaType.APPLICATION_JSON.getSubtype(),
-            Charset.forName("utf8"));
 
-    private MockMvc mockMvc;
-    
-    @Autowired
-    private WebApplicationContext webApplicationContext;
-    
-    @PostConstruct
-    public void setup() {
-    	this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-    }
+	private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
+			MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 
-    /**
-	 * This method tests getting all Locations from the database.
-	 * Expected: method get, status OK, specified size and content
-     * @throws Exception 
+	private MockMvc mockMvc;
+
+	@Autowired
+	private WebApplicationContext webApplicationContext;
+
+	@PostConstruct
+	public void setup() {
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+	}
+
+	/**
+	 * This method tests getting all Locations from the database. Expected:
+	 * method get, status OK, specified size and content
+	 * 
+	 * @throws Exception
 	 **/
-    @Test
-    public void testGetAllLocations() throws Exception {
-    	mockMvc.perform(get(URL_PREFIX + "/all"))
-	        .andExpect(status().isOk())
-	        .andExpect(content().contentType(contentType))
-	        .andExpect(jsonPath("$", hasSize(DB_COUNT)))
-	        .andExpect(jsonPath("$.[*].id").value(hasItem(LocationConstants.DB_ID.intValue())))
-            .andExpect(jsonPath("$.[*].city").value(hasItem(DB_CITY)))
-            .andExpect(jsonPath("$.[*].zipCode").value(hasItem(DB_ZIP_CODE)))
-            .andExpect(jsonPath("$.[*].partOfTheCity").value(hasItem(DB_PART_OF_THE_CITY)));
-    }
+	@Test
+	public void testGetAllLocations() throws Exception {
+		mockMvc.perform(get(URL_PREFIX + "/all")).andExpect(status().isOk())
+				.andExpect(content().contentType(contentType)).andExpect(jsonPath("$", hasSize(DB_COUNT)))
+				.andExpect(jsonPath("$.[*].id").value(hasItem(LocationConstants.DB_ID.intValue())))
+				.andExpect(jsonPath("$.[*].city").value(hasItem(DB_CITY)))
+				.andExpect(jsonPath("$.[*].zipCode").value(hasItem(DB_ZIP_CODE)))
+				.andExpect(jsonPath("$.[*].partOfTheCity").value(hasItem(DB_PART_OF_THE_CITY)));
+	}
+
+	/**
+	 * This method tests getting all Locations from the database. Expected:
+	 * method get, status OK, specified size and content
+	 * 
+	 * @throws Exception
+	 **/
+	@Test
+	public void testGetAllCities() throws Exception {
+		mockMvc.perform(get(URL_PREFIX + "/city")).andExpect(status().isOk())
+				.andExpect(content().contentType(contentType)).andExpect(jsonPath("$", hasSize(DB_CITY_COUNT)));
+	}
+
+	/**
+	 * This method tests getting all parts of the cities from the database.
+	 * Expected: method get, status OK, specified size and content
+	 * 
+	 * @throws Exception
+	 **/
+	@Test
+	public void testGetAllPartsCities() throws Exception {
+		mockMvc.perform(get(URL_PREFIX + "/city")).andExpect(status().isOk())
+				.andExpect(content().contentType(contentType)).andExpect(jsonPath("$", hasSize(DB_CITY_COUNT)));
+	}
+
+	/**
+	 * This method tests getting all parts of the cities for specified city from
+	 * the database. Expected: method get, status OK, specified size and content
+	 * 
+	 * @throws Exception
+	 **/
+	@Test
+	public void testGetAllPartsCitiesForCity() throws Exception {
+		mockMvc.perform(get(URL_PREFIX + "/city/partOfTheCity?city=" + DB_CITY)).andExpect(status().isOk())
+				.andExpect(content().contentType(contentType)).andExpect(jsonPath("$", hasSize(DB_PART_OF_THE_CITY_COUNT)));
+	}
 }

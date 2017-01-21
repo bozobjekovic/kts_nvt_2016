@@ -44,16 +44,34 @@ public class LocationController {
 		return new ResponseEntity<>(locationDTO, HttpStatus.OK);
 	}
 
+	/**
+	 * This method gets all cities from the database and then creates a list of
+	 * DTO objects.
+	 * 
+	 * @return ResponseEntity List with all DTO Locations and HttpStatus OK
+	 */
 	@RequestMapping(value = "/city", method = RequestMethod.GET)
 	public ResponseEntity<List<String>> getAllCities() {
 		return new ResponseEntity<>(locationService.getAllCities(), HttpStatus.OK);
 	}
 
+	/**
+	 * This method gets all art of the cities from the database and then creates
+	 * a list of DTO objects.
+	 * 
+	 * @return ResponseEntity List with all DTO Locations and HttpStatus OK
+	 */
 	@RequestMapping(value = "/partOfTheCities", method = RequestMethod.GET)
 	public ResponseEntity<List<String>> getAllPartOfTheCities() {
 		return new ResponseEntity<>(locationService.getAllPartOfTheCities(), HttpStatus.OK);
 	}
 
+	/**
+	 * This method gets all part of the cities for the specified city from the
+	 * database and then creates a list of DTO objects.
+	 * 
+	 * @return ResponseEntity List with all DTO Locations and HttpStatus OK
+	 */
 	@RequestMapping(value = "/city/partOfTheCity", method = RequestMethod.GET)
 	public ResponseEntity<List<String>> getAllpartOfTheCity(@RequestParam String city) {
 		return new ResponseEntity<>(locationService.getAllPartOfTheCitiesByCity(city), HttpStatus.OK);

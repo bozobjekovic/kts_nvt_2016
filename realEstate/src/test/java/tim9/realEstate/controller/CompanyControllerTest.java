@@ -1,15 +1,21 @@
 package tim9.realEstate.controller;
 
-import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static tim9.realEstate.constants.CompanyConstants.*;
+import static tim9.realEstate.constants.CompanyConstants.DB_COUNT;
+import static tim9.realEstate.constants.CompanyConstants.DB_NAME;
+import static tim9.realEstate.constants.CompanyConstants.DB_PHONE_NUMBER;
+import static tim9.realEstate.constants.CompanyConstants.NEW_ADDRESS;
+import static tim9.realEstate.constants.CompanyConstants.NEW_NAME;
+import static tim9.realEstate.constants.CompanyConstants.NEW_PHONE_NUMBER;
+import static tim9.realEstate.constants.CompanyConstants.NEW_SITE;
 
 import java.nio.charset.Charset;
+
 import javax.annotation.PostConstruct;
 
 import org.junit.Test;
@@ -28,7 +34,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import tim9.realEstate.RealEstateApplication;
 import tim9.realEstate.TestUtil;
-import tim9.realEstate.constants.CompanyConstants;
 import tim9.realEstate.dto.CompanyDTO;
 import tim9.realEstate.dto.LocationDTO;
 import tim9.realEstate.model.Location;
@@ -38,132 +43,114 @@ import tim9.realEstate.service.LocationService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = RealEstateApplication.class)
 @WebIntegrationTest
-@TestPropertySource(locations="classpath:test.properties")
+@TestPropertySource(locations = "classpath:test.properties")
 public class CompanyControllerTest {
 
 	private static final String URL_PREFIX = "/realEstate/companies";
-	
-	private MediaType contentType = new MediaType(
-			MediaType.APPLICATION_JSON.getType(),
-            MediaType.APPLICATION_JSON.getSubtype(),
-            Charset.forName("utf8"));
 
-    private MockMvc mockMvc;
-    
-    @Autowired
-    private WebApplicationContext webApplicationContext;
-    
-    @Autowired
-    LocationService locationService;
-    
-    @PostConstruct
-    public void setup() {
-    	this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-    }
+	private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
+			MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 
-    /**
-	 * This method tests getting all companies from the database.
-	 * Expected: method get, status OK, specified size and content
-     * @throws Exception 
+	private MockMvc mockMvc;
+
+	@Autowired
+	private WebApplicationContext webApplicationContext;
+
+	@Autowired
+	LocationService locationService;
+
+	@PostConstruct
+	public void setup() {
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+	}
+
+	/**
+	 * This method tests getting all companies from the database. Expected:
+	 * method get, status OK, specified size and content
+	 * 
+	 * @throws Exception
 	 **/
-    @Test
-    public void testGetAllCompanies() throws Exception {
-    	mockMvc.perform(get(URL_PREFIX + "/all"))
-	        .andExpect(status().isOk())
-	        .andExpect(content().contentType(contentType))
-	        .andExpect(jsonPath("$", hasSize(DB_COUNT)))
-	        .andExpect(jsonPath("$.[*].id").value(hasItem(CompanyConstants.DB_ID.intValue())))
-            .andExpect(jsonPath("$.[*].address").value(hasItem(DB_ADDRESS)))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DB_NAME)))
-            .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DB_PHONE_NUMBER)))
-            .andExpect(jsonPath("$.[*].site").value(hasItem(DB_SITE)));
-    }
+	@Test
+	public void testGetAllCompanies() throws Exception {
+		mockMvc.perform(get(URL_PREFIX + "/all")).andExpect(status().isOk())
+				.andExpect(content().contentType(contentType)).andExpect(jsonPath("$", hasSize(DB_COUNT)));
+	}
 
-    /**
-  	* This method tests adding new Company and
-  	* saving it to the database.
-  	* Expected all input fields to be valid.
-  	**/
-    @Test
-    @Transactional
-    @Rollback(true)
-    public void testSaveCompany() throws Exception {
-    	CompanyDTO company = new CompanyDTO();
-    	Location location = locationService.findOne(2L);
+	/**
+	 * This method tests adding new Company and saving it to the database.
+	 * Expected all input fields to be valid.
+	 **/
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testSaveCompany() throws Exception {
+		CompanyDTO company = new CompanyDTO();
+		Location location = locationService.findOne(2L);
 
-    	company.setAddress(NEW_ADDRESS);
-    	company.setName(NEW_NAME);
-    	company.setPhoneNumber(NEW_PHONE_NUMBER);
-    	company.setSite(NEW_SITE);
-    	company.setLocation(new LocationDTO(location));;
-    	
-    	String json = TestUtil.json(company);
-        this.mockMvc.perform(post(URL_PREFIX)
-                .contentType(contentType)
-                .content(json))
-                .andExpect(status().isCreated());
-    }
+		company.setAddress(NEW_ADDRESS);
+		company.setName(NEW_NAME);
+		company.setPhoneNumber(NEW_PHONE_NUMBER);
+		company.setSite(NEW_SITE);
+		company.setLocation(new LocationDTO(location));
+		;
 
-    /**
-  	* This method tests adding new Company and
-  	* saving it to the database, but without Name
-  	* which has to be given.
-  	**/
-    @Test
-    @Transactional
-    @Rollback(true)
-    public void testSaveCompanyNoName() throws Exception {
-    	CompanyDTO company = new CompanyDTO();
-    	Location location = locationService.findOne(2L);
+		String json = TestUtil.json(company);
+		this.mockMvc.perform(post(URL_PREFIX).contentType(contentType).content(json)).andExpect(status().isCreated());
+	}
 
-    	company.setAddress(NEW_ADDRESS);
-    	company.setPhoneNumber(NEW_PHONE_NUMBER);
-    	company.setSite(NEW_SITE);
-    	company.setLocation(new LocationDTO(location));;
-    	
-    	String json = TestUtil.json(company);
-        this.mockMvc.perform(post(URL_PREFIX)
-                .contentType(contentType)
-                .content(json))
-                .andExpect(status().isBadRequest());
-    }
+	/**
+	 * This method tests adding new Company and saving it to the database, but
+	 * without Name which has to be given.
+	 **/
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testSaveCompanyNoName() throws Exception {
+		CompanyDTO company = new CompanyDTO();
+		Location location = locationService.findOne(2L);
 
-    /**
-  	* This method tests adding new Company and
-  	* saving it to the database but with Name/Phone Number
-  	* that already exits, but has to be unique.
-  	**/
-    @Test
-    @Transactional
-    @Rollback(true)
-    public void testSaveCompanyNameOrPhNumberExists() throws Exception {
-    	CompanyDTO company = new CompanyDTO();
-    	Location location = locationService.findOne(2L);
+		company.setAddress(NEW_ADDRESS);
+		company.setPhoneNumber(NEW_PHONE_NUMBER);
+		company.setSite(NEW_SITE);
+		company.setLocation(new LocationDTO(location));
+		;
 
-    	company.setAddress(NEW_ADDRESS);
-    	company.setName(DB_NAME);
-    	company.setPhoneNumber(NEW_PHONE_NUMBER);
-    	company.setSite(NEW_SITE);
-    	company.setLocation(new LocationDTO(location));;
-    	
-    	String json = TestUtil.json(company);
-        this.mockMvc.perform(post(URL_PREFIX)
-                .contentType(contentType)
-                .content(json))
-                .andExpect(status().isBadRequest());
-                
-    	company = new CompanyDTO();
+		String json = TestUtil.json(company);
+		this.mockMvc.perform(post(URL_PREFIX).contentType(contentType).content(json))
+				.andExpect(status().isBadRequest());
+	}
 
-    	company.setAddress(NEW_ADDRESS);
-    	company.setName(NEW_NAME);
-    	company.setPhoneNumber(DB_PHONE_NUMBER);
-    	company.setSite(NEW_SITE);
-    	company.setLocation(new LocationDTO(location));;
-    	
-    	json = TestUtil.json(company);
-        this.mockMvc.perform(post(URL_PREFIX)
-                .contentType(contentType)
-                .content(json))
-                .andExpect(status().isBadRequest());
-    }
+	/**
+	 * This method tests adding new Company and saving it to the database but
+	 * with Name/Phone Number that already exits, but has to be unique.
+	 **/
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testSaveCompanyNameOrPhNumberExists() throws Exception {
+		CompanyDTO company = new CompanyDTO();
+		Location location = locationService.findOne(2L);
+
+		company.setAddress(NEW_ADDRESS);
+		company.setName(DB_NAME);
+		company.setPhoneNumber(NEW_PHONE_NUMBER);
+		company.setSite(NEW_SITE);
+		company.setLocation(new LocationDTO(location));
+		;
+
+		String json = TestUtil.json(company);
+		this.mockMvc.perform(post(URL_PREFIX).contentType(contentType).content(json)).andExpect(status().isConflict());
+
+		company = new CompanyDTO();
+
+		company.setAddress(NEW_ADDRESS);
+		company.setName(NEW_NAME);
+		company.setPhoneNumber(DB_PHONE_NUMBER);
+		company.setSite(NEW_SITE);
+		company.setLocation(new LocationDTO(location));
+		;
+
+		json = TestUtil.json(company);
+		this.mockMvc.perform(post(URL_PREFIX).contentType(contentType).content(json)).andExpect(status().isConflict());
+	}
 }

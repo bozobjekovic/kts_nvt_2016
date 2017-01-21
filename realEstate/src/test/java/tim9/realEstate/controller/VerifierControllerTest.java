@@ -1,5 +1,6 @@
 package tim9.realEstate.controller;
 
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -7,6 +8,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static tim9.realEstate.constants.AdminConstants.DB_COUNT_INAP;
+import static tim9.realEstate.constants.AdminConstants.DB_EXADV_ID;
+import static tim9.realEstate.constants.AdminConstants.DB_NONEXADV_ID;
+import static tim9.realEstate.constants.AdminConstants.INAP_DESCRIPTION;
+import static tim9.realEstate.constants.AdminConstants.INAP_ID;
+import static tim9.realEstate.constants.AdminConstants.INAP_TITLE;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_CITY_UNVERIFIED;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_COUNT_UNVERIFIED;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_ID_UNVERIFIED;
@@ -276,4 +283,109 @@ public class VerifierControllerTest {
                 .andExpect(status().isNotFound());
     	// TEST ############################################
     }
+    
+    /**
+	 * This method should test getting all inappropriate advertisement from the
+	 * database. Expected: method get, status OK, specified size and content
+	 * 
+	 * @throws Exception
+	 **/
+	@Test
+	public void testGetAllInappropriates() throws Exception {
+		this.mockMvc.perform(get(URL_PREFIX + "/inappropriate")).andExpect(status().isOk())
+				.andExpect(content().contentType(contentType)).andExpect(jsonPath("$", hasSize(DB_COUNT_INAP)))
+				.andExpect(jsonPath("$.[*].id").value(hasItem(INAP_ID.intValue())))
+				.andExpect(jsonPath("$.[*].title").value(hasItem(INAP_TITLE)))
+				.andExpect(jsonPath("$.[*].description").value(hasItem(INAP_DESCRIPTION)));
+	}
+
+	/**
+	 * This method should test rejecting inappropriate advertisement. Expecting
+	 * request to be valid. Expected: method delete, status OK
+	 * 
+	 * @throws Exception
+	 **/
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testRejectInappropriate() throws Exception {
+		this.mockMvc.perform(delete(URL_PREFIX + "/inappropriate/reject?id=" + DB_EXADV_ID).contentType(contentType))
+				.andExpect(status().isOk());
+	}
+
+	/**
+	 * This method should test rejecting inappropriate advertisement. Expecting
+	 * request to be invalid, with request parameter null. Expected: method
+	 * delete, status BAD_REQUEST
+	 * 
+	 * @throws Exception
+	 **/
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testRejectInappropriateNullParam() throws Exception {
+		this.mockMvc.perform(delete(URL_PREFIX + "/inappropriate/reject").contentType(contentType))
+				.andExpect(status().isBadRequest());
+	}
+
+	/**
+	 * This method should test rejecting inappropriate advertisement. Expecting
+	 * request to be valid, but advertisement to be non existing, or maybe
+	 * someone else already rejected it. Expected: method delete, status
+	 * BAD_REQUEST
+	 * 
+	 * @throws Exception
+	 **/
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testRejectInappropriateInvalid() throws Exception {
+		this.mockMvc.perform(delete(URL_PREFIX + "/inappropriate/reject?id=" + DB_NONEXADV_ID).contentType(contentType))
+				.andExpect(status().isNotFound());
+	}
+
+	/**
+	 * This method should test accepting inappropriate advertisement. Expecting
+	 * request to be valid. Expected: method delete, status OK
+	 * 
+	 * @throws Exception
+	 **/
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testAcceptInappropriate() throws Exception {
+		this.mockMvc.perform(delete(URL_PREFIX + "/inappropriate/accept?id=" + DB_EXADV_ID).contentType(contentType))
+				.andExpect(status().isOk());
+	}
+
+	/**
+	 * This method should test accepting inappropriate advertisement. Expecting
+	 * request to be invalid, with request parameter null. Expected: method
+	 * delete, status BAD_REQUEST
+	 * 
+	 * @throws Exception
+	 **/
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testAcceptInappropriateNullParam() throws Exception {
+		this.mockMvc.perform(delete(URL_PREFIX + "/inappropriate/accept").contentType(contentType))
+				.andExpect(status().isBadRequest());
+	}
+
+	/**
+	 * This method should test accepting inappropriate advertisement. Expecting
+	 * request to be valid, but advertisement to be non existing, or maybe
+	 * someone else already accepted it. Expected: method delete, status
+	 * BAD_REQUEST
+	 * 
+	 * @throws Exception
+	 **/
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testAcceptInappropriateInvalid() throws Exception {
+		this.mockMvc.perform(delete(URL_PREFIX + "/inappropriate/accept?id=" + DB_NONEXADV_ID).contentType(contentType))
+				.andExpect(status().isNotFound());
+	}
 }
