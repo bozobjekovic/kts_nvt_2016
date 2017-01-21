@@ -91,7 +91,7 @@ public class AdvertismentService {
 	 * @return List of elements
 	 */
 	public Advertisment findByPhoneNumber(String phone) {
-		return advertismentRepository.findByPhoneNumberAndIsDeletedFalseAndVerifierNotNull(phone);
+		return advertismentRepository.findByPhoneNumberAndIsDeletedFalse(phone);
 	}
 
 	/**
@@ -104,7 +104,7 @@ public class AdvertismentService {
 	 * @return List of elements
 	 */
 	public List<Advertisment> findBySatusAndPublisher(Status status, User publisher) {
-		return advertismentRepository.findByIsDeletedFalseAndVerifierIsNotNullAndRealEstate_StatusAndPublisher(status,
+		return advertismentRepository.findByIsDeletedFalseAndRealEstate_StatusAndPublisher(status,
 				publisher);
 	}
 	
@@ -130,6 +130,19 @@ public class AdvertismentService {
 	 */
 	public List<Advertisment> findByPublisher_Company_IdAndIsDeletedFalseOrderById(Long id){
 		return advertismentRepository.findByPublisher_Company_IdAndIsDeletedFalseOrderById(id);
+	}
+	
+	/**
+	 * This method finds all elements by status and company.
+	 * 
+	 * @param status
+	 *            real estate status
+	 * @param id
+	 *            company id
+	 * @return List of elements
+	 */
+	public List<Advertisment> findByPublisher_Company_IdAndIsDeletedFalseAndRealEstate_StatusOrderById(Status status, Long id) {
+		return advertismentRepository.findByPublisher_Company_IdAndIsDeletedFalseAndRealEstate_StatusOrderById(id, status);
 	}
 
 }

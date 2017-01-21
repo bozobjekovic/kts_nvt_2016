@@ -9,12 +9,7 @@
 
 			  UserFactory.getUser().then(function(item) {
 				      $scope.user = item;
-				      if($localStorage.currentUser.role === "USER"){
-				    	  $scope.getPublished();
-				      }
-				      else{
-				    	  $scope.getClerkPublished();
-				      }
+				      $scope.getPublished();
 				      $scope.getCompany();
 			  });
 			  
@@ -120,12 +115,7 @@
 	                      }
 	                  }).result.then(function (result) {
 	                      if(result.status == "ok"){
-	                    	  if($localStorage.currentUser.role === "USER"){
-	    				    	  $scope.getPublished();
-	    				      }
-	    				      else{
-	    				    	  $scope.getClerkPublished();
-	    				      }
+	                    	  $scope.getPublished();
 	                      }
 	                  });
 				  });

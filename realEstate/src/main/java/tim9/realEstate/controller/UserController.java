@@ -85,40 +85,19 @@ public class UserController {
 		if (user == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-
+		
+		List<AdvertismentDTO> advertismentDTOs = new ArrayList<AdvertismentDTO>();
+		if(user.isClerk()){
+			List<Advertisment> advertisments = advertisementService
+					.findByPublisher_Company_IdAndIsDeletedFalseOrderById(user.getCompany().getId());
+			for (Advertisment a : advertisments) {
+				advertismentDTOs.add(new AdvertismentDTO(a));
+			}
+			
+			return new ResponseEntity<>(advertismentDTOs, HttpStatus.OK);
+		}
 		List<Advertisment> advertisments = advertisementService.findByPublisherAndIsDeletedFalseOrderById(user);
-		List<AdvertismentDTO> advertismentDTOs = new ArrayList<AdvertismentDTO>();
-
-		for (Advertisment a : advertisments) {
-			advertismentDTOs.add(new AdvertismentDTO(a));
-		}
-
-		return new ResponseEntity<>(advertismentDTOs, HttpStatus.OK);
-	}
-
-	/**
-	 * This method gets all Clerks publications from his company
-	 * from the database and then
-	 * creates a list of DTO objects.
-	 * 
-	 * @return ResponseEntity List with all DTO Users and HttpStatus OK
-	 */
-	@RequestMapping(value = "/published/clerk/{id}", method = RequestMethod.GET)
-	public ResponseEntity<List<AdvertismentDTO>> getAllClerksPublications(@PathVariable Long id) {
-		if (id == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-
-		User user = userService.findOne(id);
-
-		if (user == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
-		System.out.println(user.getCompany().getId());
-		List<Advertisment> advertisments = advertisementService.findByPublisher_Company_IdAndIsDeletedFalseOrderById(user.getCompany().getId());
-		List<AdvertismentDTO> advertismentDTOs = new ArrayList<AdvertismentDTO>();
-		System.out.println("Aa");
+		
 		for (Advertisment a : advertisments) {
 			advertismentDTOs.add(new AdvertismentDTO(a));
 		}
@@ -145,8 +124,17 @@ public class UserController {
 		if (user == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		List<Advertisment> advertisments = advertisementService.findBySatusAndPublisher(status, user);
 		List<AdvertismentDTO> advertismentDTOs = new ArrayList<AdvertismentDTO>();
+		if(user.isClerk()){
+			List<Advertisment> advertisments = advertisementService.findByPublisher_Company_IdAndIsDeletedFalseAndRealEstate_StatusOrderById(status, user.getCompany().getId());
+			
+			for (int i = 0; i < advertisments.size(); i++) {
+				advertismentDTOs.add(new AdvertismentDTO(advertisments.get(i)));
+			}
+			return new ResponseEntity<>(advertismentDTOs, HttpStatus.OK);
+		}
+		List<Advertisment> advertisments = advertisementService.findBySatusAndPublisher(status, user);
+		
 		for (int i = 0; i < advertisments.size(); i++) {
 			advertismentDTOs.add(new AdvertismentDTO(advertisments.get(i)));
 		}
