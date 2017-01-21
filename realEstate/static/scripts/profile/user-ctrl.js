@@ -197,7 +197,28 @@
             function($scope, $uibModalInstance, advertisement, AdvertisementFactory) {
                 $scope.advertisement = advertisement;
                 
+                $scope.format = 'dd.MM.yyyy';
+				$scope.dt = new Date();
+				
+				var max = new Date();
+				max.setMonth(max.getMonth() + 3);
+				
+				$scope.dateOptions = {
+				    maxDate: max,
+				    minDate: new Date(),
+				    startingDay: 1
+				};
+				 
+				$scope.popup = {
+				    opened: false
+				};
+				 
+				$scope.open = function() {
+				    $scope.popup.opened = true;
+				};
+                
                 $scope.save = function() {
+                	$scope.advertisement.activeUntil = $scope.dt;
                 	AdvertisementFactory.updateAdvertisement($scope.advertisement).then(function(item) {
              		   $uibModalInstance.close({
              			   status: 'ok',

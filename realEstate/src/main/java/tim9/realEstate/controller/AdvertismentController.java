@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.ServletRequest;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -140,8 +141,9 @@ public class AdvertismentController {
 			advertisment.setBackgroundImage(advertismentDTO.getImages().get(0));
 			advertisment.setImages(advertismentDTO.getImages());
 		}
-
-		advertisment.setActiveUntil(advertismentDTO.getActiveUntil());
+		
+		Date activeUntil = DateUtils.addMonths(new Date(), 3);
+		advertisment.setActiveUntil(activeUntil);
 		advertisment.setPurpose(advertismentDTO.getPurpose());
 		advertisment.setPhoneNumber(advertismentDTO.getPhoneNumber());
 
@@ -186,6 +188,7 @@ public class AdvertismentController {
 			realEstate.setLocation(location);
 			realEstate.setAddress(advertismentDTO.getAddress());
 			realEstate.setLandSize(advertismentDTO.getLandSize());
+			realEstate.setHeatingType(advertismentDTO.getHeatingType());
 			realEstate.setTechEquipment(advertismentDTO.getTechEquipment());
 			realEstate.setNumOfBathRooms(advertismentDTO.getNumOfBathRooms());
 			realEstate.setNumOfBedRooms(advertismentDTO.getNumOfBedRooms());

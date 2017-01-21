@@ -1,6 +1,7 @@
 package tim9.realEstate.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -65,7 +66,9 @@ public class AdvertismentFilterController {
 		List<AdvertismentDTO> filteredAdvertisementsDTO = new ArrayList<>();
 
 		for (Advertisment advertisment : filteredAdvertisements) {
-			filteredAdvertisementsDTO.add(new AdvertismentDTO(advertisment));
+			if(advertisment.getActiveUntil().after(new Date())){
+				filteredAdvertisementsDTO.add(new AdvertismentDTO(advertisment));
+			}
 		}
 
 		return new ResponseEntity<>(new FilterDTO(filteredAdvertisementsDTO, count), HttpStatus.OK);
