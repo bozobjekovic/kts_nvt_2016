@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -23,7 +22,6 @@ public class User extends Person implements Serializable{
 	
 	private int numOfRates;
 	private double rate;
-	@Column(unique = true)
 	private int bankAccount;
 	private boolean isClerk;
 	private boolean isApproved;

@@ -11,37 +11,37 @@ public class RegistrationUserPage {
 
 	private WebDriver driver;
 	
-	@FindBy(xpath = "//form[@name='registrateUserForm']/input[@id='name']")
+	@FindBy(xpath = "//a[text()=\"Clerk\"]")
+	private WebElement clerkTab;
+	
+	@FindBy(xpath = "//form[@name='registrateUserForm']//input[@id='name']")
 	private WebElement inputName;
 	
-	@FindBy(xpath = "//form[@name='registrateUserForm']/input[@id='surname']")
+	@FindBy(xpath = "//form[@name='registrateUserForm']//input[@id='surname']")
 	private WebElement inputSurname;
 	
-	@FindBy(xpath = "//form[@name='registrateUserForm']/input[@id='email']")
+	@FindBy(xpath = "//form[@name='registrateUserForm']//input[@id='email']")
 	private WebElement inputEmail;
 	
-	@FindBy(xpath = "//form[@name='registrateUserForm']/input[@id='username']")
+	@FindBy(xpath = "//form[@name='registrateUserForm']//input[@id='username']")
 	private WebElement inputUsername;
 	
-	@FindBy(xpath = "//form[@name='registrateUserForm']/input[@id='password']")
+	@FindBy(xpath = "//form[@name='registrateUserForm']//input[@id='password']")
 	private WebElement inputPassword;
 	
-	@FindBy(xpath = "//form[@name='registrateUserForm']/input[@id='phonenumber']")
+	@FindBy(xpath = "//form[@name='registrateUserForm']//input[@id='phonenumber']")
 	private WebElement inputPhoneNumber;
 	
-	@FindBy(xpath = "//form[@name='registrateUserForm']/input[@id='address']")
+	@FindBy(xpath = "//form[@name='registrateUserForm']//input[@id='address']")
 	private WebElement inputAddress;
 	
-	@FindBy(xpath = "//form[@name='registrateUserForm']/input[@id='city']")
+	@FindBy(xpath = "//form[@name='registrateUserForm']//input[@id='city']")
 	private WebElement inputCity;
 	
-	@FindBy(xpath = "//form[@name='registrateUserForm']/input[@id='image']")
-	private WebElement inputImage;
-	
-	@FindBy(xpath = "//form[@name='registrateUserForm']/input[@id='bankaccount']")
+	@FindBy(xpath = "//form[@name='registrateUserForm']//input[@id='bankaccount']")
 	private WebElement inputBankAccount;
 	
-	@FindBy(xpath = "//form[@name='registrateUserForm']/button[text()='OK']")
+	@FindBy(xpath = "//form[@name='registrateUserForm']//button[text()='OK']")
 	private WebElement okButton;
 
 	public RegistrationUserPage(WebDriver driver) {
@@ -52,7 +52,11 @@ public class RegistrationUserPage {
 	public void ensureIsDisplayed() {
 		(new WebDriverWait(driver, 10))
 			.until(ExpectedConditions.presenceOfElementLocated(
-					By.xpath("//form[@name='registrateUserForm']/input[@id='bankaccount']")));
+					By.xpath("//form[@name='registrateUserForm']//input[@id='bankaccount']")));
+	}
+	
+	public WebElement getClerkTab() {
+		return clerkTab;
 	}
 
 	public WebElement getInputName() {
@@ -131,16 +135,6 @@ public class RegistrationUserPage {
 
 	public void setInputCity(String value) {
 		WebElement el = getInputCity();
-		el.clear();
-		el.sendKeys(value);
-	}
-
-	public WebElement getInputImage() {
-		return inputImage;
-	}
-
-	public void setInputImage(String value) {
-		WebElement el = getInputImage();
 		el.clear();
 		el.sendKeys(value);
 	}

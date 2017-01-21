@@ -36,10 +36,13 @@ public class MainPage {
 	@FindBy(xpath = "//a[text()=\"Log In\"]")
 	private WebElement logInLink;
 	
+	@FindBy(xpath = "//a[text()=\"Register\"]")
+	private WebElement registrateLink;
+	
 	@FindBy(xpath = "//a[@id=\"profile\"]")
 	private WebElement profileLink;
 	
-	@FindBy(xpath = "//a[@ng-click='logOut()']")
+	@FindBy(xpath = "//a[text()=\"Log Out\"]")
 	private WebElement logOutLink;
 
 	public WebElement getHomeLink() {
@@ -74,14 +77,24 @@ public class MainPage {
 		return profileLink;
 	}
 	
+	public WebElement getRegistrateLink() {
+		return registrateLink;
+	}
+
 	public WebElement getLogOutLink() {
 		return logOutLink;
 	}
-
+	
 	public void ensureIsDisplayed() {
 		(new WebDriverWait(browser, 2))
 				  .until(ExpectedConditions.visibilityOfElementLocated(
 						  By.xpath("//a[@ng-href=\"/#/buy\"]")));
+	}
+	
+	public void ensureIsLogged() {
+		(new WebDriverWait(browser, 10))
+				  .until(ExpectedConditions.presenceOfElementLocated(
+						  By.xpath("//a[text()=\"Log Out\"]")));
 	}
 	
 	public void ensureLoginIsClosed() {
