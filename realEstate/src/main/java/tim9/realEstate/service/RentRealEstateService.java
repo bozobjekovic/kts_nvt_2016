@@ -27,6 +27,14 @@ public class RentRealEstateService {
 	public RentRealEstate findOne(Long id) {
 		return rentRealEstateRepository.findOne(id);
 	}
+	
+	/**
+	* This method finds all elements from specified Table.
+	* @return		List of elements
+	*/
+	public List<RentRealEstate> findAll() {
+		return rentRealEstateRepository.findAll();
+	}
 
 	/**
 	 * This method finds element with specified real estate and gets it from the

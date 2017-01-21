@@ -28,10 +28,6 @@ public class VerifierServiceTest {
 	
 	@Autowired
 	VerifierService verifierService;
-
-	/**
-	 * <h1> Positive tests </h1>
-	 */
 	
 	/**
 	 * method tests if an certain element from the data base can be found
@@ -54,6 +50,38 @@ public class VerifierServiceTest {
 	public void testFindAll() {
 		List<Verifier> verifiers = verifierService.findAll();
 		assertThat(verifiers).hasSize(DB_COUNT);
+	}
+
+	/**
+	 * method test if all of certain elements from the data base can be found by
+	 * Username
+	 **/
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testFindByUsername() {
+		Verifier verifier = verifierService.findByUsername(DB_USERNAME);
+		assertThat(verifier).isNotNull();
+
+		assertThat(verifier.getId()).isEqualTo(DB_ID);
+		assertThat(verifier.getEmail()).isEqualTo(DB_EMAIL);
+		assertThat(verifier.getUsername()).isEqualTo(DB_USERNAME);
+	}
+
+	/**
+	 * method test if all of certain elements from the data base can be found by
+	 * Email
+	 **/
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testFindByEmail() {
+		Verifier verifier = verifierService.findByEmail(DB_EMAIL);
+		assertThat(verifier).isNotNull();
+
+		assertThat(verifier.getId()).isEqualTo(DB_ID);
+		assertThat(verifier.getEmail()).isEqualTo(DB_EMAIL);
+		assertThat(verifier.getUsername()).isEqualTo(DB_USERNAME);
 	}
 	
 	/**
@@ -102,10 +130,6 @@ public class VerifierServiceTest {
         assertThat(dbVerifier.getPassword()).isEqualTo(NEW_PASSWORD);
         assertThat(dbVerifier.getUsername()).isEqualTo(NEW_USERNAME);
 	}
-	
-	/**
-	 * <h1> Negative tests </h1>
-	 */
 	
 	/**
 	 * method tests if an certain element from data base,

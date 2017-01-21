@@ -213,14 +213,4 @@ public class Advertisment implements Serializable{
 		this.isDeleted = isDeleted;
 	}
 
-	@Override
-	public String toString() {
-		return "Advertisment [id=" + id + ", name=" + name + ", price=" + price + ", backgroundImage=" + backgroundImage
-				+ ", images=" + images + ", publicationDate=" + publicationDate + ", modificationDate="
-				+ modificationDate + ", activeUntil=" + activeUntil + ", purpose=" + purpose + ", rate=" + rate
-				+ ", numberOfRates=" + numberOfRates + ", phoneNumber=" + phoneNumber + ", verifier=" + verifier
-				+ ", publisher=" + publisher + ", buyer=" + buyer + ", realEstate=" + realEstate + ", comments="
-				+ comments + ", isDeleted=" + isDeleted + "]";
-	}
-
 }

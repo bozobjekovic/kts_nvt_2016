@@ -40,4 +40,5 @@ public class RealEstateConstants { // LOCATION REFERENCE MISS !!!!!!!!!!!!!!!!
 	
 	public static final int DB_COUNT = 4;
 	public static final int DB_COUNT_REAL = 5;
+	public static final int DB_CITY_ADDRESS_COUNT = 1;
 }

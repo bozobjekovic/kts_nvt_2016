@@ -7,7 +7,7 @@ public class InappropriateConstants {
 	
 	public static final Long DB_ID = 1L;
 	public static final String DB_DESCRIPTION = "Inappropriate advertisement";
-	public static final String DB_TITLE = "Already exists";
+	public static final String DB_TITLE = "Inappropriate";
 
 	public static final String DB_TITLE_REAL = "Inappropriate";
 

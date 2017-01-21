@@ -47,4 +47,5 @@ public class UserConstants {
     public static final String DATE_RENT_FROM_INVALID = "2017/05/20";
     public static final String DATE_RENT_FROM_INV = "2015/05/20";
 
+    public static final int DB_CLERK_COUNT = 1;
 }

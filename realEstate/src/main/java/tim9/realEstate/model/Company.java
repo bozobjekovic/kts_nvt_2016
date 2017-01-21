@@ -137,12 +137,4 @@ public class Company implements Serializable{
 	public void setVerified(boolean verified) {
 		this.verified = verified;
 	}
-
-	@Override
-	public String toString() {
-		return "Company [id=" + id + ", name=" + name + ", address=" + address + ", location=" + location
-				+ ", phoneNumber=" + phoneNumber + ", site=" + site + ", usersToApprove=" + usersToApprove + "]";
-	}
-
-	
 }

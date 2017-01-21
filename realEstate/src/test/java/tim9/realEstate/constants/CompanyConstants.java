@@ -14,6 +14,6 @@ public class CompanyConstants {
 	public static final String DB_SITE = "www.comany.com";
 	
 	public static final Long DB_ID_REFERENCED = 4L;
-    public static final int DB_COUNT = 4;
+    public static final int DB_COUNT = 2;
 	public static final Long DB_ID_USED = 1L;
 }

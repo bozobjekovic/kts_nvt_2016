@@ -18,4 +18,5 @@ public class CommentConstants {
 	
 	public static final Long DB_ID_REFERENCED = 1L;
     public static final int DB_COUNT = 2;
+    public static final int DB_ADVER_COUNT = 1;
 }

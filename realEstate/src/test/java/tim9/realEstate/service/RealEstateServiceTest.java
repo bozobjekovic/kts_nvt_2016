@@ -28,10 +28,6 @@ public class RealEstateServiceTest {
 	
 	@Autowired
 	RealEstateService realEstateService;
-
-	/**
-	 * <h1> Positive tests </h1>
-	 */
 	
 	/**
 	 * method tests if an certain element from the data base can be found
@@ -61,6 +57,42 @@ public class RealEstateServiceTest {
 	public void testFindAll() {	
 		List<RealEstate> realEstates = realEstateService.findAll();
 		assertThat(realEstates).hasSize(DB_COUNT_REAL);
+	}
+
+	/**
+	 * method test if all of certain elements from the data base can be found by
+	 * Address
+	 **/
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testFindByAddress() {
+		RealEstate re = realEstateService.findByAddress(DB_ADDRESS);
+		assertThat(re).isNotNull();
+
+		assertThat(re.getId()).isEqualTo(DB_ID);
+		assertThat(re.getAddress()).isEqualTo(DB_ADDRESS);
+		assertThat(re.getBuildYear()).isEqualTo(DB_BUILD_YEAR);
+		assertThat(re.getCategory()).isEqualTo(DB_CATEGORY);
+		assertThat(re.getLandSize()).isEqualTo(DB_LAND_SIZE);
+		assertThat(re.getHeatingType()).isEqualTo(DB_HEATING_TYPE);
+		assertThat(re.getNumOfBathRooms()).isEqualTo(DB_NUM_OF_BATH_ROOMS);
+		assertThat(re.getNumOfBedRooms()).isEqualTo(DB_NUM_OF_BED_ROOMS);
+		assertThat(re.getNumOfFlors()).isEqualTo(DB_NUM_OF_FLORS);
+	}
+
+	/**
+	 * method test if all of certain elements from the data base can be get by
+	 * Address and City
+	 **/
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testFindByAddressAndCity() {
+		RealEstate realEstate = realEstateService.findOne(DB_ID);
+
+		assertThat(realEstateService.findByAddressAndCity
+				(realEstate.getAddress(), realEstate.getLocation().getCity())).hasSize(DB_CITY_ADDRESS_COUNT);
 	}
 
 	/**
@@ -156,10 +188,6 @@ public class RealEstateServiceTest {
 		RealEstate dbRealEstate = realEstateService.findOne(DB_ID_REFERENCED);
 		assertThat(dbRealEstate).isNull();
 	}
-
-	/**
-	 * <h1> Negative tests </h1>
-	 */
 	
 	/**
 	 * method tests if an certain element can be added into data base

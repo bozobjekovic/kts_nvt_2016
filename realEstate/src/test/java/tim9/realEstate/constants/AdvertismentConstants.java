@@ -6,7 +6,7 @@ import tim9.realEstate.model.Category;
 
 public class AdvertismentConstants {
 
-	public static final String NEW_PURPOSE = "buy";
+	public static final String NEW_PURPOSE = "rent";
     public static final String NEW_PHONE_NUMBER = "+2141441";
     public static final Date NEW_DATE = new Date();
     public static final String NEW_DATE_STR = "2018/06/06";
@@ -40,11 +40,13 @@ public class AdvertismentConstants {
     
     public static final Long DB_ID_REFERENCED = 1L; 
     
-    public static final int DB_COUNT = 3;
+    public static final int DB_COUNT = 4;
     public static final int DB_COUNT_UNVERIFIED = 1;
     public static final int PAGE_SIZE = 2;
     public static final int PAGE_SIZE_CONTROLLER = 3;
     public static final int DB_COUNT_PURPOSE = 1;
+
+    public static final int DB_PUBLISHER_COUNT = 1;
     
     public static final Long DB_NONEXISTING_ID = 11L; 
 

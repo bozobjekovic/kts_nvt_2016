@@ -23,25 +23,20 @@ import tim9.realEstate.model.Admin;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = RealEstateApplication.class)
 @WebIntegrationTest
-@TestPropertySource(locations="classpath:test.properties")
+@TestPropertySource(locations = "classpath:test.properties")
 public class AdminServiceTest {
-	
+
 	@Autowired
 	AdminService adminService;
-	
-	/**
-	 * <h1> Positive tests </h1>
-	 */
-	
+
 	/**
 	 * method tests if an certain element from the data base can be found
 	 **/
-
-	@Test 
+	@Test
 	public void testFindOne() {
 		Admin dbAdmin = adminService.findOne(DB_ID);
 		assertThat(dbAdmin).isNotNull();
-		
+
 		assertThat(dbAdmin.getId()).isEqualTo(DB_ID);
 		assertThat(dbAdmin.getAddress()).isEqualTo(DB_ADDRESS);
 		assertThat(dbAdmin.getCity()).isEqualTo(DB_CITY);
@@ -49,11 +44,53 @@ public class AdminServiceTest {
 		assertThat(dbAdmin.getImage()).isEqualTo(DB_IMAGE);
 		assertThat(dbAdmin.getName()).isEqualTo(DB_NAME);
 		assertThat(dbAdmin.getPassword()).isEqualTo(DB_PASSWORD);
-        assertThat(dbAdmin.getPhoneNumber()).isEqualTo(DB_PHONE_NUMBER);
-        assertThat(dbAdmin.getSurname()).isEqualTo(DB_SURNAME);
-        assertThat(dbAdmin.getUsername()).isEqualTo(DB_USERNAME);
+		assertThat(dbAdmin.getPhoneNumber()).isEqualTo(DB_PHONE_NUMBER);
+		assertThat(dbAdmin.getSurname()).isEqualTo(DB_SURNAME);
+		assertThat(dbAdmin.getUsername()).isEqualTo(DB_USERNAME);
 	}
-	
+
+	/**
+	 * method tests if an certain element from the data base can be found by
+	 * Username
+	 **/
+	@Test
+	public void testFindByUsername() {
+		Admin dbAdmin = adminService.findByUsername(DB_USERNAME);
+		assertThat(dbAdmin).isNotNull();
+
+		assertThat(dbAdmin.getId()).isEqualTo(DB_ID);
+		assertThat(dbAdmin.getAddress()).isEqualTo(DB_ADDRESS);
+		assertThat(dbAdmin.getCity()).isEqualTo(DB_CITY);
+		assertThat(dbAdmin.getEmail()).isEqualTo(DB_EMAIL);
+		assertThat(dbAdmin.getImage()).isEqualTo(DB_IMAGE);
+		assertThat(dbAdmin.getName()).isEqualTo(DB_NAME);
+		assertThat(dbAdmin.getPassword()).isEqualTo(DB_PASSWORD);
+		assertThat(dbAdmin.getPhoneNumber()).isEqualTo(DB_PHONE_NUMBER);
+		assertThat(dbAdmin.getSurname()).isEqualTo(DB_SURNAME);
+		assertThat(dbAdmin.getUsername()).isEqualTo(DB_USERNAME);
+	}
+
+	/**
+	 * method tests if an certain element from the data base can be found by
+	 * Email
+	 **/
+	@Test
+	public void testFindByEmail() {
+		Admin dbAdmin = adminService.findByEmail(DB_EMAIL);
+		assertThat(dbAdmin).isNotNull();
+
+		assertThat(dbAdmin.getId()).isEqualTo(DB_ID);
+		assertThat(dbAdmin.getAddress()).isEqualTo(DB_ADDRESS);
+		assertThat(dbAdmin.getCity()).isEqualTo(DB_CITY);
+		assertThat(dbAdmin.getEmail()).isEqualTo(DB_EMAIL);
+		assertThat(dbAdmin.getImage()).isEqualTo(DB_IMAGE);
+		assertThat(dbAdmin.getName()).isEqualTo(DB_NAME);
+		assertThat(dbAdmin.getPassword()).isEqualTo(DB_PASSWORD);
+		assertThat(dbAdmin.getPhoneNumber()).isEqualTo(DB_PHONE_NUMBER);
+		assertThat(dbAdmin.getSurname()).isEqualTo(DB_SURNAME);
+		assertThat(dbAdmin.getUsername()).isEqualTo(DB_USERNAME);
+	}
+
 	/**
 	 * method test if all of certain elements from the data base can be found
 	 **/
@@ -62,16 +99,16 @@ public class AdminServiceTest {
 		List<Admin> admins = adminService.findAll();
 		assertThat(admins).hasSize(DB_COUNT);
 	}
-	
+
 	/**
 	 * method tests if a new element can be saved into data base
 	 **/
 	@Test
-    @Transactional
-    @Rollback(true)
+	@Transactional
+	@Rollback(true)
 	public void testSave() {
 		Admin admin = new Admin();
-		
+
 		admin.setAddress(NEW_ADDRESS);
 		admin.setCity(NEW_CITY);
 		admin.setEmail(NEW_EMAIL);
@@ -81,32 +118,32 @@ public class AdminServiceTest {
 		admin.setPhoneNumber(NEW_PHONE_NUMBER);
 		admin.setSurname(NEW_SURNAME);
 		admin.setUsername(NEW_USERNAME);
-		
+
 		int dbSizeBeforeAdd = adminService.findAll().size();
-		
+
 		Admin dbAdmin = adminService.save(admin);
 		assertThat(dbAdmin).isNotNull();
 
-        List<Admin> admins = adminService.findAll();
-        assertThat(admins).hasSize(dbSizeBeforeAdd + 1);
-        dbAdmin = admins.get(admins.size() - 1);
-        assertThat(dbAdmin.getAddress()).isEqualTo(NEW_ADDRESS);
-        assertThat(dbAdmin.getCity()).isEqualTo(NEW_CITY);
-        assertThat(dbAdmin.getEmail()).isEqualTo(NEW_EMAIL);
-        assertThat(dbAdmin.getImage()).isEqualTo(NEW_IMAGE);
-        assertThat(dbAdmin.getName()).isEqualTo(NEW_NAME);
-        assertThat(dbAdmin.getPassword()).isEqualTo(NEW_PASSWORD);
-        assertThat(dbAdmin.getPhoneNumber()).isEqualTo(NEW_PHONE_NUMBER);
-        assertThat(dbAdmin.getSurname()).isEqualTo(NEW_SURNAME);
-        assertThat(dbAdmin.getUsername()).isEqualTo(NEW_USERNAME);
+		List<Admin> admins = adminService.findAll();
+		assertThat(admins).hasSize(dbSizeBeforeAdd + 1);
+		dbAdmin = admins.get(admins.size() - 1);
+		assertThat(dbAdmin.getAddress()).isEqualTo(NEW_ADDRESS);
+		assertThat(dbAdmin.getCity()).isEqualTo(NEW_CITY);
+		assertThat(dbAdmin.getEmail()).isEqualTo(NEW_EMAIL);
+		assertThat(dbAdmin.getImage()).isEqualTo(NEW_IMAGE);
+		assertThat(dbAdmin.getName()).isEqualTo(NEW_NAME);
+		assertThat(dbAdmin.getPassword()).isEqualTo(NEW_PASSWORD);
+		assertThat(dbAdmin.getPhoneNumber()).isEqualTo(NEW_PHONE_NUMBER);
+		assertThat(dbAdmin.getSurname()).isEqualTo(NEW_SURNAME);
+		assertThat(dbAdmin.getUsername()).isEqualTo(NEW_USERNAME);
 	}
-	
+
 	/**
 	 * method tests if a certain element from the data base can be updated
 	 **/
 	@Test
-    @Transactional
-    @Rollback(true)
+	@Transactional
+	@Rollback(true)
 	public void testUpdate() {
 		Admin dbAdmin = adminService.findOne(DB_ID);
 
@@ -119,23 +156,23 @@ public class AdminServiceTest {
 		dbAdmin.setPhoneNumber(NEW_PHONE_NUMBER);
 		dbAdmin.setSurname(NEW_SURNAME);
 		dbAdmin.setUsername(NEW_USERNAME);
-		
+
 		dbAdmin = adminService.save(dbAdmin);
 		assertThat(dbAdmin).isNotNull();
-		
+
 		dbAdmin = adminService.findOne(DB_ID);
 
-        assertThat(dbAdmin.getAddress()).isEqualTo(NEW_ADDRESS);
-        assertThat(dbAdmin.getCity()).isEqualTo(NEW_CITY);
-        assertThat(dbAdmin.getEmail()).isEqualTo(NEW_EMAIL);
-        assertThat(dbAdmin.getImage()).isEqualTo(NEW_IMAGE);
-        assertThat(dbAdmin.getName()).isEqualTo(NEW_NAME);
-        assertThat(dbAdmin.getPassword()).isEqualTo(NEW_PASSWORD);
-        assertThat(dbAdmin.getPhoneNumber()).isEqualTo(NEW_PHONE_NUMBER);
-        assertThat(dbAdmin.getSurname()).isEqualTo(NEW_SURNAME);
-        assertThat(dbAdmin.getUsername()).isEqualTo(NEW_USERNAME);
+		assertThat(dbAdmin.getAddress()).isEqualTo(NEW_ADDRESS);
+		assertThat(dbAdmin.getCity()).isEqualTo(NEW_CITY);
+		assertThat(dbAdmin.getEmail()).isEqualTo(NEW_EMAIL);
+		assertThat(dbAdmin.getImage()).isEqualTo(NEW_IMAGE);
+		assertThat(dbAdmin.getName()).isEqualTo(NEW_NAME);
+		assertThat(dbAdmin.getPassword()).isEqualTo(NEW_PASSWORD);
+		assertThat(dbAdmin.getPhoneNumber()).isEqualTo(NEW_PHONE_NUMBER);
+		assertThat(dbAdmin.getSurname()).isEqualTo(NEW_SURNAME);
+		assertThat(dbAdmin.getUsername()).isEqualTo(NEW_USERNAME);
 	}
-	
+
 	/**
 	 * method tests if a certain element from the data base can be removed
 	 **/
@@ -145,22 +182,18 @@ public class AdminServiceTest {
 	public void testRemove() {
 		int dbSizeBeforeRemove = adminService.findAll().size();
 		adminService.remove(DB_ID);
-		
+
 		List<Admin> admins = adminService.findAll();
 		assertThat(admins).hasSize(dbSizeBeforeRemove - 1);
-		
+
 		Admin dbAdmin = adminService.findOne(DB_ID);
 		assertThat(dbAdmin).isNull();
 	}
 
 	/**
-	 * <h1> Negative tests </h1>
-	 */
-	
-	/**
-	 * method tests if an certain element can be added into data base
-	 * without field that is required,
-	 * and if can throws an exception
+	 * method tests if an certain element can be added into data base without
+	 * field that is required, and if can throws an exception
+	 * 
 	 * @exception DataIntegrityViolationException
 	 **/
 	@Test(expected = DataIntegrityViolationException.class)
@@ -168,7 +201,7 @@ public class AdminServiceTest {
 	@Rollback(true)
 	public void testAddNullEmail() {
 		Admin admin = new Admin();
-		
+
 		admin.setAddress(NEW_ADDRESS);
 		admin.setCity(NEW_CITY);
 		admin.setImage(NEW_IMAGE);
@@ -177,14 +210,14 @@ public class AdminServiceTest {
 		admin.setPhoneNumber(NEW_PHONE_NUMBER);
 		admin.setSurname(NEW_SURNAME);
 		admin.setUsername(NEW_USERNAME);
-		
+
 		adminService.save(admin);
 	}
 
 	/**
-	 * method tests if an certain element can be added into data base
-	 * without field that is required,
-	 * and if can throws an exception
+	 * method tests if an certain element can be added into data base without
+	 * field that is required, and if can throws an exception
+	 * 
 	 * @exception DataIntegrityViolationException
 	 **/
 	@Test(expected = DataIntegrityViolationException.class)
@@ -192,7 +225,7 @@ public class AdminServiceTest {
 	@Rollback(true)
 	public void testAddNullUsername() {
 		Admin admin = new Admin();
-		
+
 		admin.setEmail(NEW_EMAIL);
 		admin.setAddress(NEW_ADDRESS);
 		admin.setCity(NEW_CITY);
@@ -201,14 +234,14 @@ public class AdminServiceTest {
 		admin.setPassword(NEW_PASSWORD);
 		admin.setPhoneNumber(NEW_PHONE_NUMBER);
 		admin.setSurname(NEW_SURNAME);
-		
+
 		adminService.save(admin);
 	}
 
 	/**
-	 * method tests if an certain element can be added into data base
-	 * without field that is required,
-	 * and if can throws an exception
+	 * method tests if an certain element can be added into data base without
+	 * field that is required, and if can throws an exception
+	 * 
 	 * @exception DataIntegrityViolationException
 	 **/
 	@Test(expected = DataIntegrityViolationException.class)
@@ -216,7 +249,7 @@ public class AdminServiceTest {
 	@Rollback(true)
 	public void testAddNullPassword() {
 		Admin admin = new Admin();
-		
+
 		admin.setEmail(NEW_EMAIL);
 		admin.setAddress(NEW_ADDRESS);
 		admin.setCity(NEW_CITY);
@@ -225,14 +258,14 @@ public class AdminServiceTest {
 		admin.setPhoneNumber(NEW_PHONE_NUMBER);
 		admin.setSurname(NEW_SURNAME);
 		admin.setUsername(NEW_USERNAME);
-		
+
 		adminService.save(admin);
 	}
 
 	/**
-	 * method tests if an certain element can be added into data base
-	 * without field that is required,
-	 * and if can throws an exception
+	 * method tests if an certain element can be added into data base without
+	 * field that is required, and if can throws an exception
+	 * 
 	 * @exception DataIntegrityViolationException
 	 **/
 	@Test(expected = DataIntegrityViolationException.class)
@@ -240,7 +273,7 @@ public class AdminServiceTest {
 	@Rollback(true)
 	public void testAddNullName() {
 		Admin admin = new Admin();
-		
+
 		admin.setEmail(NEW_EMAIL);
 		admin.setAddress(NEW_ADDRESS);
 		admin.setCity(NEW_CITY);
@@ -249,14 +282,14 @@ public class AdminServiceTest {
 		admin.setPhoneNumber(NEW_PHONE_NUMBER);
 		admin.setPassword(NEW_PASSWORD);
 		admin.setUsername(NEW_USERNAME);
-		
+
 		adminService.save(admin);
 	}
 
 	/**
-	 * method tests if an certain element can be added into data base
-	 * without field that is required,
-	 * and if can throws an exception
+	 * method tests if an certain element can be added into data base without
+	 * field that is required, and if can throws an exception
+	 * 
 	 * @exception DataIntegrityViolationException
 	 **/
 	@Test(expected = DataIntegrityViolationException.class)
@@ -264,7 +297,7 @@ public class AdminServiceTest {
 	@Rollback(true)
 	public void testAddNullSurname() {
 		Admin admin = new Admin();
-		
+
 		admin.setEmail(NEW_EMAIL);
 		admin.setAddress(NEW_ADDRESS);
 		admin.setCity(NEW_CITY);
@@ -273,14 +306,15 @@ public class AdminServiceTest {
 		admin.setPhoneNumber(NEW_PHONE_NUMBER);
 		admin.setPassword(NEW_PASSWORD);
 		admin.setUsername(NEW_USERNAME);
-		
+
 		adminService.save(admin);
 	}
-	
+
 	/**
-	 * method tests if an certain element, that must be unique,
-	 * can be added into data base with value that already exist,
-	 * and if can throws an exception
+	 * method tests if an certain element, that must be unique, can be added
+	 * into data base with value that already exist, and if can throws an
+	 * exception
+	 * 
 	 * @exception DataIntegrityViolationException
 	 **/
 	@Test(expected = DataIntegrityViolationException.class)
@@ -288,7 +322,7 @@ public class AdminServiceTest {
 	@Rollback(true)
 	public void testAddUniqueEmail() {
 		Admin admin = new Admin();
-		
+
 		admin.setEmail(DB_EMAIL);
 		admin.setAddress(NEW_ADDRESS);
 		admin.setCity(NEW_CITY);
@@ -298,14 +332,15 @@ public class AdminServiceTest {
 		admin.setPassword(NEW_PASSWORD);
 		admin.setUsername(NEW_USERNAME);
 		admin.setSurname(NEW_SURNAME);
-		
+
 		adminService.save(admin);
 	}
-	
+
 	/**
-	 * method tests if an certain element, that must be unique,
-	 * can be added into data base with value that already exist,
-	 * and if can throws an exception
+	 * method tests if an certain element, that must be unique, can be added
+	 * into data base with value that already exist, and if can throws an
+	 * exception
+	 * 
 	 * @exception DataIntegrityViolationException
 	 **/
 	@Test(expected = DataIntegrityViolationException.class)
@@ -313,7 +348,7 @@ public class AdminServiceTest {
 	@Rollback(true)
 	public void testAddUniqueUsername() {
 		Admin admin = new Admin();
-		
+
 		admin.setEmail(NEW_EMAIL);
 		admin.setAddress(NEW_ADDRESS);
 		admin.setCity(NEW_CITY);
@@ -323,7 +358,7 @@ public class AdminServiceTest {
 		admin.setPassword(NEW_PASSWORD);
 		admin.setUsername(DB_USERNAME);
 		admin.setSurname(NEW_SURNAME);
-		
+
 		adminService.save(admin);
 	}
 }

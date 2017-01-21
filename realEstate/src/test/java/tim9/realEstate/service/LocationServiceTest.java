@@ -23,16 +23,12 @@ import tim9.realEstate.model.Location;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = RealEstateApplication.class)
 @WebIntegrationTest
-@TestPropertySource(locations="classpath:test.properties")
+@TestPropertySource(locations = "classpath:test.properties")
 public class LocationServiceTest {
 
 	@Autowired
 	LocationService locationService;
-	
-	/**
-	 * <h1> Positive tests </h1>
-	 */
-	
+
 	/**
 	 * method tests if an certain element from the data base can be found
 	 **/
@@ -40,13 +36,13 @@ public class LocationServiceTest {
 	public void testFindOne() {
 		Location dbLocation = locationService.findOne(DB_ID);
 		assertThat(dbLocation).isNotNull();
-		
+
 		assertThat(dbLocation.getId()).isEqualTo(DB_ID);
 		assertThat(dbLocation.getCity()).isEqualTo(DB_CITY);
 		assertThat(dbLocation.getPartOfTheCity()).isEqualTo(DB_PART_OF_THE_CITY);
 		assertThat(dbLocation.getZipCode()).isEqualTo(DB_ZIP_CODE);
 	}
-	
+
 	/**
 	 * method test if all of certain elements from the data base can be found
 	 **/
@@ -55,7 +51,7 @@ public class LocationServiceTest {
 		List<Location> locations = locationService.findAll();
 		assertThat(locations).hasSize(DB_COUNT);
 	}
-	
+
 	/**
 	 * method tests if a new element can be saved into data base
 	 **/
@@ -67,69 +63,48 @@ public class LocationServiceTest {
 		location.setCity(NEW_CITY);
 		location.setPartOfTheCity(NEW_PART_OF_THE_CITY);
 		location.setZipCode(NEW_ZIP_CODE);
-		
+
 		int dbSizeBeforeAdd = locationService.findAll().size();
-		
+
 		Location dbLocation = locationService.save(location);
 		assertThat(dbLocation).isNotNull();
-		
+
 		List<Location> locations = locationService.findAll();
 		assertThat(locations).hasSize(dbSizeBeforeAdd + 1);
-		
+
 		dbLocation = locations.get(locations.size() - 1);
 		assertThat(dbLocation.getCity()).isEqualTo(NEW_CITY);
 		assertThat(dbLocation.getPartOfTheCity()).isEqualTo(NEW_PART_OF_THE_CITY);
 		assertThat(dbLocation.getZipCode()).isEqualTo(NEW_ZIP_CODE);
 	}
-	
+
 	/**
 	 * method tests if a certain element from the data base can be updated
 	 **/
 	@Test
-    @Transactional
-    @Rollback(true)
+	@Transactional
+	@Rollback(true)
 	public void testUpdate() {
 		Location dbLocation = locationService.findOne(DB_ID);
 
 		dbLocation.setCity(NEW_CITY);
 		dbLocation.setPartOfTheCity(NEW_PART_OF_THE_CITY);
 		dbLocation.setZipCode(NEW_ZIP_CODE);
-		
+
 		dbLocation = locationService.save(dbLocation);
 		assertThat(dbLocation).isNotNull();
-		
+
 		dbLocation = locationService.findOne(DB_ID);
 
-        assertThat(dbLocation.getCity()).isEqualTo(NEW_CITY);
-        assertThat(dbLocation.getPartOfTheCity()).isEqualTo(NEW_PART_OF_THE_CITY);
-        assertThat(dbLocation.getZipCode()).isEqualTo(NEW_ZIP_CODE);
+		assertThat(dbLocation.getCity()).isEqualTo(NEW_CITY);
+		assertThat(dbLocation.getPartOfTheCity()).isEqualTo(NEW_PART_OF_THE_CITY);
+		assertThat(dbLocation.getZipCode()).isEqualTo(NEW_ZIP_CODE);
 	}
-	
+
 	/**
-	 * method tests if a certain element from the data base can be removed
-	 **/
-	@Test
-	@Transactional
-	@Rollback(true)
-	public void testRemove() {
-		int dbSizeBeforeRemove = locationService.findAll().size();
-		locationService.remove(5L);
-		
-		List<Location> locations = locationService.findAll();
-		assertThat(locations).hasSize(dbSizeBeforeRemove - 1);
-		
-		Location dbLocation = locationService.findOne(5L);
-		assertThat(dbLocation).isNull();
-	}
-	
-	/**
-	 * <h1> Negative tests </h1>
-	 */
-	
-	/**
-	 * method tests if an certain element from data base,
-	 * that should not be removed, can be removed,
-	 * and if can throws an exception
+	 * method tests if an certain element from data base, that should not be
+	 * removed, can be removed, and if can throws an exception
+	 * 
 	 * @exception DataIntegrityViolationException
 	 **/
 	@Test(expected = DataIntegrityViolationException.class)
@@ -138,18 +113,18 @@ public class LocationServiceTest {
 	public void testNegativeRemove() {
 		int dbSizeBeforeRemove = locationService.findAll().size();
 		locationService.remove(DB_ID);
-		
+
 		List<Location> locations = locationService.findAll();
 		assertThat(locations).hasSize(dbSizeBeforeRemove - 1);
-		
+
 		Location dbLocation = locationService.findOne(DB_ID);
 		assertThat(dbLocation).isNull();
 	}
-	
+
 	/**
-	 * method tests if an certain element can be added into data base
-	 * without field that is required,
-	 * and if can throws an exception
+	 * method tests if an certain element can be added into data base without
+	 * field that is required, and if can throws an exception
+	 * 
 	 * @exception DataIntegrityViolationException
 	 **/
 	@Test(expected = DataIntegrityViolationException.class)
@@ -157,17 +132,17 @@ public class LocationServiceTest {
 	@Rollback(true)
 	public void testAddNullCity() {
 		Location location = new Location();
-		
+
 		location.setPartOfTheCity(NEW_PART_OF_THE_CITY);
 		location.setZipCode(NEW_ZIP_CODE);
-		
+
 		locationService.save(location);
 	}
-	
+
 	/**
-	 * method tests if an certain element can be added into data base
-	 * without field that is required,
-	 * and if can throws an exception
+	 * method tests if an certain element can be added into data base without
+	 * field that is required, and if can throws an exception
+	 * 
 	 * @exception DataIntegrityViolationException
 	 **/
 	@Test(expected = DataIntegrityViolationException.class)
@@ -175,10 +150,63 @@ public class LocationServiceTest {
 	@Rollback(true)
 	public void testAddNullPartOfTheCity() {
 		Location location = new Location();
-		
+
 		location.setCity(NEW_CITY);
 		location.setZipCode(NEW_ZIP_CODE);
-		
+
 		locationService.save(location);
+	}
+
+	/**
+	 * method test if all of certain elements from the data base can be found by
+	 * City, Zip Code and Part od the City
+	 **/
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testFindByCityAndZipCodeAndPartOfTheCity() {
+		Location location = locationService.findOne(DB_ID);
+
+		Location loc = locationService.findByCityAndZipCodeAndPartOfTheCity
+				(location.getCity(),location.getZipCode(), location.getPartOfTheCity());
+		assertThat(loc).isNotNull();
+
+		assertThat(loc.getId()).isEqualTo(DB_ID);
+		assertThat(loc.getCity()).isEqualTo(DB_CITY);
+		assertThat(loc.getZipCode()).isEqualTo(DB_ZIP_CODE);
+		assertThat(loc.getPartOfTheCity()).isEqualTo(DB_PART_OF_THE_CITY);
+	}
+
+	/**
+	 * method test if all Part of the Cities can be get from the data base
+	 **/
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testGetAllPartOfTheCities() {
+		assertThat(locationService.getAllPartOfTheCities()).hasSize(DB_COUNT);
+	}
+
+	/**
+	 * method test if all Cities can be get from the data base
+	 **/
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testGetAllCities() {
+		assertThat(locationService.getAllCities()).hasSize(DB_CITY_COUNT);
+	}
+
+	/**
+	 * method test if all of certain elements from the data base can be get by
+	 * City
+	 **/
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testGetAllPartOfTheCitiesByCity() {
+		Location location = locationService.findOne(DB_ID);
+
+		assertThat(locationService.getAllPartOfTheCitiesByCity(location.getCity())).hasSize(DB_PART_OF_THE_CITY_COUNT);
 	}
 }

@@ -11,6 +11,7 @@ import tim9.realEstate.service.CompanyServiceTest;
 import tim9.realEstate.service.InappropriateServiceTest;
 import tim9.realEstate.service.LocationServiceTest;
 import tim9.realEstate.service.RealEstateServiceTest;
+import tim9.realEstate.service.RentRealEstateServiceTest;
 import tim9.realEstate.service.UserServiceTest;
 import tim9.realEstate.service.VerifierServiceTest;
 
@@ -25,7 +26,8 @@ import tim9.realEstate.service.VerifierServiceTest;
     LocationServiceTest.class,
     RealEstateServiceTest.class,
     UserServiceTest.class,
-    VerifierServiceTest.class    
+    VerifierServiceTest.class,
+    RentRealEstateServiceTest.class
 })
 public class ServicesSuite {
 

@@ -23,24 +23,20 @@ import tim9.realEstate.model.User;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = RealEstateApplication.class)
 @WebIntegrationTest
-@TestPropertySource(locations="classpath:test.properties")
+@TestPropertySource(locations = "classpath:test.properties")
 public class UserServiceTest {
-	
+
 	@Autowired
 	UserService userService;
-	
-	/**
-	 * <h1> Positive tests </h1>
-	 */
-	
+
 	/**
 	 * method tests if an certain element from the data base can be found
 	 **/
-	@Test 
+	@Test
 	public void testFindOne() {
 		User dbUser = userService.findOne(DB_ID);
 		assertThat(dbUser).isNotNull();
-		
+
 		assertThat(dbUser.getId()).isEqualTo(DB_ID);
 		assertThat(dbUser.getAddress()).isEqualTo(DB_ADDRESS);
 		assertThat(dbUser.getCity()).isEqualTo(DB_CITY);
@@ -48,16 +44,16 @@ public class UserServiceTest {
 		assertThat(dbUser.getImage()).isEqualTo(DB_IMAGE);
 		assertThat(dbUser.getName()).isEqualTo(DB_NAME);
 		assertThat(dbUser.getPassword()).isEqualTo(DB_PASSWORD_REAL);
-        assertThat(dbUser.getPhoneNumber()).isEqualTo(DB_PHONE_NUMBER);
-        assertThat(dbUser.getSurname()).isEqualTo(DB_SURNAME);
-        assertThat(dbUser.getUsername()).isEqualTo(DB_USERNAME);
-        assertThat(dbUser.getNumOfRates()).isEqualTo(DB_NUM_OF_RATES);
-        assertThat(dbUser.getRate()).isEqualTo(DB_RATE);
-        assertThat(dbUser.getBankAccount()).isEqualTo(DB_BANK_ACCOUNT);
-        assertThat(dbUser.isClerk()).isEqualTo(DB_IS_CLERK);
-        assertThat(dbUser.isApproved()).isEqualTo(DB_IS_APPROVED);
+		assertThat(dbUser.getPhoneNumber()).isEqualTo(DB_PHONE_NUMBER);
+		assertThat(dbUser.getSurname()).isEqualTo(DB_SURNAME);
+		assertThat(dbUser.getUsername()).isEqualTo(DB_USERNAME);
+		assertThat(dbUser.getNumOfRates()).isEqualTo(DB_NUM_OF_RATES);
+		assertThat(dbUser.getRate()).isEqualTo(DB_RATE);
+		assertThat(dbUser.getBankAccount()).isEqualTo(DB_BANK_ACCOUNT);
+		assertThat(dbUser.isClerk()).isEqualTo(DB_IS_CLERK);
+		assertThat(dbUser.isApproved()).isEqualTo(DB_IS_APPROVED);
 	}
-	
+
 	/**
 	 * method test if all of certain elements from the data base can be found
 	 **/
@@ -66,16 +62,80 @@ public class UserServiceTest {
 		List<User> users = userService.findAll();
 		assertThat(users).hasSize(DB_COUNT);
 	}
-	
+
+	/**
+	 * method test if all of certain elements from the data base can be found by
+	 * Username
+	 **/
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testFindByUsername() {
+		User dbUser = userService.findByUsername(DB_USERNAME);
+		assertThat(dbUser).isNotNull();
+
+		assertThat(dbUser.getId()).isEqualTo(DB_ID);
+		assertThat(dbUser.getAddress()).isEqualTo(DB_ADDRESS);
+		assertThat(dbUser.getCity()).isEqualTo(DB_CITY);
+		assertThat(dbUser.getEmail()).isEqualTo(DB_EMAIL);
+		assertThat(dbUser.getImage()).isEqualTo(DB_IMAGE);
+		assertThat(dbUser.getName()).isEqualTo(DB_NAME);
+		assertThat(dbUser.getPhoneNumber()).isEqualTo(DB_PHONE_NUMBER);
+		assertThat(dbUser.getSurname()).isEqualTo(DB_SURNAME);
+		assertThat(dbUser.getUsername()).isEqualTo(DB_USERNAME);
+		assertThat(dbUser.getNumOfRates()).isEqualTo(DB_NUM_OF_RATES);
+		assertThat(dbUser.getRate()).isEqualTo(DB_RATE);
+		assertThat(dbUser.getBankAccount()).isEqualTo(DB_BANK_ACCOUNT);
+		assertThat(dbUser.isClerk()).isEqualTo(DB_IS_CLERK);
+		assertThat(dbUser.isApproved()).isEqualTo(DB_IS_APPROVED);
+	}
+
+	/**
+	 * method test if all of certain elements from the data base can be found by
+	 * Email
+	 **/
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testFindByEmail() {
+		User dbUser = userService.findByEmail(DB_EMAIL);
+		assertThat(dbUser).isNotNull();
+
+		assertThat(dbUser.getId()).isEqualTo(DB_ID);
+		assertThat(dbUser.getAddress()).isEqualTo(DB_ADDRESS);
+		assertThat(dbUser.getCity()).isEqualTo(DB_CITY);
+		assertThat(dbUser.getEmail()).isEqualTo(DB_EMAIL);
+		assertThat(dbUser.getImage()).isEqualTo(DB_IMAGE);
+		assertThat(dbUser.getName()).isEqualTo(DB_NAME);
+		assertThat(dbUser.getPhoneNumber()).isEqualTo(DB_PHONE_NUMBER);
+		assertThat(dbUser.getSurname()).isEqualTo(DB_SURNAME);
+		assertThat(dbUser.getUsername()).isEqualTo(DB_USERNAME);
+		assertThat(dbUser.getNumOfRates()).isEqualTo(DB_NUM_OF_RATES);
+		assertThat(dbUser.getRate()).isEqualTo(DB_RATE);
+		assertThat(dbUser.getBankAccount()).isEqualTo(DB_BANK_ACCOUNT);
+		assertThat(dbUser.isClerk()).isEqualTo(DB_IS_CLERK);
+		assertThat(dbUser.isApproved()).isEqualTo(DB_IS_APPROVED);
+	}
+
+	/**
+	 * method test if all of certain elements from the data base can be found
+	 **/
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testFindUnapprovedClerks() {
+		assertThat(userService.findUnapprovedClerks()).hasSize(DB_CLERK_COUNT);
+	}
+
 	/**
 	 * method tests if a new element can be saved into data base
 	 **/
 	@Test
-    @Transactional
-    @Rollback(true)
+	@Transactional
+	@Rollback(true)
 	public void testSave() {
 		User user = new User();
-		
+
 		user.setAddress(NEW_ADDRESS);
 		user.setCity(NEW_CITY);
 		user.setEmail(NEW_EMAIL);
@@ -90,37 +150,37 @@ public class UserServiceTest {
 		user.setBankAccount(NEW_BANK_ACCOUNT);
 		user.setClerk(NEW_IS_CLERK);
 		user.setApproved(NEW_IS_APPROVED);
-		
+
 		int dbSizeBeforeAdd = userService.findAll().size();
-		
+
 		User dbUser = userService.save(user);
 		assertThat(dbUser).isNotNull();
 
-        List<User> users = userService.findAll();
-        assertThat(users).hasSize(dbSizeBeforeAdd + 1);
-        dbUser = users.get(users.size() - 1);
-        assertThat(dbUser.getAddress()).isEqualTo(NEW_ADDRESS);
-        assertThat(dbUser.getCity()).isEqualTo(NEW_CITY);
-        assertThat(dbUser.getEmail()).isEqualTo(NEW_EMAIL);
-        assertThat(dbUser.getImage()).isEqualTo(NEW_IMAGE);
-        assertThat(dbUser.getName()).isEqualTo(NEW_NAME);
-        assertThat(dbUser.getPassword()).isEqualTo(NEW_PASSWORD);
-        assertThat(dbUser.getPhoneNumber()).isEqualTo(NEW_PHONE_NUMBER);
-        assertThat(dbUser.getSurname()).isEqualTo(NEW_SURNAME);
-        assertThat(dbUser.getUsername()).isEqualTo(NEW_USERNAME);
-        assertThat(dbUser.getNumOfRates()).isEqualTo(NEW_NUM_OF_RATES);
-        assertThat(dbUser.getRate()).isEqualTo(NEW_RATE);
-        assertThat(dbUser.getBankAccount()).isEqualTo(NEW_BANK_ACCOUNT);
-        assertThat(dbUser.isClerk()).isEqualTo(NEW_IS_CLERK);
-        assertThat(dbUser.isApproved()).isEqualTo(NEW_IS_APPROVED);
+		List<User> users = userService.findAll();
+		assertThat(users).hasSize(dbSizeBeforeAdd + 1);
+		dbUser = users.get(users.size() - 1);
+		assertThat(dbUser.getAddress()).isEqualTo(NEW_ADDRESS);
+		assertThat(dbUser.getCity()).isEqualTo(NEW_CITY);
+		assertThat(dbUser.getEmail()).isEqualTo(NEW_EMAIL);
+		assertThat(dbUser.getImage()).isEqualTo(NEW_IMAGE);
+		assertThat(dbUser.getName()).isEqualTo(NEW_NAME);
+		assertThat(dbUser.getPassword()).isEqualTo(NEW_PASSWORD);
+		assertThat(dbUser.getPhoneNumber()).isEqualTo(NEW_PHONE_NUMBER);
+		assertThat(dbUser.getSurname()).isEqualTo(NEW_SURNAME);
+		assertThat(dbUser.getUsername()).isEqualTo(NEW_USERNAME);
+		assertThat(dbUser.getNumOfRates()).isEqualTo(NEW_NUM_OF_RATES);
+		assertThat(dbUser.getRate()).isEqualTo(NEW_RATE);
+		assertThat(dbUser.getBankAccount()).isEqualTo(NEW_BANK_ACCOUNT);
+		assertThat(dbUser.isClerk()).isEqualTo(NEW_IS_CLERK);
+		assertThat(dbUser.isApproved()).isEqualTo(NEW_IS_APPROVED);
 	}
-	
+
 	/**
 	 * method tests if a certain element from the data base can be updated
 	 **/
 	@Test
-    @Transactional
-    @Rollback(true)
+	@Transactional
+	@Rollback(true)
 	public void testUpdate() {
 		User dbUser = userService.findOne(DB_ID);
 
@@ -138,28 +198,28 @@ public class UserServiceTest {
 		dbUser.setBankAccount(NEW_BANK_ACCOUNT);
 		dbUser.setClerk(NEW_IS_CLERK);
 		dbUser.setApproved(NEW_IS_APPROVED);
-		
+
 		dbUser = userService.save(dbUser);
 		assertThat(dbUser).isNotNull();
-		
+
 		dbUser = userService.findOne(DB_ID);
 
-        assertThat(dbUser.getAddress()).isEqualTo(NEW_ADDRESS);
-        assertThat(dbUser.getCity()).isEqualTo(NEW_CITY);
-        assertThat(dbUser.getEmail()).isEqualTo(NEW_EMAIL);
-        assertThat(dbUser.getImage()).isEqualTo(NEW_IMAGE);
-        assertThat(dbUser.getName()).isEqualTo(NEW_NAME);
-        assertThat(dbUser.getPassword()).isEqualTo(NEW_PASSWORD);
-        assertThat(dbUser.getPhoneNumber()).isEqualTo(NEW_PHONE_NUMBER);
-        assertThat(dbUser.getSurname()).isEqualTo(NEW_SURNAME);
-        assertThat(dbUser.getUsername()).isEqualTo(NEW_USERNAME);
-        assertThat(dbUser.getNumOfRates()).isEqualTo(NEW_NUM_OF_RATES);
-        assertThat(dbUser.getRate()).isEqualTo(NEW_RATE);
-        assertThat(dbUser.getBankAccount()).isEqualTo(NEW_BANK_ACCOUNT);
-        assertThat(dbUser.isClerk()).isEqualTo(NEW_IS_CLERK);
-        assertThat(dbUser.isApproved()).isEqualTo(NEW_IS_APPROVED);
+		assertThat(dbUser.getAddress()).isEqualTo(NEW_ADDRESS);
+		assertThat(dbUser.getCity()).isEqualTo(NEW_CITY);
+		assertThat(dbUser.getEmail()).isEqualTo(NEW_EMAIL);
+		assertThat(dbUser.getImage()).isEqualTo(NEW_IMAGE);
+		assertThat(dbUser.getName()).isEqualTo(NEW_NAME);
+		assertThat(dbUser.getPassword()).isEqualTo(NEW_PASSWORD);
+		assertThat(dbUser.getPhoneNumber()).isEqualTo(NEW_PHONE_NUMBER);
+		assertThat(dbUser.getSurname()).isEqualTo(NEW_SURNAME);
+		assertThat(dbUser.getUsername()).isEqualTo(NEW_USERNAME);
+		assertThat(dbUser.getNumOfRates()).isEqualTo(NEW_NUM_OF_RATES);
+		assertThat(dbUser.getRate()).isEqualTo(NEW_RATE);
+		assertThat(dbUser.getBankAccount()).isEqualTo(NEW_BANK_ACCOUNT);
+		assertThat(dbUser.isClerk()).isEqualTo(NEW_IS_CLERK);
+		assertThat(dbUser.isApproved()).isEqualTo(NEW_IS_APPROVED);
 	}
-	
+
 	/**
 	 * method tests if a certain element from the data base can be removed
 	 **/
@@ -169,22 +229,18 @@ public class UserServiceTest {
 	public void testRemove() {
 		int dbSizeBeforeRemove = userService.findAll().size();
 		userService.remove(DB_ID_REAL);
-		
+
 		List<User> users = userService.findAll();
 		assertThat(users).hasSize(dbSizeBeforeRemove - 1);
-		
+
 		User dbUser = userService.findOne(DB_ID_REAL);
 		assertThat(dbUser).isNull();
 	}
-	
+
 	/**
-	 * <h1> Negative tests </h1>
-	 */
-	
-	/**
-	 * method tests if an certain element from data base,
-	 * that should not be removed, can be removed,
-	 * and if can throws an exception
+	 * method tests if an certain element from data base, that should not be
+	 * removed, can be removed, and if can throws an exception
+	 * 
 	 * @exception DataIntegrityViolationException
 	 **/
 	@Test(expected = DataIntegrityViolationException.class)
@@ -193,18 +249,18 @@ public class UserServiceTest {
 	public void testNegativeRemove() {
 		int dbSizeBeforeRemove = userService.findAll().size();
 		userService.remove(DB_ID);
-		
+
 		List<User> users = userService.findAll();
 		assertThat(users).hasSize(dbSizeBeforeRemove - 1);
-		
+
 		User dbUser = userService.findOne(DB_ID);
 		assertThat(dbUser).isNull();
 	}
-	
+
 	/**
-	 * method tests if an certain element can be added into data base
-	 * without field that is required,
-	 * and if can throws an exception
+	 * method tests if an certain element can be added into data base without
+	 * field that is required, and if can throws an exception
+	 * 
 	 * @exception DataIntegrityViolationException
 	 **/
 	@Test(expected = DataIntegrityViolationException.class)
@@ -212,7 +268,7 @@ public class UserServiceTest {
 	@Rollback(true)
 	public void testAddNullEmail() {
 		User user = new User();
-		
+
 		user.setAddress(NEW_ADDRESS);
 		user.setCity(NEW_CITY);
 		user.setImage(NEW_IMAGE);
@@ -226,14 +282,14 @@ public class UserServiceTest {
 		user.setBankAccount(NEW_BANK_ACCOUNT);
 		user.setClerk(NEW_IS_CLERK);
 		user.setApproved(NEW_IS_APPROVED);
-		
+
 		userService.save(user);
 	}
-	
+
 	/**
-	 * method tests if an certain element can be added into data base
-	 * without field that is required,
-	 * and if can throws an exception
+	 * method tests if an certain element can be added into data base without
+	 * field that is required, and if can throws an exception
+	 * 
 	 * @exception DataIntegrityViolationException
 	 **/
 	@Test(expected = DataIntegrityViolationException.class)
@@ -241,7 +297,7 @@ public class UserServiceTest {
 	@Rollback(true)
 	public void testAddNullUsername() {
 		User user = new User();
-		
+
 		user.setEmail(NEW_EMAIL);
 		user.setAddress(NEW_ADDRESS);
 		user.setCity(NEW_CITY);
@@ -255,14 +311,14 @@ public class UserServiceTest {
 		user.setBankAccount(NEW_BANK_ACCOUNT);
 		user.setClerk(NEW_IS_CLERK);
 		user.setApproved(NEW_IS_APPROVED);
-		
+
 		userService.save(user);
 	}
-	
+
 	/**
-	 * method tests if an certain element can be added into data base
-	 * without field that is required,
-	 * and if can throws an exception
+	 * method tests if an certain element can be added into data base without
+	 * field that is required, and if can throws an exception
+	 * 
 	 * @exception DataIntegrityViolationException
 	 **/
 	@Test(expected = DataIntegrityViolationException.class)
@@ -270,7 +326,7 @@ public class UserServiceTest {
 	@Rollback(true)
 	public void testAddNullPassword() {
 		User user = new User();
-		
+
 		user.setEmail(NEW_EMAIL);
 		user.setAddress(NEW_ADDRESS);
 		user.setCity(NEW_CITY);
@@ -284,14 +340,14 @@ public class UserServiceTest {
 		user.setBankAccount(NEW_BANK_ACCOUNT);
 		user.setClerk(NEW_IS_CLERK);
 		user.setApproved(NEW_IS_APPROVED);
-		
+
 		userService.save(user);
 	}
-	
+
 	/**
-	 * method tests if an certain element can be added into data base
-	 * without field that is required,
-	 * and if can throws an exception
+	 * method tests if an certain element can be added into data base without
+	 * field that is required, and if can throws an exception
+	 * 
 	 * @exception DataIntegrityViolationException
 	 **/
 	@Test(expected = DataIntegrityViolationException.class)
@@ -299,7 +355,7 @@ public class UserServiceTest {
 	@Rollback(true)
 	public void testAddNullName() {
 		User user = new User();
-		
+
 		user.setEmail(NEW_EMAIL);
 		user.setAddress(NEW_ADDRESS);
 		user.setCity(NEW_CITY);
@@ -313,15 +369,14 @@ public class UserServiceTest {
 		user.setBankAccount(NEW_BANK_ACCOUNT);
 		user.setClerk(NEW_IS_CLERK);
 		user.setApproved(NEW_IS_APPROVED);
-		
-		
+
 		userService.save(user);
 	}
-	
+
 	/**
-	 * method tests if an certain element can be added into data base
-	 * without field that is required,
-	 * and if can throws an exception
+	 * method tests if an certain element can be added into data base without
+	 * field that is required, and if can throws an exception
+	 * 
 	 * @exception DataIntegrityViolationException
 	 **/
 	@Test(expected = DataIntegrityViolationException.class)
@@ -329,7 +384,7 @@ public class UserServiceTest {
 	@Rollback(true)
 	public void testAddNullSurname() {
 		User user = new User();
-		
+
 		user.setEmail(NEW_EMAIL);
 		user.setAddress(NEW_ADDRESS);
 		user.setCity(NEW_CITY);
@@ -343,14 +398,14 @@ public class UserServiceTest {
 		user.setBankAccount(NEW_BANK_ACCOUNT);
 		user.setClerk(NEW_IS_CLERK);
 		user.setApproved(NEW_IS_APPROVED);
-		
+
 		userService.save(user);
 	}
-	
+
 	/**
-	 * method tests if an certain element can be added into data base
-	 * without field that is required,
-	 * and if can throws an exception
+	 * method tests if an certain element can be added into data base without
+	 * field that is required, and if can throws an exception
+	 * 
 	 * @exception DataIntegrityViolationException
 	 **/
 	@Test(expected = DataIntegrityViolationException.class)
@@ -358,7 +413,7 @@ public class UserServiceTest {
 	@Rollback(true)
 	public void testAddUniqueEmail() {
 		User user = new User();
-		
+
 		user.setEmail(DB_EMAIL);
 		user.setAddress(NEW_ADDRESS);
 		user.setCity(NEW_CITY);
@@ -373,14 +428,14 @@ public class UserServiceTest {
 		user.setBankAccount(NEW_BANK_ACCOUNT);
 		user.setClerk(NEW_IS_CLERK);
 		user.setApproved(NEW_IS_APPROVED);
-		
+
 		userService.save(user);
 	}
-	
+
 	/**
-	 * method tests if an certain element can be added into data base
-	 * without field that is required,
-	 * and if can throws an exception
+	 * method tests if an certain element can be added into data base without
+	 * field that is required, and if can throws an exception
+	 * 
 	 * @exception DataIntegrityViolationException
 	 **/
 	@Test(expected = DataIntegrityViolationException.class)
@@ -388,7 +443,7 @@ public class UserServiceTest {
 	@Rollback(true)
 	public void testAddUniqueUsername() {
 		User user = new User();
-		
+
 		user.setEmail(NEW_EMAIL);
 		user.setAddress(NEW_ADDRESS);
 		user.setCity(NEW_CITY);
@@ -403,14 +458,14 @@ public class UserServiceTest {
 		user.setBankAccount(NEW_BANK_ACCOUNT);
 		user.setClerk(NEW_IS_CLERK);
 		user.setApproved(NEW_IS_APPROVED);
-		
+
 		userService.save(user);
 	}
-	
+
 	/**
-	 * method tests if an certain element can be added into data base
-	 * without field that is required,
-	 * and if can throws an exception
+	 * method tests if an certain element can be added into data base without
+	 * field that is required, and if can throws an exception
+	 * 
 	 * @exception DataIntegrityViolationException
 	 **/
 	@Test(expected = DataIntegrityViolationException.class)
@@ -418,7 +473,7 @@ public class UserServiceTest {
 	@Rollback(true)
 	public void testAddUniqueBankAccount() {
 		User user = new User();
-		
+
 		user.setEmail(NEW_EMAIL);
 		user.setAddress(NEW_ADDRESS);
 		user.setCity(NEW_CITY);
@@ -433,7 +488,7 @@ public class UserServiceTest {
 		user.setBankAccount(DB_BANK_ACCOUNT);
 		user.setClerk(NEW_IS_CLERK);
 		user.setApproved(NEW_IS_APPROVED);
-		
+
 		userService.save(user);
 	}
 }
