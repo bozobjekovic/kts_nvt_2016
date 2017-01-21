@@ -104,34 +104,31 @@ public class AdvertismentService {
 	 * @return List of elements
 	 */
 	public List<Advertisment> findBySatusAndPublisher(Status status, User publisher) {
-		return advertismentRepository.findByIsDeletedFalseAndRealEstate_StatusAndPublisher(status,
-				publisher);
+		return advertismentRepository.findByIsDeletedFalseAndRealEstate_StatusAndPublisher(status, publisher);
 	}
-	
+
 	/**
-	 * This method finds all advertisements from specified
-	 * publisher.
+	 * This method finds all advertisements from specified publisher.
 	 * 
 	 * @param publisher
 	 *            publisher
 	 * @return List of elements
 	 */
-	public List<Advertisment> findByPublisherAndIsDeletedFalseOrderById(User publisher){
+	public List<Advertisment> findByPublisherAndIsDeletedFalseOrderById(User publisher) {
 		return advertismentRepository.findByPublisherAndIsDeletedFalseOrderById(publisher);
 	}
-	
+
 	/**
-	 * This method finds all advertisements from
-	 * specified company.
+	 * This method finds all advertisements from specified company.
 	 * 
 	 * @param publisher
 	 *            publisher
 	 * @return List of elements
 	 */
-	public List<Advertisment> findByPublisher_Company_IdAndIsDeletedFalseOrderById(Long id){
+	public List<Advertisment> findByPublisher_Company_IdAndIsDeletedFalseOrderById(Long id) {
 		return advertismentRepository.findByPublisher_Company_IdAndIsDeletedFalseOrderById(id);
 	}
-	
+
 	/**
 	 * This method finds all elements by status and company.
 	 * 
@@ -141,8 +138,10 @@ public class AdvertismentService {
 	 *            company id
 	 * @return List of elements
 	 */
-	public List<Advertisment> findByPublisher_Company_IdAndIsDeletedFalseAndRealEstate_StatusOrderById(Status status, Long id) {
-		return advertismentRepository.findByPublisher_Company_IdAndIsDeletedFalseAndRealEstate_StatusOrderById(id, status);
+	public List<Advertisment> findByPublisher_Company_IdAndIsDeletedFalseAndRealEstate_StatusOrderById(Status status,
+			Long id) {
+		return advertismentRepository.findByPublisher_Company_IdAndIsDeletedFalseAndRealEstate_StatusOrderById(id,
+				status);
 	}
 
 }

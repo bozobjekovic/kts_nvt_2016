@@ -57,10 +57,10 @@ INSERT INTO Admin VALUES (1, 'Balzakova', 'Novi Sad', 'admin@gmail.com', 'image'
 INSERT INTO Verifier VALUES (1, 'verifier@gmail.com', '$2a$04$TjNk.I2AJ/QGBZKyOO6uruAx9MRoHsYKTJHcTd35rmmULDoM/XiXy','Verifier', 3);
 INSERT INTO Verifier VALUES (2, 'verifier2@gmail.com','$2a$04$TjNk.I2AJ/QGBZKyOO6uruAx9MRoHsYKTJHcTd35rmmULDoM/XiXy', 'Verifier2', 3);
 
-INSERT INTO Company VALUES (1, 'Balzakova 6', 'Kompanija Neka', '+3819214814', 'www.kompanijaneka.com', 1);
-INSERT INTO Company VALUES (2, 'Bul. Mihaila Pupina', 'Nasa Kompanija', '+38142342', 'www.nasakompanija.com', 2);
-INSERT INTO Company VALUES (3, 'Bulevar Oslobodjenja', 'Company', '+38164564', 'www.comany.com', 3);
-INSERT INTO Company VALUES (4, 'Miselinova', 'Kompanija DOO', '+3816456456', 'www.kompanijadoo.com', 4);
+INSERT INTO Company VALUES (1, 'Balzakova 6', 'Kompanija Neka', '+3819214814', 'www.kompanijaneka.com', true, 1);
+INSERT INTO Company VALUES (2, 'Albanska', 'Nasa Kompanija', '+38142342', 'www.nasakompanija.com', true, 5);
+INSERT INTO Company VALUES (3, 'Bulevar Oslobodjenja', 'Company', '+38164564', 'www.comany.com', false, 3);
+INSERT INTO Company VALUES (4, 'Anete Andrejević', 'Kompanija DOO', '+3816456456', 'www.kompanijadoo.com', false, 4);
 
 INSERT INTO User VALUES (4, 'Balzakova', 'Novi Sad', 'clerk@gmail.com', 'image', 'Clerk', '$2a$06$ESTR0aRvH5s4McmiWeiXl.DqRxveC/lruQKFD7UVkvBRwOEdp2Qty', '+12331203', 'Clerkan', 'clerk', '21345411', false, true, 1, 2, 2, null, 1);
 INSERT INTO User VALUES (5, 'Novosadska', 'Novi Sad', 'clerk2@gmail.com', 'image', 'Clerk2', '$2a$06$ESTR0aRvH5s4McmiWeiXl.DqRxveC/lruQKFD7UVkvBRwOEdp2Qty', '+15232', 'Clerkan2', 'clerk2', '9678678', true, true, 2, 2, 2, null, 2);

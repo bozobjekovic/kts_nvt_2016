@@ -30,11 +30,14 @@ public class AdvertisementPage {
 	@FindBy(id = "comment")
 	private WebElement inputComment;
 	
-	@FindBy(xpath = "//input[@ng-click=\"leaveComment()\"]")
+	@FindBy(xpath = "//input[@value='Submit']")
 	private WebElement submitButton;
 	
 	@FindBy(xpath = "//span[@ng-model=\"rate\"]")
 	private WebElement rate;
+	
+	@FindBy(xpath = "//span[@ng-model=\"rateUser\"]")
+	private WebElement userRate;
 
 	public WebElement getReportButton() {
 		return reportButton;
@@ -82,21 +85,30 @@ public class AdvertisementPage {
 		return rate;
 	}
 
+	public WebElement getUserRate() {
+		return userRate;
+	}
+
 	public void ensureModalIsDisplayed() {
-		(new WebDriverWait(browser, 10))
+		(new WebDriverWait(browser, 2))
 				  .until(ExpectedConditions.presenceOfElementLocated(
 						  By.id("title")));
 	}
 	
+	public void ensureModalIsClosed() {
+		(new WebDriverWait(browser, 2))
+				  .until(ExpectedConditions.invisibilityOfElementLocated(
+						  By.id("title")));
+	}
+	
 	public void ensureIsDisplayed() {
-		(new WebDriverWait(browser, 10))
-				  .until(ExpectedConditions.presenceOfElementLocated(
+		(new WebDriverWait(browser, 2))
+				  .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
 						  By.xpath("//input[@id=\"rprt\"]")));
 	}
 	
 	public void ensureIsAdded(int numberOfComments) {
-		System.out.println(numberOfComments);
-		(new WebDriverWait(browser, 10))
+		(new WebDriverWait(browser, 2))
 		  .until(ExpectedConditions.visibilityOfElementLocated(
 				  By.xpath("(//div[@class='comment-listItem'])[" + (numberOfComments + 1) + "]")));
 		

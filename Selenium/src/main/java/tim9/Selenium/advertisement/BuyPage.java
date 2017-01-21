@@ -108,7 +108,7 @@ public class BuyPage {
 	}
 
 	public void ensureIsDisplayed() {
-		(new WebDriverWait(browser, 10))
+		(new WebDriverWait(browser, 2))
 				  .until(ExpectedConditions.presenceOfElementLocated(
 						  By.xpath("//div[@ng-show='priceCollapsed']")));
 	}

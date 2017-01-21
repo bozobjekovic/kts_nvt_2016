@@ -38,6 +38,9 @@ public class MainPage {
 	
 	@FindBy(xpath = "//a[@id=\"profile\"]")
 	private WebElement profileLink;
+	
+	@FindBy(xpath = "//a[@ng-click='logOut()']")
+	private WebElement logOutLink;
 
 	public WebElement getHomeLink() {
 		return homeLink;
@@ -71,9 +74,19 @@ public class MainPage {
 		return profileLink;
 	}
 	
+	public WebElement getLogOutLink() {
+		return logOutLink;
+	}
+
 	public void ensureIsDisplayed() {
-		(new WebDriverWait(browser, 10))
-				  .until(ExpectedConditions.presenceOfElementLocated(
+		(new WebDriverWait(browser, 2))
+				  .until(ExpectedConditions.visibilityOfElementLocated(
 						  By.xpath("//a[@ng-href=\"/#/buy\"]")));
+	}
+	
+	public void ensureLoginIsClosed() {
+		(new WebDriverWait(browser, 2))
+				  .until(ExpectedConditions.invisibilityOfElementLocated(
+						  By.id("username")));
 	}
 }
