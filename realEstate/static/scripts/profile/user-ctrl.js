@@ -2,14 +2,19 @@
 	'use strict';
 	
 	angular.module('realEstateClientApp')
-		.controller('UserCtrl', ['$scope', '$rootScope', '$location',  '_', 'UserFactory', 'AdvertisementFactory', '$uibModal',
-		   function($scope, $rootScope, $location, _, UserFactory, AdvertisementFactory, $uibModal) {
+		.controller('UserCtrl', ['$scope', '$rootScope', '$location',  '_', '$localStorage', 'UserFactory', 'AdvertisementFactory', '$uibModal',
+		   function($scope, $rootScope, $location, _, $localStorage, UserFactory, AdvertisementFactory, $uibModal) {
 			
 			  $rootScope.mainMenu = true;
 
 			  UserFactory.getUser().then(function(item) {
 				      $scope.user = item;
-				      $scope.getPublished();
+				      if($localStorage.currentUser.role === "USER"){
+				    	  $scope.getPublished();
+				      }
+				      else{
+				    	  $scope.getClerkPublished();
+				      }
 				      $scope.getCompany();
 			  });
 			  
@@ -21,6 +26,12 @@
 			  
 			  $scope.getPublished = function(){
 				  UserFactory.getPublished($scope.user.id).then(function(items) {
+				      $scope.published = items;
+				  });
+			  }
+			  
+			  $scope.getClerkPublished = function(){
+				  UserFactory.getClerkPublished($scope.user.id).then(function(items) {
 				      $scope.published = items;
 				  });
 			  }
@@ -98,7 +109,6 @@
 	                      activeUntil: item.activeUntil,
 	                      status : item.status
 					  }
-					  console.log(advertisement.purpose);
 					  var modalInstance = $uibModal.open({
 	                      templateUrl : 'views/modals/updateAdvertisement.html',
 	                      controller  : 'UpdateAdvertisementModalCtrl',
@@ -110,7 +120,12 @@
 	                      }
 	                  }).result.then(function (result) {
 	                      if(result.status == "ok"){
-	                    	  $scope.getPublished();
+	                    	  if($localStorage.currentUser.role === "USER"){
+	    				    	  $scope.getPublished();
+	    				      }
+	    				      else{
+	    				    	  $scope.getClerkPublished();
+	    				      }
 	                      }
 	                  });
 				  });

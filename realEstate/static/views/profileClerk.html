@@ -47,7 +47,45 @@
   		<br>
   		<button type="button" class="btn btn-warning" style="width: 100%; background-color: #751717; border-color: #751717;" ng-click="openModal()"><b>Change</b></button>
 	</div>
-	
+	<div class="profile-grid-right" style="border: 0.7px solid gray; border-radius: 5px; padding: 10px;">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<nav class="menu menu--francisco">
+						<ul class="nav navbar-nav menu__list, mini_menu_list">
+							<li class="menu__item"><a class="menu__link" ng-click="getPublished()"><span class="menu__helper">All</span></a></li>
+							<li class="menu__item"><a class="menu__link" ng-click="getPublishedByStatus('Active')"><span class="menu__helper">Active</span></a></li>
+							<li class="menu__item"><a class="menu__link" ng-click="getPublishedByStatus('Sold')"><span class="menu__helper">Sold</span></a></li>
+							<li class="menu__item"><a class="menu__link" ng-click="getPublishedByStatus('Rented')"><span class="menu__helper">Rented</span></a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</nav>
+		<div class="profile-list-scroll">
+			<div class="profile-list" style="min-height: 600px;">
+				<div class="profile-listItem" ng-repeat="publish in published">
+					<div class="profile-grid-left">
+						<a class="menu__link" ng-click="advertisementPage(publish)">
+							<img ng-src="{{publish.image}}" alt="" class="img-thumbnail">
+						</a>
+					</div>
+					<div class="profile-grid-right">
+						<div class="profile-listItem-text">
+							<input type="button" id="removeAdver" value="Remove" class="btn btn-warning" style="float:right; padding: 4px 8px; background-color: #751717; border-color: #751717;" ng-click="remove(publish.id)">
+							<input ng-if="publish.status != 'Sold'" type="button" id="update" value="Update" class="btn btn-warning" style="float:right; margin: 0px 1px; padding: 4px 8px; background-color: #751717; border-color: #751717;" ng-click="updateModal(publish.id)">
+							<input ng-if="publish.status != 'Sold' && publish.purpose == 'Rent'" type="button" id="rent" value="Rent" class="btn btn-warning" style="float:right; padding: 4px 8px; background-color: #751717; border-color: #751717;" ng-click="rentModal(publish.id)">
+							<h4>{{publish.name}} {{publish.id}}</h4>
+							<p>{{publish.price | currency:"$"}}</p>
+							<p>{{publish.publicationDate | date:'dd-MM-yyyy'}}</p>
+							<p>{{publish.purpose}}</p>
+							<h5>{{publish.status}}</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="profile-grid-right" style="border: 1px solid gray; border-radius: 5px; padding: 10px; min-height: 600px;">
 		<div class="profile-list-scroll">
 			<h4 style="color: #751717;" class="tittle">User Requests</h4> <br> <br>

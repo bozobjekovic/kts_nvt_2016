@@ -1,22 +1,18 @@
 package tim9.realEstate.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static tim9.realEstate.constants.AdvertismentConstants.DB_CATEGORY;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_COUNT;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_ID;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_ID_REFERENCED;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_PHONE_NUMBER;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_PURPOSE;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_RATE;
-import static tim9.realEstate.constants.AdvertismentConstants.DB_TYPE;
 import static tim9.realEstate.constants.AdvertismentConstants.NEW_DATE;
 import static tim9.realEstate.constants.AdvertismentConstants.NEW_NUM_OF_RATES;
 import static tim9.realEstate.constants.AdvertismentConstants.NEW_PHONE_NUMBER;
 import static tim9.realEstate.constants.AdvertismentConstants.NEW_PURPOSE;
 import static tim9.realEstate.constants.AdvertismentConstants.NEW_RATE;
-import static tim9.realEstate.constants.AdvertismentConstants.PAGE_SIZE;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Ignore;
@@ -26,8 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -59,15 +53,15 @@ public class AdvertismentServiceTest {
 		assertThat(advertisements).hasSize(DB_COUNT);
 	}
 
-	/**
+/*	*//**
 	 * method test if all of pageable elements from the data base can be found
-	 **/
+	 **//*
 	@Test
 	public void testFindAllPageable() {
 		PageRequest pageRequest = new PageRequest(0, PAGE_SIZE);
 		Page<Advertisment> advertisements = advertismentService.findAll(pageRequest);
 		assertThat(advertisements).hasSize(PAGE_SIZE); 
-	}
+	}*/
 
 	/**
 	 * method tests if an certain element from the data base can be found
@@ -158,61 +152,7 @@ public class AdvertismentServiceTest {
 		Advertisment dbAdvertisment = advertismentService.findOne(DB_ID);
 		assertThat(dbAdvertisment).isNull();
 	}
-	
-	/**
-	 * method tests if a certain element from the data base can be found by purpose
-	 **/
-	@Test
-	public void testFindByPurpose() {
-		PageRequest pageRequest = new PageRequest(0, PAGE_SIZE);
-		Page<Advertisment> advertisments = advertismentService.findByPurpose(DB_PURPOSE, pageRequest);
-		assertThat(advertisments).hasSize(1);
-		List<Advertisment> advertList = new ArrayList<>();
-		for (Advertisment a : advertisments) {
-			advertList.add(a);
-		}
-		assertThat(advertList.get(advertList.size() - 1).getPurpose()).isEqualTo(DB_PURPOSE);
-	}
-	
-	/**
-	 * method tests if a certain element from the data base can be found by category
-	 **/
-	@Test
-	public void testFindByRealEstate_Category() {
-		List<Advertisment> advertisments = advertismentService.findByRealEstate_Category(DB_PURPOSE,DB_CATEGORY);
-		assertThat(advertisments.size()).isEqualTo(2);
-		for (int i = 0; i < advertisments.size(); i++) {
-			assertThat(advertisments.get(i).getRealEstate().getCategory()).isEqualTo(DB_CATEGORY);
-		}
-	}
-	
-	/**
-	 * method tests if a certain element from the data base can be found by type
-	 **/
-	@Test
-	public void testFindByRealEstate_Type() {
-		List<Advertisment> advertisments = advertismentService.findByRealEstate_Type(DB_PURPOSE, DB_TYPE);
-		assertThat(advertisments.size()).isEqualTo(1);
-		for (int i = 0; i < advertisments.size(); i++) {
-			assertThat(advertisments.get(i).getRealEstate().getType()).isEqualTo(DB_TYPE);
-		}
-	}
-	
-	/**
-	 * method tests if a certain element from the data base can be ordered by rate
-	 **/
-	@Test
-	public void testOrderByRate() {
-		PageRequest pageRequest = new PageRequest(0, 3);
-		List<Advertisment> advertisments = advertismentService.orderByRate(pageRequest);
-		List<Advertisment> advertList = new ArrayList<>();
-		for (Advertisment a : advertisments) {
-			advertList.add(a);
-		}
-		assertThat(advertList.get(0).getRate()).isGreaterThan(advertList.get(1).getRate());
-		assertThat(advertList.get(0).getRate()).isGreaterThan(advertList.get(2).getRate());
-		assertThat(advertList.get(1).getRate()).isGreaterThan(advertList.get(2).getRate());
-	}
+
 
 	/**
 	 * <h1> Negative tests </h1>

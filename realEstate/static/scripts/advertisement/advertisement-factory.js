@@ -18,9 +18,9 @@ angular.module('realEstateClientApp')
 				return entry.data;
 			}, function(response) {
                 if (response.status === 422) {
-                    toastr.warning('Check location details!', 'Warning');
+                    toastr.warning('Check location details!');
                 } else {
-					toastr.warning('Phone number already exist!', 'Warning');
+					toastr.warning('Phone number already exist!');
                 }
             });
 		};
@@ -53,10 +53,11 @@ angular.module('realEstateClientApp')
 		retVal.report = function(inappropriate) {
 			return Restangular.one('inappropriates/', inappropriate.id).all('new').post(inappropriate)
 				.then(function() {
+					toastr.success('You successfuly reported this advertisement!');
 					return true;
 				}, function(response) {
 					if (response.status === 409) {
-						toastr.warning('You have already reported this advertisement!', 'Warning');
+						toastr.warning('You have already reported this advertisement!');
 					}
 					return false;
 				});
@@ -65,12 +66,14 @@ angular.module('realEstateClientApp')
 		retVal.rate = function(id, rate) {
 			return Restangular.one('advertisments/advertisment', id).one('rate', rate).put().then(function(entry) {
 				advertisement = entry.data;
+				toastr.success('Thank you for rating!');
 				return advertisement;
     		});
 		};
 
 		retVal.rateUser = function(id, rate) {
 			return Restangular.one('advertisments/user', id).one('rate', rate).put().then(function(entry) {
+				toastr.success('Thank you for rating!');
 				return entry.data;
     		});
 		};

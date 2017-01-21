@@ -19,6 +19,13 @@ angular.module('realEstateClientApp')
     		});
 		};
 		
+		retVal.getClerkPublished = function(id) {
+			return Restangular.one("users/published/clerk", id).getList().then(function(entries) {
+				published = entries.data;
+				return published;
+    		});
+		};
+		
 		retVal.updateUser = function(userDTO) {
 			return Restangular.one("users/").customPUT(userDTO).then(function(entry) {
 				return entry.data;

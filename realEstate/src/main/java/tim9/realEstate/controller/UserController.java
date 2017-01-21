@@ -86,12 +86,41 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
-		ArrayList<AdvertismentDTO> advertismentDTOs = new ArrayList<AdvertismentDTO>();
+		List<Advertisment> advertisments = advertisementService.findByPublisherAndIsDeletedFalseOrderById(user);
+		List<AdvertismentDTO> advertismentDTOs = new ArrayList<AdvertismentDTO>();
 
-		for (Advertisment a : user.getPublishedAdvertisments()) {
-			if (a.isDeleted() == false) {
-				advertismentDTOs.add(new AdvertismentDTO(a));
-			}
+		for (Advertisment a : advertisments) {
+			advertismentDTOs.add(new AdvertismentDTO(a));
+		}
+
+		return new ResponseEntity<>(advertismentDTOs, HttpStatus.OK);
+	}
+
+	/**
+	 * This method gets all Clerks publications from his company
+	 * from the database and then
+	 * creates a list of DTO objects.
+	 * 
+	 * @return ResponseEntity List with all DTO Users and HttpStatus OK
+	 */
+	@RequestMapping(value = "/published/clerk/{id}", method = RequestMethod.GET)
+	public ResponseEntity<List<AdvertismentDTO>> getAllClerksPublications(@PathVariable Long id) {
+		if (id == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		User user = userService.findOne(id);
+
+		if (user == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		System.out.println(user.getCompany().getId());
+		List<Advertisment> advertisments = advertisementService.findByPublisher_Company_IdAndIsDeletedFalseOrderById(user.getCompany().getId());
+		List<AdvertismentDTO> advertismentDTOs = new ArrayList<AdvertismentDTO>();
+		System.out.println("Aa");
+		for (Advertisment a : advertisments) {
+			advertismentDTOs.add(new AdvertismentDTO(a));
 		}
 
 		return new ResponseEntity<>(advertismentDTOs, HttpStatus.OK);

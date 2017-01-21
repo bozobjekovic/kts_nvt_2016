@@ -34,7 +34,7 @@ public class CommentService {
 	}
 	
 	public List<Comment> findByAdvertisment(Advertisment advertisment) {
-		return commentRepository.findByAdvertisment(advertisment);
+		return commentRepository.findByAdvertismentOrderByDateDesc(advertisment);
 	}
 	
 	/**

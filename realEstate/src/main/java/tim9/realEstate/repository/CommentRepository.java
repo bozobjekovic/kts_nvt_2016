@@ -9,6 +9,6 @@ import tim9.realEstate.model.Comment;
 
 public interface CommentRepository extends JpaRepository<Comment, Long>{
 	
-	List<Comment> findByAdvertisment(Advertisment advertisment);
+	List<Comment> findByAdvertismentOrderByDateDesc(Advertisment advertisment);
 
 }

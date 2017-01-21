@@ -216,7 +216,7 @@ insert into images values('4', 'images/house3.jpg');
 insert into images values('5', 'images/house4.jpg');
 
 INSERT INTO Comment VALUES (1, '2016-04-24', 'Opis komentara', 1, 1);
-INSERT INTO Comment VALUES (2, '2016-01-23', 'Comm desc', 2, 2);
+INSERT INTO Comment VALUES (2, '2016-01-01', 'Comm desc', 2, 2);
 INSERT INTO Comment VALUES (3, '2016-04-24', 'Opis komentara', 1, 2);
 INSERT INTO Comment VALUES (4, '2016-01-23', 'Comm desc', 2, 2);
 INSERT INTO Comment VALUES (5, '2016-04-24', 'Opis komentara', 1, 3);
