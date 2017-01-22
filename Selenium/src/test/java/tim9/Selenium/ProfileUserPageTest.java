@@ -22,6 +22,7 @@ public class ProfileUserPageTest {
 	ProfileUserPage profileUserPage;
 	UpdateProfileDataPage profileUserUpdateDataPage;
 	LoginPage loginPage;
+	ProfileClerkPage profileClerkPage;
 	
 	@BeforeMethod
 	public void setupSelenium() {
@@ -35,6 +36,7 @@ public class ProfileUserPageTest {
 		profileUserPage = PageFactory.initElements(browser, ProfileUserPage.class);
 		profileUserUpdateDataPage = PageFactory.initElements(browser, UpdateProfileDataPage.class);
 		loginPage = PageFactory.initElements(browser, LoginPage.class);
+		profileClerkPage = PageFactory.initElements(browser, ProfileClerkPage.class);
 	}
 	
 	public void login() {
@@ -45,21 +47,50 @@ public class ProfileUserPageTest {
 		assertTrue(loginPage.getInputUsername().isDisplayed());
 		assertTrue(loginPage.getInputPassword().isDisplayed());
 		assertTrue(loginPage.getOKButton().isDisplayed());
-		
-		loginPage.setInputUsername("user");
-		loginPage.setInputPassword("u");
-		loginPage.getOKButton().click();
-		
-		mainPage.ensureIsDisplayed();
-		mainPage.getProfileLink().click();
-		assertEquals("http://localhost:8080/#/profile", browser.getCurrentUrl());
 	}
 	
 	@Test
 	public void testAskToJoin() {
 		login();
+		loginPage.setInputUsername("clerk");
+		loginPage.setInputPassword("c");
+		loginPage.getOKButton().click();
+		
+		mainPage.ensureLoginIsClosed();
+		mainPage.getProfileLink().click();
+		assertEquals("http://localhost:8080/#/profileClerk", browser.getCurrentUrl());
+		
+		int noUserRequests = profileClerkPage.getUserRequestsListSize();
+		
+		mainPage.ensureLoginIsClosed();
+		mainPage.getLogOutLink().click();
+		
+		login();
+		loginPage.setInputUsername("user");
+		loginPage.setInputPassword("u");
+		loginPage.getOKButton().click();
+
+		mainPage.ensureLoginIsClosed();
+		mainPage.getProfileLink().click();
+		assertEquals("http://localhost:8080/#/profile", browser.getCurrentUrl());
+
+		mainPage.ensureLoginIsClosed();
 		profileUserPage.ensureCanAskToJoin();
 		profileUserPage.getAskToJoinButton().click();
+		
+		mainPage.getLogOutLink().click();
+		
+		login();
+		loginPage.setInputUsername("clerk");
+		loginPage.setInputPassword("c");
+		loginPage.getOKButton().click();
+
+		mainPage.ensureLoginIsClosed();
+		mainPage.getProfileLink().click();
+		assertEquals("http://localhost:8080/#/profileClerk", browser.getCurrentUrl());
+		
+		assertEquals(profileClerkPage.getUserRequestsListSize(), noUserRequests+1);
+		mainPage.ensureLoginIsClosed();
 	}
 	
 	@Test

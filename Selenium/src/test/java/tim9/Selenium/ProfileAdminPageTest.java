@@ -67,22 +67,18 @@ public class ProfileAdminPageTest {
 		assertTrue(profileAdminRegisterVerifierPage.getUsername().isDisplayed());
 		assertTrue(profileAdminRegisterVerifierPage.getVerPassword().isDisplayed());
 
-		// Empty data
 		profileAdminRegisterVerifierPage.getOkButton().click();
 		
-		// Email not correctly inputted
 		profileAdminRegisterVerifierPage.setEmail("m");
 		profileAdminRegisterVerifierPage.setUsername("m");
 		profileAdminRegisterVerifierPage.setVerPassword("m");
 		profileAdminRegisterVerifierPage.getOkButton().click();
 
-		// Verifier already exists
 		profileAdminRegisterVerifierPage.setEmail("verifier2@gmail.com");
 		profileAdminRegisterVerifierPage.setUsername("Verifier2");
 		profileAdminRegisterVerifierPage.setVerPassword("v");
 		profileAdminRegisterVerifierPage.getOkButton().click();
 		
-		// Successful Verifier registration
 		profileAdminRegisterVerifierPage.setEmail("majamiljic2@gmail.com");
 		profileAdminRegisterVerifierPage.setUsername("majami");
 		profileAdminRegisterVerifierPage.setVerPassword("m");

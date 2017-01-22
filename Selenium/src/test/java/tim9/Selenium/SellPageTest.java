@@ -69,10 +69,8 @@ public class SellPageTest {
 		sellPage.ensureIsDisplayed();
 		assertTrue(sellPage.getName().isDisplayed());
 		
-		// Empty data
 		sellPage.getSubmitButton().click();
 		
-		// Mandatory field empty
 		sellPage.setPartOfTheCity("Liman");
 		sellPage.setEquipment("Internet");
 		sellPage.setBathrooms("2");
@@ -82,7 +80,6 @@ public class SellPageTest {
 		sellPage.ensureCanSubmit();
 		sellPage.getSubmitButton().click();
 
-		// Advertisement already exists
 		sellPage.setName("Kuca sa bazenom");
 		sellPage.setAddress("Bulevar cara Lazara 108");;
 		sellPage.setCity("Novi Sad");
@@ -97,7 +94,6 @@ public class SellPageTest {
 		sellPage.getSubmitButton().click();
 		mainPage.ensureLoginIsClosed();
 		
-		// Successful Advertisement registration
 		sellPage.setPhoneNumber("+3811111111");
 		sellPage.ensureCanSubmit();
 		sellPage.getSubmitButton().click();
