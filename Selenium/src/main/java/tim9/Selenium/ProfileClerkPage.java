@@ -30,6 +30,21 @@ public class ProfileClerkPage {
 	@FindBy(id="update")
 	private WebElement updateButton;
 
+	@FindBy(id="clerkName")
+	private WebElement clerkName;
+
+	@FindBy(id="clerkSurname")
+	private WebElement clerkSurname;
+
+	@FindBy(id="clerkPNumber")
+	private WebElement clerkPNumber;
+
+	@FindBy(id="clerkAddress")
+	private WebElement clerkAddress;
+
+	@FindBy(id="clerkCity")
+	private WebElement clerkCity;
+
 	public void ensureIsDisplayed() {
 		(new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[@ng-click=\"openModal()\"]")));
 	}
@@ -75,6 +90,21 @@ public class ProfileClerkPage {
 	}
 	public WebElement getUpdateButton() {
 		return updateButton;
+	}
+	public WebElement getClerkName() {
+		return clerkName;
+	}
+	public WebElement getClerkSurname() {
+		return clerkSurname;
+	}
+	public WebElement getClerkPNumber() {
+		return clerkPNumber;
+	}
+	public WebElement getClerkAddress() {
+		return clerkAddress;
+	}
+	public WebElement getClerkCity() {
+		return clerkCity;
 	}
 	public int getAdverListSize() {
 		return driver.findElements(By.className("profile-listItem-text")).size();

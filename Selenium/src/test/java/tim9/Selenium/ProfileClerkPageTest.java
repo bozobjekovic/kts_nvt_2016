@@ -79,6 +79,13 @@ public class ProfileClerkPageTest {
 		login();
 		profileClerkPage.ensureModalIsClosed();
 		
+		assertEquals(profileClerkPage.getClerkName().getText(), "Clerk2");
+		assertEquals(profileClerkPage.getClerkSurname().getText(), "Clerkan2");
+		assertEquals(profileClerkPage.getClerkPNumber().getText(), "+15232");
+		assertEquals(profileClerkPage.getClerkAddress().getText(), "Novosadska");
+		assertEquals(profileClerkPage.getClerkCity().getText(), "Novi Sad");
+		profileClerkPage.ensureModalIsClosed();
+		
 		openModal();
 		updateAdverPage.ensureCanSave();
 		profileClerkUpdateDataPage.getSaveButton().click();
@@ -105,8 +112,15 @@ public class ProfileClerkPageTest {
 		profileClerkUpdateDataPage.setCity("Novi Sad");
 		profileClerkUpdateDataPage.getSaveButton().click();
 		profileClerkPage.ensureModalIsClosed();
+		
+		assertEquals(profileClerkPage.getClerkName().getText(), "Maja");
+		assertEquals(profileClerkPage.getClerkSurname().getText(), "Miljic");
+		assertEquals(profileClerkPage.getClerkPNumber().getText(), "+24242424");
+		assertEquals(profileClerkPage.getClerkAddress().getText(), "Balzakova 20");
+		assertEquals(profileClerkPage.getClerkCity().getText(), "Novi Sad");
+		profileClerkPage.ensureModalIsClosed();
 	}
-	
+	/*
 	@Test
 	public void testAcceptUserRequest() {
 		login();
@@ -184,7 +198,7 @@ public class ProfileClerkPageTest {
 		updateAdverPage.getSaveButton().click();
 		profileClerkPage.ensureModalIsClosed();
 	}
-	
+	*/
 	@AfterMethod
 	public void closeSelenium() {
 		browser.quit();
