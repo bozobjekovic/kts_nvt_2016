@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import tim9.realEstate.model.Authority;
 import tim9.realEstate.repository.AuthorityRepository;
 
+/**
+ * This class represents AuthorityService
+ *
+ */
 @Service
 public class AuthorityService {
 

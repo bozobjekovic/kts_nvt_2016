@@ -10,6 +10,10 @@ import tim9.realEstate.model.RealEstate;
 import tim9.realEstate.model.RentRealEstate;
 import tim9.realEstate.repository.RentRealEstateRepository;
 
+/**
+ * This class represents RentRealEstateService
+ *
+ */
 @Service
 public class RentRealEstateService {
 
@@ -27,11 +31,12 @@ public class RentRealEstateService {
 	public RentRealEstate findOne(Long id) {
 		return rentRealEstateRepository.findOne(id);
 	}
-	
+
 	/**
-	* This method finds all elements from specified Table.
-	* @return		List of elements
-	*/
+	 * This method finds all elements from specified Table.
+	 * 
+	 * @return List of elements
+	 */
 	public List<RentRealEstate> findAll() {
 		return rentRealEstateRepository.findAll();
 	}

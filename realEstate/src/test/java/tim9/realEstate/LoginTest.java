@@ -11,6 +11,10 @@ import org.springframework.stereotype.Component;
 
 import tim9.realEstate.security.TokenUtils;
 
+/**
+ * This class represents LoginTest
+ *
+ */
 @Component
 public class LoginTest {
 	

@@ -15,6 +15,10 @@ import tim9.realEstate.service.RentRealEstateServiceTest;
 import tim9.realEstate.service.UserServiceTest;
 import tim9.realEstate.service.VerifierServiceTest;
 
+/**
+ * This class represents ServicesSuite
+ *
+ */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	AdminServiceTest.class,

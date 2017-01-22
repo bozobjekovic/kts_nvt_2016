@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import tim9.realEstate.model.Admin;
 import tim9.realEstate.repository.AdminRepository;
 
+/**
+ * This class represents AdminService
+ *
+ */
 @Service
 public class AdminService {
 

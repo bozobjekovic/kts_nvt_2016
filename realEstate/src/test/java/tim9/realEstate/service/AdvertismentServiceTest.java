@@ -236,7 +236,7 @@ public class AdvertismentServiceTest {
 		Advertisment advertisment = advertismentService.findOne(DB_ID);
 
 		assertThat(advertismentService
-				.findByPublisher_Company_IdAndIsDeletedFalseOrderById(advertisment.getPublisher().getCompany().getId()))
+				.findByPublisherCompanyIdAndIsDeletedFalseOrderById(advertisment.getPublisher().getCompany().getId()))
 						.hasSize(DB_PUBLISHER_COUNT);
 	}
 
@@ -250,7 +250,7 @@ public class AdvertismentServiceTest {
 	public void testFindByPublisher_Company_IdAndIsDeletedFalseAndRealEstate_StatusOrderById() {
 		Advertisment advertisment = advertismentService.findOne(DB_ID);
 
-		assertThat(advertismentService.findByPublisher_Company_IdAndIsDeletedFalseAndRealEstate_StatusOrderById(
+		assertThat(advertismentService.findByPublisherCompanyIdAndIsDeletedFalseAndRealEstateStatusOrderById(
 				advertisment.getRealEstate().getStatus(), advertisment.getPublisher().getCompany().getId()))
 						.hasSize(DB_PUBLISHER_COUNT);
 	}

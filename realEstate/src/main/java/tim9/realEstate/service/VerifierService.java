@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import tim9.realEstate.model.Verifier;
 import tim9.realEstate.repository.VerifierRepository;
 
+/**
+ * This class represents VerifierService
+ *
+ */
 @Service
 public class VerifierService {
 

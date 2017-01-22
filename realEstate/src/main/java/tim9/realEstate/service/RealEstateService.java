@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import tim9.realEstate.model.RealEstate;
 import tim9.realEstate.repository.RealEstateRepository;
 
+/**
+ * This class represents RealEstateService
+ *
+ */
 @Service
 public class RealEstateService {
 

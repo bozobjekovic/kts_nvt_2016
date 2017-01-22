@@ -13,6 +13,10 @@ import tim9.realEstate.controller.LoginRegistrateControllerTest;
 import tim9.realEstate.controller.UserControllerTest;
 import tim9.realEstate.controller.VerifierControllerTest;
 
+/**
+ * This class represents ControllersSuite
+ *
+ */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	AdminControllerTest.class,

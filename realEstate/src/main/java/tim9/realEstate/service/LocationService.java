@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 import tim9.realEstate.model.Location;
 import tim9.realEstate.repository.LocationRepository;
 
+/**
+ * This class represents LocationService
+ *
+ */
 @Service
 public class LocationService {
 
@@ -63,6 +67,7 @@ public class LocationService {
 	/**
 	 * This method finds all part of the cities that belongs to specified city
 	 * 
+	 * @param city
 	 * @return List of String
 	 */
 	public List<String> getAllPartOfTheCitiesByCity(String city) {

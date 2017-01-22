@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import tim9.realEstate.model.Company;
 import tim9.realEstate.repository.CompanyRepository;
 
+/**
+ * This class represents CompanyService
+ *
+ */
 @Service
 public class CompanyService {
 
@@ -30,8 +34,8 @@ public class CompanyService {
 	 * This method finds element with specified name and gets it from the
 	 * database.
 	 * 
-	 * @param id
-	 *            Element id
+	 * @param name
+	 *            Element name
 	 * @return Element if found, null if doesn't exist
 	 */
 	public Company findByName(String name) {
@@ -42,8 +46,8 @@ public class CompanyService {
 	 * This method finds element with specified phone number and gets it from
 	 * the database.
 	 * 
-	 * @param id
-	 *            Element id
+	 * @param phoneNumber
+	 *            Element phoneNumber
 	 * @return Element if found, null if doesn't exist
 	 */
 	public Company findByPhoneNumber(String phoneNumber) {

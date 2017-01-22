@@ -9,6 +9,10 @@ import tim9.realEstate.model.Advertisment;
 import tim9.realEstate.model.Comment;
 import tim9.realEstate.repository.CommentRepository;
 
+/**
+ * This class represents CommentService
+ *
+ */
 @Service
 public class CommentService {
 

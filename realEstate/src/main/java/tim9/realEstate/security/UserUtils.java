@@ -19,42 +19,44 @@ import tim9.realEstate.service.VerifierService;
 
 /**
  * This class manages with logged user
+ * 
  * @author bbozo
  *
  */
 @Component
 public class UserUtils {
-	
+
 	@Autowired
 	private TokenUtils tokenUtils;
-	
+
 	@Autowired
 	private AdminService adminService;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private VerifierService verifierService;
-	
+
 	@Autowired
 	private UserDetailsService userDetailsService;
-	
+
 	private static final String ADMIN = "ADMIN";
 	private static final String USER = "USER";
 	private static final String CLERK = "CLERK";
 	private static final String VERIFIER = "VERIFIER";
-	
+
 	/**
 	 * This method returns logged user from token
+	 * 
 	 * @param request
 	 * @return User if exist, null if not
 	 */
 	public Object getLoggedUser(ServletRequest request) {
-		
+
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		String token = httpRequest.getHeader("X-Auth-Token");
-		
+
 		UserDetails details = userDetailsService.loadUserByUsername(tokenUtils.getUsernameFromToken(token));
 		if (details.getAuthorities().contains(new SimpleGrantedAuthority(ADMIN))) {
 			return adminService.findByUsername(details.getUsername());
@@ -66,12 +68,18 @@ public class UserUtils {
 			return null;
 		}
 	}
-	
+
+	/**
+	 * This method checks and returns logged user if exists, from token
+	 * 
+	 * @param request
+	 * @return a dto object of LoggedUserDTO
+	 */
 	public LoggedUserDTO getLoggedUserData(ServletRequest request) {
-		
+
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		String token = httpRequest.getHeader("X-Auth-Token");
-		
+
 		UserDetails details = userDetailsService.loadUserByUsername(tokenUtils.getUsernameFromToken(token));
 		if (details.getAuthorities().contains(new SimpleGrantedAuthority(ADMIN))) {
 			Admin admin = adminService.findByUsername(details.getUsername());
@@ -89,16 +97,22 @@ public class UserUtils {
 			return null;
 		}
 	}
-	
+
+	/**
+	 * This method checks if passed email and user name already exists
+	 * 
+	 * @param email
+	 * @param username
+	 * @return true or false
+	 */
 	public boolean checkUniqueEmailAndUsername(String email, String username) {
-		
-		if (adminService.findByUsername(username) != null || adminService.findByEmail(email) != null ||
-			userService.findByUsername(username) != null || userService.findByEmail(email) != null ||
-			verifierService.findByUsername(username) != null || verifierService.findByEmail(email) != null) {
+
+		if (adminService.findByUsername(username) != null || adminService.findByEmail(email) != null
+				|| userService.findByUsername(username) != null || userService.findByEmail(email) != null
+				|| verifierService.findByUsername(username) != null || verifierService.findByEmail(email) != null) {
 			return false;
-		}  else {
-			return true;
 		}
+		return true;
 	}
 
 }

@@ -96,7 +96,7 @@ public class UserController {
 		List<AdvertismentDTO> advertismentDTOs = new ArrayList<>();
 		if (user.isClerk()) {
 			List<Advertisment> advertisments = advertisementService
-					.findByPublisher_Company_IdAndIsDeletedFalseOrderById(user.getCompany().getId());
+					.findByPublisherCompanyIdAndIsDeletedFalseOrderById(user.getCompany().getId());
 			for (Advertisment a : advertisments) {
 				advertismentDTOs.add(new AdvertismentDTO(a));
 			}
@@ -134,7 +134,7 @@ public class UserController {
 		List<AdvertismentDTO> advertismentDTOs = new ArrayList<>();
 		if (user.isClerk()) {
 			List<Advertisment> advertisments = advertisementService
-					.findByPublisher_Company_IdAndIsDeletedFalseAndRealEstate_StatusOrderById(status,
+					.findByPublisherCompanyIdAndIsDeletedFalseAndRealEstateStatusOrderById(status,
 							user.getCompany().getId());
 
 			for (int i = 0; i < advertisments.size(); i++) {

@@ -10,6 +10,10 @@ import tim9.realEstate.model.Inappropriate;
 import tim9.realEstate.model.User;
 import tim9.realEstate.repository.InappropriateRepository;
 
+/**
+ * This class represents InappropriateService
+ *
+ */
 @Service
 public class InappropriateService {
 
@@ -40,6 +44,7 @@ public class InappropriateService {
 	/**
 	 * This method finds all elements with specified Advertisement.
 	 * 
+	 * @param advertisment
 	 * @return List of elements
 	 */
 	public List<Inappropriate> findByAdvertisement(Advertisment advertisment) {
@@ -49,6 +54,8 @@ public class InappropriateService {
 	/**
 	 * This method finds all elements with specified Advertisement and user.
 	 * 
+	 * @param advertisment
+	 * @param user
 	 * @return Element
 	 */
 	public Inappropriate findByAdvertisementAndUser(Advertisment advertisment, User user) {

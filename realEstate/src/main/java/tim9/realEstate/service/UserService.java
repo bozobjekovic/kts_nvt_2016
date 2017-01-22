@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import tim9.realEstate.model.User;
 import tim9.realEstate.repository.UserRepository;
 
+/**
+ * This class represents UserService
+ *
+ */
 @Service
 public class UserService {
 

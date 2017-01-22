@@ -13,6 +13,10 @@ import tim9.realEstate.model.Status;
 import tim9.realEstate.model.User;
 import tim9.realEstate.repository.AdvertismentRepository;
 
+/**
+ * This class represents AdvertismentService
+ *
+ */
 @Service
 public class AdvertismentService {
 
@@ -75,6 +79,7 @@ public class AdvertismentService {
 	/**
 	 * This method finds all elements by specified Specification.
 	 * 
+	 * @param page
 	 * @param specifications
 	 *            Specification<Advertisment>
 	 * @return List of elements
@@ -121,11 +126,10 @@ public class AdvertismentService {
 	/**
 	 * This method finds all advertisements from specified company.
 	 * 
-	 * @param publisher
-	 *            publisher
+	 * @param id
 	 * @return List of elements
 	 */
-	public List<Advertisment> findByPublisher_Company_IdAndIsDeletedFalseOrderById(Long id) {
+	public List<Advertisment> findByPublisherCompanyIdAndIsDeletedFalseOrderById(Long id) {
 		return advertismentRepository.findByPublisher_Company_IdAndIsDeletedFalseOrderById(id);
 	}
 
@@ -138,7 +142,7 @@ public class AdvertismentService {
 	 *            company id
 	 * @return List of elements
 	 */
-	public List<Advertisment> findByPublisher_Company_IdAndIsDeletedFalseAndRealEstate_StatusOrderById(Status status,
+	public List<Advertisment> findByPublisherCompanyIdAndIsDeletedFalseAndRealEstateStatusOrderById(Status status,
 			Long id) {
 		return advertismentRepository.findByPublisher_Company_IdAndIsDeletedFalseAndRealEstate_StatusOrderById(id,
 				status);
