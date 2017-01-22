@@ -23,6 +23,12 @@ public class ProfileClerkPage {
 	
 	@FindBy(xpath="//button[@ng-click=\"deny(applied.id)\"]")
 	private WebElement rejectButton;
+	
+	@FindBy(id="removeAdver")
+	private WebElement removeButton;
+	
+	@FindBy(id="update")
+	private WebElement updateButton;
 
 	public void ensureIsDisplayed() {
 		(new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[@ng-click=\"openModal()\"]")));
@@ -33,10 +39,26 @@ public class ProfileClerkPage {
 	public void ensureCanReject() {
 		(new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[@ng-click=\"deny(applied.id)\"]")));
 	}
-	public void ensureIsRemoved(int numberOfUserRequests) {
+	public void ensureCanRemove() {
+		(new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(By.id("removeAdver")));
+	}
+	public void ensureCanUpdate() {
+		(new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(By.id("update")));
+	}
+	public void ensureIsRejected(int numberOfUserRequests) {
 		(new WebDriverWait(driver, 10))
 		  .until(ExpectedConditions.invisibilityOfElementLocated(
 				  By.xpath("//div[@class=\"profile-listItem\"])[" + (numberOfUserRequests+1) + "]")));
+	}
+	public void ensureIsRemoved(int numberOfAdvers) {
+		(new WebDriverWait(driver, 10))
+		  .until(ExpectedConditions.invisibilityOfElementLocated(
+				  By.xpath("//div[@class=\"profile-listItem-text\"])[" + (numberOfAdvers+1) + "]")));
+	}
+	public void ensureModalIsClosed() {
+		(new WebDriverWait(driver, 2))
+				  .until(ExpectedConditions.invisibilityOfElementLocated(
+						  By.name("name")));
 	}
 
 	public WebElement getChangeButton() {
@@ -47,6 +69,15 @@ public class ProfileClerkPage {
 	}
 	public WebElement getRejectButton() {
 		return rejectButton;
+	}
+	public WebElement getRemoveButton() {
+		return removeButton;
+	}
+	public WebElement getUpdateButton() {
+		return updateButton;
+	}
+	public int getAdverListSize() {
+		return driver.findElements(By.className("profile-listItem-text")).size();
 	}
 	public int getUserRequestsListSize() {
 		return driver.findElements(By.className("profile-listItem")).size();

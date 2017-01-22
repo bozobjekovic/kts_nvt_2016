@@ -20,6 +20,7 @@ public class SellPageTest {
 	MainPage mainPage;
 	SellPage sellPage;
 	LoginPage loginPage;
+	ProfileUserPage profileUserPage;
 	
 	@BeforeMethod
 	public void setupSelenium() {
@@ -32,6 +33,7 @@ public class SellPageTest {
 		mainPage = PageFactory.initElements(browser, MainPage.class);
 		sellPage = PageFactory.initElements(browser, SellPage.class);
 		loginPage = PageFactory.initElements(browser, LoginPage.class);
+		profileUserPage = PageFactory.initElements(browser, ProfileUserPage.class);
 	}
 	
 	void login() {
@@ -46,19 +48,27 @@ public class SellPageTest {
 		loginPage.setInputUsername("user");
 		loginPage.setInputPassword("u");
 		loginPage.getOKButton().click();
-		
+
+		mainPage.ensureLoginIsClosed();
 		mainPage.ensureIsDisplayed();
-		mainPage.getSellLink().click();
-		assertEquals("http://localhost:8080/#/sell", browser.getCurrentUrl());
 	}
 	
 	@Test
-	public void testUpdateProfileData() {
+	public void testSellPage() {
 		login();
+
+		mainPage.getProfileLink().click();
+		assertEquals("http://localhost:8080/#/profile", browser.getCurrentUrl());
+
+		mainPage.ensureLoginIsClosed();
+		int noOfAdvers = profileUserPage.getAdverListSize();
+		
+		mainPage.getSellLink().click();
+		assertEquals("http://localhost:8080/#/sell", browser.getCurrentUrl());
 		
 		sellPage.ensureIsDisplayed();
 		assertTrue(sellPage.getName().isDisplayed());
-
+		
 		// Empty data
 		sellPage.getSubmitButton().click();
 		
@@ -85,11 +95,18 @@ public class SellPageTest {
 		sellPage.setPhoneNumber("+504982");
 		sellPage.setPurpose(1);
 		sellPage.getSubmitButton().click();
+		mainPage.ensureLoginIsClosed();
 		
-		// Successful Advertisement registration 	ODRADITI KAD SE DODAJU NOTIFIKACIJE
-		/*sellPage.setPhoneNumber("+3811111111");
+		// Successful Advertisement registration
+		sellPage.setPhoneNumber("+3811111111");
 		sellPage.ensureCanSubmit();
-		sellPage.getSubmitButton().click();*/
+		sellPage.getSubmitButton().click();
+		mainPage.ensureLoginIsClosed();
+
+		mainPage.getProfileLink().click();
+		assertEquals("http://localhost:8080/#/profile", browser.getCurrentUrl());
+		mainPage.ensureLoginIsClosed();
+		assertEquals(profileUserPage.getAdverListSize(), noOfAdvers+1);
 	}
 	
 	@AfterMethod

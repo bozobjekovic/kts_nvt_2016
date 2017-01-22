@@ -55,7 +55,7 @@ public class ProfileAdminPageTest {
 	}
 	
 	@Test
-	public void testUpdateProfileData() {
+	public void testRegisterVerifier() {
 		login();
 		
 		assertTrue(profileAdminPage.getRegisterVerifierButton().isDisplayed());

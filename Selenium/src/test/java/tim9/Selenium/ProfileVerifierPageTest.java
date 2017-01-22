@@ -52,7 +52,7 @@ public class ProfileVerifierPageTest {
 	}
 	
 	@Test
-	public void testAcceptAverRequest() {
+	public void testAcceptAdverRequest() {
 		login();
 		
 		profileVerifierPage.ensureCanAccept();
@@ -63,7 +63,7 @@ public class ProfileVerifierPageTest {
 	}
 	
 	@Test
-	public void testRejectAverRequest() {
+	public void testRejectAdverRequest() {
 		login();
 		
 		profileVerifierPage.ensureCanAccept();
