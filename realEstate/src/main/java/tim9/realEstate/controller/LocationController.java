@@ -70,6 +70,7 @@ public class LocationController {
 	 * This method gets all part of the cities for the specified city from the
 	 * database and then creates a list of DTO objects.
 	 * 
+	 * @param city
 	 * @return ResponseEntity List with all DTO Locations and HttpStatus OK
 	 */
 	@RequestMapping(value = "/city/partOfTheCity", method = RequestMethod.GET)

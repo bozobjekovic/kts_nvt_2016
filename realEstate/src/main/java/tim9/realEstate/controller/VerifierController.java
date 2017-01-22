@@ -51,6 +51,12 @@ public class VerifierController {
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 
+	/**
+	 * This method returns all data for logged verifier
+	 * 
+	 * @param request
+	 * @return object of verifier
+	 */
 	@RequestMapping(value = "/verifier", method = RequestMethod.GET)
 	public ResponseEntity<VerifierDTO> getVerifier(ServletRequest request) {
 		Verifier verifier = (Verifier) userUtils.getLoggedUser(request);
@@ -80,6 +86,7 @@ public class VerifierController {
 	 * This method rejects Inappropriate request and removes it from the
 	 * database, and sends mail to the user.
 	 * 
+	 * @param id
 	 * @return id id of Inappropriate Advertisement
 	 */
 	@RequestMapping(value = "/inappropriate/reject/{id}", method = RequestMethod.DELETE)
@@ -109,6 +116,7 @@ public class VerifierController {
 	 * advertisement from the database and sends mail to all users that have
 	 * reported this advertisement.
 	 * 
+	 * @param id
 	 * @return id id of Inappropriate Advertisement
 	 */
 	@RequestMapping(value = "/inappropriate/accept/{id}", method = RequestMethod.DELETE)

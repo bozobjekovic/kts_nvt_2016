@@ -11,6 +11,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class TestUtil {
 	
 	/**
+	 * Constructor
+	 */
+	private TestUtil() {}
+	
+	/**
 	 * This method convert specified object to json 
 	 * @param object
 	 * @return JSON

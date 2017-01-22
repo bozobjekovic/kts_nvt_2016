@@ -56,6 +56,12 @@ public class AdminController {
 	@Autowired
 	UserUtils userUtils;
 
+	/**
+	 * Method returns data for logged user
+	 * 
+	 * @param request
+	 * @return object of admin
+	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ResponseEntity<Admin> getAdmin(ServletRequest request) {
 		Admin admin = (Admin) userUtils.getLoggedUser(request);
@@ -65,6 +71,7 @@ public class AdminController {
 	/**
 	 * This method returns clerks that are not approved.
 	 * 
+	 * @param request
 	 * @return ResponseEntity with List of Users and HttpStatus OK
 	 */
 	@RequestMapping(value = "/unapproved/clerks", method = RequestMethod.GET)
@@ -131,7 +138,7 @@ public class AdminController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
-		if (user.isApproved() == true) {
+		if (user.isApproved()) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
@@ -166,7 +173,7 @@ public class AdminController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
-		if (user.isApproved() == true) {
+		if (user.isApproved()) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 

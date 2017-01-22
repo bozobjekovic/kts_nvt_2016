@@ -6,7 +6,7 @@ import tim9.realEstate.model.User;
  * This class represent data transfer object for User class
  */
 public class UserDTO {
-	
+
 	private Long id;
 	private String email;
 	private String username;
@@ -20,59 +20,39 @@ public class UserDTO {
 	private String image;
 	private boolean isApplied;
 	private CompanyDTO company;
-	
+
 	/**
 	 * Constructor created from Superclass
 	 */
 	public UserDTO() {
 		super();
 	}
-	
+
 	/**
 	 * Constructor
 	 * 
-	 * @param u represents User object
+	 * @param u
+	 *            represents User object
 	 */
 	public UserDTO(User u) {
-		this(u.getId(), u.getEmail(), u.getUsername(), u.getName(), u.getSurname(), u.getPhoneNumber(), u.getAddress(),
-				u.getCity(), u.getRate(), u.getBankAccount(), u.getImage());
-		if(u.getCompany() != null){
-			this.company =  new CompanyDTO(u.getCompany());
+		id = u.getId();
+		email = u.getEmail();
+		username = u.getUsername();
+		name = u.getName();
+		surname = u.getSurname();
+		phoneNumber = u.getPhoneNumber();
+		address = u.getAddress();
+		city = u.getCity();
+		rate = u.getRate();
+		bankAccount = u.getBankAccount();
+		image = u.getImage();
+
+		if (u.getCompany() != null) {
+			this.company = new CompanyDTO(u.getCompany());
 		}
-		if(u.getAppliedCompany() != null){
+		if (u.getAppliedCompany() != null) {
 			this.isApplied = true;
 		}
-	}
-	
-	/**
-	 * Constructor
-	 * 
-	 * @param id represents User ID
-	 * @param email represents Email of the User
-	 * @param username represents User name of the User
-	 * @param name represents Name of the User
-	 * @param surname represents Surname of the User
-	 * @param phoneNumber represents Phone Number of the User
-	 * @param address represents Address of the User
-	 * @param city represents City of the User
-	 * @param rate represents average rate of the User
-	 * @param bankAccount represents Bank account of the User
-	 * @param image represents Image of the User
-	 */
-	public UserDTO(Long id, String email, String username, String name, String surname, String phoneNumber, String address,
-			String city, double rate, int bankAccount, String image) {
-		super();
-		this.id = id;
-		this.email = email;
-		this.username = username;
-		this.name = name;
-		this.surname = surname;
-		this.phoneNumber = phoneNumber;
-		this.address = address;
-		this.city = city;
-		this.rate = rate;
-		this.bankAccount = bankAccount;
-		this.image = image;
 	}
 
 	public Long getId() {
@@ -185,6 +165,5 @@ public class UserDTO {
 				+ surname + ", phoneNumber=" + phoneNumber + ", address=" + address + ", city=" + city + ", rate="
 				+ rate + ", bankAccount=" + bankAccount + ", image=" + image + ", isApplied=" + isApplied + "]";
 	}
-	
 
 }

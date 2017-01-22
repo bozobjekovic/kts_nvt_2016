@@ -1,8 +1,14 @@
 package tim9.realEstate.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static tim9.realEstate.constants.CommentConstants.*;
+import static tim9.realEstate.constants.CommentConstants.DB_ADVER_COUNT;
+import static tim9.realEstate.constants.CommentConstants.DB_COUNT;
+import static tim9.realEstate.constants.CommentConstants.DB_DESCRIPTION;
+import static tim9.realEstate.constants.CommentConstants.DB_ID;
+import static tim9.realEstate.constants.CommentConstants.DB_ID_REFERENCED;
+import static tim9.realEstate.constants.CommentConstants.NEW_DESCRIPTION;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -72,7 +78,7 @@ public class CommentServiceTest {
 	@Rollback(true)
 	public void testSave() {
 		Comment comment = new Comment();
-		comment.setDate(NEW_DATE);
+		comment.setDate(new Date());
 		comment.setDescription(NEW_DESCRIPTION);
 
 		int dbSizeBeforeAdd = commentService.findAll().size();
@@ -84,7 +90,7 @@ public class CommentServiceTest {
 		assertThat(comments).hasSize(dbSizeBeforeAdd + 1);
 
 		dbComment = comments.get(comments.size() - 1);
-		assertThat(dbComment.getDate()).isEqualTo(NEW_DATE);
+		assertThat(dbComment.getDate()).isEqualTo(new Date());
 		assertThat(dbComment.getDescription()).isEqualTo(NEW_DESCRIPTION);
 	}
 
@@ -151,7 +157,7 @@ public class CommentServiceTest {
 	@Rollback(true)
 	public void testAddNullDecription() {
 		Comment comment = new Comment();
-		comment.setDate(NEW_DATE);
+		comment.setDate(new Date());
 
 		commentService.save(comment);
 	}

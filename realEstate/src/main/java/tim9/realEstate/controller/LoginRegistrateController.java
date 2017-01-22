@@ -87,6 +87,12 @@ public class LoginRegistrateController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
+	/**
+	 * This method returns data for logged user or verifier or admin or cler
+	 * 
+	 * @param request
+	 * @return returns DTO object
+	 */
 	@RequestMapping(value = "/user/data", method = RequestMethod.GET)
 	public ResponseEntity<LoggedUserDTO> getUserData(ServletRequest request) {
 		return new ResponseEntity<>(userUtils.getLoggedUserData(request), HttpStatus.OK);
@@ -167,15 +173,15 @@ public class LoginRegistrateController {
 	 * @return True if parameters are OK or False if NOT
 	 */
 	private boolean checkInputParamsRegistrate(RegistrateUserDTO registrateUser) {
-		if (registrateUser.getAuthority() == null || registrateUser.getAuthority().equals("")) {
+		if (registrateUser.getAuthority() == null || "".equals(registrateUser.getAuthority())) {
 			return false;
 		}
 
-		if (registrateUser.getAuthority().equals("user")) {
+		if ("user".equals(registrateUser.getAuthority())) {
 			if (!checkUserParams(registrateUser)) {
 				return false;
 			}
-		} else if (registrateUser.getAuthority().equals("clerk")) {
+		} else if ("clerk".equals(registrateUser.getAuthority())) {
 			if (!checkUserParams(registrateUser)) {
 				return false;
 			}
@@ -190,11 +196,11 @@ public class LoginRegistrateController {
 	}
 
 	private boolean checkExistingInputParamsRegistrate(RegistrateUserDTO registrateUser) {
-		if (registrateUser.getAuthority().equals("user")) {
+		if ("user".equals(registrateUser.getAuthority())) {
 			if (!checkExistingUserParams(registrateUser)) {
 				return false;
 			}
-		} else if (registrateUser.getAuthority().equals("clerk")) {
+		} else if ("clerk".equals(registrateUser.getAuthority())) {
 			if (!checkExistingUserParams(registrateUser)) {
 				return false;
 			}
@@ -215,10 +221,10 @@ public class LoginRegistrateController {
 	 * @return True if parameters are OK or False if NOT
 	 */
 	private boolean checkInputParams(LoginUserDTO loginUser) {
-		if (loginUser.getUsername() == null || loginUser.getUsername().trim().equals("")) {
+		if (loginUser.getUsername() == null || "".equals(loginUser.getUsername().trim())) {
 			return false;
 		}
-		if (loginUser.getPassword() == null || loginUser.getPassword().trim().equals("")) {
+		if (loginUser.getPassword() == null || "".equals(loginUser.getPassword().trim())) {
 			return false;
 		}
 		return true;
@@ -231,19 +237,19 @@ public class LoginRegistrateController {
 	 * @return True if parameters are OK or False if NOT
 	 */
 	private boolean checkUserParams(RegistrateUserDTO registrateUser) {
-		if (registrateUser.getEmail() == null || registrateUser.getEmail().equals("")) {
+		if (registrateUser.getEmail() == null || "".equals(registrateUser.getEmail())) {
 			return false;
 		}
-		if (registrateUser.getUsername() == null || registrateUser.getUsername().equals("")) {
+		if (registrateUser.getUsername() == null || "".equals(registrateUser.getUsername())) {
 			return false;
 		}
-		if (registrateUser.getPassword() == null || registrateUser.getPassword().equals("")) {
+		if (registrateUser.getPassword() == null || "".equals(registrateUser.getPassword())) {
 			return false;
 		}
-		if (registrateUser.getName() == null || registrateUser.getName().equals("")) {
+		if (registrateUser.getName() == null || "".equals(registrateUser.getName())) {
 			return false;
 		}
-		if (registrateUser.getSurname() == null || registrateUser.getSurname().equals("")) {
+		if (registrateUser.getSurname() == null || "".equals(registrateUser.getSurname())) {
 			return false;
 		}
 		return true;
@@ -266,17 +272,17 @@ public class LoginRegistrateController {
 	 * @return True if parameters are OK or False if NOT
 	 */
 	private boolean checkCompanyParams(RegistrateUserDTO registrateUser) {
-		if (registrateUser.getCompanyName() == null || registrateUser.getCompanyName().equals("")) {
+		if (registrateUser.getCompanyName() == null || "".equals(registrateUser.getCompanyName())) {
 			return false;
 		}
-		if (registrateUser.getCompanyPhoneNumber() == null || registrateUser.getCompanyPhoneNumber().equals("")) {
+		if (registrateUser.getCompanyPhoneNumber() == null || "".equals(registrateUser.getCompanyPhoneNumber())) {
 			return false;
 		}
-		if (registrateUser.getCompanyAddress() == null || registrateUser.getCompanyAddress().equals("")) {
+		if (registrateUser.getCompanyAddress() == null || "".equals(registrateUser.getCompanyAddress())) {
 			return false;
 		}
 		if (registrateUser.getCompanyLocation().getCity() == null
-				|| registrateUser.getCompanyLocation().getCity().equals("")) {
+				|| "".equals(registrateUser.getCompanyLocation().getCity())) {
 			return false;
 		}
 		return true;

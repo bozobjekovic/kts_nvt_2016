@@ -121,6 +121,7 @@ public class AdvertismentController {
 	 * 
 	 * @param advertismentDTO
 	 *            a DTO Object
+	 * @param request
 	 * @return ResponseEntity DTO Advertisement and HttpStatus CREATED if OK,
 	 *         else null
 	 */
@@ -141,7 +142,7 @@ public class AdvertismentController {
 			advertisment.setBackgroundImage(advertismentDTO.getImages().get(0));
 			advertisment.setImages(advertismentDTO.getImages());
 		}
-		
+
 		Date activeUntil = DateUtils.addMonths(new Date(), 3);
 		advertisment.setActiveUntil(activeUntil);
 		advertisment.setPurpose(advertismentDTO.getPurpose());
@@ -153,8 +154,6 @@ public class AdvertismentController {
 
 		advertisment.setPublisher((User) userUtils.getLoggedUser(request));
 
-		RealEstate realEstate = new RealEstate();
-
 		Location location = locationService.findByCityAndZipCodeAndPartOfTheCity(
 				advertismentDTO.getLocation().getCity(), advertismentDTO.getLocation().getZipCode(),
 				advertismentDTO.getLocation().getPartOfTheCity());
@@ -162,46 +161,11 @@ public class AdvertismentController {
 			return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
 		}
 
-		List<RealEstate> existRealEstates = realEstateService.findByAddressAndCity(advertismentDTO.getAddress(),
-				advertismentDTO.getLocation().getCity());
-		if (existRealEstates.size() > 0) {
-			if (existRealEstates.size() == 1) {
-				realEstate = existRealEstates.get(0);
-			} else {
-				if (advertismentDTO.getLocation().getPartOfTheCity().equals("")) {
-					for (int i = 0; i < existRealEstates.size(); i++) {
-						if (existRealEstates.get(i).getLocation().getPartOfTheCity().equals("")) {
-							realEstate = existRealEstates.get(i);
-							break;
-						}
-					}
-				} else {
-					for (int i = 0; i < existRealEstates.size(); i++) {
-						if (!existRealEstates.get(i).getLocation().getPartOfTheCity().equals("")) {
-							realEstate = existRealEstates.get(i);
-							break;
-						}
-					}
-				}
-			}
-		} else {
-			realEstate.setLocation(location);
-			realEstate.setAddress(advertismentDTO.getAddress());
-			realEstate.setLandSize(advertismentDTO.getLandSize());
-			realEstate.setHeatingType(advertismentDTO.getHeatingType());
-			realEstate.setTechEquipment(advertismentDTO.getTechEquipment());
-			realEstate.setNumOfBathRooms(advertismentDTO.getNumOfBathRooms());
-			realEstate.setNumOfBedRooms(advertismentDTO.getNumOfBedRooms());
-			realEstate.setNumOfFlors(advertismentDTO.getNumOfFlors());
-			realEstate.setBuildYear(advertismentDTO.getBuildYear());
-			realEstate.setCategory(advertismentDTO.getCategory());
-			realEstate.setType(advertismentDTO.getType());
-			realEstate.setStatus(Status.Active);
-		}
+		RealEstate realEstate = getMatchingRealEstate(advertismentDTO, location);
 
 		advertisment.setRealEstate(realEstate);
 
-		advertisment = advertismentService.save(advertisment);
+		advertismentService.save(advertisment);
 
 		return new ResponseEntity<>(advertismentDTO, HttpStatus.CREATED);
 	}
@@ -212,6 +176,7 @@ public class AdvertismentController {
 	 * 
 	 * @param advertismentDTO
 	 *            a DTO Object
+	 * @param request
 	 * @return ResponseEntity DTO Advertisement and HttpStatus CREATED if OK,
 	 *         else null
 	 */
@@ -265,7 +230,7 @@ public class AdvertismentController {
 
 		advertisment.setRealEstate(realEstate);
 
-		advertisment = advertismentService.save(advertisment);
+		advertismentService.save(advertisment);
 
 		return new ResponseEntity<>(advertismentDTO, HttpStatus.OK);
 	}
@@ -278,22 +243,14 @@ public class AdvertismentController {
 	 * @return true if OK, else false
 	 */
 	private boolean checkInput(AdvertismentCreateDTO advertismentDTO) {
-		if (advertismentDTO.getName() == null || advertismentDTO.getName().equals("")) {
-			return false;
-		} else if (advertismentDTO.getAddress() == null || advertismentDTO.getAddress().equals("")) {
-			return false;
-		} else if (advertismentDTO.getLocation().getCity() == null
-				|| advertismentDTO.getLocation().getCity().equals("")) {
-			return false;
-		} else if (advertismentDTO.getHeatingType() == null || advertismentDTO.getHeatingType().equals("")) {
-			return false;
-		} else if (advertismentDTO.getCategory() == null || advertismentDTO.getCategory().equals("")) {
-			return false;
-		} else if (advertismentDTO.getPurpose() == null || advertismentDTO.getPurpose().equals("")) {
-			return false;
-		} else if (advertismentDTO.getPhoneNumber() == null || advertismentDTO.getPhoneNumber().equals("")) {
-			return false;
-		} else if (advertismentDTO.getType() == null || advertismentDTO.getType().equals("")) {
+		if (advertismentDTO.getName() == null || "".equals(advertismentDTO.getName())
+				|| advertismentDTO.getAddress() == null || "".equals(advertismentDTO.getAddress())
+				|| advertismentDTO.getLocation().getCity() == null || "".equals(advertismentDTO.getLocation().getCity())
+				|| advertismentDTO.getHeatingType() == null || "".equals(advertismentDTO.getHeatingType())
+				|| advertismentDTO.getCategory() == null || "".equals(advertismentDTO.getCategory())
+				|| advertismentDTO.getPurpose() == null || "".equals(advertismentDTO.getPurpose())
+				|| advertismentDTO.getPhoneNumber() == null || "".equals(advertismentDTO.getPhoneNumber())
+				|| advertismentDTO.getType() == null || "".equals(advertismentDTO.getType())) {
 			return false;
 		}
 		return true;
@@ -435,10 +392,71 @@ public class AdvertismentController {
 			throw new IllegalArgumentException();
 
 		long factor = (long) Math.pow(10, places);
-		value = value * factor;
-		long tmp = Math.round(value);
+
+		long tmp = Math.round(value * factor);
 
 		return (double) tmp / factor;
+	}
+
+	/**
+	 * This method create and return matching real estate with all fill
+	 * attributes
+	 * 
+	 * @param advertismentDTO
+	 * @param location
+	 * @return object of real estate
+	 */
+	private RealEstate getMatchingRealEstate(AdvertismentCreateDTO advertismentDTO, Location location) {
+		RealEstate realEstate = new RealEstate();
+
+		List<RealEstate> existRealEstates = realEstateService.findByAddressAndCity(advertismentDTO.getAddress(),
+				advertismentDTO.getLocation().getCity());
+		if (!existRealEstates.isEmpty()) {
+			if (existRealEstates.size() == 1) {
+				realEstate = existRealEstates.get(0);
+			} else {
+				realEstate = getFromList(advertismentDTO, existRealEstates);
+			}
+		} else {
+			realEstate.setLocation(location);
+			realEstate.setAddress(advertismentDTO.getAddress());
+			realEstate.setLandSize(advertismentDTO.getLandSize());
+			realEstate.setHeatingType(advertismentDTO.getHeatingType());
+			realEstate.setTechEquipment(advertismentDTO.getTechEquipment());
+			realEstate.setNumOfBathRooms(advertismentDTO.getNumOfBathRooms());
+			realEstate.setNumOfBedRooms(advertismentDTO.getNumOfBedRooms());
+			realEstate.setNumOfFlors(advertismentDTO.getNumOfFlors());
+			realEstate.setBuildYear(advertismentDTO.getBuildYear());
+			realEstate.setCategory(advertismentDTO.getCategory());
+			realEstate.setType(advertismentDTO.getType());
+			realEstate.setStatus(Status.Active);
+		}
+
+		return realEstate;
+	}
+
+	/**
+	 * This method returns match real estate from the list
+	 * 
+	 * @param advertismentDTO
+	 * @param existRealEstates
+	 * @return object of the real estate
+	 */
+	private RealEstate getFromList(AdvertismentCreateDTO advertismentDTO, List<RealEstate> existRealEstates) {
+		if ("".equals(advertismentDTO.getLocation().getPartOfTheCity())) {
+			for (int i = 0; i < existRealEstates.size(); i++) {
+				if ("".equals(existRealEstates.get(i).getLocation().getPartOfTheCity())) {
+					return existRealEstates.get(i);
+				}
+			}
+		} else {
+			for (int i = 0; i < existRealEstates.size(); i++) {
+				if (!"".equals(existRealEstates.get(i).getLocation().getPartOfTheCity())) {
+					return existRealEstates.get(i);
+				}
+			}
+		}
+		return null;
 	}
 
 }

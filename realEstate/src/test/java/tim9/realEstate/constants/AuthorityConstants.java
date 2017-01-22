@@ -1,6 +1,17 @@
 package tim9.realEstate.constants;
 
+/**
+ * This class represents constants for authority
+ *
+ */
 public class AuthorityConstants {
+	
+	/**
+	 * Constructor
+	 */
+	private AuthorityConstants() {
+		
+	}
 
 	public static final String NEW_NAME = "NEW NAME";
 	

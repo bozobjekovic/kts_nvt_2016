@@ -8,23 +8,24 @@ import tim9.realEstate.model.Comment;
  * This class represent data transfer object for Comment class
  */
 public class CommentDTO {
-	
+
 	private Long id;
 	private Date date;
 	private String description;
 	private UserDTO user;
-	
+
 	/**
 	 * Constructor created from Superclass
 	 */
 	public CommentDTO() {
 		super();
 	}
-	
+
 	/**
 	 * Constructor
 	 * 
-	 * @param c represents Comment object
+	 * @param c
+	 *            represents Comment object
 	 */
 	public CommentDTO(Comment c) {
 		this(c.getId(), c.getDate(), c.getDescription(), new UserDTO(c.getUser()));
@@ -33,10 +34,15 @@ public class CommentDTO {
 	/**
 	 * Constructor
 	 * 
-	 * @param id represents Comment ID
-	 * @param date represents Date the Comment was created
-	 * @param title represents Title of the Comment
-	 * @param description represents Description of the Comment
+	 * @param user
+	 * @param id
+	 *            represents Comment ID
+	 * @param date
+	 *            represents Date the Comment was created
+	 * @param title
+	 *            represents Title of the Comment
+	 * @param description
+	 *            represents Description of the Comment
 	 */
 	public CommentDTO(Long id, Date date, String description, UserDTO user) {
 		super();
@@ -77,7 +83,5 @@ public class CommentDTO {
 	public void setUser(UserDTO user) {
 		this.user = user;
 	}
-	
-	
 
 }

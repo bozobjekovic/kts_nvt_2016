@@ -1,14 +1,19 @@
 package tim9.realEstate.constants;
 
-import java.util.Date;
-
 import tim9.realEstate.model.Category;
 
+/**
+ * Constants for Advertisement tests
+ *
+ */
 public class AdvertismentConstants {
+	
+	private AdvertismentConstants() {
+		
+	}
 
 	public static final String NEW_PURPOSE = "rent";
     public static final String NEW_PHONE_NUMBER = "+2141441";
-    public static final Date NEW_DATE = new Date();
     public static final String NEW_DATE_STR = "2018/06/06";
     public static final double NEW_RATE = 4;
     public static final int NEW_GIVEN_RATE = 2;
@@ -23,9 +28,7 @@ public class AdvertismentConstants {
     public static final double DB_RATE = 3.2;
     public static final Category DB_CATEGORY = Category.Office;
     public static final String DB_TYPE = "Stan";
-    public static final Date DB_MODIFICATION_DATE = new Date();
     public static final int DB_NUM_OF_RATES = 47;
-    public static final Date DB_PUBLICATION_DATE = new Date();
     public static final String DB_IMAGE = "img";
     
     public static final Long DB_ID_UNVERIFIED = 4L;

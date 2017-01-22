@@ -6,14 +6,14 @@ import tim9.realEstate.model.Company;
  * This class represent data transfer object for Company class
  */
 public class CompanyDTO {
-	
+
 	private Long id;
 	private String address;
 	private String name;
 	private LocationDTO location;
 	private String phoneNumber;
 	private String site;
-	
+
 	/**
 	 * Constructor created from Superclass
 	 */
@@ -24,7 +24,8 @@ public class CompanyDTO {
 	/**
 	 * Constructor
 	 * 
-	 * @param c represents Company object
+	 * @param c
+	 *            represents Company object
 	 */
 	public CompanyDTO(Company c) {
 		this(c.getId(), c.getAddress(), c.getName(), new LocationDTO(c.getLocation()), c.getPhoneNumber(), c.getSite());
@@ -33,11 +34,18 @@ public class CompanyDTO {
 	/**
 	 * Constructor
 	 * 
-	 * @param id represents Company ID
-	 * @param name represents Name of the Company
-	 * @param location represents Location of the Company
-	 * @param phoneNumber represents Phone Number of the Company
-	 * @param site represents Site of the Company
+	 * @param address
+	 *            represents Company address
+	 * @param id
+	 *            represents Company ID
+	 * @param name
+	 *            represents Name of the Company
+	 * @param location
+	 *            represents Location of the Company
+	 * @param phoneNumber
+	 *            represents Phone Number of the Company
+	 * @param site
+	 *            represents Site of the Company
 	 */
 	public CompanyDTO(Long id, String address, String name, LocationDTO location, String phoneNumber, String site) {
 		super();
@@ -96,7 +104,5 @@ public class CompanyDTO {
 	public void setSite(String site) {
 		this.site = site;
 	}
-	
-	
 
 }

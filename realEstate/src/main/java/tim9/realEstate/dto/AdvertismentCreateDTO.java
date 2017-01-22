@@ -12,14 +12,14 @@ import tim9.realEstate.model.Status;
  * This class represent data transfer object for Advertisement class
  */
 public class AdvertismentCreateDTO {
-	
+
 	private Long advertismentId;
 	private Date activeUntil;
 	private String purpose;
 	private String phoneNumber;
 	private double price;
 	private double rate;
-	
+
 	private Long realEstateId;
 	private String name;
 	private LocationDTO location;
@@ -36,78 +36,47 @@ public class AdvertismentCreateDTO {
 	private Category category;
 	private String type;
 	private Status status;
-	
+
 	/**
 	 * Constructor created from Superclass
 	 */
 	public AdvertismentCreateDTO() {
 		super();
 	}
-	
-	/**
-	 * Constructor
-	 * @param a represents Advertisement object
-	 * @param e represents RealEstate object
-	 */
-	public AdvertismentCreateDTO(Advertisment a, RealEstate e) {
-		this(a.getId(), a.getActiveUntil(), a.getPurpose(), e.getAddress(), a.getPhoneNumber(), a.getRate(), e.getId(), a.getName(),
-				new LocationDTO(e.getLocation()), a.getPrice(), e.getLandSize(), e.getTechEquipment(),
-				e.getHeatingType(), a.getBackgroundImage(), a.getImages(), e.getNumOfBathRooms(),e.getNumOfBedRooms(), e.getNumOfFlors(),
-				e.getBuildYear(), e.getCategory(), e.getType(), e.getStatus());
-	}
-	
+
 	/**
 	 * Constructor
 	 * 
-	 * @param advertismentId represents Advertisement ID
-	 * @param activeUntil represents Date until is Advertisement active
-	 * @param purpose represents purpose of the Advertisement
-	 * @param phoneNumber represents Phone Number that Creator of the Advertisement left as a Contact
-	 * @param rate represents average Rate of the Advertisement
-	 * @param realEstateId represents RealEstate ID
-	 * @param name represents Advertisement Name
-	 * @param location represents Location of the Real estate
-	 * @param price represents Price of the Real estate
-	 * @param landSize represents Land size of the Real estate
-	 * @param techEquipment represents Technical Equipment of the Real estate
-	 * @param heatingType represents Type of Heating for the Real estate
-	 * @param image represents an Image of the Real estate
-	 * @param numOfBathRooms represents the number of Bathrooms for the Real estate
-	 * @param numOfBedRooms represents the number of Bedrooms for the Real estate
-	 * @param numOfFlors represents the number of Floors for the Real estate
-	 * @param buildYear represents Year the Real estate was build in
-	 * @param category represents Category of the Real estate
-	 * @param type represents Type of the Real estate
+	 * @param a
+	 *            represents Advertisement object
+	 * @param e
+	 *            represents RealEstate object
 	 */
-	public AdvertismentCreateDTO(Long advertismentId, Date activeUntil, String purpose, String address, String phoneNumber, double rate,
-			Long realEstateId, String name, LocationDTO location, double price, int landSize, String techEquipment,
-			String heatingType, String backgroungImage, List<String> images, int numOfBathRooms, int numOfBedRooms, int numOfFlors, int buildYear,
-			Category category, String type, Status status) {
-		super();
-		this.advertismentId = advertismentId;
-		this.activeUntil = activeUntil;
-		this.purpose = purpose;
-		this.phoneNumber = phoneNumber;
-		this.address = address;
-		this.rate = rate;
-		this.realEstateId = realEstateId;
-		this.name = name;
-		this.location = location;
-		this.price = price;
-		this.landSize = landSize;
-		this.techEquipment = techEquipment;
-		this.heatingType = heatingType;
-		this.backgroungImage = backgroungImage;
-		this.images = images;
-		this.numOfBathRooms = numOfBathRooms;
-		this.numOfBedRooms = numOfBedRooms;
-		this.numOfFlors = numOfFlors;
-		this.buildYear = buildYear;
-		this.category = category;
-		this.type = type;
-		this.status = status;
+	public AdvertismentCreateDTO(Advertisment a, RealEstate e) {
+		advertismentId = a.getId();
+		activeUntil = a.getActiveUntil();
+		purpose = a.getPurpose();
+		phoneNumber = a.getPhoneNumber();
+		address = e.getAddress();
+		rate = a.getRate();
+		realEstateId = e.getId();
+		name = a.getName();
+		location = new LocationDTO(e.getLocation());
+		price = a.getPrice();
+		landSize = e.getLandSize();
+		techEquipment = e.getTechEquipment();
+		heatingType = e.getHeatingType();
+		backgroungImage = a.getBackgroundImage();
+		images = a.getImages();
+		numOfBathRooms = e.getNumOfBathRooms();
+		numOfBedRooms = e.getNumOfBedRooms();
+		numOfFlors = e.getNumOfFlors();
+		buildYear = e.getBuildYear();
+		category = e.getCategory();
+		type = e.getType();
+		status = e.getStatus();
 	}
-	
+
 	@Override
 	public String toString() {
 		return "AdvertismentCreateDTO [advertismentId=" + advertismentId + ", activeUntil=" + activeUntil + ", purpose="
@@ -294,6 +263,5 @@ public class AdvertismentCreateDTO {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-	
-	
+
 }

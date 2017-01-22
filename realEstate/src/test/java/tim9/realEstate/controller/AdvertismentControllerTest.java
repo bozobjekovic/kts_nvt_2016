@@ -13,7 +13,6 @@ import static tim9.realEstate.constants.AdvertismentConstants.DB_PHONE_NUMBER;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_PRICE;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_PURPOSE;
 import static tim9.realEstate.constants.AdvertismentConstants.DB_RATE;
-import static tim9.realEstate.constants.AdvertismentConstants.NEW_DATE;
 import static tim9.realEstate.constants.AdvertismentConstants.NEW_GIVEN_RATE;
 import static tim9.realEstate.constants.AdvertismentConstants.NEW_PHONE_NUMBER;
 import static tim9.realEstate.constants.AdvertismentConstants.NEW_PURPOSE;
@@ -79,29 +78,6 @@ public class AdvertismentControllerTest {
 	public void setup() {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
-
-	/*
-	 * //** This method tests getting a page of advertisements from the database
-	 * that are not deleted and that are verified. Expected: method get, status
-	 * OK, specified size and content
-	 * 
-	 * @throws Exception
-	 **//*
-		 * @Test public void testGetAdvertismentPage() throws Exception {
-		 * mockMvc.perform(get(URL_PREFIX + "?page=0&size=" +
-		 * PAGE_SIZE_CONTROLLER)) .andExpect(status().isOk())
-		 * .andExpect(content().contentType(contentType))
-		 * .andExpect(jsonPath("$", hasSize(PAGE_SIZE_CONTROLLER)))
-		 * .andExpect(jsonPath("$.[*].id").value(hasItem(DB_ID.intValue())))
-		 * .andExpect(jsonPath("$.[*].name").value(hasItem(DB_NAME)))
-		 * .andExpect(jsonPath("$.[*].city").value(hasItem(DB_CITY)))
-		 * .andExpect(jsonPath("$.[*].price").value(hasItem(DB_PRICE)))
-		 * .andExpect(jsonPath("$.[*].landSize").value(hasItem(tim9.realEstate.
-		 * constants.RealEstateConstants.DB_LAND_SIZE)))
-		 * .andExpect(jsonPath("$.[*].image").value(hasItem(DB_IMAGE)))
-		 * .andExpect(jsonPath("$.[*].type").value(hasItem(tim9.realEstate.
-		 * constants.RealEstateConstants.DB_TYPE))); }
-		 */
 
 	/**
 	 * This method tests getting an advertisements from the database with a
@@ -220,7 +196,7 @@ public class AdvertismentControllerTest {
 		advertisment.setPrice(tim9.realEstate.constants.RealEstateConstants.NEW_PRICE);
 		advertisment.setPublicationDate(new Date());
 		advertisment.setBackgroundImage(tim9.realEstate.constants.RealEstateConstants.NEW_IMAGE);
-		advertisment.setActiveUntil(NEW_DATE);
+		advertisment.setActiveUntil(new Date());
 		advertisment.setPurpose(NEW_PURPOSE);
 		advertisment.setPhoneNumber(NEW_PHONE_NUMBER);
 		advertisment.setImages(new ArrayList<String>());
@@ -279,7 +255,7 @@ public class AdvertismentControllerTest {
 		advertisment.setPrice(tim9.realEstate.constants.RealEstateConstants.NEW_PRICE);
 		advertisment.setPublicationDate(new Date());
 		advertisment.setBackgroundImage(tim9.realEstate.constants.RealEstateConstants.NEW_IMAGE);
-		advertisment.setActiveUntil(NEW_DATE);
+		advertisment.setActiveUntil(new Date());
 		advertisment.setPurpose(NEW_PURPOSE);
 		advertisment.setPhoneNumber(DB_PHONE_NUMBER);
 		advertisment.setImages(new ArrayList<String>());
@@ -324,7 +300,7 @@ public class AdvertismentControllerTest {
 		advertisment.setPrice(tim9.realEstate.constants.RealEstateConstants.NEW_PRICE);
 		advertisment.setPublicationDate(new Date());
 		advertisment.setBackgroundImage(tim9.realEstate.constants.RealEstateConstants.NEW_IMAGE);
-		advertisment.setActiveUntil(NEW_DATE);
+		advertisment.setActiveUntil(new Date());
 		advertisment.setPurpose(NEW_PURPOSE);
 		advertisment.setPhoneNumber(NEW_PHONE_NUMBER);
 
@@ -355,8 +331,9 @@ public class AdvertismentControllerTest {
 			throw new IllegalArgumentException();
 
 		long factor = (long) Math.pow(10, places);
-		value = value * factor;
-		long tmp = Math.round(value);
+
+		long tmp = Math.round(value * factor);
+		
 		return (double) tmp / factor;
 	}
 

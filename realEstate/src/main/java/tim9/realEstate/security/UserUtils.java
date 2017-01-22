@@ -40,9 +40,14 @@ public class UserUtils {
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
+	private static final String ADMIN = "ADMIN";
+	private static final String USER = "USER";
+	private static final String CLERK = "CLERK";
+	private static final String VERIFIER = "VERIFIER";
+	
 	/**
 	 * This method returns logged user from token
-	 * @param token
+	 * @param request
 	 * @return User if exist, null if not
 	 */
 	public Object getLoggedUser(ServletRequest request) {
@@ -51,11 +56,11 @@ public class UserUtils {
 		String token = httpRequest.getHeader("X-Auth-Token");
 		
 		UserDetails details = userDetailsService.loadUserByUsername(tokenUtils.getUsernameFromToken(token));
-		if (details.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))) {
+		if (details.getAuthorities().contains(new SimpleGrantedAuthority(ADMIN))) {
 			return adminService.findByUsername(details.getUsername());
-		} else if (details.getAuthorities().contains(new SimpleGrantedAuthority("USER"))) {
+		} else if (details.getAuthorities().contains(new SimpleGrantedAuthority(USER))) {
 			return userService.findByUsername(details.getUsername());
-		} else if (details.getAuthorities().contains(new SimpleGrantedAuthority("VERIFIER"))) {
+		} else if (details.getAuthorities().contains(new SimpleGrantedAuthority(VERIFIER))) {
 			return verifierService.findByUsername(details.getUsername());
 		} else {
 			return null;
@@ -68,18 +73,18 @@ public class UserUtils {
 		String token = httpRequest.getHeader("X-Auth-Token");
 		
 		UserDetails details = userDetailsService.loadUserByUsername(tokenUtils.getUsernameFromToken(token));
-		if (details.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))) {
+		if (details.getAuthorities().contains(new SimpleGrantedAuthority(ADMIN))) {
 			Admin admin = adminService.findByUsername(details.getUsername());
-			return new LoggedUserDTO(admin.getName(), admin.getSurname(), "ADMIN");
-		} else if (details.getAuthorities().contains(new SimpleGrantedAuthority("USER"))) {
+			return new LoggedUserDTO(admin.getName(), admin.getSurname(), ADMIN);
+		} else if (details.getAuthorities().contains(new SimpleGrantedAuthority(USER))) {
 			User user = userService.findByUsername(details.getUsername());
 			if (user.isClerk()) {
-				return new LoggedUserDTO(user.getName(), user.getSurname(), "CLERK");
+				return new LoggedUserDTO(user.getName(), user.getSurname(), CLERK);
 			}
-			return new LoggedUserDTO(user.getName(), user.getSurname(), "USER");
-		} else if (details.getAuthorities().contains(new SimpleGrantedAuthority("VERIFIER"))) {
+			return new LoggedUserDTO(user.getName(), user.getSurname(), USER);
+		} else if (details.getAuthorities().contains(new SimpleGrantedAuthority(VERIFIER))) {
 			Verifier verifier = verifierService.findByUsername(details.getUsername());
-			return new LoggedUserDTO(verifier.getUsername(), "", "VERIFIER");
+			return new LoggedUserDTO(verifier.getUsername(), "", VERIFIER);
 		} else {
 			return null;
 		}
@@ -87,13 +92,11 @@ public class UserUtils {
 	
 	public boolean checkUniqueEmailAndUsername(String email, String username) {
 		
-		if (adminService.findByUsername(username) != null || adminService.findByEmail(email) != null) {
+		if (adminService.findByUsername(username) != null || adminService.findByEmail(email) != null ||
+			userService.findByUsername(username) != null || userService.findByEmail(email) != null ||
+			verifierService.findByUsername(username) != null || verifierService.findByEmail(email) != null) {
 			return false;
-		} else if (userService.findByUsername(username) != null || userService.findByEmail(email) != null) {
-			return false;
-		} else if (verifierService.findByUsername(username) != null || verifierService.findByEmail(email) != null) {
-			return false;
-		} else {
+		}  else {
 			return true;
 		}
 	}

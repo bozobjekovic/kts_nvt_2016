@@ -59,7 +59,7 @@ public class Advertisment implements Serializable{
 	@ManyToOne(cascade = CascadeType.ALL)
 	private RealEstate realEstate;
 	@OneToMany(mappedBy = "advertisment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Comment> comments = new HashSet<Comment>(0);
+	private Set<Comment> comments = new HashSet<>(0);
 	private boolean isDeleted;
 	
 	/**

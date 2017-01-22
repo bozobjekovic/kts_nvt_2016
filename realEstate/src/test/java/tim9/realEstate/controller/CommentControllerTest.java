@@ -11,10 +11,10 @@ import static tim9.realEstate.constants.CommentConstants.ADV_ID;
 import static tim9.realEstate.constants.CommentConstants.COMM_COUNT;
 import static tim9.realEstate.constants.CommentConstants.DB_DESCRIPTION;
 import static tim9.realEstate.constants.CommentConstants.DB_ID;
-import static tim9.realEstate.constants.CommentConstants.NEW_DATE;
 import static tim9.realEstate.constants.CommentConstants.NEW_DESCRIPTION;
 
 import java.nio.charset.Charset;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 
@@ -117,7 +117,7 @@ public class CommentControllerTest {
 	@Rollback(true)
 	public void testSaveComment() throws Exception {
 		CommentDTO comment = new CommentDTO();
-		comment.setDate(NEW_DATE);
+		comment.setDate(new Date());
 		comment.setDescription(NEW_DESCRIPTION);
 
 		String token = loginTest.login(tim9.realEstate.constants.UserConstants.DB_USERNAME,
@@ -140,7 +140,7 @@ public class CommentControllerTest {
 	@Rollback(true)
 	public void testSaveCommentNoDescription() throws Exception {
 		CommentDTO comment = new CommentDTO();
-		comment.setDate(NEW_DATE);
+		comment.setDate(new Date());
 
 		String json = TestUtil.json(comment);
 		this.mockMvc.perform(post(URL_PREFIX + tim9.realEstate.constants.AdvertismentConstants.DB_ID + "/new")
@@ -156,7 +156,7 @@ public class CommentControllerTest {
 	@Rollback(true)
 	public void testSaveCommentNoAdvertisement() throws Exception {
 		CommentDTO comment = new CommentDTO();
-		comment.setDate(NEW_DATE);
+		comment.setDate(new Date());
 		comment.setDescription(NEW_DESCRIPTION);
 
 		String json = TestUtil.json(comment);

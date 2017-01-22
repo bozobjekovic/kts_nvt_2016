@@ -41,8 +41,10 @@ public class InappropriateController {
 	 * This method creates new Inappropriate Advertisement and saves it to the
 	 * database.
 	 * 
-	 * @param companyDTO
+	 * @param inappropriateDTO
 	 *            a DTO Object
+	 * @param id
+	 * @param request
 	 * @return ResponseEntity DTO Company and HttpStatus CREATED
 	 */
 	@RequestMapping(value = "/{id}/new", method = RequestMethod.POST)
@@ -70,7 +72,7 @@ public class InappropriateController {
 		inappropriate.setAdvertisment(advertisment);
 		inappropriate.setUser(user);
 
-		inappropriate = inappropriateService.save(inappropriate);
+		inappropriateService.save(inappropriate);
 
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}

@@ -1,6 +1,17 @@
 package tim9.realEstate.constants;
 
+/**
+ * This class represents constants for password
+ *
+ */
 public class ChangePasswordConstants {
+	
+	/**
+	 * Constructor
+	 */
+	private ChangePasswordConstants() {
+		
+	}
 	
 	public static final Long DB_ID = 1L;
 	public static final String DB_OLD_PASSWORD = "v";

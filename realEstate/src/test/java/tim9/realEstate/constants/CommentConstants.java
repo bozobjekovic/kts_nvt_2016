@@ -1,10 +1,11 @@
 package tim9.realEstate.constants;
 
-import java.util.Date;
-
 public class CommentConstants {
+	
+	private CommentConstants() {
+		
+	}
 
-    public static final Date NEW_DATE = new Date();
     public static final String BLE = "";
 	public static final String NEW_DESCRIPTION = "New desc";
     public static final String NEW_TITLE = "New title";

@@ -35,7 +35,7 @@ public class Verifier implements Serializable{
 	 * Constructor
 	 */
 	public Verifier() {
-
+		super();
 	}
 
 	/**

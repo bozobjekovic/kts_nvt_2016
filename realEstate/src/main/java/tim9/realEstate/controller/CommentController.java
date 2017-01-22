@@ -43,7 +43,7 @@ public class CommentController {
 	/**
 	 * This method gets all Comments for specified Advertisement.
 	 * 
-	 * @param advertisement
+	 * @param id
 	 *            Advertisement that contains this comments
 	 * @return ResponseEntity List with all DTO Comments and HttpStatus OK
 	 */
@@ -72,6 +72,8 @@ public class CommentController {
 	 * 
 	 * @param commentDTO
 	 *            comment to be inserted
+	 * @param id
+	 * @param request
 	 * @return ResponseEntity DTO Advertisements and HttpStatus CREATED
 	 */
 	@RequestMapping(value = "/{id}/new", method = RequestMethod.POST)

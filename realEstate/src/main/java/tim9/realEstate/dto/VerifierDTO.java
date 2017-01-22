@@ -32,6 +32,10 @@ public class VerifierDTO {
 		this.password = password;
 	}
 	
+	/**
+	 * Constructor
+	 * @param verifier
+	 */
 	public VerifierDTO(Verifier verifier) {
 		this.email = verifier.getEmail();
 		this.username = verifier.getUsername();

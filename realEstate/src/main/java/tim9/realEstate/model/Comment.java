@@ -13,10 +13,10 @@ import javax.persistence.ManyToOne;
  * This class represent Comment bean class
  */
 @Entity
-public class Comment implements Serializable{
+public class Comment implements Serializable {
 
 	private static final long serialVersionUID = 6599823651768601791L;
-	
+
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -28,7 +28,7 @@ public class Comment implements Serializable{
 	private User user;
 	@ManyToOne
 	private Advertisment advertisment;
-	
+
 	/**
 	 * Constructor created from Superclass
 	 */
@@ -78,8 +78,8 @@ public class Comment implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Comment [id=" + id + ", date=" + date + ", description=" + description + ", user="
-				+ user + ", advertisment=" + advertisment + "]";
+		return "Comment [id=" + id + ", date=" + date + ", description=" + description + ", user=" + user
+				+ ", advertisment=" + advertisment + "]";
 	}
 
 }

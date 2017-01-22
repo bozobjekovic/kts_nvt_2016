@@ -43,6 +43,7 @@ public class AdvertismentFilterController {
 	 *            Advertisment's category
 	 * @param filter
 	 *            filter for Advertisement search
+	 * @param page            
 	 * @return ResponseEntity List with all DTO Advertisements and HttpStatus OK
 	 */
 	@RequestMapping(value = "/category/{category}/filters", method = RequestMethod.GET)

@@ -6,34 +6,40 @@ import tim9.realEstate.model.Inappropriate;
  * This class represent data transfer object for Inappropriate class
  */
 public class InappropriateDTO {
-	
+
 	private Long id;
 	private String title;
 	private String description;
 	private AdvertismentDTO advertisementDTO;
-	
+
 	/**
 	 * Constructor created from Superclass
 	 */
 	public InappropriateDTO() {
 		super();
 	}
-	
+
 	/**
 	 * Constructor
 	 * 
-	 * @param i represents Inappropriate object
+	 * @param i
+	 *            represents Inappropriate object
 	 */
 	public InappropriateDTO(Inappropriate i) {
 		this(i.getId(), i.getTitle(), i.getDescription(), new AdvertismentDTO(i.getAdvertisment()));
 	}
-	
+
 	/**
 	 * Constructor
 	 * 
-	 * @param id represents Inappropriate ID
-	 * @param title represents Title of the Inappropriate comment
-	 * @param description represents Description of the Inappropriate comment
+	 * @param id
+	 *            represents Inappropriate ID
+	 * @param title
+	 *            represents Title of the Inappropriate comment
+	 * @param advertisementDTO
+	 *            represents DTO object of advertisement
+	 * @param description
+	 *            represents Description of the Inappropriate comment
 	 */
 	public InappropriateDTO(Long id, String title, String description, AdvertismentDTO advertisementDTO) {
 		super();

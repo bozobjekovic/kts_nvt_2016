@@ -3,16 +3,29 @@ package tim9.realEstate.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represent DTO of Filter object
+ *
+ */
 public class FilterDTO {
-	
+
 	private List<AdvertismentDTO> filteredAdvertisementsDTO;
 	private int count;
-	
+
+	/**
+	 * Constructor
+	 */
 	public FilterDTO() {
 		super();
 		filteredAdvertisementsDTO = new ArrayList<>();
 	}
-	
+
+	/**
+	 * Constructor
+	 * 
+	 * @param filteredAdvertisementsDTO
+	 * @param count
+	 */
 	public FilterDTO(List<AdvertismentDTO> filteredAdvertisementsDTO, int count) {
 		super();
 		this.filteredAdvertisementsDTO = filteredAdvertisementsDTO;

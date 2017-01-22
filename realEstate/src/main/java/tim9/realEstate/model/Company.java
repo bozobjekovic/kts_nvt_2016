@@ -37,7 +37,7 @@ public class Company implements Serializable{
 	private String site;
 	private boolean verified;
 	@OneToMany(mappedBy = "appliedCompany", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<User> usersToApprove = new HashSet<User>(0);
+	private Set<User> usersToApprove = new HashSet<>(0);
 	
 	/**
 	 * Constructor created from Superclass
@@ -61,6 +61,7 @@ public class Company implements Serializable{
 	 * Constructor
 	 * 
 	 * @param name represents Name of the Company
+	 * @param address represents Address of the Company
 	 * @param location represents Location of the Company
 	 * @param phoneNumber represents Phone number of the Company
 	 * @param site represents Site of the Company

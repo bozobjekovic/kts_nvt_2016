@@ -64,6 +64,7 @@ public class UserController {
 	/**
 	 * This method gets Users data and then creates DTO object.
 	 * 
+	 * @param request
 	 * @return ResponseEntity List with all DTO Users and HttpStatus OK
 	 */
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
@@ -77,6 +78,7 @@ public class UserController {
 	 * This method gets all Users publications from the database and then
 	 * creates a list of DTO objects.
 	 * 
+	 * @param id
 	 * @return ResponseEntity List with all DTO Users and HttpStatus OK
 	 */
 	@RequestMapping(value = "/published/{id}", method = RequestMethod.GET)
@@ -91,7 +93,7 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
-		List<AdvertismentDTO> advertismentDTOs = new ArrayList<AdvertismentDTO>();
+		List<AdvertismentDTO> advertismentDTOs = new ArrayList<>();
 		if (user.isClerk()) {
 			List<Advertisment> advertisments = advertisementService
 					.findByPublisher_Company_IdAndIsDeletedFalseOrderById(user.getCompany().getId());
@@ -129,7 +131,7 @@ public class UserController {
 		if (user == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		List<AdvertismentDTO> advertismentDTOs = new ArrayList<AdvertismentDTO>();
+		List<AdvertismentDTO> advertismentDTOs = new ArrayList<>();
 		if (user.isClerk()) {
 			List<Advertisment> advertisments = advertisementService
 					.findByPublisher_Company_IdAndIsDeletedFalseAndRealEstate_StatusOrderById(status,
@@ -203,10 +205,8 @@ public class UserController {
 				if (!rentRealEstate.getRentedFrom().after(rentDateTo)) {
 					return new ResponseEntity<>(HttpStatus.CONFLICT);
 				}
-			} else if (rentRealEstate.getRentedTo().before(rentDateTo)) {
-				if (!rentRealEstate.getRentedTo().before(rentDateFrom)) {
-					return new ResponseEntity<>(HttpStatus.CONFLICT);
-				}
+			} else if (rentRealEstate.getRentedTo().before(rentDateTo) && !rentRealEstate.getRentedTo().before(rentDateFrom)) {
+				return new ResponseEntity<>(HttpStatus.CONFLICT);
 			}
 		}
 
@@ -224,17 +224,18 @@ public class UserController {
 	 * This method allows user to apply to be part of a company. Sending request
 	 * to the clerk, clerk decides if user will be accepted or denied.
 	 * 
+	 * @param request
 	 * @param id_company
 	 *            id of Company
 	 * @return HttpStatus OK if OK, else NOT_FOUND
 	 */
-	@RequestMapping(value = "/apply/{id_company}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> applyToCompany(@PathVariable Long id_company, ServletRequest request) {
-		if (id_company == null) {
+	@RequestMapping(value = "/apply/{idCompany}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> applyToCompany(@PathVariable Long idCompany, ServletRequest request) {
+		if (idCompany == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		User user = (User) userUtils.getLoggedUser(request);
-		Company company = companyService.findOne(id_company);
+		Company company = companyService.findOne(idCompany);
 		if (company == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -276,13 +277,13 @@ public class UserController {
 	 *            id of a Company
 	 * @return HttpStatus OK if OK, else NOT_FOUND
 	 */
-	@RequestMapping(value = "/accept/{id}/company/{id_company}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> acceptUser(@PathVariable Long id, @PathVariable Long id_company) {
-		if (id == null || id_company == null) {
+	@RequestMapping(value = "/accept/{id}/company/{idCompany}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> acceptUser(@PathVariable Long id, @PathVariable Long idCompany) {
+		if (id == null || idCompany == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		User user = userService.findOne(id);
-		Company company = companyService.findOne(id_company);
+		Company company = companyService.findOne(idCompany);
 		if (user == null || company == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -327,7 +328,7 @@ public class UserController {
 	/**
 	 * This method updates user
 	 * 
-	 * @param user
+	 * @param userDTO
 	 * @return DTO of updated user
 	 */
 	@RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
@@ -343,7 +344,8 @@ public class UserController {
 		user.setAddress(userDTO.getAddress());
 		user.setCity(userDTO.getCity());
 
-		user = userService.save(user);
+		userService.save(user);
+		
 		return new ResponseEntity<>(userDTO, HttpStatus.OK);
 	}
 

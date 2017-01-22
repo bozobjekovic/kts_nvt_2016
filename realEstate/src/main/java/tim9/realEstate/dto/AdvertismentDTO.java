@@ -9,7 +9,7 @@ import tim9.realEstate.model.Status;
  * This class represent data transfer object for Advertisement class
  */
 public class AdvertismentDTO {
-	
+
 	private Long id;
 	private String name;
 	private String city;
@@ -21,50 +21,32 @@ public class AdvertismentDTO {
 	private Status status;
 	private String address;
 	private String purpose;
-	
+
 	/**
 	 * Constructor created from Superclass
 	 */
 	public AdvertismentDTO() {
 		super();
 	}
-	
-	/**
-	 * Constructor
-	 * 
-	 * @param a represents Advertisement object
-	 */
-	public AdvertismentDTO(Advertisment a) {
-		this(a.getId(), a.getName(), a.getRealEstate().getLocation().getCity(), a.getPrice()
-				, a.getRealEstate().getLandSize(), a.getBackgroundImage(), a.getRealEstate().getType(), a.getPublicationDate()
-				, a.getRealEstate().getStatus(), a.getRealEstate().getAddress(), a.getPurpose());
-	}
 
 	/**
 	 * Constructor
 	 * 
-	 * @param id represents Advertisement ID
-	 * @param name represents Name of the Advertisement
-	 * @param location represents Location of the Real Estate
-	 * @param price represents Price of the Real Estate
-	 * @param landSize represents Land Size of the Real Estate
-	 * @param image represents Image of the Real Estate
-	 * @param type represents Type of the Real Estate
+	 * @param a
+	 *            represents Advertisement object
 	 */
-	public AdvertismentDTO(Long id, String name, String city, double price, int landSize, String image,
-			String type, Date date, Status status, String address, String purpose) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.city = city;
-		this.price = price;
-		this.landSize = landSize;
-		this.image = image;
-		this.type = type;
-		this.publicationDate = date;
-		this.status = status;
-		this.address = address;
-		this.purpose = purpose;
+	public AdvertismentDTO(Advertisment a) {
+		id = a.getId();
+		name = a.getName();
+		city = a.getRealEstate().getLocation().getCity();
+		price = a.getPrice();
+		landSize = a.getRealEstate().getLandSize();
+		image = a.getBackgroundImage();
+		type = a.getRealEstate().getType();
+		publicationDate = a.getPublicationDate();
+		status = a.getRealEstate().getStatus();
+		address = a.getRealEstate().getAddress();
+		purpose = a.getPurpose();
 	}
 
 	public Long getId() {
@@ -138,7 +120,7 @@ public class AdvertismentDTO {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-	
+
 	public String getAddress() {
 		return address;
 	}
@@ -160,7 +142,5 @@ public class AdvertismentDTO {
 		return "AdvertismentDTO [id=" + id + ", name=" + name + ", city=" + city + ", price=" + price + ", landSize="
 				+ landSize + ", image=" + image + ", type=" + type + ", publicationDate=" + publicationDate + "]";
 	}
-	
-	
-	
+
 }

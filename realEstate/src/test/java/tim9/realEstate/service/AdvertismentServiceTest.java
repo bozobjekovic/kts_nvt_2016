@@ -3,6 +3,7 @@ package tim9.realEstate.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static tim9.realEstate.constants.AdvertismentConstants.*;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -61,9 +62,9 @@ public class AdvertismentServiceTest {
 	public void testInsert() {
 		Advertisment advertisment = new Advertisment();
 		advertisment.setName(tim9.realEstate.constants.RealEstateConstants.NEW_NAME);
-		advertisment.setPublicationDate(NEW_DATE);
-		advertisment.setModificationDate(NEW_DATE);
-		advertisment.setActiveUntil(NEW_DATE);
+		advertisment.setPublicationDate(new Date());
+		advertisment.setModificationDate(new Date());
+		advertisment.setActiveUntil(new Date());
 		advertisment.setPurpose(NEW_PURPOSE);
 		advertisment.setRate(NEW_RATE);
 		advertisment.setNumberOfRates(NEW_NUM_OF_RATES);
@@ -78,9 +79,9 @@ public class AdvertismentServiceTest {
 		assertThat(advertisments).hasSize(dbSizeBeforeAdd + 1);
 		dbAdvertisment = advertisments.get(advertisments.size() - 1);
 		assertThat(dbAdvertisment.getName()).isEqualTo(tim9.realEstate.constants.RealEstateConstants.NEW_NAME);
-		assertThat(dbAdvertisment.getPublicationDate()).isEqualTo(NEW_DATE);
-		assertThat(dbAdvertisment.getModificationDate()).isEqualTo(NEW_DATE);
-		assertThat(dbAdvertisment.getActiveUntil()).isEqualTo(NEW_DATE);
+		assertThat(dbAdvertisment.getPublicationDate()).isEqualTo(new Date());
+		assertThat(dbAdvertisment.getModificationDate()).isEqualTo(new Date());
+		assertThat(dbAdvertisment.getActiveUntil()).isEqualTo(new Date());
 		assertThat(dbAdvertisment.getPurpose()).isEqualTo(NEW_PURPOSE);
 		assertThat(dbAdvertisment.getRate()).isEqualTo(NEW_RATE);
 		assertThat(dbAdvertisment.getNumberOfRates()).isEqualTo(NEW_NUM_OF_RATES);
@@ -96,7 +97,7 @@ public class AdvertismentServiceTest {
 	public void testUpdate() {
 		Advertisment dbAdvertisment = advertismentService.findOne(DB_ID);
 
-		dbAdvertisment.setActiveUntil(NEW_DATE);
+		dbAdvertisment.setActiveUntil(new Date());
 		dbAdvertisment.setPurpose(NEW_PURPOSE);
 		dbAdvertisment.setRate(NEW_RATE);
 
@@ -104,7 +105,7 @@ public class AdvertismentServiceTest {
 		assertThat(dbAdvertisment).isNotNull();
 
 		dbAdvertisment = advertismentService.findOne(DB_ID);
-		assertThat(dbAdvertisment.getActiveUntil()).isEqualTo(NEW_DATE);
+		assertThat(dbAdvertisment.getActiveUntil()).isEqualTo(new Date());
 		assertThat(dbAdvertisment.getPurpose()).isEqualTo(NEW_PURPOSE);
 		assertThat(dbAdvertisment.getRate()).isEqualTo(NEW_RATE);
 	}
@@ -121,9 +122,9 @@ public class AdvertismentServiceTest {
 	@Rollback(true)
 	public void testAddUniquePhoneNumber() {
 		Advertisment advertisment = new Advertisment();
-		advertisment.setPublicationDate(NEW_DATE);
-		advertisment.setModificationDate(NEW_DATE);
-		advertisment.setActiveUntil(NEW_DATE);
+		advertisment.setPublicationDate(new Date());
+		advertisment.setModificationDate(new Date());
+		advertisment.setActiveUntil(new Date());
 		advertisment.setPurpose(NEW_PURPOSE);
 		advertisment.setRate(NEW_RATE);
 		advertisment.setNumberOfRates(NEW_NUM_OF_RATES);
@@ -143,9 +144,9 @@ public class AdvertismentServiceTest {
 	@Rollback(true)
 	public void testAddNullPurpose() {
 		Advertisment advertisment = new Advertisment();
-		advertisment.setPublicationDate(NEW_DATE);
-		advertisment.setModificationDate(NEW_DATE);
-		advertisment.setActiveUntil(NEW_DATE);
+		advertisment.setPublicationDate(new Date());
+		advertisment.setModificationDate(new Date());
+		advertisment.setActiveUntil(new Date());
 		advertisment.setRate(NEW_RATE);
 		advertisment.setNumberOfRates(NEW_NUM_OF_RATES);
 		advertisment.setPhoneNumber(NEW_PHONE_NUMBER);
@@ -165,8 +166,8 @@ public class AdvertismentServiceTest {
 	@Rollback(true)
 	public void testAddNullPublicationDate() {
 		Advertisment advertisment = new Advertisment();
-		advertisment.setModificationDate(NEW_DATE);
-		advertisment.setActiveUntil(NEW_DATE);
+		advertisment.setModificationDate(new Date());
+		advertisment.setActiveUntil(new Date());
 		advertisment.setPurpose(NEW_PURPOSE);
 		advertisment.setRate(NEW_RATE);
 		advertisment.setNumberOfRates(NEW_NUM_OF_RATES);

@@ -1,6 +1,14 @@
 package tim9.realEstate.constants;
 
+/**
+ * Constants for admin tests
+ *
+ */
 public class AdminConstants {
+	
+	private AdminConstants() {
+		
+	}
 	
 	public static final String NEW_ADDRESS = "Address";
 	public static final String NEW_CITY = "New York";

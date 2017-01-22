@@ -26,9 +26,9 @@ public class User extends Person implements Serializable{
 	private boolean isClerk;
 	private boolean isApproved;
 	@OneToMany(mappedBy = "publisher", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Advertisment> publishedAdvertisments = new HashSet<Advertisment>(0);
+	private Set<Advertisment> publishedAdvertisments = new HashSet<>(0);
 	@OneToMany(mappedBy = "buyer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Advertisment> buyedAdvertisments = new HashSet<Advertisment>(0);
+	private Set<Advertisment> buyedAdvertisments = new HashSet<>(0);
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Company company;
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -53,7 +53,7 @@ public class User extends Person implements Serializable{
 				registrateUser.getName(), registrateUser.getSurname(), registrateUser.getPhoneNumber(), 
 				registrateUser.getAddress(), registrateUser.getCity(), authority, registrateUser.getImage(), 
 				0, 0, registrateUser.getBankAccount(), false, true, null);
-		if (type.equals("clerk")) {
+		if ("clerk".equals(type)) {
 			this.setClerk(true);
 			this.setApproved(false);
 			this.setCompany(new Company(registrateUser.getCompanyName(), registrateUser.getAddress(), new Location(

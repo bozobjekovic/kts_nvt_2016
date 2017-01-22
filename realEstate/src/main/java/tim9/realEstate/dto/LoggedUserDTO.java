@@ -1,15 +1,29 @@
 package tim9.realEstate.dto;
 
+/**
+ * Class represent DTO object of logged user
+ *
+ */
 public class LoggedUserDTO {
-	
+
 	private String name;
 	private String surname;
 	private String role;
-	
+
+	/**
+	 * Constructor
+	 */
 	public LoggedUserDTO() {
 		super();
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param name
+	 * @param surname
+	 * @param role
+	 */
 	public LoggedUserDTO(String name, String surname, String role) {
 		super();
 		this.name = name;
@@ -45,5 +59,5 @@ public class LoggedUserDTO {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
+
 }
