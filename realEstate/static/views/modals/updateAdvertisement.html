@@ -93,20 +93,6 @@
 				<option ng-if="advertisement.purpose == 'Sell'">Sold</option>
 		  	</select>
 		</div>
-		<div class="form-group">
-			<label style="font-size:17px;">Upload Images</label>
-			<div class="fileinput fileinput-new" data-provides="fileinput" flow-init="{target:'/upload'}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1,csv:1}[$file.getExtension()]">
-				<div>
-					<div class="fileinput-preview thumbnail advertisementPicture" ng-repeat="file in $flow.files">
-						<input type="text" ng-value="$flow.files[$index]" ng-model="img[$flow.files[$index]]" />
-						<img flow-img="file"/>
-						<hr>
-						<a href="" class="btn btn-danger" ng-click="$flow.removeFile(file)">Remove</a>
-					</div>
-				</div>
-				<input type="file" class="btn btn-primary" ng-disabled="$flow.files.length >= 5" flow-btn flow-attrs="{accept:'image/*'}" style="width: 125px"/>
-			</div>
-	  	</div>
 		<div class="modal-footer">
             <button class="btn btn-default" type="submit" id="save">Save</button>
             <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>

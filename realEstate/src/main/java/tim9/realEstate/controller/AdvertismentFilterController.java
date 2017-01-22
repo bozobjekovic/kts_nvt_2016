@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
@@ -49,6 +50,10 @@ public class AdvertismentFilterController {
 	@RequestMapping(value = "/category/{category}/filters", method = RequestMethod.GET)
 	public ResponseEntity<FilterDTO> filters(@PathVariable Category category,
 			@RequestParam(value = "filter") String filter, Pageable page) {
+		if(page.getPageSize() != 12){
+			page = new PageRequest(0, 12);
+		}
+		System.out.println(page);
 		AdvertismentSpecificationsBuilder builder = new AdvertismentSpecificationsBuilder();
 
 		Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?(\\s\\w+?)?(\\_?(\\w+?(\\s\\w+?)?)?)*),");

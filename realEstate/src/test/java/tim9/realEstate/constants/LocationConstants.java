@@ -16,6 +16,7 @@ public class LocationConstants {
 	public static final String DB_CITY = "Nis";
 	public static final String DB_PART_OF_THE_CITY = "Deo Nisa";
 	public static final int DB_ZIP_CODE = 23560;
+	public static final String DB_ANOTHER_CITY = "Beograd";
 
 	public static final Long DB_ID_REFERENCED = 5L;
 	public static final int DB_COUNT = 5;

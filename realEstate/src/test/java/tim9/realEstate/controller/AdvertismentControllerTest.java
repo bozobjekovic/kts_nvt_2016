@@ -1,5 +1,6 @@
 package tim9.realEstate.controller;
 
+import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -40,6 +41,8 @@ import org.springframework.web.context.WebApplicationContext;
 import tim9.realEstate.LoginTest;
 import tim9.realEstate.RealEstateApplication;
 import tim9.realEstate.TestUtil;
+import tim9.realEstate.constants.AdvertismentConstants;
+import tim9.realEstate.constants.LocationConstants;
 import tim9.realEstate.constants.UserConstants;
 import tim9.realEstate.dto.AdvertismentCreateDTO;
 import tim9.realEstate.model.Advertisment;
@@ -332,7 +335,7 @@ public class AdvertismentControllerTest {
 		long factor = (long) Math.pow(10, places);
 
 		long tmp = Math.round(value * factor);
-		
+
 		return (double) tmp / factor;
 	}
 
@@ -455,6 +458,86 @@ public class AdvertismentControllerTest {
 	public void testDeleteAdvertisementIndalid() throws Exception {
 		this.mockMvc.perform(put(URL_PREFIX + "/delete/" + DB_NONEXISTING_ID).contentType(contentType))
 				.andExpect(status().isNotFound());
+	}
+
+	/**
+	 * This method tests filtering advertisements with given parameters.
+	 * Expected: method get, status OK, specified size and content
+	 * 
+	 * @throws Exception
+	 **/
+	@Test
+	public void testGetFilter() throws Exception {
+		mockMvc.perform(get(URL_PREFIX + "/category/" + tim9.realEstate.constants.RealEstateConstants.DB_CATEGORY
+				+ "/filters?" + "filter=city:" + AdvertismentConstants.DB_CITY + "&page=0,size=5"))
+				.andExpect(status().isOk()).andExpect(content().contentType(contentType))
+				.andExpect(jsonPath("$.count").value(2))
+				// /.andExpect(jsonPath("$.filteredAdvertisementsDTO.[*].id").value(hasItem(DB_ID.intValue())))
+				.andExpect(
+						jsonPath("$.filteredAdvertisementsDTO.[0].city").value(hasItem(AdvertismentConstants.DB_CITY)));
+
+	}
+
+	/**
+	 * This method tests filtering advertisements with given parameters.
+	 * Expecting no results. Expected: method get, status OK, specified size and
+	 * content
+	 * 
+	 * @throws Exception
+	 **/
+	@Test
+	public void testGetFilterNoResult() throws Exception {
+		mockMvc.perform(get(URL_PREFIX + "/category/" + tim9.realEstate.constants.RealEstateConstants.DB_CATEGORY
+				+ "/filters?" + "filter=city:" + AdvertismentConstants.DB_CITY + ",partOfTheCity:"
+				+ LocationConstants.DB_PART_OF_THE_CITY + ", price<" + 50 + "&page=0,size=5"))
+				.andExpect(status().isOk()).andExpect(content().contentType(contentType))
+				.andExpect(jsonPath("$.count").value(0));
+
+	}
+
+	/**
+	 * This method tests filtering advertisements with given parameters
+	 * (multiple cities). Expected: method get, status OK, specified size and
+	 * content
+	 * 
+	 * @throws Exception
+	 **/
+	@Test
+	public void testGetFilterMultipleCity() throws Exception {
+		mockMvc.perform(get(URL_PREFIX + "/category/" + tim9.realEstate.constants.RealEstateConstants.DB_CATEGORY
+				+ "/filters?" + "filter=price>50,city:" + AdvertismentConstants.DB_CITY + "_"
+				+ LocationConstants.DB_ANOTHER_CITY + "&page=0,size=5")).andExpect(status().isOk())
+				.andExpect(content().contentType(contentType)).andExpect(jsonPath("$.count").value(3));
+
+	}
+
+	/**
+	 * This method tests filtering advertisements with given parameters
+	 * (multiple cities). Expected: method get, status BAD REQUEST, specified
+	 * size and content
+	 * 
+	 * @throws Exception
+	 **/
+	@Test
+	public void testGetFilterInvalid() throws Exception {
+		mockMvc.perform(get(URL_PREFIX + "/category/" + tim9.realEstate.constants.RealEstateConstants.DB_CATEGORY
+				+ "/filters" + "?page=0,size=5")).andExpect(status().isBadRequest());
+
+	}
+
+	/**
+	 * This method tests filtering advertisements with given parameters
+	 * (multiple cities), but without page and size. Default size will be set.
+	 * Expected: method get, status BAD REQUEST, specified size and content
+	 * 
+	 * @throws Exception
+	 **/
+	@Test
+	public void testGetFilterNoPage() throws Exception {
+		mockMvc.perform(get(URL_PREFIX + "/category/" + tim9.realEstate.constants.RealEstateConstants.DB_CATEGORY
+				+ "/filters?" + "filter=price>50")).andExpect(status().isOk())
+		.andExpect(content().contentType(contentType)).andExpect(jsonPath("$.count").value(3));
+
 	}
 
 }
