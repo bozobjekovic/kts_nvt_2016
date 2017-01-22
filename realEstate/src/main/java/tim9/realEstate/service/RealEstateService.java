@@ -38,6 +38,13 @@ public class RealEstateService {
 		return realEstateRepository.findByAddress(address);
 	}
 
+	/**
+	 * This method finds all real estates with specified address and city
+	 * 
+	 * @param address
+	 * @param city
+	 * @return list of elements
+	 */
 	public List<RealEstate> findByAddressAndCity(String address, String city) {
 		return realEstateRepository.findByAddressAndLocation_City(address, city);
 	}

@@ -185,7 +185,7 @@ public class UserController {
 	@RequestMapping(value = "/rent/{id}/from/{rentDateFrom}/to/{rentDateTo}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> rentRealEstate(@PathVariable Long id, @PathVariable Date rentDateFrom,
 			@PathVariable Date rentDateTo) {
-		System.out.println("aa");
+
 		if (id == null || rentDateFrom == null || rentDateTo == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -206,7 +206,8 @@ public class UserController {
 				if (!rentRealEstate.getRentedFrom().after(rentDateTo)) {
 					return new ResponseEntity<>(HttpStatus.CONFLICT);
 				}
-			} else if (rentRealEstate.getRentedTo().before(rentDateTo) && !rentRealEstate.getRentedTo().before(rentDateFrom)) {
+			} else if (rentRealEstate.getRentedTo().before(rentDateTo)
+					&& !rentRealEstate.getRentedTo().before(rentDateFrom)) {
 				return new ResponseEntity<>(HttpStatus.CONFLICT);
 			}
 		}
@@ -226,7 +227,7 @@ public class UserController {
 	 * to the clerk, clerk decides if user will be accepted or denied.
 	 * 
 	 * @param request
-	 * @param id_company
+	 * @param idCompany
 	 *            id of Company
 	 * @return HttpStatus OK if OK, else NOT_FOUND
 	 */
@@ -274,7 +275,7 @@ public class UserController {
 	 * 
 	 * @param id
 	 *            id of an User
-	 * @param id_company
+	 * @param idCompany
 	 *            id of a Company
 	 * @return HttpStatus OK if OK, else NOT_FOUND
 	 */
@@ -346,7 +347,7 @@ public class UserController {
 		user.setCity(userDTO.getCity());
 
 		userService.save(user);
-		
+
 		return new ResponseEntity<>(userDTO, HttpStatus.OK);
 	}
 

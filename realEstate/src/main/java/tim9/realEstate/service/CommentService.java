@@ -36,6 +36,12 @@ public class CommentService {
 		return commentRepository.findAll();
 	}
 
+	/**
+	 * This method finds all comments with specified advertisement
+	 * 
+	 * @param advertisment
+	 * @return list of elements
+	 */
 	public List<Comment> findByAdvertisment(Advertisment advertisment) {
 		return commentRepository.findByAdvertismentOrderByDateDesc(advertisment);
 	}

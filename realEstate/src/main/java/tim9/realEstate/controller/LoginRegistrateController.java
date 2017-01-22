@@ -68,6 +68,8 @@ public class LoginRegistrateController {
 
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
+	
+	private static final String CLERK = "clerk";
 
 	/**
 	 * This method logs out an user.
@@ -161,7 +163,7 @@ public class LoginRegistrateController {
 			}
 
 			registrateUser.setCompanyLocation(new LocationDTO(location));
-			userService.save(new User(registrateUser, "clerk", authorityService.findByName("USER")));
+			userService.save(new User(registrateUser, CLERK, authorityService.findByName("USER")));
 			return new ResponseEntity<>(HttpStatus.CREATED);
 		}
 	}
@@ -181,7 +183,7 @@ public class LoginRegistrateController {
 			if (!checkUserParams(registrateUser)) {
 				return false;
 			}
-		} else if ("clerk".equals(registrateUser.getAuthority())) {
+		} else if (CLERK.equals(registrateUser.getAuthority())) {
 			if (!checkUserParams(registrateUser)) {
 				return false;
 			}
@@ -200,7 +202,7 @@ public class LoginRegistrateController {
 			if (!checkExistingUserParams(registrateUser)) {
 				return false;
 			}
-		} else if ("clerk".equals(registrateUser.getAuthority())) {
+		} else if (CLERK.equals(registrateUser.getAuthority())) {
 			if (!checkExistingUserParams(registrateUser)) {
 				return false;
 			}

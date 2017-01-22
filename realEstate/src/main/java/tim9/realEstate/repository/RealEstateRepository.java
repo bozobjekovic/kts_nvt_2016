@@ -6,10 +6,27 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import tim9.realEstate.model.RealEstate;
 
-public interface RealEstateRepository extends JpaRepository<RealEstate, Long>{
-	
+/**
+ * This interface represents RealEstate repository
+ *
+ */
+public interface RealEstateRepository extends JpaRepository<RealEstate, Long> {
+
+	/**
+	 * This method finds real estate with specified address
+	 * 
+	 * @param address
+	 * @return object of real estate
+	 */
 	RealEstate findByAddress(String address);
-	
+
+	/**
+	 * This method finds all real estates with specified address and city
+	 * 
+	 * @param address
+	 * @param city
+	 * @return list objects of Real Estate
+	 */
 	List<RealEstate> findByAddressAndLocation_City(String address, String city);
 
 }
