@@ -72,17 +72,21 @@ public class ProfileClerkPageTest {
 		
 		updateAdverPage.ensureIsDisplayed();
 		assertTrue(updateAdverPage.getName().isDisplayed());
-		assertTrue(updateAdverPage.getAddress().isDisplayed());
-		assertTrue(updateAdverPage.getCity().isDisplayed());
-		assertTrue(updateAdverPage.getZipCode().isDisplayed());
 	}
-	/*	
+	
 	@Test
 	public void testUpdateProfileData() {
 		login();
 		profileClerkPage.ensureModalIsClosed();
 		
 		openModal();
+		updateAdverPage.ensureCanSave();
+		profileClerkUpdateDataPage.getSaveButton().click();
+		profileClerkPage.ensureModalIsClosed();
+
+		openModal();
+		profileClerkUpdateDataPage.setPhoneNumber("+44440");
+		updateAdverPage.ensureCanSave();
 		profileClerkUpdateDataPage.getSaveButton().click();
 		profileClerkPage.ensureModalIsClosed();
 		
@@ -96,15 +100,9 @@ public class ProfileClerkPageTest {
 
 		profileClerkUpdateDataPage.setName("Maja");
 		profileClerkUpdateDataPage.setSurname("Miljic");
-		profileClerkUpdateDataPage.setPhoneNumber("+44440");
+		profileClerkUpdateDataPage.setPhoneNumber("+24242424");
 		profileClerkUpdateDataPage.setAddress("Balzakova 20");
 		profileClerkUpdateDataPage.setCity("Novi Sad");
-		profileClerkUpdateDataPage.getSaveButton().click();
-		profileClerkPage.ensureModalIsClosed();
-
-		openModal();
-		//updateAdverPage.ensureCanSave();
-		profileClerkUpdateDataPage.setPhoneNumber("+24242424");
 		profileClerkUpdateDataPage.getSaveButton().click();
 		profileClerkPage.ensureModalIsClosed();
 	}
@@ -143,22 +141,25 @@ public class ProfileClerkPageTest {
 		
 		profileClerkPage.getRemoveButton().click();
 		profileClerkPage.ensureIsRemoved(noOfAdvers);
-	}*/
+	}
 	
 	@Test
 	public void testUpdateAdver() {
 		login();
-		
+
+		profileClerkPage.ensureModalIsClosed();
 		openUpdateAdverModal();
 		updateAdverPage.getSaveButton().click();
+		
 		profileClerkPage.ensureModalIsClosed();
-
+		openUpdateAdverModal();
+		updateAdverPage.setPhoneNumber("+504982");
+		updateAdverPage.ensureCanSave();
+		updateAdverPage.getSaveButton().click();
+		
+		profileClerkPage.ensureModalIsClosed();
 		openUpdateAdverModal();
 		updateAdverPage.setName("");
-		updateAdverPage.setAddress("");
-		updateAdverPage.setCity("");
-		updateAdverPage.setZipCode("");
-		updateAdverPage.setPartOfTheCity("");
 		updateAdverPage.setLandSize("");
 		updateAdverPage.setEquipment("");
 		updateAdverPage.setBathrooms("");
@@ -170,36 +171,18 @@ public class ProfileClerkPageTest {
 		updateAdverPage.ensureCanSave();
 		updateAdverPage.getSaveButton().click();
 		
-		// Mandatory field empty
-		updateAdverPage.setPartOfTheCity("Liman");
+		updateAdverPage.setName("Vikendica");
+		updateAdverPage.setLandSize("80");
 		updateAdverPage.setEquipment("Internet");
 		updateAdverPage.setBathrooms("2");
 		updateAdverPage.setBedrooms("3");
 		updateAdverPage.setFloors("2");
 		updateAdverPage.setBuildYear("2006");
-		updateAdverPage.ensureCanSave();
-		updateAdverPage.getSaveButton().click();
-		
-		// Advertisement already exists
-		updateAdverPage.setName("Bazen");
-		updateAdverPage.setAddress("Bulevar cara Lazara 108");
-		updateAdverPage.setCity("Novi Sad");
-		updateAdverPage.setZipCode("21000");
-		updateAdverPage.setLandSize("80");
 		updateAdverPage.setPrice("1000000");
-		updateAdverPage.setPhoneNumber("+504982");
-		updateAdverPage.ensureCanSave();
-		updateAdverPage.getSaveButton().click();
-		profileClerkPage.ensureModalIsClosed();
-
-		openUpdateAdverModal();
-		
-		// Successful Advertisement registration
 		updateAdverPage.setPhoneNumber("+380011223");
 		updateAdverPage.ensureCanSave();
 		updateAdverPage.getSaveButton().click();
-		
-		
+		profileClerkPage.ensureModalIsClosed();
 	}
 	
 	@AfterMethod

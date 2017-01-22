@@ -56,26 +56,6 @@ public class ProfileUserPageTest {
 	}
 	
 	@Test
-	public void testUpdateProfileData() {
-		login();
-		assertTrue(profileUserPage.getChangeButton().isDisplayed());
-		profileUserPage.getChangeButton().click();
-		
-		profileUserUpdateDataPage.ensureIsDisplayed();
-		
-		assertTrue(profileUserUpdateDataPage.getName().isDisplayed());
-		assertTrue(profileUserUpdateDataPage.getSurname().isDisplayed());
-		assertTrue(profileUserUpdateDataPage.getPhoneNumber().isDisplayed());
-		assertTrue(profileUserUpdateDataPage.getAddress().isDisplayed());
-		assertTrue(profileUserUpdateDataPage.getCity().isDisplayed());
-
-		profileUserUpdateDataPage.setName("Maja");
-		profileUserUpdateDataPage.setSurname("Miljic");
-		profileUserUpdateDataPage.setCity("Novi Sad");
-		profileUserUpdateDataPage.getSaveButton().click();
-	}
-	
-	@Test
 	public void testAskToJoin() {
 		login();
 		profileUserPage.ensureCanAskToJoin();
