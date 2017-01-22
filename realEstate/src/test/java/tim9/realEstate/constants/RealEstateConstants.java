@@ -2,6 +2,10 @@ package tim9.realEstate.constants;
 
 import tim9.realEstate.model.Category;
 
+/**
+ * Class represents constants of Real Estate
+ *
+ */
 public class RealEstateConstants { // LOCATION REFERENCE MISS !!!!!!!!!!!!!!!!
 
 	public static final String NEW_NAME = "New house";
@@ -17,7 +21,7 @@ public class RealEstateConstants { // LOCATION REFERENCE MISS !!!!!!!!!!!!!!!!
 	public static final int NEW_BUILD_YEAR = 2016;
 	public static final Category NEW_CATEGORY = Category.Office;
 	public static final String NEW_TYPE = "House";
-	
+
 	public static final Long DB_ID = 4L;
 	public static final String DB_ADDRESS = "Bulevar Oslobodjenja";
 	public static final String DB_NAME = "Kancelarija u centru";
@@ -32,13 +36,20 @@ public class RealEstateConstants { // LOCATION REFERENCE MISS !!!!!!!!!!!!!!!!
 	public static final int DB_BUILD_YEAR = 1994;
 	public static final Category DB_CATEGORY = Category.Office;
 	public static final String DB_TYPE = "Kancelarija";
-	
+
 	public static final Long DB_ID_REFERENCED = 4L;
 	public static final Long DB_ID_ACTIVE = 1L;
 	public static final Long DB_ID_SOLD = 3L;
-	public static final Long DB_ID_TO_RENT= 2L;
-	
+	public static final Long DB_ID_TO_RENT = 2L;
+
 	public static final int DB_COUNT = 4;
 	public static final int DB_COUNT_REAL = 5;
 	public static final int DB_CITY_ADDRESS_COUNT = 1;
+
+	/**
+	 * Constructor
+	 */
+	private RealEstateConstants() {
+
+	}
 }

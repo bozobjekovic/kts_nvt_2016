@@ -6,13 +6,6 @@ package tim9.realEstate.constants;
  */
 public class CompanyConstants {
 
-	/**
-	 * Constructor
-	 */
-	private CompanyConstants() {
-
-	}
-
 	public static final String NEW_ADDRESS = "New address";
 	public static final String NEW_NAME = "New name";
 	public static final String NEW_PHONE_NUMBER = "+381211234567";
@@ -27,4 +20,11 @@ public class CompanyConstants {
 	public static final Long DB_ID_REFERENCED = 4L;
 	public static final int DB_COUNT = 2;
 	public static final Long DB_ID_USED = 1L;
+
+	/**
+	 * Constructor
+	 */
+	private CompanyConstants() {
+
+	}
 }
