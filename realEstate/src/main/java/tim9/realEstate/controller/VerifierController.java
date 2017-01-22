@@ -11,11 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import tim9.realEstate.dto.ChangePasswordDTO;
 import tim9.realEstate.dto.InappropriateDTO;
 import tim9.realEstate.dto.VerifierDTO;
 import tim9.realEstate.mail.MailUtil;
@@ -58,34 +56,6 @@ public class VerifierController {
 		Verifier verifier = (Verifier) userUtils.getLoggedUser(request);
 
 		return new ResponseEntity<>(new VerifierDTO(verifier), HttpStatus.OK);
-	}
-
-	/**
-	 * This method changes password for verifiers
-	 * 
-	 * @param modifiedVerifier
-	 * @return HttpStatus OK if exists, NOT FOUND if not
-	 */
-	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<Void> changePassword(@RequestBody ChangePasswordDTO changePasswordDTO) {
-		if (!checkInputParams(changePasswordDTO)) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-
-		Verifier verifier = verifierService.findOne(changePasswordDTO.getId());
-
-		if (verifier == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
-		if (!passwordEncoder.matches(changePasswordDTO.getOldPassword(), verifier.getPassword())) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-
-		verifier.setPassword(passwordEncoder.encode(changePasswordDTO.getNewPassword()));
-		verifierService.save(verifier);
-
-		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	/**
@@ -168,28 +138,6 @@ public class VerifierController {
 		advertisementService.save(advertisment);
 
 		return new ResponseEntity<>(HttpStatus.OK);
-	}
-
-	/**
-	 * This method checks input parameters
-	 * 
-	 * @param changePasswordDTO
-	 * @return True if parameters are OK, false if not
-	 */
-	private boolean checkInputParams(ChangePasswordDTO changePasswordDTO) {
-		if (changePasswordDTO.getId() == null) {
-			return false;
-		} else if (changePasswordDTO.getNewPassword() == null || changePasswordDTO.getNewPassword().trim().equals("")) {
-			return false;
-		} else if (changePasswordDTO.getOldPassword() == null || changePasswordDTO.getOldPassword().trim().equals("")) {
-			return false;
-		} else if (changePasswordDTO.getConfirmPassword() == null
-				|| changePasswordDTO.getConfirmPassword().trim().equals("")) {
-			return false;
-		} else if (!changePasswordDTO.getNewPassword().equals(changePasswordDTO.getConfirmPassword())) {
-			return false;
-		}
-		return true;
 	}
 
 }
