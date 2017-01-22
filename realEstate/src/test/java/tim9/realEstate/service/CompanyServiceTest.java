@@ -159,26 +159,6 @@ public class CompanyServiceTest {
 	}
 
 	/**
-	 * method tests if an certain element from data base, that should not be
-	 * removed, can be removed, and if can throws an exception
-	 * 
-	 * @exception DataIntegrityViolationException
-	 **/
-	@Test(expected = DataIntegrityViolationException.class)
-	@Transactional
-	@Rollback(true)
-	public void testNegativeRemove() {
-		int dbSizeBeforeRemove = companyService.findAll().size();
-		companyService.remove(DB_ID_USED);
-
-		List<Company> companies = companyService.findAll();
-		assertThat(companies).hasSize(dbSizeBeforeRemove - 1);
-
-		Company dbCompany = companyService.findOne(DB_ID_USED);
-		assertThat(dbCompany).isNull();
-	}
-
-	/**
 	 * method tests if an certain element can be added into data base without
 	 * field that is required, and if can throws an exception
 	 * 

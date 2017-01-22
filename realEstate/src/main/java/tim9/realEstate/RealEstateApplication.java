@@ -15,11 +15,6 @@ import tim9.realEstate.mail.MailConfig;
 public class RealEstateApplication {
 	
 	/**
-	 * Constructor
-	 */
-	private RealEstateApplication() {}
-	
-	/**
      * This is the main method that runs the
      * Spring application.
      * @param	args Array of arguments

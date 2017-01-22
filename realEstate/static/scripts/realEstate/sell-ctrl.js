@@ -70,9 +70,14 @@
 				}
 
                 $scope.submitSellForm = function() {
-					readImagePath().then(function() {
-						SellFactory.submitSell($scope.advertisementCreate);
-					});
+                	if($scope.flowObject.files.length == 0){
+                		SellFactory.submitSell($scope.advertisementCreate);
+                	}
+                	else{
+						readImagePath().then(function() {
+							SellFactory.submitSell($scope.advertisementCreate);
+						});
+                	}
                 };
 
 				$scope.getPartOfTheCities = function() {

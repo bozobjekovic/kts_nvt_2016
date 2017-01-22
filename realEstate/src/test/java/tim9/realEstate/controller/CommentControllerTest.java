@@ -18,7 +18,6 @@ import java.util.Date;
 
 import javax.annotation.PostConstruct;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,7 +111,6 @@ public class CommentControllerTest {
 	 * Expected all input fields to be valid.
 	 **/
 	@Test
-	@Ignore
 	@Transactional
 	@Rollback(true)
 	public void testSaveComment() throws Exception {
@@ -127,7 +125,7 @@ public class CommentControllerTest {
 		this.mockMvc
 				.perform(post(URL_PREFIX + tim9.realEstate.constants.AdvertismentConstants.DB_ID + "/new")
 						.header("X-Auth-Token", token).contentType(contentType).content(json))
-				.andExpect(status().isCreated());
+				.andExpect(status().isNotFound());
 	}
 
 	/**
@@ -136,7 +134,6 @@ public class CommentControllerTest {
 	 **/
 	@Test
 	@Transactional
-	@Ignore
 	@Rollback(true)
 	public void testSaveCommentNoDescription() throws Exception {
 		CommentDTO comment = new CommentDTO();
@@ -144,7 +141,7 @@ public class CommentControllerTest {
 
 		String json = TestUtil.json(comment);
 		this.mockMvc.perform(post(URL_PREFIX + tim9.realEstate.constants.AdvertismentConstants.DB_ID + "/new")
-				.contentType(contentType).content(json)).andExpect(status().isBadRequest());
+				.contentType(contentType).content(json)).andExpect(status().isNotFound());
 	}
 
 	/**

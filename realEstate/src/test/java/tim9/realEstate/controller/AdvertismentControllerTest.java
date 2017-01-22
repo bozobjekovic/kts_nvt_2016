@@ -24,7 +24,6 @@ import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -441,21 +440,6 @@ public class AdvertismentControllerTest {
 	public void testDeleteAdvertisementDeleted() throws Exception {
 		this.mockMvc.perform(put(URL_PREFIX + "/delete/" + DB_NONEXISTING_ID).contentType(contentType))
 				.andExpect(status().isNotFound());
-	}
-
-	/**
-	 * This method should test 'deleting' (setting isDeleted true)
-	 * advertisement. Expecting request to be invalid, without ID parameter.
-	 * Expected: method put, status BAD_REQUEST
-	 * 
-	 * @throws Exception
-	 **/
-	@Test
-	@Transactional
-	@Ignore
-	@Rollback(true)
-	public void testDeleteAdvertisementNullParam() throws Exception {
-		this.mockMvc.perform(put(URL_PREFIX + "/delete/").contentType(contentType)).andExpect(status().isBadRequest());
 	}
 
 	/**

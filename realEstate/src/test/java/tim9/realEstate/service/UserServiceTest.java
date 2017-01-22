@@ -238,26 +238,6 @@ public class UserServiceTest {
 	}
 
 	/**
-	 * method tests if an certain element from data base, that should not be
-	 * removed, can be removed, and if can throws an exception
-	 * 
-	 * @exception DataIntegrityViolationException
-	 **/
-	@Test(expected = DataIntegrityViolationException.class)
-	@Transactional
-	@Rollback(true)
-	public void testNegativeRemove() {
-		int dbSizeBeforeRemove = userService.findAll().size();
-		userService.remove(DB_ID);
-
-		List<User> users = userService.findAll();
-		assertThat(users).hasSize(dbSizeBeforeRemove - 1);
-
-		User dbUser = userService.findOne(DB_ID);
-		assertThat(dbUser).isNull();
-	}
-
-	/**
 	 * method tests if an certain element can be added into data base without
 	 * field that is required, and if can throws an exception
 	 * 

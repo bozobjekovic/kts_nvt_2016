@@ -17,6 +17,9 @@ import static tim9.realEstate.constants.UserConstants.DB_ID;
 import static tim9.realEstate.constants.UserConstants.DB_ID_COMPANY;
 
 import java.nio.charset.Charset;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
@@ -318,7 +321,7 @@ public class UserControllerTest {
 	@Transactional
 	@Rollback(true)
 	public void testDenyUserInvalid() throws Exception {
-		this.mockMvc.perform(put(URL_PREFIX + "/deny?id=" + DB_NONEXISTING_ID).contentType(contentType))
+		this.mockMvc.perform(put(URL_PREFIX + "/deny/" + DB_NONEXISTING_ID).contentType(contentType))
 				.andExpect(status().isNotFound());
 	}
 
@@ -330,11 +333,16 @@ public class UserControllerTest {
 	 **/
 	@Test
 	@Transactional
-	@Ignore
 	@Rollback(true)
 	public void testRentRealestate() throws Exception {
+		Calendar c = GregorianCalendar.getInstance();
+		c.clear();
+		c.set(2017, 2, 2);
+		Calendar c2 = GregorianCalendar.getInstance();
+		c2.clear();
+		c2.set(2017, 3, 3);
 		this.mockMvc
-				.perform(put(URL_PREFIX + "/rent/" + DB_ID_TO_RENT + "/from/" + DATE_RENT_FROM + "/to/" + DATE_RENT_TO)
+				.perform(put(URL_PREFIX + "/rent/" + DB_ID_TO_RENT + "/from/" + c.getTime() + "/to/" + c2.getTime())
 						.contentType(contentType))
 				.andExpect(status().isOk());
 	}

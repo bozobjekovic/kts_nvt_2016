@@ -185,6 +185,7 @@ public class UserController {
 	@RequestMapping(value = "/rent/{id}/from/{rentDateFrom}/to/{rentDateTo}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> rentRealEstate(@PathVariable Long id, @PathVariable Date rentDateFrom,
 			@PathVariable Date rentDateTo) {
+		System.out.println("aa");
 		if (id == null || rentDateFrom == null || rentDateTo == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
