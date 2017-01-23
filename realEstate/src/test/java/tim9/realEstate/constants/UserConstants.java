@@ -1,7 +1,6 @@
 package tim9.realEstate.constants;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -10,8 +9,8 @@ import java.util.GregorianCalendar;
  */
 public class UserConstants {
 	
-	private static final Calendar startDateCalendar;
-	private static final Calendar endDateCalendar;
+	public static final Calendar startDateCalendar;
+	public static final Calendar endDateCalendar;
 
 	static {
 	    startDateCalendar = GregorianCalendar.getInstance();
@@ -68,9 +67,6 @@ public class UserConstants {
 	public static final String DATE_RENT_FROM_INV = "2015/05/20";
 
 	public static final int DB_CLERK_COUNT = 1;
-	
-	public static final Date DB_START_DATE = startDateCalendar.getTime();   
-	public static final Date DB_END_DATE = endDateCalendar.getTime();
 
 	/**
 	 * Constructor

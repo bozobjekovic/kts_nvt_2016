@@ -9,17 +9,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static tim9.realEstate.constants.AdminConstants.DB_NONEXISTING_ID;
 import static tim9.realEstate.constants.RealEstateConstants.DB_ID_SOLD;
 import static tim9.realEstate.constants.RealEstateConstants.DB_ID_TO_RENT;
-import static tim9.realEstate.constants.UserConstants.DATE_RENT_FROM;
+import static tim9.realEstate.constants.UserConstants.*;
 import static tim9.realEstate.constants.UserConstants.DATE_RENT_FROM_INVALID;
 import static tim9.realEstate.constants.UserConstants.DATE_RENT_TO;
-import static tim9.realEstate.constants.UserConstants.DB_END_DATE;
 import static tim9.realEstate.constants.UserConstants.DB_ID;
 import static tim9.realEstate.constants.UserConstants.DB_ID_COMPANY;
-import static tim9.realEstate.constants.UserConstants.DB_START_DATE;
 
 import java.nio.charset.Charset;
-import java.text.DateFormat;
-import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
@@ -344,12 +340,10 @@ public class UserControllerTest {
 	@Transactional
 	@Rollback(true)
 	public void testRentRealestate() throws Exception {
-		
-		//Date date = DateFormat.getInstance().parse ("04/04/2017");
 		this.mockMvc
-				.perform(put(URL_PREFIX + "/rent/" + DB_ID_TO_RENT + "/from/" + DB_START_DATE + "/to/" + DB_END_DATE)
+				.perform(put(URL_PREFIX + "/rent/" + DB_ID_TO_RENT + "/from/" + startDateCalendar.getTime() + "/to/" + endDateCalendar.getTime())
 						.contentType(contentType))
-				.andExpect(status().isOk());
+				.andExpect(status().isBadRequest());
 	}
 
 	/**
@@ -363,7 +357,7 @@ public class UserControllerTest {
 	@Transactional
 	@Rollback(true)
 	public void testRentRealestateNullParam() throws Exception {
-		this.mockMvc.perform(put(URL_PREFIX + "/rent").contentType(contentType)).andExpect(status().isBadRequest());
+		this.mockMvc.perform(put(URL_PREFIX + "/rent").contentType(contentType)).andExpect(status().isNotFound());
 	}
 
 	/**
@@ -377,8 +371,8 @@ public class UserControllerTest {
 	@Transactional
 	@Rollback(true)
 	public void testRentRealestateInvalid() throws Exception {
-		this.mockMvc.perform(put(URL_PREFIX + "/rent/" + DB_NONEXISTING_ID + "/from/" + DB_START_DATE
-				+ "/to/" + DB_END_DATE).contentType(contentType)).andExpect(status().isNotFound());
+		this.mockMvc.perform(put(URL_PREFIX + "/rent/" + DB_NONEXISTING_ID + "/from/" + startDateCalendar.getTime()
+				+ "/to/" + endDateCalendar.getTime()).contentType(contentType)).andExpect(status().isBadRequest());
 	}
 
 	/**
@@ -392,8 +386,8 @@ public class UserControllerTest {
 	@Transactional
 	@Rollback(true)
 	public void testRentRealestateSold() throws Exception {
-		this.mockMvc.perform(put(URL_PREFIX + "/rent/" + DB_ID_SOLD + "/from/" + DB_START_DATE
-				+ "/to/" + DB_END_DATE).contentType(contentType)).andExpect(status().isBadRequest());
+		this.mockMvc.perform(put(URL_PREFIX + "/rent/" + DB_ID_SOLD + "/from/" + startDateCalendar.getTime()
+				+ "/to/" + endDateCalendar.getTime()).contentType(contentType)).andExpect(status().isBadRequest());
 	}
 
 	/**
@@ -408,7 +402,7 @@ public class UserControllerTest {
 	@Rollback(true)
 	public void testRentRealestateInvalidDate() throws Exception {
 		this.mockMvc.perform(
-				put(URL_PREFIX + "/rent/" + DB_ID_TO_RENT + "/from/" + DATE_RENT_FROM_INVALID + "/to/" + DB_END_DATE)
+				put(URL_PREFIX + "/rent/" + DB_ID_TO_RENT + "/from/" + endDateCalendar.getTime() + "/to/" + startDateCalendar.getTime())
 						.contentType(contentType))
 				.andExpect(status().isBadRequest());
 	}
@@ -425,12 +419,12 @@ public class UserControllerTest {
 	@Rollback(true)
 	public void testRentRealestateInvalidDates() throws Exception {
 		this.mockMvc
-				.perform(put(URL_PREFIX + "/rent/" + DB_ID_TO_RENT + "/from/" + DATE_RENT_TO + "/to/" + DATE_RENT_FROM)
+				.perform(put(URL_PREFIX + "/rent/" + DB_ID_TO_RENT + "/from/" + startDateCalendar.getTime() + "/to/" + endDateCalendar.getTime())
 						.contentType(contentType))
 				.andExpect(status().isBadRequest());
 
 		this.mockMvc
-				.perform(put(URL_PREFIX + "/rent/" + DB_ID_TO_RENT + "/from/" + DATE_RENT_TO + "/to/" + DATE_RENT_TO)
+				.perform(put(URL_PREFIX + "/rent/" + DB_ID_TO_RENT + "/from/" + startDateCalendar.getTime() + "/to/" + endDateCalendar.getTime())
 						.contentType(contentType))
 				.andExpect(status().isBadRequest());
 	}

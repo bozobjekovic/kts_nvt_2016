@@ -18,14 +18,18 @@ public class BuyPage {
 	@FindBy(xpath = "//figure[@id=\"2\"]")
 	private WebElement advertisementLink;
 	
-	@FindBy(xpath = "//a[text()='Apartments']")
-	private WebElement apartmentsLink;
+	@FindBy(xpath = "//a[@ng-click=\"setType('Room'); filterAdvertisements()\"]")
+	private WebElement officeLink;
 	
+	@FindBy(xpath = "(//input[@ng-model='cityFilter[city]'])[1]")
 	private WebElement cityLink;
+	
+	@FindBy(xpath = "(//input[@ng-model='cityFilter[city]'])[2]")
+	private WebElement otherCityLink;
 	
 	private WebElement partOfTheCityLink;
 
-	@FindBy(xpath = "//div[@ng-show='priceCollapsed']")
+	@FindBy(xpath = "//a[@ng-click='priceCollapsed=!priceCollapsed']")
 	private WebElement priceColapse;
 
 	@FindBy(xpath = "//input[@ng-model='filterForm.priceTo']")
@@ -34,7 +38,10 @@ public class BuyPage {
 	@FindBy(xpath = "//input[@ng-model='filterForm.priceFrom']")
 	private WebElement priceFrom;
 	
-	@FindBy(xpath = "//div[@ng-show='landSizeCollapsed']")
+	@FindBy(id = "priceBtn")
+	private WebElement priceFilter;
+	
+	@FindBy(xpath = "//a[@ng-click='landSizeCollapsed=!landSizeCollapsed']")
 	private WebElement landSizeColapse;
 	
 	@FindBy(xpath = "//input[@ng-model='filterForm.landSizeTo']")
@@ -42,6 +49,9 @@ public class BuyPage {
 	
 	@FindBy(xpath = "//input[@ng-model='filterForm.landSizeFrom']")
 	private WebElement landSizeFrom;
+	
+	@FindBy(id = "landBtn")
+	private WebElement landFilter;
 
 	public WebElement getPriceTo() {
 		return priceTo;
@@ -88,7 +98,7 @@ public class BuyPage {
 	}
 
 	public WebElement getApartmentsLink() {
-		return apartmentsLink;
+		return officeLink;
 	}
 
 	public WebElement getCityLink() {
@@ -107,10 +117,26 @@ public class BuyPage {
 		return landSizeColapse;
 	}
 
+	public WebElement getPriceFilter() {
+		return priceFilter;
+	}
+
+	public WebElement getLandFilter() {
+		return landFilter;
+	}
+
+	public WebElement getOtherCityLink() {
+		return otherCityLink;
+	}
+
 	public void ensureIsDisplayed() {
 		(new WebDriverWait(browser, 2))
 				  .until(ExpectedConditions.presenceOfElementLocated(
 						  By.xpath("//div[@ng-show='priceCollapsed']")));
+	}
+	
+	public int getFilterSize() {
+		return browser.findElements(By.xpath("//figure[@ng-click='getAdvertisement(advertisement)']")).size();
 	}
 	
 }
