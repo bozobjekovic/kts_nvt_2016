@@ -22,6 +22,9 @@ local.properties
 # Application properties
 realEstate/src/main/resources/application.properties
 
+# Config file 
+Selenium/src/main/resources/config.properties
+
 # Sonar
 .sonar
 

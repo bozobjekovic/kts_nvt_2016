@@ -12,6 +12,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import tim9.Selenium.configuration.DriverConfiguration;
 import tim9.Selenium.login.LoginPage;
 
 public class ProfileUserPageTest {
@@ -22,9 +23,11 @@ public class ProfileUserPageTest {
 	LoginPage loginPage;
 	ProfileClerkPage profileClerkPage;
 	
+	DriverConfiguration driverConfiguration = new DriverConfiguration();
+	
 	@BeforeMethod
 	public void setupSelenium() {
-		System.setProperty("webdriver.chrome.driver", "C:/Program Files/chromedriver_win32/chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", driverConfiguration.getDriverPath());
 		browser = new ChromeDriver();
 		browser.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		browser.manage().window().maximize();

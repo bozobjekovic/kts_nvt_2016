@@ -13,6 +13,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import tim9.Selenium.MainPage;
+import tim9.Selenium.configuration.DriverConfiguration;
 
 public class TestFilterAdvertisements {
 	
@@ -20,9 +21,11 @@ public class TestFilterAdvertisements {
 	private MainPage mainPage;
 	private BuyPage buyPage;
 	
+	DriverConfiguration driverConfiguration = new DriverConfiguration();
+	
 	@BeforeMethod
 	public void setupSelenium() {
-		System.setProperty("webdriver.chrome.driver", "D:/Documents/Downloads/chromedriver_win32/chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", driverConfiguration.getDriverPath());
 		browser = new ChromeDriver();
 		browser.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		browser.manage().window().maximize();

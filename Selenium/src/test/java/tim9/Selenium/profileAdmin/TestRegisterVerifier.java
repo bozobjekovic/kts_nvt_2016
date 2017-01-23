@@ -15,6 +15,7 @@ import org.testng.annotations.Test;
 import tim9.Selenium.MainPage;
 import tim9.Selenium.ProfileAdminPage;
 import tim9.Selenium.ProfileAdminRegisterVerifierPage;
+import tim9.Selenium.configuration.DriverConfiguration;
 import tim9.Selenium.login.LoginPage;
 
 public class TestRegisterVerifier {
@@ -25,9 +26,11 @@ public class TestRegisterVerifier {
 	ProfileAdminRegisterVerifierPage profileAdminRegisterVerifierPage;
 	LoginPage loginPage;
 	
+	DriverConfiguration driverConfiguration = new DriverConfiguration();
+	
 	@BeforeMethod
 	public void setupSelenium() {
-		System.setProperty("webdriver.chrome.driver", "C:/Program Files/chromedriver_win32/chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", driverConfiguration.getDriverPath());
 		browser = new ChromeDriver();
 		browser.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		browser.manage().window().maximize();

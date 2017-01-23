@@ -11,6 +11,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import tim9.Selenium.configuration.DriverConfiguration;
 import tim9.Selenium.login.LoginPage;
 
 public class LoginPageTest {
@@ -19,9 +20,11 @@ public class LoginPageTest {
 	private MainPage mainPage;
 	private LoginPage loginPage;
 	
+	DriverConfiguration driverConfiguration = new DriverConfiguration();
+	
 	@BeforeMethod
 	public void setupSelenium() {
-		System.setProperty("webdriver.chrome.driver", "C:/Users/bozo/Documents/Faculty/KTS_2016/chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", driverConfiguration.getDriverPath());
 		browser = new ChromeDriver();
 		browser.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		browser.manage().window().maximize();
@@ -93,7 +96,7 @@ public class LoginPageTest {
 		
 		loginPage.getOKButton().click();
 		
-		mainPage.ensureIsDisplayed();
+		mainPage.ensureLoginIsClosed();
 		mainPage.ensureIsLogged();
 		
 		mainPage.getLogOutLink().click();

@@ -11,6 +11,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import tim9.Selenium.configuration.DriverConfiguration;
 import tim9.Selenium.login.RegistrationClerkPage;
 import tim9.Selenium.login.RegistrationUserPage;
 
@@ -21,9 +22,11 @@ public class RegistratePageTest {
 	private RegistrationUserPage registrationUserPage;
 	private RegistrationClerkPage registrationClerkPage;
 	
+	DriverConfiguration driverConfiguration = new DriverConfiguration();
+	
 	@BeforeMethod
 	public void setupSelenium() {
-		System.setProperty("webdriver.chrome.driver", "C:/Users/bozo/Documents/Faculty/KTS_2016/chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", driverConfiguration.getDriverPath());
 		browser = new ChromeDriver();
 		browser.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		browser.manage().window().maximize();
