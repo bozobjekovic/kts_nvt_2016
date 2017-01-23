@@ -45,6 +45,12 @@ public class ProfileClerkPage {
 	@FindBy(id="clerkCity")
 	private WebElement clerkCity;
 
+	@FindBy(id="clerkAdverName")
+	private WebElement clerkAdverName;
+
+	@FindBy(id="clerkAdverPrice")
+	private WebElement clerkAdverPrice;
+
 	public void ensureIsDisplayed() {
 		(new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[@ng-click=\"openModal()\"]")));
 	}
@@ -105,6 +111,12 @@ public class ProfileClerkPage {
 	}
 	public WebElement getClerkCity() {
 		return clerkCity;
+	}
+	public WebElement getClerkAdverName() {
+		return clerkAdverName;
+	}
+	public WebElement getClerkAdverPrice() {
+		return clerkAdverPrice;
 	}
 	public int getAdverListSize() {
 		return driver.findElements(By.className("profile-listItem-text")).size();

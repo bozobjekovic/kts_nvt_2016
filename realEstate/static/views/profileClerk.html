@@ -75,8 +75,8 @@
 							<input type="button" id="removeAdver" value="Remove" class="btn btn-warning" style="float:right; padding: 4px 8px; background-color: #751717; border-color: #751717;" ng-click="remove(publish.id)">
 							<input ng-if="publish.status != 'Sold'" type="button" id="update" value="Update" class="btn btn-warning" style="float:right; margin: 0px 1px; padding: 4px 8px; background-color: #751717; border-color: #751717;" ng-click="updateModal(publish.id)">
 							<input ng-if="publish.status != 'Sold' && publish.purpose == 'Rent'" type="button" id="rent" value="Rent" class="btn btn-warning" style="float:right; padding: 4px 8px; background-color: #751717; border-color: #751717;" ng-click="rentModal(publish.id)">
-							<h4>{{publish.name}} {{publish.id}}</h4>
-							<p>{{publish.price | currency:"$"}}</p>
+							<h4 id="clerkAdverName">{{publish.name}}</h4>
+							<p id="clerkAdverPrice">{{publish.price | currency:"$"}}</p>
 							<p>{{publish.publicationDate | date:'dd-MM-yyyy'}}</p>
 							<p>{{publish.purpose}}</p>
 							<h5>{{publish.status}}</h5>
