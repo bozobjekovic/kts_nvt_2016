@@ -152,7 +152,6 @@ public class AdvertismentServiceTest {
 		advertisment.setRate(NEW_RATE);
 		advertisment.setNumberOfRates(NEW_NUM_OF_RATES);
 		advertisment.setPhoneNumber(NEW_PHONE_NUMBER);
-		;
 
 		advertismentService.save(advertisment);
 	}
@@ -174,7 +173,6 @@ public class AdvertismentServiceTest {
 		advertisment.setRate(NEW_RATE);
 		advertisment.setNumberOfRates(NEW_NUM_OF_RATES);
 		advertisment.setPhoneNumber(NEW_PHONE_NUMBER);
-		;
 
 		advertismentService.save(advertisment);
 	}
@@ -234,7 +232,7 @@ public class AdvertismentServiceTest {
 	@Test
 	@Transactional
 	@Rollback(true)
-	public void testFindByPublisher_Company_IdAndIsDeletedFalseOrderById() {
+	public void testFindByPublisherCompanyIdAndIsDeletedFalseOrderById() {
 		Advertisment advertisment = advertismentService.findOne(DB_ID);
 
 		assertThat(advertismentService
@@ -249,7 +247,7 @@ public class AdvertismentServiceTest {
 	@Test
 	@Transactional
 	@Rollback(true)
-	public void testFindByPublisher_Company_IdAndIsDeletedFalseAndRealEstate_StatusOrderById() {
+	public void testFindByPublisherCompanyIdAndIsDeletedFalseAndRealEstateStatusOrderById() {
 		Advertisment advertisment = advertismentService.findOne(DB_ID);
 
 		assertThat(advertismentService.findByPublisherCompanyIdAndIsDeletedFalseAndRealEstateStatusOrderById(

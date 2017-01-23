@@ -9,8 +9,8 @@ import java.util.GregorianCalendar;
  */
 public class UserConstants {
 	
-	public static final Calendar startDateCalendar;
-	public static final Calendar endDateCalendar;
+	public static final Calendar startDateCalendar;				// NOSONAR
+	public static final Calendar endDateCalendar;				// NOSONAR
 
 	static {
 	    startDateCalendar = GregorianCalendar.getInstance();

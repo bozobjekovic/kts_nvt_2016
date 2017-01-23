@@ -72,9 +72,6 @@ public class LoginRegistrateControllerTest {
 	@Autowired
 	AuthenticationManager authenticationManager;
 
-	// @Autowired
-	// private UserDetailsService userDetailsService;
-
 	@Autowired
 	TokenUtils tokenUtils;
 

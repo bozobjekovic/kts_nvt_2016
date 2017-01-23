@@ -49,10 +49,16 @@ public class User extends Person implements Serializable{
 	 * @param authority represents Authority that the User possesses
 	 */
 	public User(RegistrateUserDTO registrateUser, String type, Authority authority) {
-		this(registrateUser.getEmail(), registrateUser.getUsername(), registrateUser.getPassword(), 
+		super(registrateUser.getEmail(), registrateUser.getUsername(), registrateUser.getPassword(), 
 				registrateUser.getName(), registrateUser.getSurname(), registrateUser.getPhoneNumber(), 
-				registrateUser.getAddress(), registrateUser.getCity(), authority, registrateUser.getImage(), 
-				0, 0, registrateUser.getBankAccount(), false, true, null);
+				registrateUser.getAddress(), registrateUser.getCity(), authority, registrateUser.getImage());
+		numOfRates = 0;
+		rate = 0;
+		bankAccount = registrateUser.getBankAccount();
+		isClerk = false;
+		isApproved = true;
+		company = null;
+
 		if ("clerk".equals(type)) {
 			this.setClerk(true);
 			this.setApproved(false);
@@ -62,41 +68,9 @@ public class User extends Person implements Serializable{
 		}
 	}
 
-	/**
-	 * Constructor
-	 * 
-	 * @param email represents Email of the User
-	 * @param username represents User name of the User
-	 * @param password represents Password of the User
-	 * @param name represents Name of the User
-	 * @param surname represents Surname of the User
-	 * @param phoneNumber represents Phone number of the User
-	 * @param address represents Address of the User
-	 * @param city represents City the User is from
-	 * @param authority represents Authority that the User possesses
-	 * @param image represents Image of the User
-	 * @param numOfRates represents Number of Rated of the User
-	 * @param rate represents average Rate of the User
-	 * @param bankAccount represents Back account of the User
-	 * @param isClerk says if the User is Clerk
-	 * @param isApproved says if the User is approved
-	 * @param company represents Company of the User
-	 */
-	public User(String email, String username, String password, String name, String surname, String phoneNumber,
-			String address, String city, Authority authority, String image, int numOfRates, double rate,
-			int bankAccount, boolean isClerk, boolean isApproved, Company company) {
-		super(email, username, password, name, surname, phoneNumber, address, city, authority, image);
-		this.numOfRates = numOfRates;
-		this.rate = rate;
-		this.bankAccount = bankAccount;
-		this.isClerk = isClerk;
-		this.isApproved = isApproved;
-		this.company = company;
-	}
-
 	@Override
 	public String toString() {
-		return "User id : " + super.getId(); 
+		return "User id : " + super.getId();
 	}
 
 	public int getNumOfRates() {

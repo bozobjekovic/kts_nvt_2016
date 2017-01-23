@@ -100,7 +100,6 @@ public class CompanyControllerTest {
 		company.setPhoneNumber(NEW_PHONE_NUMBER);
 		company.setSite(NEW_SITE);
 		company.setLocation(new LocationDTO(location));
-		;
 
 		String json = TestUtil.json(company);
 		this.mockMvc.perform(post(URL_PREFIX).contentType(contentType).content(json)).andExpect(status().isCreated());
@@ -121,7 +120,6 @@ public class CompanyControllerTest {
 		company.setPhoneNumber(NEW_PHONE_NUMBER);
 		company.setSite(NEW_SITE);
 		company.setLocation(new LocationDTO(location));
-		;
 
 		String json = TestUtil.json(company);
 		this.mockMvc.perform(post(URL_PREFIX).contentType(contentType).content(json))
@@ -144,7 +142,6 @@ public class CompanyControllerTest {
 		company.setPhoneNumber(NEW_PHONE_NUMBER);
 		company.setSite(NEW_SITE);
 		company.setLocation(new LocationDTO(location));
-		;
 
 		String json = TestUtil.json(company);
 		this.mockMvc.perform(post(URL_PREFIX).contentType(contentType).content(json)).andExpect(status().isConflict());
@@ -156,7 +153,6 @@ public class CompanyControllerTest {
 		company.setPhoneNumber(DB_PHONE_NUMBER);
 		company.setSite(NEW_SITE);
 		company.setLocation(new LocationDTO(location));
-		;
 
 		json = TestUtil.json(company);
 		this.mockMvc.perform(post(URL_PREFIX).contentType(contentType).content(json)).andExpect(status().isConflict());

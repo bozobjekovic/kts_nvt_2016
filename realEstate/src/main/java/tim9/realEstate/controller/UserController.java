@@ -186,7 +186,6 @@ public class UserController {
 	public ResponseEntity<Void> rentRealEstate(@PathVariable Long id, @PathVariable Date rentDateFrom,
 			@PathVariable Date rentDateTo) {
 
-		System.out.println("ovde");
 		if (id == null || rentDateFrom == null || rentDateTo == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}

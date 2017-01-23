@@ -387,7 +387,7 @@ public class AdvertismentController {
 	 * @param places
 	 * @return double value with two decimals
 	 */
-	private double round(double value, int places) {
+	public double round(double value, int places) {
 		if (places < 0)
 			throw new IllegalArgumentException();
 

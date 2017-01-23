@@ -335,7 +335,14 @@ public class AdvertismentControllerTest {
 				.andExpect(status().isBadRequest());
 	}
 
-	private double round(double value, int places) {
+	/**
+	 * This method rounds passed number on two decimals
+	 * 
+	 * @param value
+	 * @param places
+	 * @return number with two decimals
+	 */
+	public double round(double value, int places) {
 		if (places < 0)
 			throw new IllegalArgumentException();
 
@@ -358,7 +365,7 @@ public class AdvertismentControllerTest {
 		Advertisment advertisment = advertismentService.findOne(DB_ID);
 
 		advertisment.setNumberOfRates(advertisment.getNumberOfRates() + 1);
-		double RATE = round(((advertisment.getRate() * (advertisment.getNumberOfRates() - 1)) + NEW_GIVEN_RATE)
+		double rate = round(((advertisment.getRate() * (advertisment.getNumberOfRates() - 1)) + NEW_GIVEN_RATE)
 				/ advertisment.getNumberOfRates(), 2);
 
 		this.mockMvc
@@ -367,7 +374,7 @@ public class AdvertismentControllerTest {
 				.andExpect(status().isOk()).andExpect(content().contentType(contentType))
 				.andExpect(jsonPath("$.advertismentId").value(DB_ID.intValue()))
 				.andExpect(jsonPath("$.purpose").value(DB_PURPOSE))
-				.andExpect(jsonPath("$.phoneNumber").value(DB_PHONE_NUMBER)).andExpect(jsonPath("$.rate").value(RATE))
+				.andExpect(jsonPath("$.phoneNumber").value(DB_PHONE_NUMBER)).andExpect(jsonPath("$.rate").value(rate))
 				.andExpect(jsonPath("$.realEstateId").value(tim9.realEstate.constants.RealEstateConstants.DB_ID))
 				.andExpect(jsonPath("$.name").value(DB_NAME)).andExpect(jsonPath("$.price").value(DB_PRICE))
 				.andExpect(jsonPath("$.landSize").value(tim9.realEstate.constants.RealEstateConstants.DB_LAND_SIZE))
@@ -540,7 +547,7 @@ public class AdvertismentControllerTest {
 	public void testGetFilterNoPage() throws Exception {
 		mockMvc.perform(get(URL_PREFIX + "/category/" + tim9.realEstate.constants.RealEstateConstants.DB_CATEGORY
 				+ "/filters?" + "filter=price>50")).andExpect(status().isOk())
-		.andExpect(content().contentType(contentType)).andExpect(jsonPath("$.count").value(3));
+				.andExpect(content().contentType(contentType)).andExpect(jsonPath("$.count").value(3));
 
 	}
 
