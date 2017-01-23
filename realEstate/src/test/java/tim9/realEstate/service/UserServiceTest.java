@@ -19,6 +19,10 @@ import org.springframework.transaction.annotation.Transactional;
 import tim9.realEstate.RealEstateApplication;
 import tim9.realEstate.model.User;
 
+/**
+ * This class represents User Service Test
+ *
+ */
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = RealEstateApplication.class)

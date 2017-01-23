@@ -26,6 +26,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tim9.realEstate.RealEstateApplication;
 import tim9.realEstate.model.Comment;
 
+/**
+ * This class represents Comment Service Test
+ *
+ */
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = RealEstateApplication.class)

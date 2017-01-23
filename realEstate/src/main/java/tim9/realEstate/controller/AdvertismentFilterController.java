@@ -50,10 +50,10 @@ public class AdvertismentFilterController {
 	@RequestMapping(value = "/category/{category}/filters", method = RequestMethod.GET)
 	public ResponseEntity<FilterDTO> filters(@PathVariable Category category,
 			@RequestParam(value = "filter") String filter, Pageable page) {
-		if(page.getPageSize() != 12){
-			page = new PageRequest(0, 12);
+		Pageable pageable = page;
+		if(pageable.getPageSize() != 12){
+			pageable = new PageRequest(0, 12);
 		}
-		System.out.println(page);
 		AdvertismentSpecificationsBuilder builder = new AdvertismentSpecificationsBuilder();
 
 		Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?(\\s\\w+?)?(\\_?(\\w+?(\\s\\w+?)?)?)*),");
@@ -67,7 +67,7 @@ public class AdvertismentFilterController {
 
 		Specification<Advertisment> spec = builder.build();
 
-		Page<Advertisment> filteredAdvertisements = advertismentService.findAllBySpecification(spec, page);
+		Page<Advertisment> filteredAdvertisements = advertismentService.findAllBySpecification(spec, pageable);
 		int count = advertismentService.findAllBySpecification(spec).size();
 		List<AdvertismentDTO> filteredAdvertisementsDTO = new ArrayList<>();
 

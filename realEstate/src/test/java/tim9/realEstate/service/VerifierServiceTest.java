@@ -19,6 +19,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tim9.realEstate.RealEstateApplication;
 import tim9.realEstate.model.Verifier;
 
+/**
+ * This class represents Verifier Service Test
+ *
+ */
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = RealEstateApplication.class)

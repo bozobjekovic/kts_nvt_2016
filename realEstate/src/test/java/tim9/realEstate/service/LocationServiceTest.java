@@ -19,6 +19,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tim9.realEstate.RealEstateApplication;
 import tim9.realEstate.model.Location;
 
+/**
+ * This class represents Location Service Test
+ *
+ */
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = RealEstateApplication.class)
@@ -167,8 +171,8 @@ public class LocationServiceTest {
 	public void testFindByCityAndZipCodeAndPartOfTheCity() {
 		Location location = locationService.findOne(DB_ID);
 
-		Location loc = locationService.findByCityAndZipCodeAndPartOfTheCity
-				(location.getCity(),location.getZipCode(), location.getPartOfTheCity());
+		Location loc = locationService.findByCityAndZipCodeAndPartOfTheCity(location.getCity(), location.getZipCode(),
+				location.getPartOfTheCity());
 		assertThat(loc).isNotNull();
 
 		assertThat(loc.getId()).isEqualTo(DB_ID);

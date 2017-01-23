@@ -20,6 +20,10 @@ import org.springframework.transaction.annotation.Transactional;
 import tim9.realEstate.RealEstateApplication;
 import tim9.realEstate.model.Advertisment;
 
+/**
+ * This class represents Advertisement Service Test
+ *
+ */
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = RealEstateApplication.class)
@@ -94,7 +98,7 @@ public class AdvertismentServiceTest {
 	public void testUpdate() {
 		Advertisment dbAdvertisment = advertismentService.findOne(DB_ID);
 		Date date = new Date();
-		
+
 		dbAdvertisment.setActiveUntil(date);
 		dbAdvertisment.setPurpose(NEW_PURPOSE);
 		dbAdvertisment.setRate(NEW_RATE);

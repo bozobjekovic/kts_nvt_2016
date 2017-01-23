@@ -22,11 +22,15 @@ import tim9.realEstate.RealEstateApplication;
 import tim9.realEstate.model.RealEstate;
 import tim9.realEstate.model.RentRealEstate;
 
+/**
+ * This class represents RentRealEstate Service Test
+ *
+ */
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = RealEstateApplication.class)
 @WebIntegrationTest
-@TestPropertySource(locations="classpath:test.properties")
+@TestPropertySource(locations = "classpath:test.properties")
 public class RentRealEstateServiceTest {
 
 	@Autowired
@@ -57,11 +61,11 @@ public class RentRealEstateServiceTest {
 		RentRealEstate rentRealEstate = new RentRealEstate();
 		rentRealEstate.setRentedFrom(new Date(120120014));
 		rentRealEstate.setRentedTo(new Date(120720014));
-		
+
 		int dbSizeBeforeAdd = rentRealEstateService.findAll().size();
-		
+
 		rentRealEstateService.save(rentRealEstate);
-		
+
 		List<RentRealEstate> list = rentRealEstateService.findAll();
 		assertThat(list).hasSize(dbSizeBeforeAdd + 1);
 	}

@@ -19,16 +19,20 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tim9.realEstate.RealEstateApplication;
 import tim9.realEstate.model.RealEstate;
 
+/**
+ * This class represents RealEstate Service Test
+ *
+ */
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = RealEstateApplication.class)
 @WebIntegrationTest
-@TestPropertySource(locations="classpath:test.properties")
+@TestPropertySource(locations = "classpath:test.properties")
 public class RealEstateServiceTest {
-	
+
 	@Autowired
 	RealEstateService realEstateService;
-	
+
 	/**
 	 * method tests if an certain element from the data base can be found
 	 **/
@@ -36,7 +40,7 @@ public class RealEstateServiceTest {
 	public void testFindOne() {
 		RealEstate dbRealEstate = realEstateService.findOne(DB_ID);
 		assertThat(dbRealEstate).isNotNull();
-		
+
 		assertThat(dbRealEstate.getId()).isEqualTo(DB_ID);
 		assertThat(dbRealEstate.getAddress()).isEqualTo(DB_ADDRESS);
 		assertThat(dbRealEstate.getLandSize()).isEqualTo(DB_LAND_SIZE);
@@ -54,7 +58,7 @@ public class RealEstateServiceTest {
 	 * method test if all of certain elements from the data base can be found
 	 **/
 	@Test
-	public void testFindAll() {	
+	public void testFindAll() {
 		List<RealEstate> realEstates = realEstateService.findAll();
 		assertThat(realEstates).hasSize(DB_COUNT_REAL);
 	}
@@ -91,8 +95,8 @@ public class RealEstateServiceTest {
 	public void testFindByAddressAndCity() {
 		RealEstate realEstate = realEstateService.findOne(DB_ID);
 
-		assertThat(realEstateService.findByAddressAndCity
-				(realEstate.getAddress(), realEstate.getLocation().getCity())).hasSize(DB_CITY_ADDRESS_COUNT);
+		assertThat(realEstateService.findByAddressAndCity(realEstate.getAddress(), realEstate.getLocation().getCity()))
+				.hasSize(DB_CITY_ADDRESS_COUNT);
 	}
 
 	/**
@@ -113,15 +117,15 @@ public class RealEstateServiceTest {
 		realEstate.setBuildYear(NEW_BUILD_YEAR);
 		realEstate.setCategory(NEW_CATEGORY);
 		realEstate.setType(NEW_TYPE);
-		
+
 		int dbSizeBeforeAdd = realEstateService.findAll().size();
-		
+
 		RealEstate dbRealEstate = realEstateService.save(realEstate);
 		assertThat(dbRealEstate).isNotNull();
-		
+
 		List<RealEstate> realEstates = realEstateService.findAll();
 		assertThat(realEstates).hasSize(dbSizeBeforeAdd + 1);
-		
+
 		dbRealEstate = realEstates.get(realEstates.size() - 1);
 		assertThat(dbRealEstate.getAddress()).isEqualTo(NEW_ADDRESS);
 		assertThat(dbRealEstate.getLandSize()).isEqualTo(NEW_LAND_SIZE);
@@ -139,11 +143,11 @@ public class RealEstateServiceTest {
 	 * method tests if a certain element from the data base can be updated
 	 **/
 	@Test
-    @Transactional
-    @Rollback(true)
+	@Transactional
+	@Rollback(true)
 	public void testUpdate() {
 		RealEstate dbRealEstate = realEstateService.findOne(DB_ID);
-		
+
 		dbRealEstate.setAddress(NEW_ADDRESS);
 		dbRealEstate.setLandSize(NEW_LAND_SIZE);
 		dbRealEstate.setTechEquipment(NEW_TEACH_EQUIPMENT);
@@ -154,10 +158,10 @@ public class RealEstateServiceTest {
 		dbRealEstate.setBuildYear(NEW_BUILD_YEAR);
 		dbRealEstate.setCategory(NEW_CATEGORY);
 		dbRealEstate.setType(NEW_TYPE);
-		
+
 		dbRealEstate = realEstateService.save(dbRealEstate);
 		assertThat(dbRealEstate).isNotNull();
-		
+
 		dbRealEstate = realEstateService.findOne(DB_ID);
 
 		assertThat(dbRealEstate.getAddress()).isEqualTo(NEW_ADDRESS);
@@ -181,18 +185,18 @@ public class RealEstateServiceTest {
 	public void testRemove() {
 		int dbSizeBeforeRemove = realEstateService.findAll().size();
 		realEstateService.remove(DB_ID_REFERENCED);
-		
+
 		List<RealEstate> realEstates = realEstateService.findAll();
 		assertThat(realEstates).hasSize(dbSizeBeforeRemove - 1);
-		
+
 		RealEstate dbRealEstate = realEstateService.findOne(DB_ID_REFERENCED);
 		assertThat(dbRealEstate).isNull();
 	}
-	
+
 	/**
-	 * method tests if an certain element can be added into data base
-	 * without field that is required,
-	 * and if can throws an exception
+	 * method tests if an certain element can be added into data base without
+	 * field that is required, and if can throws an exception
+	 * 
 	 * @exception DataIntegrityViolationException
 	 **/
 	@Test(expected = DataIntegrityViolationException.class)
@@ -200,7 +204,7 @@ public class RealEstateServiceTest {
 	@Rollback(true)
 	public void testAddNullAddress() {
 		RealEstate re = new RealEstate();
-		
+
 		re.setLandSize(NEW_LAND_SIZE);
 		re.setTechEquipment(NEW_TEACH_EQUIPMENT);
 		re.setHeatingType(NEW_HEATING_TYPE);
@@ -210,14 +214,14 @@ public class RealEstateServiceTest {
 		re.setBuildYear(NEW_BUILD_YEAR);
 		re.setCategory(NEW_CATEGORY);
 		re.setType(NEW_TYPE);
-		
+
 		realEstateService.save(re);
 	}
-	
+
 	/**
-	 * method tests if an certain element can be added into data base
-	 * without field that is required,
-	 * and if can throws an exception
+	 * method tests if an certain element can be added into data base without
+	 * field that is required, and if can throws an exception
+	 * 
 	 * @exception DataIntegrityViolationException
 	 **/
 	@Test(expected = DataIntegrityViolationException.class)
@@ -225,7 +229,7 @@ public class RealEstateServiceTest {
 	@Rollback(true)
 	public void testAddNullType() {
 		RealEstate re = new RealEstate();
-		
+
 		re.setAddress(NEW_ADDRESS);
 		re.setLandSize(NEW_LAND_SIZE);
 		re.setTechEquipment(NEW_TEACH_EQUIPMENT);
@@ -235,7 +239,7 @@ public class RealEstateServiceTest {
 		re.setNumOfFlors(NEW_NUM_OF_FLORS);
 		re.setBuildYear(NEW_BUILD_YEAR);
 		re.setCategory(NEW_CATEGORY);
-		
+
 		realEstateService.save(re);
 	}
 }
