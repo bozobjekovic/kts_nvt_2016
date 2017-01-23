@@ -1,10 +1,26 @@
 package tim9.realEstate.constants;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 /**
  * Class represents constants of User
  *
  */
 public class UserConstants {
+	
+	private static final Calendar startDateCalendar;
+	private static final Calendar endDateCalendar;
+
+	static {
+	    startDateCalendar = GregorianCalendar.getInstance();
+	    startDateCalendar.clear();
+	    startDateCalendar.set(2017, 2, 2);
+	    endDateCalendar = GregorianCalendar.getInstance();
+	    endDateCalendar.clear();
+	    endDateCalendar.set(2017, 3, 3);
+	}
 
 	public static final String NEW_ADDRESS = "Address";
 	public static final String NEW_CITY = "New York";
@@ -52,6 +68,9 @@ public class UserConstants {
 	public static final String DATE_RENT_FROM_INV = "2015/05/20";
 
 	public static final int DB_CLERK_COUNT = 1;
+	
+	public static final Date DB_START_DATE = startDateCalendar.getTime();   
+	public static final Date DB_END_DATE = endDateCalendar.getTime();
 
 	/**
 	 * Constructor

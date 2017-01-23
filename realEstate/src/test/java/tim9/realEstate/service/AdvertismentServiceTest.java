@@ -60,11 +60,10 @@ public class AdvertismentServiceTest {
 	@Transactional
 	@Rollback(true)
 	public void testInsert() {
+		Date date = new Date();
 		Advertisment advertisment = new Advertisment();
 		advertisment.setName(tim9.realEstate.constants.RealEstateConstants.NEW_NAME);
-		advertisment.setPublicationDate(new Date());
-		advertisment.setModificationDate(new Date());
-		advertisment.setActiveUntil(new Date());
+		advertisment.setPublicationDate(date);
 		advertisment.setPurpose(NEW_PURPOSE);
 		advertisment.setRate(NEW_RATE);
 		advertisment.setNumberOfRates(NEW_NUM_OF_RATES);
@@ -79,9 +78,7 @@ public class AdvertismentServiceTest {
 		assertThat(advertisments).hasSize(dbSizeBeforeAdd + 1);
 		dbAdvertisment = advertisments.get(advertisments.size() - 1);
 		assertThat(dbAdvertisment.getName()).isEqualTo(tim9.realEstate.constants.RealEstateConstants.NEW_NAME);
-		assertThat(dbAdvertisment.getPublicationDate()).isEqualTo(new Date());
-		assertThat(dbAdvertisment.getModificationDate()).isEqualTo(new Date());
-		assertThat(dbAdvertisment.getActiveUntil()).isEqualTo(new Date());
+		assertThat(dbAdvertisment.getPublicationDate()).isEqualTo(date);
 		assertThat(dbAdvertisment.getPurpose()).isEqualTo(NEW_PURPOSE);
 		assertThat(dbAdvertisment.getRate()).isEqualTo(NEW_RATE);
 		assertThat(dbAdvertisment.getNumberOfRates()).isEqualTo(NEW_NUM_OF_RATES);
@@ -96,8 +93,9 @@ public class AdvertismentServiceTest {
 	@Rollback(true)
 	public void testUpdate() {
 		Advertisment dbAdvertisment = advertismentService.findOne(DB_ID);
-
-		dbAdvertisment.setActiveUntil(new Date());
+		Date date = new Date();
+		
+		dbAdvertisment.setActiveUntil(date);
 		dbAdvertisment.setPurpose(NEW_PURPOSE);
 		dbAdvertisment.setRate(NEW_RATE);
 
@@ -105,7 +103,7 @@ public class AdvertismentServiceTest {
 		assertThat(dbAdvertisment).isNotNull();
 
 		dbAdvertisment = advertismentService.findOne(DB_ID);
-		assertThat(dbAdvertisment.getActiveUntil()).isEqualTo(new Date());
+		assertThat(dbAdvertisment.getActiveUntil()).isEqualTo(date);
 		assertThat(dbAdvertisment.getPurpose()).isEqualTo(NEW_PURPOSE);
 		assertThat(dbAdvertisment.getRate()).isEqualTo(NEW_RATE);
 	}

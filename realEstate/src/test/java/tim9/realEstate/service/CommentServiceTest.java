@@ -77,8 +77,9 @@ public class CommentServiceTest {
 	@Transactional
 	@Rollback(true)
 	public void testSave() {
+		Date date = new Date();
 		Comment comment = new Comment();
-		comment.setDate(new Date());
+		comment.setDate(date);
 		comment.setDescription(NEW_DESCRIPTION);
 
 		int dbSizeBeforeAdd = commentService.findAll().size();
@@ -90,7 +91,7 @@ public class CommentServiceTest {
 		assertThat(comments).hasSize(dbSizeBeforeAdd + 1);
 
 		dbComment = comments.get(comments.size() - 1);
-		assertThat(dbComment.getDate()).isEqualTo(new Date());
+		assertThat(dbComment.getDate()).isEqualTo(date);
 		assertThat(dbComment.getDescription()).isEqualTo(NEW_DESCRIPTION);
 	}
 

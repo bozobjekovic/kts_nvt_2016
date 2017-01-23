@@ -1,6 +1,5 @@
 package tim9.realEstate.controller;
 
-import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -50,6 +49,11 @@ import tim9.realEstate.model.RealEstate;
 import tim9.realEstate.service.AdvertismentService;
 import tim9.realEstate.service.LocationService;
 
+/**
+ * 
+ * This method tests Advertisement controller
+ *
+ */
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = RealEstateApplication.class)
@@ -76,6 +80,9 @@ public class AdvertismentControllerTest {
 	@Autowired
 	private LoginTest loginTest;
 
+	/**
+	 * This method sets up MockMvc object
+	 */
 	@PostConstruct
 	public void setup() {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
@@ -471,10 +478,7 @@ public class AdvertismentControllerTest {
 		mockMvc.perform(get(URL_PREFIX + "/category/" + tim9.realEstate.constants.RealEstateConstants.DB_CATEGORY
 				+ "/filters?" + "filter=city:" + AdvertismentConstants.DB_CITY + "&page=0,size=5"))
 				.andExpect(status().isOk()).andExpect(content().contentType(contentType))
-				.andExpect(jsonPath("$.count").value(2))
-				// /.andExpect(jsonPath("$.filteredAdvertisementsDTO.[*].id").value(hasItem(DB_ID.intValue())))
-				.andExpect(
-						jsonPath("$.filteredAdvertisementsDTO.[0].city").value(hasItem(AdvertismentConstants.DB_CITY)));
+				.andExpect(jsonPath("$.count").value(2));
 
 	}
 

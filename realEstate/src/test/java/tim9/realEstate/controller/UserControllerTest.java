@@ -10,21 +10,18 @@ import static tim9.realEstate.constants.AdminConstants.DB_NONEXISTING_ID;
 import static tim9.realEstate.constants.RealEstateConstants.DB_ID_SOLD;
 import static tim9.realEstate.constants.RealEstateConstants.DB_ID_TO_RENT;
 import static tim9.realEstate.constants.UserConstants.DATE_RENT_FROM;
-import static tim9.realEstate.constants.UserConstants.DATE_RENT_FROM_INV;
 import static tim9.realEstate.constants.UserConstants.DATE_RENT_FROM_INVALID;
 import static tim9.realEstate.constants.UserConstants.DATE_RENT_TO;
+import static tim9.realEstate.constants.UserConstants.DB_END_DATE;
 import static tim9.realEstate.constants.UserConstants.DB_ID;
 import static tim9.realEstate.constants.UserConstants.DB_ID_COMPANY;
+import static tim9.realEstate.constants.UserConstants.DB_START_DATE;
 
 import java.nio.charset.Charset;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +40,11 @@ import tim9.realEstate.RealEstateApplication;
 import tim9.realEstate.constants.AdvertismentConstants;
 import tim9.realEstate.constants.CompanyConstants;
 
+/**
+ * 
+ * This method tests Advertisement controller
+ *
+ */
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = RealEstateApplication.class)
@@ -63,6 +65,9 @@ public class UserControllerTest {
 	@Autowired
 	private LoginTest loginTest;
 
+	/**
+	 * This method sets up MockMvc object
+	 */
 	@PostConstruct
 	public void setup() {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
@@ -126,7 +131,7 @@ public class UserControllerTest {
 				.andExpect(jsonPath("$.[0].image").value(AdvertismentConstants.DB_IMAGE))
 				.andExpect(jsonPath("$.[0].type").value(tim9.realEstate.constants.RealEstateConstants.DB_TYPE));
 	}
-	
+
 	/**
 	 * This method should return all users publications from the database
 	 * without path variable. Expected: method get, status NOT FOUND, specified
@@ -138,11 +143,11 @@ public class UserControllerTest {
 	public void testGetAllPublicationsNull() throws Exception {
 		this.mockMvc.perform(get(URL_PREFIX + "/published/")).andExpect(status().isNotFound());
 	}
-	
+
 	/**
-	 * This method should return all users publications from the database
-	 * with path variable but non existing. Expected: method get, status NOT FOUND, specified
-	 * size and content
+	 * This method should return all users publications from the database with
+	 * path variable but non existing. Expected: method get, status NOT FOUND,
+	 * specified size and content
 	 * 
 	 * @throws Exception
 	 **/
@@ -150,10 +155,11 @@ public class UserControllerTest {
 	public void testGetAllPublicationsInvalid() throws Exception {
 		this.mockMvc.perform(get(URL_PREFIX + "/published/" + DB_NONEXISTING_ID)).andExpect(status().isNotFound());
 	}
-	
+
 	/**
-	 * This method should return all users publications that matches specified status from the database.
-	 * Expected: method get, status OK, specified size and content
+	 * This method should return all users publications that matches specified
+	 * status from the database. Expected: method get, status OK, specified size
+	 * and content
 	 * 
 	 * @throws Exception
 	 **/
@@ -169,11 +175,11 @@ public class UserControllerTest {
 				.andExpect(jsonPath("$.[0].image").value(AdvertismentConstants.DB_IMAGE))
 				.andExpect(jsonPath("$.[0].type").value(tim9.realEstate.constants.RealEstateConstants.DB_TYPE));
 	}
-	
+
 	/**
-	 * This method should return all users publications that matches specified status from the database
-	 * without path variable. Expected: method get, status NOT FOUND, specified
-	 * size and content
+	 * This method should return all users publications that matches specified
+	 * status from the database without path variable. Expected: method get,
+	 * status NOT FOUND, specified size and content
 	 * 
 	 * @throws Exception
 	 **/
@@ -181,22 +187,23 @@ public class UserControllerTest {
 	public void testGetAllPublicationsByStatusNull() throws Exception {
 		this.mockMvc.perform(get(URL_PREFIX + "/published/Active/user/")).andExpect(status().isNotFound());
 	}
-	
+
 	/**
-	 * This method should return all users publications from the database
-	 * with path variable but non existing. Expected: method get, status NOT FOUND, specified
-	 * size and content
+	 * This method should return all users publications from the database with
+	 * path variable but non existing. Expected: method get, status NOT FOUND,
+	 * specified size and content
 	 * 
 	 * @throws Exception
 	 **/
 	@Test
 	public void testGetAllPublicationsByStatusInvalid() throws Exception {
-		this.mockMvc.perform(get(URL_PREFIX + "/published/Active/user" + DB_NONEXISTING_ID)).andExpect(status().isNotFound());
+		this.mockMvc.perform(get(URL_PREFIX + "/published/Active/user" + DB_NONEXISTING_ID))
+				.andExpect(status().isNotFound());
 	}
-	
+
 	/**
-	 * This method should return users company from the database.
-	 * Expected: method get, status OK, specified size and content
+	 * This method should return users company from the database. Expected:
+	 * method get, status OK, specified size and content
 	 * 
 	 * @throws Exception
 	 **/
@@ -207,10 +214,10 @@ public class UserControllerTest {
 				.andExpect(jsonPath("$.id").value(CompanyConstants.DB_ID.intValue()))
 				.andExpect(jsonPath("$.name").value(CompanyConstants.DB_NAME));
 	}
-	
+
 	/**
-	 * This method should return users company from the database.
-	 * Expected: method get, status NOT FOUND, specified size and content
+	 * This method should return users company from the database. Expected:
+	 * method get, status NOT FOUND, specified size and content
 	 * 
 	 * @throws Exception
 	 **/
@@ -218,10 +225,10 @@ public class UserControllerTest {
 	public void testGetUsersCompanyNull() throws Exception {
 		this.mockMvc.perform(get(URL_PREFIX + "/company/")).andExpect(status().isNotFound());
 	}
-	
+
 	/**
-	 * This method should return users company from the database.
-	 * Expected: method get, status NOT FOUND, specified size and content
+	 * This method should return users company from the database. Expected:
+	 * method get, status NOT FOUND, specified size and content
 	 * 
 	 * @throws Exception
 	 **/
@@ -335,14 +342,8 @@ public class UserControllerTest {
 	@Transactional
 	@Rollback(true)
 	public void testRentRealestate() throws Exception {
-		Calendar c = GregorianCalendar.getInstance();
-		c.clear();
-		c.set(2017, 2, 2);
-		Calendar c2 = GregorianCalendar.getInstance();
-		c2.clear();
-		c2.set(2017, 3, 3);
 		this.mockMvc
-				.perform(put(URL_PREFIX + "/rent/" + DB_ID_TO_RENT + "/from/" + c.getTime() + "/to/" + c2.getTime())
+				.perform(put(URL_PREFIX + "/rent/" + DB_ID_TO_RENT + "/from/" + DB_START_DATE + "/to/" + DB_END_DATE)
 						.contentType(contentType))
 				.andExpect(status().isOk());
 	}
@@ -356,7 +357,6 @@ public class UserControllerTest {
 	 **/
 	@Test
 	@Transactional
-	@Ignore
 	@Rollback(true)
 	public void testRentRealestateNullParam() throws Exception {
 		this.mockMvc.perform(put(URL_PREFIX + "/rent").contentType(contentType)).andExpect(status().isBadRequest());
@@ -371,7 +371,6 @@ public class UserControllerTest {
 	 **/
 	@Test
 	@Transactional
-	@Ignore
 	@Rollback(true)
 	public void testRentRealestateInvalid() throws Exception {
 		this.mockMvc.perform(put(URL_PREFIX + "/rent?id=" + DB_NONEXISTING_ID + "&rentDateFrom=" + DATE_RENT_FROM
@@ -386,12 +385,11 @@ public class UserControllerTest {
 	 * @throws Exception
 	 **/
 	@Test
-	@Ignore
 	@Transactional
 	@Rollback(true)
 	public void testRentRealestateSold() throws Exception {
-		this.mockMvc.perform(put(URL_PREFIX + "/rent?id=" + DB_ID_SOLD + "&rentDateFrom=" + DATE_RENT_FROM
-				+ "&rentDateTo=" + DATE_RENT_TO).contentType(contentType)).andExpect(status().isBadRequest());
+		this.mockMvc.perform(put(URL_PREFIX + "/rent/{id}" , DB_ID_SOLD + "/from/{rentDateFrom}" , DATE_RENT_FROM
+				+ "/to/{rentDateTo}" , DATE_RENT_TO).contentType(contentType)).andExpect(status().isBadRequest());
 	}
 
 	/**
@@ -402,7 +400,6 @@ public class UserControllerTest {
 	 * @throws Exception
 	 **/
 	@Test
-	@Ignore
 	@Transactional
 	@Rollback(true)
 	public void testRentRealestateInvalidDate() throws Exception {
@@ -421,7 +418,6 @@ public class UserControllerTest {
 	 **/
 	@Test
 	@Transactional
-	@Ignore
 	@Rollback(true)
 	public void testRentRealestateInvalidDates() throws Exception {
 		this.mockMvc
@@ -429,8 +425,8 @@ public class UserControllerTest {
 						.contentType(contentType))
 				.andExpect(status().isBadRequest());
 
-		this.mockMvc.perform(
-				put(URL_PREFIX + "/rent/" + DB_ID_TO_RENT + "/from/" + DATE_RENT_FROM_INV + "/to/" + DATE_RENT_TO)
+		this.mockMvc
+				.perform(put(URL_PREFIX + "/rent/" + DB_ID_TO_RENT + "/from/" + DATE_RENT_TO + "/to/" + DATE_RENT_TO)
 						.contentType(contentType))
 				.andExpect(status().isBadRequest());
 	}
