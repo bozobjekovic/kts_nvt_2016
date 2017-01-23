@@ -18,6 +18,8 @@ import static tim9.realEstate.constants.UserConstants.DB_ID_COMPANY;
 import static tim9.realEstate.constants.UserConstants.DB_START_DATE;
 
 import java.nio.charset.Charset;
+import java.text.DateFormat;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
@@ -42,7 +44,7 @@ import tim9.realEstate.constants.CompanyConstants;
 
 /**
  * 
- * This method tests Advertisement controller
+ * This class tests User controller
  *
  */
 @SuppressWarnings("deprecation")
@@ -342,6 +344,8 @@ public class UserControllerTest {
 	@Transactional
 	@Rollback(true)
 	public void testRentRealestate() throws Exception {
+		
+		//Date date = DateFormat.getInstance().parse ("04/04/2017");
 		this.mockMvc
 				.perform(put(URL_PREFIX + "/rent/" + DB_ID_TO_RENT + "/from/" + DB_START_DATE + "/to/" + DB_END_DATE)
 						.contentType(contentType))
@@ -373,8 +377,8 @@ public class UserControllerTest {
 	@Transactional
 	@Rollback(true)
 	public void testRentRealestateInvalid() throws Exception {
-		this.mockMvc.perform(put(URL_PREFIX + "/rent?id=" + DB_NONEXISTING_ID + "&rentDateFrom=" + DATE_RENT_FROM
-				+ "&rentDateTo=" + DATE_RENT_TO).contentType(contentType)).andExpect(status().isNotFound());
+		this.mockMvc.perform(put(URL_PREFIX + "/rent/" + DB_NONEXISTING_ID + "/from/" + DB_START_DATE
+				+ "/to/" + DB_END_DATE).contentType(contentType)).andExpect(status().isNotFound());
 	}
 
 	/**
@@ -388,8 +392,8 @@ public class UserControllerTest {
 	@Transactional
 	@Rollback(true)
 	public void testRentRealestateSold() throws Exception {
-		this.mockMvc.perform(put(URL_PREFIX + "/rent/{id}" , DB_ID_SOLD + "/from/{rentDateFrom}" , DATE_RENT_FROM
-				+ "/to/{rentDateTo}" , DATE_RENT_TO).contentType(contentType)).andExpect(status().isBadRequest());
+		this.mockMvc.perform(put(URL_PREFIX + "/rent/" + DB_ID_SOLD + "/from/" + DB_START_DATE
+				+ "/to/" + DB_END_DATE).contentType(contentType)).andExpect(status().isBadRequest());
 	}
 
 	/**
@@ -404,7 +408,7 @@ public class UserControllerTest {
 	@Rollback(true)
 	public void testRentRealestateInvalidDate() throws Exception {
 		this.mockMvc.perform(
-				put(URL_PREFIX + "/rent/" + DB_ID_TO_RENT + "/from/" + DATE_RENT_FROM_INVALID + "/to/" + DATE_RENT_TO)
+				put(URL_PREFIX + "/rent/" + DB_ID_TO_RENT + "/from/" + DATE_RENT_FROM_INVALID + "/to/" + DB_END_DATE)
 						.contentType(contentType))
 				.andExpect(status().isBadRequest());
 	}

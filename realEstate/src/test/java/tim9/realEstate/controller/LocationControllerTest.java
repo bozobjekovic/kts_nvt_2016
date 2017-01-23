@@ -26,6 +26,11 @@ import org.springframework.web.context.WebApplicationContext;
 import tim9.realEstate.RealEstateApplication;
 import tim9.realEstate.constants.LocationConstants;
 
+/**
+ * 
+ * This class tests Location controller
+ *
+ */
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = RealEstateApplication.class)
@@ -43,6 +48,9 @@ public class LocationControllerTest {
 	@Autowired
 	private WebApplicationContext webApplicationContext;
 
+	/**
+	 * This method sets up MockMvc object
+	 */
 	@PostConstruct
 	public void setup() {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();

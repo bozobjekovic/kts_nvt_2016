@@ -38,6 +38,11 @@ import tim9.realEstate.TestUtil;
 import tim9.realEstate.dto.CommentDTO;
 import tim9.realEstate.service.AdvertismentService;
 
+/**
+ * 
+ * This class tests Comment controller
+ *
+ */
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = RealEstateApplication.class)
@@ -61,6 +66,9 @@ public class CommentControllerTest {
 	@Autowired
 	private WebApplicationContext webApplicationContext;
 
+	/**
+	 * This method sets up MockMvc object
+	 */
 	@PostConstruct
 	public void setup() {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();

@@ -9,7 +9,6 @@ import java.nio.charset.Charset;
 
 import javax.annotation.PostConstruct;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +28,11 @@ import tim9.realEstate.RealEstateApplication;
 import tim9.realEstate.TestUtil;
 import tim9.realEstate.dto.InappropriateDTO;
 
+/**
+ * 
+ * This class tests Inappropriate controller
+ *
+ */
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = RealEstateApplication.class)
@@ -49,9 +53,19 @@ public class InappropriateControllerTest {
 	@Autowired
 	private LoginTest loginTest;
 
+	private String token;
+
+	/**
+	 * This method sets up MockMvc object
+	 */
 	@PostConstruct
 	public void setup() {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+	}
+
+	public String getToken() {
+		return loginTest.login(tim9.realEstate.constants.UserConstants.DB_USERNAME,
+				tim9.realEstate.constants.UserConstants.DB_PASSWORD);
 	}
 
 	/**
@@ -60,21 +74,24 @@ public class InappropriateControllerTest {
 	 **/
 	@Test
 	@Transactional
-	@Ignore
 	@Rollback(true)
 	public void testSaveInappropriate() throws Exception {
 		InappropriateDTO inappropriate = new InappropriateDTO();
 		inappropriate.setTitle(NEW_TITLE);
 		inappropriate.setDescription(NEW_DESCRIPTION);
 
-		String token = loginTest.login(tim9.realEstate.constants.UserConstants.DB_USERNAME,
-				tim9.realEstate.constants.UserConstants.DB_PASSWORD);
+		token = getToken();
 
 		String json = TestUtil.json(inappropriate);
 		this.mockMvc
-				.perform(post(URL_PREFIX + tim9.realEstate.constants.AdvertismentConstants.DB_ID + "/new/")
+				.perform(post(URL_PREFIX + "/" + tim9.realEstate.constants.AdvertismentConstants.DB_ID + "/new")
 						.header("X-Auth-Token", token).contentType(contentType).content(json))
 				.andExpect(status().isCreated());
+
+		this.mockMvc
+				.perform(post(URL_PREFIX + "/" + tim9.realEstate.constants.AdvertismentConstants.DB_ID + "/new")
+						.header("X-Auth-Token", token).contentType(contentType).content(json))
+				.andExpect(status().isConflict());
 	}
 
 	/**
@@ -83,15 +100,18 @@ public class InappropriateControllerTest {
 	 **/
 	@Test
 	@Transactional
-	@Ignore
 	@Rollback(true)
 	public void testSaveInappropriateNoDescriptionWithParam() throws Exception {
 		InappropriateDTO inappropriate = new InappropriateDTO();
 		inappropriate.setTitle(NEW_TITLE);
 
+		token = getToken();
+
 		String json = TestUtil.json(inappropriate);
-		this.mockMvc.perform(post(URL_PREFIX + tim9.realEstate.constants.AdvertismentConstants.DB_ID + "/new")
-				.contentType(contentType).content(json)).andExpect(status().isBadRequest());
+		this.mockMvc
+				.perform(post(URL_PREFIX + "/" + tim9.realEstate.constants.AdvertismentConstants.DB_ID + "/new")
+						.contentType(contentType).content(json).header("X-Auth-Token", token))
+				.andExpect(status().isBadRequest());
 	}
 
 	/**
@@ -100,14 +120,15 @@ public class InappropriateControllerTest {
 	 **/
 	@Test
 	@Transactional
-	@Ignore
 	@Rollback(true)
 	public void testSaveInappropriateNoDescriptionNoParam() throws Exception {
 		InappropriateDTO inappropriate = new InappropriateDTO();
 
+		token = getToken();
+
 		String json = TestUtil.json(inappropriate);
-		this.mockMvc.perform(post(URL_PREFIX).contentType(contentType).content(json))
-				.andExpect(status().isBadRequest());
+		this.mockMvc.perform(post(URL_PREFIX).contentType(contentType).content(json).header("X-Auth-Token", token))
+				.andExpect(status().isNotFound());
 	}
 
 	/**
@@ -122,10 +143,13 @@ public class InappropriateControllerTest {
 		inappropriate.setTitle(NEW_TITLE);
 		inappropriate.setDescription(NEW_DESCRIPTION);
 
+		token = getToken();
+
 		String json = TestUtil.json(inappropriate);
 		this.mockMvc
-				.perform(post(URL_PREFIX + tim9.realEstate.constants.AdvertismentConstants.DB_NONEXISTING_ID + "/new")
-						.contentType(contentType).content(json))
+				.perform(post(
+						URL_PREFIX + "/" + tim9.realEstate.constants.AdvertismentConstants.DB_NONEXISTING_ID + "/new")
+								.header("X-Auth-Token", token).contentType(contentType).content(json))
 				.andExpect(status().isNotFound());
 	}
 }

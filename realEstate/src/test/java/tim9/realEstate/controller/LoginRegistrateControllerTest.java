@@ -47,6 +47,11 @@ import tim9.realEstate.security.TokenUtils;
 import tim9.realEstate.service.AuthorityService;
 import tim9.realEstate.service.UserService;
 
+/**
+ * 
+ * This class tests Login and Registrate controller
+ *
+ */
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = RealEstateApplication.class)
@@ -82,6 +87,9 @@ public class LoginRegistrateControllerTest {
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 
+	/**
+	 * This method sets up MockMvc object
+	 */
 	@PostConstruct
 	public void setup() {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();

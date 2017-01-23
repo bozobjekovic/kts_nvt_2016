@@ -16,10 +16,10 @@ public class UserConstants {
 	static {
 	    startDateCalendar = GregorianCalendar.getInstance();
 	    startDateCalendar.clear();
-	    startDateCalendar.set(2017, 2, 2);
+	    startDateCalendar.set(2017, 03, 03);
 	    endDateCalendar = GregorianCalendar.getInstance();
 	    endDateCalendar.clear();
-	    endDateCalendar.set(2017, 3, 3);
+	    endDateCalendar.set(2017, 04, 04);
 	}
 
 	public static final String NEW_ADDRESS = "Address";

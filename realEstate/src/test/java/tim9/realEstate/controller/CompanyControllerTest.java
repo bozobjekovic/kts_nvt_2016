@@ -39,6 +39,11 @@ import tim9.realEstate.dto.LocationDTO;
 import tim9.realEstate.model.Location;
 import tim9.realEstate.service.LocationService;
 
+/**
+ * 
+ * This class tests Company controller
+ *
+ */
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = RealEstateApplication.class)
@@ -59,6 +64,9 @@ public class CompanyControllerTest {
 	@Autowired
 	LocationService locationService;
 
+	/**
+	 * This method sets up MockMvc object
+	 */
 	@PostConstruct
 	public void setup() {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();

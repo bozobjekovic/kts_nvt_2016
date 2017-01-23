@@ -35,6 +35,11 @@ import org.springframework.web.context.WebApplicationContext;
 import tim9.realEstate.LoginTest;
 import tim9.realEstate.RealEstateApplication;
 
+/**
+ * 
+ * This class tests Verifier controller
+ *
+ */
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = RealEstateApplication.class)
@@ -55,6 +60,9 @@ public class VerifierControllerTest {
 	@Autowired
 	LoginTest loginTest;
 
+	/**
+	 * This method sets up MockMvc object
+	 */
 	@PostConstruct
 	public void setup() {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();

@@ -51,7 +51,7 @@ import tim9.realEstate.service.LocationService;
 
 /**
  * 
- * This method tests Advertisement controller
+ * This class tests Advertisement controller
  *
  */
 @SuppressWarnings("deprecation")
