@@ -1,4 +1,4 @@
-package tim9.Selenium;
+package tim9.Selenium.profileAdmin;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
@@ -12,9 +12,12 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import tim9.Selenium.MainPage;
+import tim9.Selenium.ProfileAdminPage;
+import tim9.Selenium.ProfileAdminRegisterVerifierPage;
 import tim9.Selenium.login.LoginPage;
 
-public class ProfileAdminPageTest {
+public class TestRegisterVerifier {
 
 	private WebDriver browser;
 	MainPage mainPage;
@@ -48,7 +51,8 @@ public class ProfileAdminPageTest {
 		loginPage.setInputUsername("admin");
 		loginPage.setInputPassword("a");
 		loginPage.getOKButton().click();
-		
+
+		mainPage.ensureLoginIsClosed();
 		mainPage.ensureIsDisplayed();
 		mainPage.getProfileLink().click();
 		assertEquals("http://localhost:8080/#/profileAdmin", browser.getCurrentUrl());
@@ -57,12 +61,12 @@ public class ProfileAdminPageTest {
 	@Test
 	public void testRegisterVerifier() {
 		login();
-		
+
+		mainPage.ensureLoginIsClosed();
 		assertTrue(profileAdminPage.getRegisterVerifierButton().isDisplayed());
 		profileAdminPage.getRegisterVerifierButton().click();
 		
 		profileAdminRegisterVerifierPage.ensureIsDisplayed();
-		
 		assertTrue(profileAdminRegisterVerifierPage.getEmail().isDisplayed());
 		assertTrue(profileAdminRegisterVerifierPage.getUsername().isDisplayed());
 		assertTrue(profileAdminRegisterVerifierPage.getVerPassword().isDisplayed());
@@ -73,38 +77,17 @@ public class ProfileAdminPageTest {
 		profileAdminRegisterVerifierPage.setUsername("m");
 		profileAdminRegisterVerifierPage.setVerPassword("m");
 		profileAdminRegisterVerifierPage.getOkButton().click();
-
+		
+/*		ODRADITI ZA NOTIFIKACIJU
 		profileAdminRegisterVerifierPage.setEmail("verifier2@gmail.com");
 		profileAdminRegisterVerifierPage.setUsername("Verifier2");
 		profileAdminRegisterVerifierPage.setVerPassword("v");
-		profileAdminRegisterVerifierPage.getOkButton().click();
-		
+		profileAdminRegisterVerifierPage.getOkButton().click();*/
+
 		profileAdminRegisterVerifierPage.setEmail("majamiljic2@gmail.com");
 		profileAdminRegisterVerifierPage.setUsername("majami");
 		profileAdminRegisterVerifierPage.setVerPassword("m");
 		profileAdminRegisterVerifierPage.getOkButton().click();
-	}
-
-	@Test
-	public void testAcceptClerk() {
-		login();
-		
-		profileAdminPage.ensureCanAccept();
-		
-		int noOfClerkRequests = profileAdminPage.getClerkRequestListSize();
-		profileAdminPage.getAcceptButton().click();
-		profileAdminPage.ensureIsRemoved(noOfClerkRequests);
-	}
-
-	@Test
-	public void testRejectClerk() {
-		login();
-		
-		profileAdminPage.ensureCanAccept();
-		
-		int noOfClerkRequests = profileAdminPage.getClerkRequestListSize();
-		profileAdminPage.getRejectButton().click();
-		profileAdminPage.ensureIsRemoved(noOfClerkRequests);
 	}
 	
 	@AfterMethod

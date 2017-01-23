@@ -1,4 +1,4 @@
-package tim9.Selenium;
+package tim9.Selenium.profileClerk;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
@@ -12,15 +12,16 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import tim9.Selenium.MainPage;
+import tim9.Selenium.ProfileClerkPage;
 import tim9.Selenium.login.LoginPage;
 
-public class ProfileUserPageTest {
+public class TestAcceptUserRequest {
 
 	private WebDriver browser;
 	MainPage mainPage;
-	ProfileUserPage profileUserPage;
-	LoginPage loginPage;
 	ProfileClerkPage profileClerkPage;
+	LoginPage loginPage;
 	
 	@BeforeMethod
 	public void setupSelenium() {
@@ -31,9 +32,8 @@ public class ProfileUserPageTest {
 		browser.navigate().to("http://localhost:8080");
 
 		mainPage = PageFactory.initElements(browser, MainPage.class);
-		profileUserPage = PageFactory.initElements(browser, ProfileUserPage.class);
-		loginPage = PageFactory.initElements(browser, LoginPage.class);
 		profileClerkPage = PageFactory.initElements(browser, ProfileClerkPage.class);
+		loginPage = PageFactory.initElements(browser, LoginPage.class);
 	}
 	
 	public void login() {
@@ -44,50 +44,27 @@ public class ProfileUserPageTest {
 		assertTrue(loginPage.getInputUsername().isDisplayed());
 		assertTrue(loginPage.getInputPassword().isDisplayed());
 		assertTrue(loginPage.getOKButton().isDisplayed());
+		
+		loginPage.setInputUsername("clerk2");
+		loginPage.setInputPassword("c");
+		loginPage.getOKButton().click();
+
+		mainPage.ensureLoginIsClosed();
+		mainPage.ensureIsDisplayed();
+		mainPage.getProfileLink().click();
+		assertEquals("http://localhost:8080/#/profileClerk", browser.getCurrentUrl());
 	}
 	
 	@Test
-	public void testAskToJoin() {
+	public void testAcceptUserRequest() {
 		login();
-		loginPage.setInputUsername("clerk");
-		loginPage.setInputPassword("c");
-		loginPage.getOKButton().click();
 		
-		mainPage.ensureLoginIsClosed();
-		mainPage.getProfileLink().click();
-		assertEquals("http://localhost:8080/#/profileClerk", browser.getCurrentUrl());
-		
-		int noUserRequests = profileClerkPage.getUserRequestsListSize();
-		
-		mainPage.ensureLoginIsClosed();
-		mainPage.getLogOutLink().click();
-		
-		login();
-		loginPage.setInputUsername("user");
-		loginPage.setInputPassword("u");
-		loginPage.getOKButton().click();
+		profileClerkPage.ensureCanAccept();
 
-		mainPage.ensureLoginIsClosed();
-		mainPage.getProfileLink().click();
-		assertEquals("http://localhost:8080/#/profile", browser.getCurrentUrl());
-
-		mainPage.ensureLoginIsClosed();
-		profileUserPage.ensureCanAskToJoin();
-		profileUserPage.getAskToJoinButton().click();
+		int noOfUserRequests = profileClerkPage.getUserRequestsListSize();
 		
-		mainPage.getLogOutLink().click();
-		
-		login();
-		loginPage.setInputUsername("clerk");
-		loginPage.setInputPassword("c");
-		loginPage.getOKButton().click();
-
-		mainPage.ensureLoginIsClosed();
-		mainPage.getProfileLink().click();
-		assertEquals("http://localhost:8080/#/profileClerk", browser.getCurrentUrl());
-		
-		assertEquals(profileClerkPage.getUserRequestsListSize(), noUserRequests+1);
-		mainPage.ensureLoginIsClosed();
+		profileClerkPage.getAcceptButton().click();
+		profileClerkPage.ensureIsRejected(noOfUserRequests);
 	}
 	
 	@AfterMethod
