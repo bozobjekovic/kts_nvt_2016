@@ -27,7 +27,11 @@ public class BuyPage {
 	@FindBy(xpath = "(//input[@ng-model='cityFilter[city]'])[2]")
 	private WebElement otherCityLink;
 	
+	@FindBy(xpath = "(//input[@ng-model='partFilter[part]'])[1]")
 	private WebElement partOfTheCityLink;
+	
+	@FindBy(xpath = "(//input[@ng-model='partFilter[part]'])[2]")
+	private WebElement otherPartOfTheCityLink;
 
 	@FindBy(xpath = "//a[@ng-click='priceCollapsed=!priceCollapsed']")
 	private WebElement priceColapse;
@@ -37,6 +41,18 @@ public class BuyPage {
 	
 	@FindBy(xpath = "//input[@ng-model='filterForm.priceFrom']")
 	private WebElement priceFrom;
+	
+	@FindBy(xpath = "//a[@ng-click='heatingTypeCollapsed=!heatingTypeCollapsed']")
+	private WebElement heatingColapse;
+
+	@FindBy(xpath = "//input[@ng-model=\"heatingType['Radiant']\"]")
+	private WebElement heatingType;
+	
+	@FindBy(xpath = "//a[@ng-click='numOfFloorsCollapsed=!numOfFloorsCollapsed']")
+	private WebElement floorsColapse;
+
+	@FindBy(xpath = "//input[@ng-model='filterForm.floorsFrom']")
+	private WebElement floorsFrom;
 	
 	@FindBy(id = "priceBtn")
 	private WebElement priceFilter;
@@ -52,6 +68,9 @@ public class BuyPage {
 	
 	@FindBy(id = "landBtn")
 	private WebElement landFilter;
+	
+	@FindBy(id = "floorsBtn")
+	private WebElement fllorsFilter;
 
 	public WebElement getPriceTo() {
 		return priceTo;
@@ -109,6 +128,10 @@ public class BuyPage {
 		return partOfTheCityLink;
 	}
 
+	public WebElement getOtherPartOfTheCityLink() {
+		return otherPartOfTheCityLink;
+	}
+
 	public WebElement getPriceColapse() {
 		return priceColapse;
 	}
@@ -127,6 +150,32 @@ public class BuyPage {
 
 	public WebElement getOtherCityLink() {
 		return otherCityLink;
+	}
+
+	public WebElement getHeatingColapse() {
+		return heatingColapse;
+	}
+
+	public WebElement getHeatingType() {
+		return heatingType;
+	}
+
+	public WebElement getFloorsFrom() {
+		return floorsFrom;
+	}
+
+	public void setFloorsFrom(String floorsFrom) {
+		WebElement el = getFloorsFrom();
+		el.clear();
+		el.sendKeys(floorsFrom);
+	}
+
+	public WebElement getFloorsColapse() {
+		return floorsColapse;
+	}
+
+	public WebElement getFllorsFilter() {
+		return fllorsFilter;
 	}
 
 	public void ensureIsDisplayed() {

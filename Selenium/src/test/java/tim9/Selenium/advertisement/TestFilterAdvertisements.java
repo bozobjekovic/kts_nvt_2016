@@ -51,13 +51,39 @@ public class TestFilterAdvertisements {
 		
 		buyPage.getPriceColapse().click();
 		buyPage.setPriceFrom("33");
-		buyPage.setPriceTo("500000");
-		
+		buyPage.setPriceTo("5000000");
 		buyPage.getPriceFilter().click();
+		buyPage.ensureIsDisplayed();
+		assertEquals(buyPage.getFilterSize(), 2);
 		
 		buyPage.getLandSizeColapse().click();
 		buyPage.setLandSizeFrom("50");
-		buyPage.setLandSizeTo("450");
+		buyPage.setLandSizeTo("480");
+		buyPage.getLandFilter().click();
+		buyPage.ensureIsDisplayed();
+		assertEquals(buyPage.getFilterSize(), 2);
+		
+		buyPage.getPartOfTheCityLink().click();
+		buyPage.ensureIsDisplayed();
+		assertEquals(buyPage.getFilterSize(), 2);
+		
+		buyPage.getOtherPartOfTheCityLink().click();
+		buyPage.ensureIsDisplayed();
+		assertEquals(buyPage.getFilterSize(), 2);
+		
+		buyPage.getHeatingColapse().click();
+		buyPage.getHeatingType().click();
+		buyPage.ensureIsDisplayed();
+		assertEquals(buyPage.getFilterSize(), 0);
+		buyPage.getHeatingType().click();
+		buyPage.ensureIsDisplayed();
+		assertEquals(buyPage.getFilterSize(), 2);
+		
+		buyPage.getFloorsColapse().click();
+		buyPage.setFloorsFrom("6");
+		buyPage.getFllorsFilter().click();
+		buyPage.ensureIsDisplayed();
+		assertEquals(buyPage.getFilterSize(), 0);
 		
 		buyPage.getLandFilter().click();
 		

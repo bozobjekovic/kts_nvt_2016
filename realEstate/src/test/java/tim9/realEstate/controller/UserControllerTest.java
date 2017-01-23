@@ -9,11 +9,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static tim9.realEstate.constants.AdminConstants.DB_NONEXISTING_ID;
 import static tim9.realEstate.constants.RealEstateConstants.DB_ID_SOLD;
 import static tim9.realEstate.constants.RealEstateConstants.DB_ID_TO_RENT;
-import static tim9.realEstate.constants.UserConstants.*;
-import static tim9.realEstate.constants.UserConstants.DATE_RENT_FROM_INVALID;
-import static tim9.realEstate.constants.UserConstants.DATE_RENT_TO;
 import static tim9.realEstate.constants.UserConstants.DB_ID;
 import static tim9.realEstate.constants.UserConstants.DB_ID_COMPANY;
+import static tim9.realEstate.constants.UserConstants.endDateCalendar;
+import static tim9.realEstate.constants.UserConstants.startDateCalendar;
 
 import java.nio.charset.Charset;
 
