@@ -14,6 +14,7 @@ import org.testng.annotations.Test;
 
 import tim9.Selenium.MainPage;
 import tim9.Selenium.ProfileClerkPage;
+import tim9.Selenium.ProfileUserPage;
 import tim9.Selenium.configuration.DriverConfiguration;
 import tim9.Selenium.login.LoginPage;
 
@@ -22,6 +23,7 @@ public class TestRejectUserRequest {
 	private WebDriver browser;
 	MainPage mainPage;
 	ProfileClerkPage profileClerkPage;
+	ProfileUserPage profileUserPage;
 	LoginPage loginPage;
 	
 	DriverConfiguration driverConfiguration = new DriverConfiguration();
@@ -36,6 +38,7 @@ public class TestRejectUserRequest {
 
 		mainPage = PageFactory.initElements(browser, MainPage.class);
 		profileClerkPage = PageFactory.initElements(browser, ProfileClerkPage.class);
+		profileUserPage = PageFactory.initElements(browser, ProfileUserPage.class);
 		loginPage = PageFactory.initElements(browser, LoginPage.class);
 	}
 	
@@ -47,7 +50,23 @@ public class TestRejectUserRequest {
 		assertTrue(loginPage.getInputUsername().isDisplayed());
 		assertTrue(loginPage.getInputPassword().isDisplayed());
 		assertTrue(loginPage.getOKButton().isDisplayed());
+	}
+	
+	@Test
+	public void testRejectUserRequest() {
+		login();
+		loginPage.setInputUsername("user3");
+		loginPage.setInputPassword("u");
+		loginPage.getOKButton().click();
 		
+		mainPage.ensureLoginIsClosed();
+		mainPage.getProfileLink().click();
+		assertEquals("http://localhost:8080/#/profile", browser.getCurrentUrl());
+		int askToJoinListSize = profileUserPage.getAskToJoinListSize();
+		mainPage.ensureLoginIsClosed();
+		mainPage.getLogOutLink().click();
+		
+		login();
 		loginPage.setInputUsername("clerk2");
 		loginPage.setInputPassword("c");
 		loginPage.getOKButton().click();
@@ -56,11 +75,6 @@ public class TestRejectUserRequest {
 		mainPage.ensureIsDisplayed();
 		mainPage.getProfileLink().click();
 		assertEquals("http://localhost:8080/#/profileClerk", browser.getCurrentUrl());
-	}
-	
-	@Test
-	public void testRejectUserRequest() {
-		login();
 		
 		profileClerkPage.ensureCanAccept();
 
@@ -68,6 +82,20 @@ public class TestRejectUserRequest {
 		
 		profileClerkPage.getRejectButton().click();
 		profileClerkPage.ensureIsRejected(noOfUserRequests);
+
+		mainPage.ensureLoginIsClosed();
+		mainPage.getLogOutLink().click();
+		
+		login();
+		loginPage.setInputUsername("user3");
+		loginPage.setInputPassword("u");
+		loginPage.getOKButton().click();
+		
+		mainPage.ensureLoginIsClosed();
+		mainPage.getProfileLink().click();
+		assertEquals("http://localhost:8080/#/profile", browser.getCurrentUrl());
+		assertEquals(profileUserPage.getAskToJoinListSize(), askToJoinListSize);
+		mainPage.ensureLoginIsClosed();		
 	}
 	
 	@AfterMethod
