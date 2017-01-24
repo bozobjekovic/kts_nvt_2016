@@ -53,7 +53,7 @@ public class TestComment {
 		advertisementPage.setInputComment("I'm leaving this comment");
 		advertisementPage.getSubmitButton().click();
 		
-		//NOTIFIKACIJA
+		assertEquals("You do not have permission", advertisementPage.getToastr().getText());
 		
 		mainPage.getLogInLink().click();
 		loginPage.ensureIsDisplayed();

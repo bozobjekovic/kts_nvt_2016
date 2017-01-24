@@ -43,7 +43,7 @@ public class TestRate {
 	@Test
 	public void testRate() {
 		
-		mainPage.ensureIsDisplayed();
+mainPage.ensureIsDisplayed();
 		
 		mainPage.getBuyLink().click();
 		assertEquals("http://localhost:8080/#/buy", browser.getCurrentUrl());
@@ -69,16 +69,17 @@ public class TestRate {
 		loginPage.getOKButton().click();
 		
 		mainPage.ensureLoginIsClosed();
+		assertEquals("5", advertisementPage.getSpanRate().getText());
 		
 		advertisementPage.getRate().click();
-		
-		// CHECK RATE ?
+		assertEquals("4.83", advertisementPage.getSpanRate().getText());
 		
 		assertTrue(advertisementPage.getReportButton().isDisplayed());
 		
+		assertEquals("5", advertisementPage.getSpanRate().getText());
 		advertisementPage.getUserRate().click();
 
-		// CHECK RATE ?
+		assertEquals("5", advertisementPage.getSpanRate().getText());
 		
 	}
 	

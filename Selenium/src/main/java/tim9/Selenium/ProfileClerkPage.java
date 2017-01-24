@@ -50,6 +50,9 @@ public class ProfileClerkPage {
 
 	@FindBy(id="clerkAdverPrice")
 	private WebElement clerkAdverPrice;
+	
+	@FindBy(className = "toast-message")
+	private WebElement toastr;
 
 	public void ensureIsDisplayed() {
 		(new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[@ng-click=\"openModal()\"]")));
@@ -117,6 +120,9 @@ public class ProfileClerkPage {
 	}
 	public WebElement getClerkAdverPrice() {
 		return clerkAdverPrice;
+	}
+	public WebElement getToastr() {
+		return toastr;
 	}
 	public int getAdverListSize() {
 		return driver.findElements(By.className("profile-listItem-text")).size();

@@ -49,7 +49,7 @@ public class ProfileVerifierPageTest {
 		loginPage.setInputPassword("v");
 		loginPage.getOKButton().click();
 		
-		mainPage.ensureIsDisplayed();
+		mainPage.ensureLoginIsClosed();
 		mainPage.getProfileLink().click();
 		assertEquals("http://localhost:8080/#/profileVerifier", browser.getCurrentUrl());
 	}

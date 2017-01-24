@@ -97,13 +97,14 @@ public class TestReport {
 		
 		advertisementPage.getOKButton().click();
 
-		//NOTIFIKACIJA
+		assertEquals("You do not have permission", advertisementPage.getToastr().getText());
 		
 		advertisementPage.ensureModalIsClosed();
 		
 		username = "user";
 		password = "u";
 		
+		mainPage.ensureLoginIsClosed();
 		login(username, password);
 		
 		mainPage.ensureIsDisplayed();
@@ -123,23 +124,23 @@ public class TestReport {
 		assertTrue(advertisementPage.getOKButton().isDisplayed());
 		advertisementPage.getOKButton().click();
 		
-		// STILL OPEN
-		
 		advertisementPage.setInputTitle("Report Title");
 		advertisementPage.setInputDescription("This is reports's description!");
 		
 		advertisementPage.getOKButton().click();
 		
-		// NOW CLOSED
+		assertEquals("You successfuly reported this advertisement!", advertisementPage.getToastr().getText());
 		
-/*		advertisementPage.ensureIsDisplayed();
+		mainPage.ensureLoginIsClosed();
 		advertisementPage.getReportButton().click();
 		advertisementPage.ensureModalIsDisplayed();
 		
 		advertisementPage.setInputTitle("Report Title");
 		advertisementPage.setInputDescription("This is reports's description!");
 		
-		advertisementPage.getOKButton().click();*/
+		advertisementPage.getOKButton().click();
+		
+		assertEquals("You have already reported this advertisement!", advertisementPage.getToastr().getText());
 		
 		advertisementPage.ensureModalIsClosed();
 		mainPage.getLogOutLink().click();
