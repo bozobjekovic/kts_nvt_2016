@@ -2,50 +2,87 @@
 <nav class="navbar navbar-default"></nav>
 
 <div class="container">
-	<div class="profile-grid-left" style="border: 1px solid gray; border-radius: 5px; padding: 10px;">
-	    <div class="table-responsive">          
-			<table class="table">
-		    	<tbody>
-		      		<tr >
-		    			<th colspan="2" style="text-align: center; font-size: 16px; color: #751717">Profile details</th>
-		    		</tr>
-		      		<tr>
-		        		<td>Name</td>
-		        		<td id="clerkName">{{user.name}}</td>
-		      		</tr>
-		      		<tr>
-		        		<td>Surname</td>
-		        		<td id="clerkSurname">{{user.surname}}</td>
-		      		</tr>
-		      		<tr>
-		        		<td>Username</td>
-		        		<td>{{user.username}}</td>
-		      		</tr>
-		      		<tr>
-		        		<td>Email</td>
-		        		<td>{{user.email}}</td>
-		      		</tr>
-		      		<tr>
-		        		<td>Phone Number</td>
-		        		<td id="clerkPNumber">{{user.phoneNumber}}</td>
-		      		</tr>
-		      		<tr>
-		        		<td>Address</td>
-		        		<td id="clerkAddress">{{user.address}}</td>
-		      		</tr>
-		      		<tr>
-		        		<td>City</td>
-		        		<td id="clerkCity">{{user.city}}</td>
-		      		</tr>
-		      		<tr>
-		        		<td>Rate</td>
-		        		<td>{{user.rate}}</td>
-		      		</tr>
-		  		</tbody>
-		  	</table>
+	<div class="profile-grid-left">
+		<div style="border: 1px solid gray; border-radius: 5px; padding: 10px;">
+			<div class="table-responsive">
+				<table class="table">
+			    	<tbody>
+			      		<tr >
+			    			<th colspan="2" style="text-align: center; font-size: 16px; color: #751717">Profile details</th>
+			    		</tr>
+			      		<tr>
+			        		<td>Name</td>
+			        		<td id="clerkName">{{user.name}}</td>
+			      		</tr>
+			      		<tr>
+			        		<td>Surname</td>
+			        		<td id="clerkSurname">{{user.surname}}</td>
+			      		</tr>
+			      		<tr>
+			        		<td>Username</td>
+			        		<td>{{user.username}}</td>
+			      		</tr>
+			      		<tr>
+			        		<td>Email</td>
+			        		<td>{{user.email}}</td>
+			      		</tr>
+			      		<tr>
+			        		<td>Phone Number</td>
+			        		<td id="clerkPNumber">{{user.phoneNumber}}</td>
+			      		</tr>
+			      		<tr>
+			        		<td>Address</td>
+			        		<td id="clerkAddress">{{user.address}}</td>
+			      		</tr>
+			      		<tr>
+			        		<td>City</td>
+			        		<td id="clerkCity">{{user.city}}</td>
+			      		</tr>
+			      		<tr>
+			        		<td>Rate</td>
+			        		<td>{{user.rate}}</td>
+			      		</tr>
+			  		</tbody>
+			  	</table>
+			</div>
+	  		<br>
+	  		<button type="button" class="btn btn-warning" style="width: 100%; background-color: #751717; border-color: #751717;" ng-click="openModal()"><b>Change</b></button>
 		</div>
-  		<br>
-  		<button type="button" class="btn btn-warning" style="width: 100%; background-color: #751717; border-color: #751717;" ng-click="openModal()"><b>Change</b></button>
+		<div style="border: 1px solid gray; border-radius: 5px; padding: 10px; margin-top: 10px;">
+			<div class="table-responsive">
+				<table class="table">
+			    	<tbody>
+			      		<tr >
+			    			<th colspan="2" style="text-align: center; font-size: 16px; color: #751717">Company details</th>
+			    		</tr>
+			      		<tr>
+			        		<td>Name</td>
+			        		<td>{{company.name}}</td>
+			      		</tr>
+			      		<tr>
+			        		<td>Phone Number</td>
+			        		<td>{{company.phoneNumber}}</td>
+			      		</tr>
+			      		<tr>
+			        		<td>Zip Code</td>
+			        		<td>{{company.location.zipCode}}</td>
+			      		</tr>
+			      		<tr>
+			        		<td>City</td>
+			        		<td>{{company.location.city}}</td>
+			      		</tr>
+			      		<tr>
+			        		<td>Address</td>
+			        		<td>{{company.address}}</td>
+			      		</tr>
+						<tr>
+			        		<td>Site</td>
+			        		<td>{{company.site}}</td>
+			      		</tr>
+			  		</tbody>
+			  	</table>
+			</div>
+		</div>
 	</div>
 	<div class="profile-grid-right" style="border: 0.7px solid gray; border-radius: 5px; padding: 10px;">
 		<nav class="navbar navbar-default">
@@ -90,7 +127,7 @@
 	<div class="profile-grid-right" style="border: 1px solid gray; border-radius: 5px; padding: 10px; min-height: 400px;">
 		<div class="profile-list-scroll">
 			<h4 style="color: #751717;" class="tittle">User Requests</h4> <br> <br>
-			
+
 			<div class="profile-list" ng-repeat="applied in appliedUsers">
 				<div class="profile-listItem">
 					<div class="profile-grid-left">
@@ -108,42 +145,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	
-	<div class="profile-grid-left" style="border: 1px solid gray; border-radius: 5px; padding: 10px; margin-top: 10px;">
-	    <div class="table-responsive">          
-			<table class="table">
-		    	<tbody>
-		      		<tr >
-		    			<th colspan="2" style="text-align: center; font-size: 16px; color: #751717">Company details</th>
-		    		</tr>
-		      		<tr>
-		        		<td>Name</td>
-		        		<td>{{company.name}}</td>
-		      		</tr>
-		      		<tr>
-		        		<td>Phone Number</td>
-		        		<td>{{company.phoneNumber}}</td>
-		      		</tr>
-		      		<tr>
-		        		<td>Zip Code</td>
-		        		<td>{{company.location.zipCode}}</td>
-		      		</tr>
-		      		<tr>
-		        		<td>City</td>
-		        		<td>{{company.location.city}}</td>
-		      		</tr>
-		      		<tr>
-		        		<td>Address</td>
-		        		<td>{{company.address}}</td>
-		      		</tr>
-					<tr>
-		        		<td>Site</td>
-		        		<td>{{company.site}}</td>
-		      		</tr>
-		  		</tbody>
-		  	</table>
 		</div>
 	</div>
 </div>

@@ -17,7 +17,7 @@
                             }, function(response) {
                                 if (response.status === 422) {
                                     toastr.warning('Check location details!', 'Warning');
-                                } else {
+                                } else if (response.status === 409) {
                                     toastr.warning('Phone number already exist!', 'Warning');
                                 }
                             });
