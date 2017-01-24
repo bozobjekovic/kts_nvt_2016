@@ -1,5 +1,6 @@
 package tim9.Selenium.profileAdmin;
 
+import static org.junit.Assert.assertEquals;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
@@ -39,7 +40,8 @@ public class TestRejectClerk {
 		loginPage = PageFactory.initElements(browser, LoginPage.class);
 	}
 	
-	void login() {
+	void login(String username, String password) {
+		mainPage.ensureIsDisplayed();
 		assertTrue(mainPage.getLogInLink().isDisplayed());
 		mainPage.getLogInLink().click();
 		
@@ -48,25 +50,34 @@ public class TestRejectClerk {
 		assertTrue(loginPage.getInputPassword().isDisplayed());
 		assertTrue(loginPage.getOKButton().isDisplayed());
 		
-		loginPage.setInputUsername("admin");
-		loginPage.setInputPassword("a");
+		loginPage.setInputUsername(username);
+		loginPage.setInputPassword(password);
 		loginPage.getOKButton().click();
-
-		mainPage.ensureLoginIsClosed();
-		mainPage.ensureIsDisplayed();
-		mainPage.getProfileLink().click();
-		assertEquals("http://localhost:8080/#/profileAdmin", browser.getCurrentUrl());
+		
 	}
 
 	@Test
 	public void testRejectClerk() {
-		login();
+		String username = "admin";
+		String password = "a";
+		login(username, password);
+		mainPage.ensureLoginIsClosed();
+		mainPage.getProfileLink().click();
 		
 		profileAdminPage.ensureCanAccept();
 		
 		int noOfClerkRequests = profileAdminPage.getClerkRequestListSize();
 		profileAdminPage.getRejectButton().click();
 		profileAdminPage.ensureIsRemoved(noOfClerkRequests);
+		
+		mainPage.getLogOutLink().click();
+		
+		username = "clerk3";
+		password = "c";
+		
+		login(username, password);
+		
+		assertEquals("Username or password are incorrect!", loginPage.getToastr().getText());
 	}
 	
 	@AfterMethod

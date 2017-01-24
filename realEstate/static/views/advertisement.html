@@ -116,7 +116,6 @@
 		        		<td>{{advert.numOfFlors}}</td>
 		      		</tr>
 		      		<tr>
-		      		<tr>
 		        		<td>Heating type</td>
 		        		<td>{{advert.heatingType}}</td>
 		      		</tr>
@@ -157,7 +156,7 @@
 		      		</tr>
 					<tr>
 		        		<td>Rate</td>
-		        		<td><span uib-rating ng-model="rateUser" max="max" read-only="isReadonly" on-leave="overStar = null" aria-labelledby="default-rating" ng-click="giveRateUser()"></span>&nbsp;&nbsp;&nbsp;Avg : <span>{{publisher.rate}}</span></td>
+		        		<td><span uib-rating ng-model="rateUser" max="max" read-only="isReadonly" on-leave="overStar = null" aria-labelledby="default-rating" ng-click="giveRateUser()"></span>&nbsp;&nbsp;&nbsp;Avg : <span id="spanUserRate">{{publisher.rate}}</span></td>
 		      		</tr>
 		  		</tbody>
 		  	</table>

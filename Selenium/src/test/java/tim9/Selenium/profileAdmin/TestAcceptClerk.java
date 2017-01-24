@@ -1,6 +1,5 @@
 package tim9.Selenium.profileAdmin;
 
-import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
 import java.util.concurrent.TimeUnit;
@@ -39,7 +38,8 @@ public class TestAcceptClerk {
 		loginPage = PageFactory.initElements(browser, LoginPage.class);
 	}
 	
-	void login() {
+	void login(String username, String password) {
+		mainPage.ensureIsDisplayed();
 		assertTrue(mainPage.getLogInLink().isDisplayed());
 		mainPage.getLogInLink().click();
 		
@@ -48,25 +48,33 @@ public class TestAcceptClerk {
 		assertTrue(loginPage.getInputPassword().isDisplayed());
 		assertTrue(loginPage.getOKButton().isDisplayed());
 		
-		loginPage.setInputUsername("admin");
-		loginPage.setInputPassword("a");
+		loginPage.setInputUsername(username);
+		loginPage.setInputPassword(password);
 		loginPage.getOKButton().click();
-
+		
 		mainPage.ensureLoginIsClosed();
-		mainPage.ensureIsDisplayed();
 		mainPage.getProfileLink().click();
-		assertEquals("http://localhost:8080/#/profileAdmin", browser.getCurrentUrl());
 	}
 
 	@Test
 	public void testAcceptClerk() {
-		login();
+		String username = "admin";
+		String password = "a";
+		login(username, password);
 		
 		profileAdminPage.ensureCanAccept();
 		
 		int noOfClerkRequests = profileAdminPage.getClerkRequestListSize();
 		profileAdminPage.getAcceptButton().click();
 		profileAdminPage.ensureIsRemoved(noOfClerkRequests);
+		
+		mainPage.getLogOutLink().click();
+		
+		username = "clerk3";
+		password = "c";
+		
+		mainPage.ensureLoginIsClosed();
+		login(username, password);
 	}
 	
 	@AfterMethod

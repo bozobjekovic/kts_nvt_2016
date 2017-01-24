@@ -42,6 +42,9 @@ public class AdvertisementPage {
 	@FindBy(xpath = "//span[@ng-model=\"rateUser\"]")
 	private WebElement userRate;
 	
+	@FindBy(id = "spanUserRate")
+	private WebElement spanUserRate;
+	
 	@FindBy(className = "toast-message")
 	private WebElement toastr;
 
@@ -101,6 +104,10 @@ public class AdvertisementPage {
 
 	public WebElement getSpanRate() {
 		return spanRate;
+	}
+
+	public WebElement getSpanUserRate() {
+		return spanUserRate;
 	}
 
 	public void ensureModalIsDisplayed() {

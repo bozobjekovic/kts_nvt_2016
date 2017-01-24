@@ -84,12 +84,6 @@ public class TestUpdateProfileData {
 		openModal();
 		profileClerkUpdateDataPage.getSaveButton().click();
 		profileClerkPage.ensureModalIsClosed();
-
-		/* NOTIFICATION ? assertEquals("Phone number already exist!", profileClerkPage.getToastr().getText());
-		openModal();
-		profileClerkUpdateDataPage.setPhoneNumber("+12331203");
-		profileClerkUpdateDataPage.getSaveButton().click();
-		profileClerkPage.ensureModalIsClosed();*/
 		
 		openModal();
 		profileClerkUpdateDataPage.setName("");

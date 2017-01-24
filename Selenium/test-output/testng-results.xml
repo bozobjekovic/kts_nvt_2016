@@ -2,20 +2,24 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="5299" started-at="2017-01-14T18:14:42Z" finished-at="2017-01-14T18:14:47Z">
+  <suite name="Default suite" duration-ms="68098" started-at="2017-01-24T21:51:26Z" finished-at="2017-01-24T21:52:34Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="5299" started-at="2017-01-14T18:14:42Z" finished-at="2017-01-14T18:14:47Z">
-      <class name="tim9.Selenium.MainTest">
-        <test-method status="PASS" signature="setupSelenium()[pri:0, instance:tim9.Selenium.MainTest@5c3bd550]" name="setupSelenium" is-config="true" duration-ms="5271" started-at="2017-01-14T19:14:42Z" finished-at="2017-01-14T19:14:47Z">
+    <test name="Default test" duration-ms="68098" started-at="2017-01-24T21:51:26Z" finished-at="2017-01-24T21:52:34Z">
+      <class name="tim9.Selenium.profileClerk.TestUpdateAdvertisement">
+        <test-method status="PASS" signature="setupSelenium()[pri:0, instance:tim9.Selenium.profileClerk.TestUpdateAdvertisement@604ed9f0]" name="setupSelenium" is-config="true" duration-ms="7848" started-at="2017-01-24T22:51:26Z" finished-at="2017-01-24T22:51:34Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setupSelenium -->
-        <test-method status="PASS" signature="test()[pri:0, instance:tim9.Selenium.MainTest@5c3bd550]" name="test" duration-ms="7" started-at="2017-01-14T19:14:47Z" finished-at="2017-01-14T19:14:47Z">
+        <test-method status="PASS" signature="testUpdateAdver()[pri:0, instance:tim9.Selenium.profileClerk.TestUpdateAdvertisement@604ed9f0]" name="testUpdateAdver" duration-ms="58252" started-at="2017-01-24T22:51:34Z" finished-at="2017-01-24T22:52:32Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- test -->
-      </class> <!-- tim9.Selenium.MainTest -->
+        </test-method> <!-- testUpdateAdver -->
+        <test-method status="PASS" signature="closeSelenium()[pri:0, instance:tim9.Selenium.profileClerk.TestUpdateAdvertisement@604ed9f0]" name="closeSelenium" is-config="true" duration-ms="1947" started-at="2017-01-24T22:52:32Z" finished-at="2017-01-24T22:52:34Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeSelenium -->
+      </class> <!-- tim9.Selenium.profileClerk.TestUpdateAdvertisement -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

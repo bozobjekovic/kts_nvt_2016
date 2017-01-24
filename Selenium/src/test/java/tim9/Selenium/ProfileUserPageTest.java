@@ -105,7 +105,7 @@ public class ProfileUserPageTest {
 		assertEquals("http://localhost:8080/#/profile", browser.getCurrentUrl());
 		mainPage.ensureLoginIsClosed();
 		
-		assertEquals(profileUserPage.getUsersCompanyName(), "Kompanija Neka");
+		assertEquals(profileUserPage.getUsersCompanyName().getText(), "Kompanija Neka");
 		mainPage.ensureLoginIsClosed();
 	}
 	

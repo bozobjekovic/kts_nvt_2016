@@ -77,14 +77,16 @@ public class TestUpdateAdvertisement {
 		
 		profileClerkPage.ensureModalIsClosed();
 		openUpdateAdverModal();
+		mainPage.ensureLoginIsClosed();
 		updateAdverPage.getSaveButton().click();
 		
 		profileClerkPage.ensureModalIsClosed();
 		openUpdateAdverModal();
+		mainPage.ensureLoginIsClosed();
 		updateAdverPage.setPhoneNumber("+504982");
-		assertEquals("Phone number already exist!", profileClerkPage.getToastr().getText());
 		updateAdverPage.ensureCanSave();
 		updateAdverPage.getSaveButton().click();
+		assertEquals("Phone number already exist!", profileClerkPage.getToastr().getText());
 		
 		profileClerkPage.ensureModalIsClosed();
 		openUpdateAdverModal();

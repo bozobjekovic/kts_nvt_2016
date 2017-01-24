@@ -76,10 +76,10 @@ mainPage.ensureIsDisplayed();
 		
 		assertTrue(advertisementPage.getReportButton().isDisplayed());
 		
-		assertEquals("5", advertisementPage.getSpanRate().getText());
+		assertEquals("2", advertisementPage.getSpanUserRate().getText());
 		advertisementPage.getUserRate().click();
 
-		assertEquals("5", advertisementPage.getSpanRate().getText());
+		assertEquals("1.75", advertisementPage.getSpanUserRate().getText());
 		
 	}
 	

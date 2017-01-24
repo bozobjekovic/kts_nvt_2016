@@ -44,12 +44,15 @@ public class TestFilterAdvertisements {
 		
 		assertTrue(buyPage.getApartmentsLink().isDisplayed());
 		buyPage.getApartmentsLink().click();
+		buyPage.ensureIsDisplayed();
 		assertEquals(buyPage.getFilterSize(), 7);
 		
 		buyPage.getCityLink().click();
+		buyPage.ensureIsDisplayed();
 		assertEquals(buyPage.getFilterSize(), 2);
 		
 		buyPage.getOtherCityLink().click();
+		buyPage.ensureIsDisplayed();
 		assertEquals(buyPage.getFilterSize(), 3);
 		
 		buyPage.getPriceColapse().click();
