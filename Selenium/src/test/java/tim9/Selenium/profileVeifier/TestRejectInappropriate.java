@@ -25,9 +25,12 @@ public class TestRejectInappropriate {
 	ProfileVerifierPage profileVerifierPage;
 	ProfileClerkPage profileClerkPage;
 	LoginPage loginPage;
-	
+
 	DriverConfiguration driverConfiguration = new DriverConfiguration();
-	
+
+	/**
+	 * This method sets up selenium
+	 */
 	@BeforeMethod
 	public void setupSelenium() {
 		System.setProperty("webdriver.chrome.driver", driverConfiguration.getDriverPath());
@@ -41,38 +44,47 @@ public class TestRejectInappropriate {
 		profileClerkPage = PageFactory.initElements(browser, ProfileClerkPage.class);
 		loginPage = PageFactory.initElements(browser, LoginPage.class);
 	}
-	
+
+	/**
+	 * This method represents login
+	 */
 	public void login() {
 		assertTrue(mainPage.getLogInLink().isDisplayed());
 		mainPage.getLogInLink().click();
-		
+
 		loginPage.ensureIsDisplayed();
 		assertTrue(loginPage.getInputUsername().isDisplayed());
 		assertTrue(loginPage.getInputPassword().isDisplayed());
 		assertTrue(loginPage.getOKButton().isDisplayed());
 	}
-	
+
+	/**
+	 * This method is testing rejecting an inappropriate Advertisement Request.
+	 * First, getting Advertisement list size from Clerk's profile. Second,
+	 * deleting request for that Advertisement. Finally, making sure that the
+	 * Advertisement has stayed untouched at Clerk's profile.
+	 */
 	@Test
 	public void testRejectAdverRequest() {
 		login();
-		
+
 		loginPage.setInputUsername("clerk");
 		loginPage.setInputPassword("c");
 		loginPage.getOKButton().click();
-		
+
 		mainPage.ensureLoginIsClosed();
 		mainPage.getProfileLink().click();
 		assertEquals("http://localhost:8080/#/profileClerk", browser.getCurrentUrl());
 		int noAdvers = profileClerkPage.getAdverListSize();
 		mainPage.ensureLoginIsClosed();
 		mainPage.getLogOutLink().click();
-		
+
 		login();
-		
+
 		loginPage.setInputUsername("verifier");
 		loginPage.setInputPassword("v");
 		loginPage.getOKButton().click();
-		
+
 		mainPage.ensureLoginIsClosed();
 		mainPage.getProfileLink().click();
 		assertEquals("http://localhost:8080/#/profileVerifier", browser.getCurrentUrl());
@@ -82,20 +94,23 @@ public class TestRejectInappropriate {
 		profileVerifierPage.ensureIsRemoved(noOfReportedAdvers);
 		mainPage.ensureLoginIsClosed();
 		mainPage.getLogOutLink().click();
-		
+
 		login();
-		
+
 		loginPage.setInputUsername("clerk");
 		loginPage.setInputPassword("c");
 		loginPage.getOKButton().click();
-		
+
 		mainPage.ensureLoginIsClosed();
 		mainPage.getProfileLink().click();
 		assertEquals("http://localhost:8080/#/profileClerk", browser.getCurrentUrl());
 		assertEquals(profileClerkPage.getAdverListSize(), noAdvers);
 		mainPage.ensureLoginIsClosed();
 	}
-	
+
+	/**
+	 * This method closes browser after test
+	 */
 	@AfterMethod
 	public void closeSelenium() {
 		browser.quit();

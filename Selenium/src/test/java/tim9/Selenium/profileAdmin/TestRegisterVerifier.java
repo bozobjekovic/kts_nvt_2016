@@ -27,9 +27,12 @@ public class TestRegisterVerifier {
 	ProfileClerkPage profileClerkPage;
 	ProfileAdminRegisterVerifierPage profileAdminRegisterVerifierPage;
 	LoginPage loginPage;
-	
+
 	DriverConfiguration driverConfiguration = new DriverConfiguration();
-	
+
+	/**
+	 * This method sets up selenium
+	 */
 	@BeforeMethod
 	public void setupSelenium() {
 		System.setProperty("webdriver.chrome.driver", driverConfiguration.getDriverPath());
@@ -44,16 +47,19 @@ public class TestRegisterVerifier {
 		profileAdminRegisterVerifierPage = PageFactory.initElements(browser, ProfileAdminRegisterVerifierPage.class);
 		loginPage = PageFactory.initElements(browser, LoginPage.class);
 	}
-	
+
+	/**
+	 * This method represents login
+	 */
 	void login() {
 		assertTrue(mainPage.getLogInLink().isDisplayed());
 		mainPage.getLogInLink().click();
-		
+
 		loginPage.ensureIsDisplayed();
 		assertTrue(loginPage.getInputUsername().isDisplayed());
 		assertTrue(loginPage.getInputPassword().isDisplayed());
 		assertTrue(loginPage.getOKButton().isDisplayed());
-		
+
 		loginPage.setInputUsername("admin");
 		loginPage.setInputPassword("a");
 		loginPage.getOKButton().click();
@@ -63,7 +69,12 @@ public class TestRegisterVerifier {
 		mainPage.getProfileLink().click();
 		assertEquals("http://localhost:8080/#/profileAdmin", browser.getCurrentUrl());
 	}
-	
+
+	/**
+	 * This method is testing registration of a verifier. First, not valid email
+	 * input. Second, email already exists (expected notification is showing).
+	 * Finally, correct input and successful Verifier registration.
+	 */
 	@Test
 	public void testRegisterVerifier() {
 		login();
@@ -71,19 +82,19 @@ public class TestRegisterVerifier {
 		mainPage.ensureLoginIsClosed();
 		assertTrue(profileAdminPage.getRegisterVerifierButton().isDisplayed());
 		profileAdminPage.getRegisterVerifierButton().click();
-		
+
 		profileAdminRegisterVerifierPage.ensureIsDisplayed();
 		assertTrue(profileAdminRegisterVerifierPage.getEmail().isDisplayed());
 		assertTrue(profileAdminRegisterVerifierPage.getUsername().isDisplayed());
 		assertTrue(profileAdminRegisterVerifierPage.getVerPassword().isDisplayed());
 
 		profileAdminRegisterVerifierPage.getOkButton().click();
-		
+
 		profileAdminRegisterVerifierPage.setEmail("m");
 		profileAdminRegisterVerifierPage.setUsername("m");
 		profileAdminRegisterVerifierPage.setVerPassword("m");
 		profileAdminRegisterVerifierPage.getOkButton().click();
-		
+
 		profileAdminRegisterVerifierPage.setEmail("verifier2@gmail.com");
 		profileAdminRegisterVerifierPage.setUsername("Verifier2");
 		profileAdminRegisterVerifierPage.setVerPassword("v");
@@ -95,7 +106,10 @@ public class TestRegisterVerifier {
 		profileAdminRegisterVerifierPage.setVerPassword("m");
 		profileAdminRegisterVerifierPage.getOkButton().click();
 	}
-	
+
+	/**
+	 * This method closes browser after test
+	 */
 	@AfterMethod
 	public void closeSelenium() {
 		browser.quit();
