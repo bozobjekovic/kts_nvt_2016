@@ -1,9 +1,10 @@
-package tim9.Selenium;
+package tim9.Selenium.profileVeifier;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
 import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -11,14 +12,18 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import tim9.Selenium.MainPage;
+import tim9.Selenium.ProfileClerkPage;
+import tim9.Selenium.ProfileVerifierPage;
 import tim9.Selenium.configuration.DriverConfiguration;
 import tim9.Selenium.login.LoginPage;
 
-public class ProfileVerifierPageTest {
+public class TestRejectInappropriate {
 
 	private WebDriver browser;
 	MainPage mainPage;
 	ProfileVerifierPage profileVerifierPage;
+	ProfileClerkPage profileClerkPage;
 	LoginPage loginPage;
 	
 	DriverConfiguration driverConfiguration = new DriverConfiguration();
@@ -33,6 +38,7 @@ public class ProfileVerifierPageTest {
 
 		mainPage = PageFactory.initElements(browser, MainPage.class);
 		profileVerifierPage = PageFactory.initElements(browser, ProfileVerifierPage.class);
+		profileClerkPage = PageFactory.initElements(browser, ProfileClerkPage.class);
 		loginPage = PageFactory.initElements(browser, LoginPage.class);
 	}
 	
@@ -44,6 +50,24 @@ public class ProfileVerifierPageTest {
 		assertTrue(loginPage.getInputUsername().isDisplayed());
 		assertTrue(loginPage.getInputPassword().isDisplayed());
 		assertTrue(loginPage.getOKButton().isDisplayed());
+	}
+	
+	@Test
+	public void testRejectAdverRequest() {
+		login();
+		
+		loginPage.setInputUsername("clerk");
+		loginPage.setInputPassword("c");
+		loginPage.getOKButton().click();
+		
+		mainPage.ensureLoginIsClosed();
+		mainPage.getProfileLink().click();
+		assertEquals("http://localhost:8080/#/profileClerk", browser.getCurrentUrl());
+		int noAdvers = profileClerkPage.getAdverListSize();
+		mainPage.ensureLoginIsClosed();
+		mainPage.getLogOutLink().click();
+		
+		login();
 		
 		loginPage.setInputUsername("verifier");
 		loginPage.setInputPassword("v");
@@ -52,28 +76,24 @@ public class ProfileVerifierPageTest {
 		mainPage.ensureLoginIsClosed();
 		mainPage.getProfileLink().click();
 		assertEquals("http://localhost:8080/#/profileVerifier", browser.getCurrentUrl());
-	}
-	
-	@Test
-	public void testAcceptAdverRequest() {
-		login();
-		
-		profileVerifierPage.ensureCanAccept();
-		
-		int noOfReportedAdvers = profileVerifierPage.getReportedAdversListSize();
-		profileVerifierPage.getAcceptButton().click();
-		profileVerifierPage.ensureIsRemoved(noOfReportedAdvers);
-	}
-	
-	@Test
-	public void testRejectAdverRequest() {
-		login();
-		
-		profileVerifierPage.ensureCanAccept();
-		
+
 		int noOfReportedAdvers = profileVerifierPage.getReportedAdversListSize();
 		profileVerifierPage.getRejectButton().click();
 		profileVerifierPage.ensureIsRemoved(noOfReportedAdvers);
+		mainPage.ensureLoginIsClosed();
+		mainPage.getLogOutLink().click();
+		
+		login();
+		
+		loginPage.setInputUsername("clerk");
+		loginPage.setInputPassword("c");
+		loginPage.getOKButton().click();
+		
+		mainPage.ensureLoginIsClosed();
+		mainPage.getProfileLink().click();
+		assertEquals("http://localhost:8080/#/profileClerk", browser.getCurrentUrl());
+		assertEquals(profileClerkPage.getAdverListSize(), noAdvers);
+		mainPage.ensureLoginIsClosed();
 	}
 	
 	@AfterMethod

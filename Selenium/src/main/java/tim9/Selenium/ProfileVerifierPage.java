@@ -28,7 +28,7 @@ public class ProfileVerifierPage {
 	public void ensureIsRemoved(int numberOfReportedAdvers) {
 		(new WebDriverWait(driver, 10))
 		  .until(ExpectedConditions.invisibilityOfElementLocated(
-				  By.xpath("//div[@class=\"profile-listItem\"])[" + (numberOfReportedAdvers+1) + "]")));
+				  By.xpath("//div[@class=\"profile-listItem\"])[" + (numberOfReportedAdvers+2) + "]")));
 	}
 
 	public WebElement getAcceptButton() {
