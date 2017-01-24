@@ -28,9 +28,6 @@ Selenium/src/main/resources/config.properties
 # Sonar
 .sonar
 
-#Tests
-test-output/
-
 # Eclipse Core
 .project
 
