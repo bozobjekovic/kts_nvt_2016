@@ -74,8 +74,6 @@ public class ProfileUserPageTest {
 		mainPage.getProfileLink().click();
 		assertEquals("http://localhost:8080/#/profile", browser.getCurrentUrl());
 		
-		int noAskToJoin = profileUserPage.getAskToJoinListSize();
-
 		mainPage.ensureLoginIsClosed();
 		profileUserPage.ensureCanAskToJoin();
 		profileUserPage.getAskToJoinButton().click();
@@ -106,7 +104,8 @@ public class ProfileUserPageTest {
 		mainPage.getProfileLink().click();
 		assertEquals("http://localhost:8080/#/profile", browser.getCurrentUrl());
 		mainPage.ensureLoginIsClosed();
-		assertEquals(profileUserPage.getAskToJoinListSize(), noAskToJoin-1);
+		
+		assertEquals(profileUserPage.getUsersCompanyName(), "Kompanija Neka");
 		mainPage.ensureLoginIsClosed();
 	}
 	

@@ -24,6 +24,9 @@ public class ProfileUserPage {
 	@FindBy(id="removeAdver")
 	private WebElement removeButton;
 
+	@FindBy(id="usersCompanyName")
+	private WebElement usersCompanyName;
+
 	public void ensureIsDisplayed() {
 		(new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[@ng-click=\"openModal()\"]")));
 	}
@@ -48,10 +51,10 @@ public class ProfileUserPage {
 	public WebElement getRemoveButton() {
 		return removeButton;
 	}
+	public WebElement getUsersCompanyName() {
+		return usersCompanyName;
+	}
 	public int getAdverListSize() {
 		return driver.findElements(By.className("profile-listItem")).size();
-	}
-	public int getAskToJoinListSize() {
-		return driver.findElements(By.xpath("//button[@ng-click=\"apply(company.id)\"]")).size();
 	}
 }

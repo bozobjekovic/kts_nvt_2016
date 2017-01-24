@@ -15,6 +15,7 @@ import org.testng.annotations.Test;
 import tim9.Selenium.MainPage;
 import tim9.Selenium.ProfileAdminPage;
 import tim9.Selenium.ProfileAdminRegisterVerifierPage;
+import tim9.Selenium.ProfileClerkPage;
 import tim9.Selenium.configuration.DriverConfiguration;
 import tim9.Selenium.login.LoginPage;
 
@@ -23,6 +24,7 @@ public class TestRegisterVerifier {
 	private WebDriver browser;
 	MainPage mainPage;
 	ProfileAdminPage profileAdminPage;
+	ProfileClerkPage profileClerkPage;
 	ProfileAdminRegisterVerifierPage profileAdminRegisterVerifierPage;
 	LoginPage loginPage;
 	
@@ -38,6 +40,7 @@ public class TestRegisterVerifier {
 
 		mainPage = PageFactory.initElements(browser, MainPage.class);
 		profileAdminPage = PageFactory.initElements(browser, ProfileAdminPage.class);
+		profileClerkPage = PageFactory.initElements(browser, ProfileClerkPage.class);
 		profileAdminRegisterVerifierPage = PageFactory.initElements(browser, ProfileAdminRegisterVerifierPage.class);
 		loginPage = PageFactory.initElements(browser, LoginPage.class);
 	}
@@ -81,11 +84,11 @@ public class TestRegisterVerifier {
 		profileAdminRegisterVerifierPage.setVerPassword("m");
 		profileAdminRegisterVerifierPage.getOkButton().click();
 		
-/*		NOTIFICATION
 		profileAdminRegisterVerifierPage.setEmail("verifier2@gmail.com");
 		profileAdminRegisterVerifierPage.setUsername("Verifier2");
 		profileAdminRegisterVerifierPage.setVerPassword("v");
-		profileAdminRegisterVerifierPage.getOkButton().click();*/
+		profileAdminRegisterVerifierPage.getOkButton().click();
+		assertEquals("Username or email already exists!", profileClerkPage.getToastr().getText());
 
 		profileAdminRegisterVerifierPage.setEmail("majamiljic2@gmail.com");
 		profileAdminRegisterVerifierPage.setUsername("majami");

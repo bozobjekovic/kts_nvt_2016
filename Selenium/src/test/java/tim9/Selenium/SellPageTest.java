@@ -22,6 +22,7 @@ public class SellPageTest {
 	SellPage sellPage;
 	LoginPage loginPage;
 	ProfileUserPage profileUserPage;
+	ProfileClerkPage profileClerkPage;
 	
 	DriverConfiguration driverConfiguration = new DriverConfiguration();
 	
@@ -37,6 +38,7 @@ public class SellPageTest {
 		sellPage = PageFactory.initElements(browser, SellPage.class);
 		loginPage = PageFactory.initElements(browser, LoginPage.class);
 		profileUserPage = PageFactory.initElements(browser, ProfileUserPage.class);
+		profileClerkPage = PageFactory.initElements(browser, ProfileClerkPage.class);
 	}
 	
 	void login() {
@@ -84,21 +86,27 @@ public class SellPageTest {
 		sellPage.getSubmitButton().click();
 
 		sellPage.setName("Kuca sa bazenom");
-		sellPage.setAddress("Bulevar cara Lazara 108");
+		sellPage.setAddress("Balzakova 48");
 		sellPage.setCity("Novi Sad");
-		sellPage.setZipCode("11000");		// NOTIFICATION
+		sellPage.setZipCode("11000");
 		sellPage.setLandSize("80");
 		sellPage.setHeatingType(1);
 		sellPage.setCategory(1);
 		sellPage.setType(1);
 		sellPage.setPrice("1000000");
-		sellPage.setPhoneNumber("+504982");		// NOTIFICATION
+		sellPage.setPhoneNumber("+504982");
 		sellPage.setPurpose(1);
 		sellPage.getSubmitButton().click();
+		assertEquals("Phone number already exist!", profileClerkPage.getToastr().getText());
+		mainPage.ensureLoginIsClosed();
+
+		sellPage.setPhoneNumber("+3811111111");
+		sellPage.ensureCanSubmit();
+		sellPage.getSubmitButton().click();
+		assertEquals("Check location details!", profileClerkPage.getToastr().getText());
 		mainPage.ensureLoginIsClosed();
 
 		sellPage.setZipCode("21000");
-		sellPage.setPhoneNumber("+3811111111");
 		sellPage.ensureCanSubmit();
 		sellPage.getSubmitButton().click();
 		mainPage.ensureLoginIsClosed();
