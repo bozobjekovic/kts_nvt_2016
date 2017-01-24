@@ -51,4 +51,7 @@ public class ProfileUserPage {
 	public int getAdverListSize() {
 		return driver.findElements(By.className("profile-listItem")).size();
 	}
+	public int getAskToJoinListSize() {
+		return driver.findElements(By.xpath("//button[@ng-click=\"apply(company.id)\"]")).size();
+	}
 }

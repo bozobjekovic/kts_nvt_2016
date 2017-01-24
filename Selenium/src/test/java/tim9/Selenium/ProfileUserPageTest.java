@@ -73,6 +73,8 @@ public class ProfileUserPageTest {
 		mainPage.ensureLoginIsClosed();
 		mainPage.getProfileLink().click();
 		assertEquals("http://localhost:8080/#/profile", browser.getCurrentUrl());
+		
+		int noAskToJoin = profileUserPage.getAskToJoinListSize();
 
 		mainPage.ensureLoginIsClosed();
 		profileUserPage.ensureCanAskToJoin();
@@ -90,6 +92,21 @@ public class ProfileUserPageTest {
 		assertEquals("http://localhost:8080/#/profileClerk", browser.getCurrentUrl());
 		
 		assertEquals(profileClerkPage.getUserRequestsListSize(), noUserRequests+1);
+		profileClerkPage.ensureCanAccept();
+		profileClerkPage.getAcceptButton().click();
+		mainPage.ensureLoginIsClosed();
+		mainPage.getLogOutLink().click();
+		
+		login();
+		loginPage.setInputUsername("user");
+		loginPage.setInputPassword("u");
+		loginPage.getOKButton().click();
+
+		mainPage.ensureLoginIsClosed();
+		mainPage.getProfileLink().click();
+		assertEquals("http://localhost:8080/#/profile", browser.getCurrentUrl());
+		mainPage.ensureLoginIsClosed();
+		assertEquals(profileUserPage.getAskToJoinListSize(), noAskToJoin-1);
 		mainPage.ensureLoginIsClosed();
 	}
 	

@@ -85,7 +85,8 @@ public class TestUpdateProfileData {
 		profileClerkUpdateDataPage.getSaveButton().click();
 		profileClerkPage.ensureModalIsClosed();
 
-		/*openModal();
+		/* NOTIFICATION
+		openModal();
 		profileClerkUpdateDataPage.setPhoneNumber("+12331203");
 		profileClerkUpdateDataPage.getSaveButton().click();
 		profileClerkPage.ensureModalIsClosed();*/

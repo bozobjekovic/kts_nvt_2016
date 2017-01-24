@@ -81,7 +81,7 @@ public class TestRegisterVerifier {
 		profileAdminRegisterVerifierPage.setVerPassword("m");
 		profileAdminRegisterVerifierPage.getOkButton().click();
 		
-/*		ODRADITI ZA NOTIFIKACIJU
+/*		NOTIFICATION
 		profileAdminRegisterVerifierPage.setEmail("verifier2@gmail.com");
 		profileAdminRegisterVerifierPage.setUsername("Verifier2");
 		profileAdminRegisterVerifierPage.setVerPassword("v");

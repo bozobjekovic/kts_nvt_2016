@@ -84,19 +84,20 @@ public class SellPageTest {
 		sellPage.getSubmitButton().click();
 
 		sellPage.setName("Kuca sa bazenom");
-		sellPage.setAddress("Bulevar cara Lazara 108");;
+		sellPage.setAddress("Bulevar cara Lazara 108");
 		sellPage.setCity("Novi Sad");
-		sellPage.setZipCode("21000");
+		sellPage.setZipCode("11000");		// NOTIFICATION
 		sellPage.setLandSize("80");
 		sellPage.setHeatingType(1);
 		sellPage.setCategory(1);
 		sellPage.setType(1);
 		sellPage.setPrice("1000000");
-		sellPage.setPhoneNumber("+504982");
+		sellPage.setPhoneNumber("+504982");		// NOTIFICATION
 		sellPage.setPurpose(1);
 		sellPage.getSubmitButton().click();
 		mainPage.ensureLoginIsClosed();
-		
+
+		sellPage.setZipCode("21000");
 		sellPage.setPhoneNumber("+3811111111");
 		sellPage.ensureCanSubmit();
 		sellPage.getSubmitButton().click();
