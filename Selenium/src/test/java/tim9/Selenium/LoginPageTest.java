@@ -1,5 +1,6 @@
 package tim9.Selenium;
 
+import static org.junit.Assert.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
 import java.util.concurrent.TimeUnit;
@@ -66,6 +67,7 @@ public class LoginPageTest {
 		loginPage.ensureIsDisplayed();
 		assertTrue(loginPage.getInputUsername().isDisplayed());
 		assertTrue(loginPage.getInputPassword().isDisplayed());
+		assertEquals("Username or password are incorrect!", loginPage.getToastr().getText());
 		
 		// WITH CORRECT INPUT DATA
 		

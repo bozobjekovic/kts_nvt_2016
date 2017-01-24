@@ -1,5 +1,6 @@
 package tim9.Selenium;
 
+import static org.junit.Assert.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
 import java.util.concurrent.TimeUnit;
@@ -104,6 +105,7 @@ public class RegistratePageTest {
 		assertTrue(registrationUserPage.getInputAddress().isDisplayed());
 		assertTrue(registrationUserPage.getInputCity().isDisplayed());
 		assertTrue(registrationUserPage.getInputBankAccount().isDisplayed());
+		assertEquals("Username or email already exists!", registrationUserPage.getToastr().getText());
 		
 		// WITH CORRECT INPUT DATA
 		
@@ -227,6 +229,7 @@ public class RegistratePageTest {
 		assertTrue(registrationClerkPage.getInputCompanyCity().isDisplayed());
 		assertTrue(registrationClerkPage.getInputCompanyZipCode().isDisplayed());
 		assertTrue(registrationClerkPage.getInputCompanyPartOfTheCity().isDisplayed());
+		assertEquals("Username or email or name of phone number already exists!", registrationUserPage.getToastr().getText());
 		
 		// WITH CORRECT INPUT DATA
 		

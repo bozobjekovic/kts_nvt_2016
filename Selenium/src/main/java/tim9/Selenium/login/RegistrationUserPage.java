@@ -41,6 +41,9 @@ public class RegistrationUserPage {
 	@FindBy(xpath = "//form[@name='registrateUserForm']//input[@id='bankaccount']")
 	private WebElement inputBankAccount;
 	
+	@FindBy(className = "toast-message")
+	private WebElement toastr;
+	
 	@FindBy(xpath = "//form[@name='registrateUserForm']//button[text()='OK']")
 	private WebElement okButton;
 
@@ -147,6 +150,10 @@ public class RegistrationUserPage {
 		WebElement el = getInputBankAccount();
 		el.clear();
 		el.sendKeys(value);
+	}
+	
+	public WebElement getToastr() {
+		return toastr;
 	}
 
 	public WebElement getOkButton() {

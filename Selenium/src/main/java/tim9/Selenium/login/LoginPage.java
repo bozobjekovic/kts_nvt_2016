@@ -21,6 +21,9 @@ private WebDriver browser;
 	@FindBy(id = "password")
 	private WebElement inputPassword;
 	
+	@FindBy(className = "toast-message")
+	private WebElement toastr;
+	
 	@FindBy(xpath = "//button[text()=\"OK\"]")
 	private WebElement OKButton;
 
@@ -42,6 +45,10 @@ private WebDriver browser;
 		WebElement el = getInputPassword();
 		el.clear();
 		el.sendKeys(inputPassword);
+	}
+	
+	public WebElement getToastr() {
+		return toastr;
 	}
 
 	public WebElement getOKButton() {

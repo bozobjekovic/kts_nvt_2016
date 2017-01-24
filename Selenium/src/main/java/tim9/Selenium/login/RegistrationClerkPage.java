@@ -59,6 +59,9 @@ public class RegistrationClerkPage {
 	@FindBy(xpath = "//form[@name='registrateClerkForm']//input[@id='partCity']")
 	private WebElement inputCompanyPartOfTheCity;
 	
+	@FindBy(className = "toast-message")
+	private WebElement toastr;
+	
 	@FindBy(xpath = "//form[@name='registrateClerkForm']//button[text()='OK']")
 	private WebElement okButton;
 	
@@ -70,7 +73,7 @@ public class RegistrationClerkPage {
 	public void ensureIsDisplayed() {
 		(new WebDriverWait(driver, 10))
 			.until(ExpectedConditions.presenceOfElementLocated(
-					By.xpath("//form[@name='registrateUserForm']//input[@id='bankaccount']")));
+					By.xpath("//form[@name='registrateClerkForm']//button[text()='OK']")));
 	}
 
 	public WebElement getInputName() {
@@ -231,6 +234,10 @@ public class RegistrationClerkPage {
 		WebElement el = getInputCompanyPartOfTheCity();
 		el.clear();
 		el.sendKeys(value);
+	}
+	
+	public WebElement getToastr() {
+		return toastr;
 	}
 
 	public WebElement getOkButton() {
