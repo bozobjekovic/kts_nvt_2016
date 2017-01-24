@@ -22,9 +22,12 @@ public class ProfileUserPageTest {
 	ProfileUserPage profileUserPage;
 	LoginPage loginPage;
 	ProfileClerkPage profileClerkPage;
-	
+
 	DriverConfiguration driverConfiguration = new DriverConfiguration();
-	
+
+	/**
+	 * This method sets up selenium
+	 */
 	@BeforeMethod
 	public void setupSelenium() {
 		System.setProperty("webdriver.chrome.driver", driverConfiguration.getDriverPath());
@@ -38,33 +41,39 @@ public class ProfileUserPageTest {
 		loginPage = PageFactory.initElements(browser, LoginPage.class);
 		profileClerkPage = PageFactory.initElements(browser, ProfileClerkPage.class);
 	}
-	
+
+	/**
+	 * This method represents login
+	 */
 	public void login() {
 		assertTrue(mainPage.getLogInLink().isDisplayed());
 		mainPage.getLogInLink().click();
-		
+
 		loginPage.ensureIsDisplayed();
 		assertTrue(loginPage.getInputUsername().isDisplayed());
 		assertTrue(loginPage.getInputPassword().isDisplayed());
 		assertTrue(loginPage.getOKButton().isDisplayed());
 	}
-	
+
+	/**
+	 * This method tests joining user to the company and accepting him
+	 */
 	@Test
 	public void testAskToJoin() {
 		login();
 		loginPage.setInputUsername("clerk");
 		loginPage.setInputPassword("c");
 		loginPage.getOKButton().click();
-		
+
 		mainPage.ensureLoginIsClosed();
 		mainPage.getProfileLink().click();
 		assertEquals("http://localhost:8080/#/profileClerk", browser.getCurrentUrl());
-		
+
 		int noUserRequests = profileClerkPage.getUserRequestsListSize();
-		
+
 		mainPage.ensureLoginIsClosed();
 		mainPage.getLogOutLink().click();
-		
+
 		login();
 		loginPage.setInputUsername("user");
 		loginPage.setInputPassword("u");
@@ -73,13 +82,13 @@ public class ProfileUserPageTest {
 		mainPage.ensureLoginIsClosed();
 		mainPage.getProfileLink().click();
 		assertEquals("http://localhost:8080/#/profile", browser.getCurrentUrl());
-		
+
 		mainPage.ensureLoginIsClosed();
 		profileUserPage.ensureCanAskToJoin();
 		profileUserPage.getAskToJoinButton().click();
-		
+
 		mainPage.getLogOutLink().click();
-		
+
 		login();
 		loginPage.setInputUsername("clerk");
 		loginPage.setInputPassword("c");
@@ -88,13 +97,13 @@ public class ProfileUserPageTest {
 		mainPage.ensureLoginIsClosed();
 		mainPage.getProfileLink().click();
 		assertEquals("http://localhost:8080/#/profileClerk", browser.getCurrentUrl());
-		
-		assertEquals(profileClerkPage.getUserRequestsListSize(), noUserRequests+1);
+
+		assertEquals(profileClerkPage.getUserRequestsListSize(), noUserRequests + 1);
 		profileClerkPage.ensureCanAccept();
 		profileClerkPage.getAcceptButton().click();
 		mainPage.ensureLoginIsClosed();
 		mainPage.getLogOutLink().click();
-		
+
 		login();
 		loginPage.setInputUsername("user");
 		loginPage.setInputPassword("u");
@@ -104,11 +113,14 @@ public class ProfileUserPageTest {
 		mainPage.getProfileLink().click();
 		assertEquals("http://localhost:8080/#/profile", browser.getCurrentUrl());
 		mainPage.ensureLoginIsClosed();
-		
+
 		assertEquals(profileUserPage.getUsersCompanyName().getText(), "Kompanija Neka");
 		mainPage.ensureLoginIsClosed();
 	}
-	
+
+	/**
+	 * This method closes browser after test
+	 */
 	@AfterMethod
 	public void closeSelenium() {
 		browser.quit();

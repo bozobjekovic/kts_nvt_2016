@@ -26,6 +26,9 @@ public class SellPageTest {
 	
 	DriverConfiguration driverConfiguration = new DriverConfiguration();
 	
+	/**
+	 * This method sets up selenium
+	 */
 	@BeforeMethod
 	public void setupSelenium() {
 		System.setProperty("webdriver.chrome.driver", driverConfiguration.getDriverPath());
@@ -41,6 +44,9 @@ public class SellPageTest {
 		profileClerkPage = PageFactory.initElements(browser, ProfileClerkPage.class);
 	}
 	
+	/**
+	 * This method represents login
+	 */
 	void login() {
 		assertTrue(mainPage.getLogInLink().isDisplayed());
 		mainPage.getLogInLink().click();
@@ -58,6 +64,9 @@ public class SellPageTest {
 		mainPage.ensureIsDisplayed();
 	}
 	
+	/**
+	 * This method tests adding new advertisement
+	 */
 	@Test
 	public void testSellPage() {
 		login();
@@ -117,6 +126,9 @@ public class SellPageTest {
 		assertEquals(profileUserPage.getAdverListSize(), noOfAdvers+1);
 	}
 	
+	/**
+	 * This method closes browser after test
+	 */
 	@AfterMethod
 	public void closeSelenium() {
 		browser.quit();

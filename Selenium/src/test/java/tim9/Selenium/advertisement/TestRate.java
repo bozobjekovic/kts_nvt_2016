@@ -26,6 +26,9 @@ public class TestRate {
 	
 	DriverConfiguration driverConfiguration = new DriverConfiguration();
 	
+	/**
+	 * This method sets up selenium
+	 */
 	@BeforeMethod
 	public void setupSelenium() {
 		System.setProperty("webdriver.chrome.driver", driverConfiguration.getDriverPath());
@@ -40,10 +43,13 @@ public class TestRate {
 		advertisementPage = PageFactory.initElements(browser, AdvertisementPage.class);
 	}
 	
+	/**
+	 * This method tests rating user and advertisement
+	 */
 	@Test
 	public void testRate() {
 		
-mainPage.ensureIsDisplayed();
+		mainPage.ensureIsDisplayed();
 		
 		mainPage.getBuyLink().click();
 		assertEquals("http://localhost:8080/#/buy", browser.getCurrentUrl());
@@ -84,6 +90,9 @@ mainPage.ensureIsDisplayed();
 	}
 	
 	
+	/**
+	 * This method closes browser after test
+	 */
 	@AfterMethod
 	public void closeSelenium() {
 		browser.quit();

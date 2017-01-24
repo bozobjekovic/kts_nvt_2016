@@ -26,6 +26,9 @@ public class TestRemoveAdvertisement {
 	
 	DriverConfiguration driverConfiguration = new DriverConfiguration();
 	
+	/**
+	 * This method sets up selenium
+	 */
 	@BeforeMethod
 	public void setupSelenium() {
 		System.setProperty("webdriver.chrome.driver", driverConfiguration.getDriverPath());
@@ -39,6 +42,9 @@ public class TestRemoveAdvertisement {
 		loginPage = PageFactory.initElements(browser, LoginPage.class);
 	}
 	
+	/**
+	 * This method represents login
+	 */
 	public void login() {
 		assertTrue(mainPage.getLogInLink().isDisplayed());
 		mainPage.getLogInLink().click();
@@ -58,6 +64,9 @@ public class TestRemoveAdvertisement {
 		assertEquals("http://localhost:8080/#/profileClerk", browser.getCurrentUrl());
 	}
 
+	/**
+	 * This method tests removing advertisement
+	 */
 	@Test
 	public void testRemoveAdvertisement() {
 		login();
@@ -70,6 +79,9 @@ public class TestRemoveAdvertisement {
 		profileClerkPage.ensureIsRemoved(noOfAdvers);
 	}
 	
+	/**
+	 * This method closes browser after test
+	 */
 	@AfterMethod
 	public void closeSelenium() {
 		browser.quit();

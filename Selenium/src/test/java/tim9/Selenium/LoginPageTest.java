@@ -23,6 +23,9 @@ public class LoginPageTest {
 	
 	DriverConfiguration driverConfiguration = new DriverConfiguration();
 	
+	/**
+	 * This method sets up selenium
+	 */
 	@BeforeMethod
 	public void setupSelenium() {
 		System.setProperty("webdriver.chrome.driver", driverConfiguration.getDriverPath());
@@ -35,6 +38,9 @@ public class LoginPageTest {
 		loginPage = PageFactory.initElements(browser, LoginPage.class);
 	}
 	
+	/**
+	 * This method tests login
+	 */
 	@Test
 	public void testLogIn() {
 		
@@ -82,6 +88,9 @@ public class LoginPageTest {
 		
 	}
 	
+	/**
+	 * This method tests log out
+	 */
 	@Test
 	public void testLogOut() {
 		
@@ -109,6 +118,9 @@ public class LoginPageTest {
 		
 	}
 	
+	/**
+	 * This method closes browser after test
+	 */
 	@AfterMethod
 	public void closeSelenium() {
 		browser.quit();

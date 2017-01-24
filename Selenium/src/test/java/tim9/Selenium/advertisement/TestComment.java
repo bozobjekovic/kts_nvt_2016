@@ -26,6 +26,9 @@ public class TestComment {
 
 	DriverConfiguration driverConfiguration = new DriverConfiguration();
 	
+	/**
+	 * This method sets up selenium
+	 */
 	@BeforeMethod
 	public void setupSelenium() {
 		System.setProperty("webdriver.chrome.driver", driverConfiguration.getDriverPath());
@@ -40,6 +43,9 @@ public class TestComment {
 		advertisementPage = PageFactory.initElements(browser, AdvertisementPage.class);
 	}
 	
+	/**
+	 * This method tests leaving comment
+	 */
 	@Test
 	public void testComment() {
 		
@@ -79,6 +85,9 @@ public class TestComment {
 		
 	}
 	
+	/**
+	 * This method closes browser after test
+	 */
 	@AfterMethod
 	public void closeSelenium() {
 		browser.quit();

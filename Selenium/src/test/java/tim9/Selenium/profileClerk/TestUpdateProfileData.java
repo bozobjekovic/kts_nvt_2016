@@ -28,6 +28,9 @@ public class TestUpdateProfileData {
 	
 	DriverConfiguration driverConfiguration = new DriverConfiguration();
 	
+	/**
+	 * This method sets up selenium
+	 */
 	@BeforeMethod
 	public void setupSelenium() {
 		System.setProperty("webdriver.chrome.driver", driverConfiguration.getDriverPath());
@@ -42,6 +45,9 @@ public class TestUpdateProfileData {
 		loginPage = PageFactory.initElements(browser, LoginPage.class);
 	}
 	
+	/**
+	 * This method represents login
+	 */
 	public void login() {
 		assertTrue(mainPage.getLogInLink().isDisplayed());
 		mainPage.getLogInLink().click();
@@ -61,6 +67,9 @@ public class TestUpdateProfileData {
 		assertEquals("http://localhost:8080/#/profileClerk", browser.getCurrentUrl());
 	}
 	
+	/**
+	 * This method opens modal
+	 */
 	public void openModal() {
 		assertTrue(profileClerkPage.getChangeButton().isDisplayed());
 		profileClerkPage.getChangeButton().click();
@@ -69,6 +78,9 @@ public class TestUpdateProfileData {
 		assertTrue(profileClerkUpdateDataPage.getName().isDisplayed());
 	}
 	
+	/**
+	 * This method tests updating clerks profile
+	 */
 	@Test
 	public void testUpdateProfileData() {
 		login();
@@ -109,6 +121,9 @@ public class TestUpdateProfileData {
 		profileClerkPage.ensureModalIsClosed();
 	}
 	
+	/**
+	 * This method closes browser after test
+	 */
 	@AfterMethod
 	public void closeSelenium() {
 		browser.quit();

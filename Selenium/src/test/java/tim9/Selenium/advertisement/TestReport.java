@@ -28,6 +28,9 @@ public class TestReport {
 	
 	DriverConfiguration driverConfiguration = new DriverConfiguration();
 	
+	/**
+	 * This method sets up selenium
+	 */
 	@BeforeMethod
 	public void setupSelenium() {
 		System.setProperty("webdriver.chrome.driver", driverConfiguration.getDriverPath());
@@ -43,6 +46,9 @@ public class TestReport {
 		advertisementPage = PageFactory.initElements(browser, AdvertisementPage.class);
 	}
 	
+	/**
+	 * This method represents login
+	 */
 	void login(String username, String password) {
 		mainPage.ensureIsDisplayed();
 		assertTrue(mainPage.getLogInLink().isDisplayed());
@@ -61,6 +67,9 @@ public class TestReport {
 		mainPage.getProfileLink().click();
 	}
 	
+	/**
+	 * This method tests reporting advertisement
+	 */
 	@Test
 	public void testReport() {
 		
@@ -157,6 +166,9 @@ public class TestReport {
 		assertEquals(profileVerifierPage.getReportedAdversListSize(), noOfReportedAdvers + 1);
 	}
 	
+	/**
+	 * This method closes browser after test
+	 */
 	@AfterMethod
 	public void closeSelenium() {
 		browser.quit();

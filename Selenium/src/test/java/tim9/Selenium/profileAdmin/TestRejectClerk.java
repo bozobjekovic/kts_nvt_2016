@@ -27,6 +27,9 @@ public class TestRejectClerk {
 	
 	DriverConfiguration driverConfiguration = new DriverConfiguration();
 	
+	/**
+	 * This method sets up selenium
+	 */
 	@BeforeMethod
 	public void setupSelenium() {
 		System.setProperty("webdriver.chrome.driver", driverConfiguration.getDriverPath());
@@ -40,6 +43,9 @@ public class TestRejectClerk {
 		loginPage = PageFactory.initElements(browser, LoginPage.class);
 	}
 	
+	/**
+	 * This method represents login
+	 */
 	void login(String username, String password) {
 		mainPage.ensureIsDisplayed();
 		assertTrue(mainPage.getLogInLink().isDisplayed());
@@ -56,6 +62,9 @@ public class TestRejectClerk {
 		
 	}
 
+	/**
+	 * This method test rejecting clerk
+	 */
 	@Test
 	public void testRejectClerk() {
 		String username = "admin";
@@ -80,6 +89,9 @@ public class TestRejectClerk {
 		assertEquals("Username or password are incorrect!", loginPage.getToastr().getText());
 	}
 	
+	/**
+	 * This method closes browser after test
+	 */
 	@AfterMethod
 	public void closeSelenium() {
 		browser.quit();

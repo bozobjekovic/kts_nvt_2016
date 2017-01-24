@@ -23,6 +23,9 @@ public class TestFilterAdvertisements {
 	
 	DriverConfiguration driverConfiguration = new DriverConfiguration();
 	
+	/**
+	 * This method sets up selenium
+	 */
 	@BeforeMethod
 	public void setupSelenium() {
 		System.setProperty("webdriver.chrome.driver", driverConfiguration.getDriverPath());
@@ -35,6 +38,9 @@ public class TestFilterAdvertisements {
 		buyPage = PageFactory.initElements(browser, BuyPage.class);
 	}
 	
+	/**
+	 * This method tests filtering advertisement
+	 */
 	@Test
 	public void testFilter(){
 		
@@ -95,6 +101,9 @@ public class TestFilterAdvertisements {
 		
 	}
 	
+	/**
+	 * This method closes browser after test
+	 */
 	@AfterMethod
 	public void closeSelenium() {
 		browser.quit();

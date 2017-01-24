@@ -28,6 +28,9 @@ public class TestUpdateAdvertisement {
 	
 	DriverConfiguration driverConfiguration = new DriverConfiguration();
 	
+	/**
+	 * This method sets up selenium
+	 */
 	@BeforeMethod
 	public void setupSelenium() {
 		System.setProperty("webdriver.chrome.driver", driverConfiguration.getDriverPath());
@@ -42,6 +45,9 @@ public class TestUpdateAdvertisement {
 		loginPage = PageFactory.initElements(browser, LoginPage.class);
 	}
 	
+	/**
+	 * This method represents login
+	 */
 	public void login() {
 		assertTrue(mainPage.getLogInLink().isDisplayed());
 		mainPage.getLogInLink().click();
@@ -61,6 +67,9 @@ public class TestUpdateAdvertisement {
 		assertEquals("http://localhost:8080/#/profileClerk", browser.getCurrentUrl());
 	}
 	
+	/**
+	 * This method opens modal
+	 */
 	public void openUpdateAdverModal() {
 		assertTrue(profileClerkPage.getUpdateButton().isDisplayed());
 		profileClerkPage.getUpdateButton().click();
@@ -69,6 +78,9 @@ public class TestUpdateAdvertisement {
 		assertTrue(updateAdverPage.getName().isDisplayed());
 	}
 	
+	/**
+	 * This method tests updating advertisement
+	 */
 	@Test
 	public void testUpdateAdver() {
 		login();
@@ -120,6 +132,9 @@ public class TestUpdateAdvertisement {
 		assertEquals(profileClerkPage.getClerkAdverPrice().getText(), "$1,000,000.00");
 	}
 	
+	/**
+	 * This method closes browser after test
+	 */
 	@AfterMethod
 	public void closeSelenium() {
 		browser.quit();

@@ -17,14 +17,17 @@ import tim9.Selenium.login.RegistrationClerkPage;
 import tim9.Selenium.login.RegistrationUserPage;
 
 public class RegistratePageTest {
-	
+
 	private WebDriver browser;
 	private MainPage mainPage;
 	private RegistrationUserPage registrationUserPage;
 	private RegistrationClerkPage registrationClerkPage;
-	
+
 	DriverConfiguration driverConfiguration = new DriverConfiguration();
-	
+
+	/**
+	 * This method sets up selenium
+	 */
 	@BeforeMethod
 	public void setupSelenium() {
 		System.setProperty("webdriver.chrome.driver", driverConfiguration.getDriverPath());
@@ -32,20 +35,23 @@ public class RegistratePageTest {
 		browser.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		browser.manage().window().maximize();
 		browser.navigate().to("http://localhost:8080");
-		
+
 		mainPage = PageFactory.initElements(browser, MainPage.class);
 		registrationUserPage = PageFactory.initElements(browser, RegistrationUserPage.class);
 		registrationClerkPage = PageFactory.initElements(browser, RegistrationClerkPage.class);
 	}
-	
+
+	/**
+	 * This method tests registartion
+	 */
 	@Test
 	public void testRegistrateUser() {
-		
+
 		mainPage.getRegistrateLink().click();
 		registrationUserPage.ensureIsDisplayed();
-		
+
 		assertTrue(registrationUserPage.getOkButton().isDisplayed());
-		
+
 		assertTrue(registrationUserPage.getInputName().isDisplayed());
 		assertTrue(registrationUserPage.getInputSurname().isDisplayed());
 		assertTrue(registrationUserPage.getInputEmail().isDisplayed());
@@ -55,9 +61,9 @@ public class RegistratePageTest {
 		assertTrue(registrationUserPage.getInputAddress().isDisplayed());
 		assertTrue(registrationUserPage.getInputCity().isDisplayed());
 		assertTrue(registrationUserPage.getInputBankAccount().isDisplayed());
-		
+
 		// WITH EMPTY INPUT DATA
-		
+
 		registrationUserPage.setInputName("");
 		registrationUserPage.setInputSurname("");
 		registrationUserPage.setInputEmail("");
@@ -67,9 +73,9 @@ public class RegistratePageTest {
 		registrationUserPage.setInputAddress("");
 		registrationUserPage.setInputCity("");
 		registrationUserPage.setInputBankAccount("");
-		
+
 		registrationUserPage.getOkButton().click();
-		
+
 		registrationUserPage.ensureIsDisplayed();
 		assertTrue(registrationUserPage.getInputName().isDisplayed());
 		assertTrue(registrationUserPage.getInputSurname().isDisplayed());
@@ -80,9 +86,9 @@ public class RegistratePageTest {
 		assertTrue(registrationUserPage.getInputAddress().isDisplayed());
 		assertTrue(registrationUserPage.getInputCity().isDisplayed());
 		assertTrue(registrationUserPage.getInputBankAccount().isDisplayed());
-		
+
 		// WITH WRONG/EXISTING INPUT DATA
-		
+
 		registrationUserPage.setInputName("TestName");
 		registrationUserPage.setInputSurname("TestSurname");
 		registrationUserPage.setInputEmail("user@gmail.com");
@@ -92,9 +98,9 @@ public class RegistratePageTest {
 		registrationUserPage.setInputAddress("TestAddress");
 		registrationUserPage.setInputCity("Novi Sad");
 		registrationUserPage.setInputBankAccount("555555");
-		
+
 		registrationUserPage.getOkButton().click();
-		
+
 		registrationUserPage.ensureIsDisplayed();
 		assertTrue(registrationUserPage.getInputName().isDisplayed());
 		assertTrue(registrationUserPage.getInputSurname().isDisplayed());
@@ -106,29 +112,32 @@ public class RegistratePageTest {
 		assertTrue(registrationUserPage.getInputCity().isDisplayed());
 		assertTrue(registrationUserPage.getInputBankAccount().isDisplayed());
 		assertEquals("Username or email already exists!", registrationUserPage.getToastr().getText());
-		
+
 		// WITH CORRECT INPUT DATA
-		
+
 		registrationUserPage.setInputEmail("testEmail@gmail.com");
 		registrationUserPage.setInputUsername("testUser");
-		
+
 		registrationUserPage.getOkButton().click();
-		
+
 		mainPage.ensureIsDisplayed();
 	}
-	
+
+	/**
+	 * This method tests registraing clerk
+	 */
 	@Test
 	public void testRegistrateClerk() {
-		
+
 		mainPage.getRegistrateLink().click();
 		registrationUserPage.ensureIsDisplayed();
-		
+
 		registrationUserPage.getClerkTab().click();
-		
+
 		registrationClerkPage.ensureIsDisplayed();
-		
+
 		assertTrue(registrationClerkPage.getOkButton().isDisplayed());
-		
+
 		assertTrue(registrationClerkPage.getInputName().isDisplayed());
 		assertTrue(registrationClerkPage.getInputSurname().isDisplayed());
 		assertTrue(registrationClerkPage.getInputEmail().isDisplayed());
@@ -145,9 +154,9 @@ public class RegistratePageTest {
 		assertTrue(registrationClerkPage.getInputCompanyCity().isDisplayed());
 		assertTrue(registrationClerkPage.getInputCompanyZipCode().isDisplayed());
 		assertTrue(registrationClerkPage.getInputCompanyPartOfTheCity().isDisplayed());
-		
+
 		// WITH EMPTY INPUT DATA
-		
+
 		registrationClerkPage.setInputName("");
 		registrationClerkPage.setInputSurname("");
 		registrationClerkPage.setInputEmail("");
@@ -164,13 +173,13 @@ public class RegistratePageTest {
 		registrationClerkPage.setInputCompanyCity("");
 		registrationClerkPage.setInputCompanyZipCode("");
 		registrationClerkPage.setInputCompanyPartOfTheCity("");
-		
+
 		registrationClerkPage.getOkButton().click();
-		
+
 		registrationClerkPage.ensureIsDisplayed();
-		
+
 		assertTrue(registrationClerkPage.getOkButton().isDisplayed());
-		
+
 		assertTrue(registrationClerkPage.getInputName().isDisplayed());
 		assertTrue(registrationClerkPage.getInputSurname().isDisplayed());
 		assertTrue(registrationClerkPage.getInputEmail().isDisplayed());
@@ -187,9 +196,9 @@ public class RegistratePageTest {
 		assertTrue(registrationClerkPage.getInputCompanyCity().isDisplayed());
 		assertTrue(registrationClerkPage.getInputCompanyZipCode().isDisplayed());
 		assertTrue(registrationClerkPage.getInputCompanyPartOfTheCity().isDisplayed());
-		
+
 		// WITH WRONG/EXISTING INPUT DATA
-		
+
 		registrationClerkPage.setInputName("testName");
 		registrationClerkPage.setInputSurname("testSurname");
 		registrationClerkPage.setInputEmail("testEmail@gmail.com");
@@ -206,13 +215,13 @@ public class RegistratePageTest {
 		registrationClerkPage.setInputCompanyCity("Novi Sad");
 		registrationClerkPage.setInputCompanyZipCode("21000");
 		registrationClerkPage.setInputCompanyPartOfTheCity("");
-		
+
 		registrationClerkPage.getOkButton().click();
-		
+
 		registrationClerkPage.ensureIsDisplayed();
-		
+
 		assertTrue(registrationClerkPage.getOkButton().isDisplayed());
-		
+
 		assertTrue(registrationClerkPage.getInputName().isDisplayed());
 		assertTrue(registrationClerkPage.getInputSurname().isDisplayed());
 		assertTrue(registrationClerkPage.getInputEmail().isDisplayed());
@@ -229,22 +238,26 @@ public class RegistratePageTest {
 		assertTrue(registrationClerkPage.getInputCompanyCity().isDisplayed());
 		assertTrue(registrationClerkPage.getInputCompanyZipCode().isDisplayed());
 		assertTrue(registrationClerkPage.getInputCompanyPartOfTheCity().isDisplayed());
-		assertEquals("Username or email or name of phone number already exists!", registrationUserPage.getToastr().getText());
-		
+		assertEquals("Username or email or name of phone number already exists!",
+				registrationUserPage.getToastr().getText());
+
 		// WITH CORRECT INPUT DATA
-		
+
 		registrationClerkPage.setInputCompanyName("testCompany");
 		registrationClerkPage.setInputCompanyPhone("111111111");
-		
+
 		registrationClerkPage.getOkButton().click();
-		
+
 		mainPage.ensureIsDisplayed();
-		
+
 	}
-	
+
+	/**
+	 * This method closes browser after test
+	 */
 	@AfterMethod
 	public void closeSelenium() {
 		browser.quit();
-	}	
+	}
 
 }
