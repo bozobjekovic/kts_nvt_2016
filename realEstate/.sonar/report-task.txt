@@ -1,5 +1,5 @@
 projectKey=realEstate
 serverUrl=http://localhost:9000
 dashboardUrl=http://localhost:9000/dashboard/index/realEstate
-ceTaskId=AVnMyrmNZTWozzHLktmq
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AVnMyrmNZTWozzHLktmq
+ceTaskId=AVnSlWpxDT3_Kz7ZCWwV
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AVnSlWpxDT3_Kz7ZCWwV
