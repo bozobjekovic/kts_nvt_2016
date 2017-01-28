@@ -1,7 +1,10 @@
-angular.module('realEstateClientApp')
-	.factory('AdvertisementFactory', ['Restangular', 'toastr', function(Restangular, toastr) {
-		'use strict';
+angular
+	.module('advertisement')
+	.factory('AdvertisementFactory', AdvertisementFactory);
 
+	AdvertisementFactory.$inject = ['Restangular', 'toastr'];
+
+	function AdvertisementFactory(Restangular, toastr){
 		var retVal = {};
 		var advertisement = {};
 		var publisher = {};
@@ -79,4 +82,4 @@ angular.module('realEstateClientApp')
 		};
 
 		return retVal;
-	}]);
+	}

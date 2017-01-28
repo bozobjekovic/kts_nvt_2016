@@ -1,7 +1,10 @@
-angular.module('realEstateClientApp')
-	.factory('VerifierFactory', ['Restangular', '_', function(Restangular, _) {
-		'use strict';
+angular
+	.module('verifier')
+	.factory('VerifierFactory', VerifierFactory);
 
+	VerifierFactory.$inject = ['Restangular', '_'];
+
+	function VerifierFactory(Restangular, _){
 		var retVal = {};
 		var inappropriates = [];
 
@@ -35,4 +38,4 @@ angular.module('realEstateClientApp')
 		};
 
 		return retVal;
-	}]);
+	}

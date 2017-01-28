@@ -1,61 +1,65 @@
 (function (angular) {
 	'use strict';
 
-	angular.module('realEstateClientApp')
-		.controller('AdminCtrl', ['$scope', '$rootScope', '_', 'AdminFactory', '$uibModal',
-		   function($scope, $rootScope, _, AdminFactory, $uibModal) {
+	angular
+		.module('admin', [])
+		.controller('AdminCtrl', AdminCtrl)
+		.controller('regVerifierModalCtrl', regVerifierModalCtrl);
 
-			$rootScope.mainMenu = true;
+	 AdminCtrl.$inject = ['$scope', '$rootScope', '_', 'AdminFactory', '$uibModal'];
+	 regVerifierModalCtrl.$inject = ['$scope', '$uibModalInstance', 'verifier', 'AdminFactory'];
 
-			AdminFactory.getAdmin().then(function(item) {
-				$scope.admin = item;
-			});
+	 function AdminCtrl($scope, $rootScope, _, AdminFactory, $uibModal){
+		 $rootScope.mainMenu = true;
 
-			AdminFactory.getAllUnapprovedClerks().then(function(items) {
-				$scope.unapprovedClerks = items;
-			});
+		 AdminFactory.getAdmin().then(function(item) {
+			 $scope.admin = item;
+		 });
 
-			$scope.acceptClerk = function(id){
-				AdminFactory.acceptClerk(id);
-			};
+		 AdminFactory.getAllUnapprovedClerks().then(function(items) {
+			 $scope.unapprovedClerks = items;
+		 });
 
-			$scope.denyClerk = function(id){
-				AdminFactory.denyClerk(id);
-			};
+		 $scope.acceptClerk = function(id){
+			 AdminFactory.acceptClerk(id);
+		 };
 
-            $scope.openModal = function() {
-                var verifier = {
-                	  email			: '',
-                	  username		: '',
-                	  password		: ''
-  			  }
-                var modalInstance = $uibModal.open({
-                    templateUrl : 'views/modals/registerVerifier.html',
-                    controller  : 'regVerifierModalCtrl',
-                    scope       : $scope,
-                    resolve     : {
-                    	verifier : function() {
-                            return verifier;
-                        }
-                    }
-                });
-            }
-	}])
-	.controller('regVerifierModalCtrl', ['$scope', '$uibModalInstance', 'verifier', 'AdminFactory',
-       function($scope, $uibModalInstance, verifier, AdminFactory) {
-           $scope.verifier = verifier;
+		 $scope.denyClerk = function(id){
+			 AdminFactory.denyClerk(id);
+		 };
 
-           $scope.regVerifier = function() {
-        	   AdminFactory.regVerifier($scope.verifier).then(function(succeeded) {
-				   if (succeeded) {
-				   		$uibModalInstance.close('ok');
-				   }
-			   });
-           }
+			 $scope.openModal = function() {
+					 var verifier = {
+							 email			: '',
+							 username		: '',
+							 password		: ''
+		 }
+					 var modalInstance = $uibModal.open({
+							 templateUrl : 'views/modals/registerVerifier.html',
+							 controller  : 'regVerifierModalCtrl',
+							 scope       : $scope,
+							 resolve     : {
+								 verifier : function() {
+											 return verifier;
+									 }
+							 }
+					 });
+			 }
+	 }
 
-           $scope.cancel = function() {
-               $uibModalInstance.close('cancel');
-           };
-       }
-   ]);
+	 function regVerifierModalCtrl($scope, $uibModalInstance, verifier, AdminFactory){
+		 $scope.verifier = verifier;
+
+		 $scope.regVerifier = function() {
+			 AdminFactory.regVerifier($scope.verifier).then(function(succeeded) {
+		 if (succeeded) {
+				$uibModalInstance.close('ok');
+		 }
+	 });
+		 }
+
+		 $scope.cancel = function() {
+				 $uibModalInstance.close('cancel');
+		 };
+	 }
 })(angular);

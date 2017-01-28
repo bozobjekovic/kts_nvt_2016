@@ -1,79 +1,81 @@
 (function (angular) {
     'use strict';
 
-    angular.module('realEstateClientApp')
-        .controller('RegistrateCtrl', ['$scope', '$uibModal', 'RegistrateFactory',
-            function($scope, $uibModal, RegistrateFactory) {
+    angular
+        .module('registrate', [])
+        .controller('RegistrateCtrl', RegistrateCtrl)
+        .controller('RegistrateModalCtrl', RegistrateModalCtrl);
 
-                /* for location */
-				$scope.cities = [];
+    RegistrateCtrl.$inject = ['$scope', '$uibModal', 'RegistrateFactory'];
+    RegistrateModalCtrl.$inject = ['$scope', '$uibModalInstance', 'registrateUser', 'RegistrateFactory'];
 
-				RegistrateFactory.getAllCities().then(function(cities) {
-					$scope.cities = cities;
-				});
+    function RegistrateCtrl($scope, $uibModal, RegistrateFactory){
+        $scope.cities = [];
 
-                $scope.openModal = function() {
-                    var registrateUser = {
-                        email : '',
-                        username : '',
-                        password : '',
-                        name : '',
-                        surname : '',
-                        phoneNumber : '',
-                        address : '',
-                        city : '',
-                        authority : '',
-                        bankAccount : '',
-                        image : 'images/user1.jpg',
-                        //
-                        companyName : '',
-                        companyPhoneNumber : '',
-                        site : '',
-                        //
-                        companyAddress : '',
-                        companyLocation : {
-                            city : '',
-                            zipCode : '',
-                            partOfTheCity : ''
-                        }
-                    };
+        RegistrateFactory.getAllCities().then(function(cities) {
+            $scope.cities = cities;
+        });
 
-                    var modalInstance = $uibModal.open({
-                        templateUrl : 'views/modals/registrate.html',
-                        controller  : 'RegistrateModalCtrl',
-                        scope       : $scope,
-                        resolve     : {
-                            registrateUser : function() {
-                                return registrateUser;
-                            }
-                        }
-                    });
+        $scope.openModal = function() {
+            var registrateUser = {
+                email : '',
+                username : '',
+                password : '',
+                name : '',
+                surname : '',
+                phoneNumber : '',
+                address : '',
+                city : '',
+                authority : '',
+                bankAccount : '',
+                image : 'images/user1.jpg',
+                //
+                companyName : '',
+                companyPhoneNumber : '',
+                site : '',
+                //
+                companyAddress : '',
+                companyLocation : {
+                    city : '',
+                    zipCode : '',
+                    partOfTheCity : ''
                 }
-            }
-        ])
-        .controller('RegistrateModalCtrl', ['$scope', '$uibModalInstance', 'registrateUser', 'RegistrateFactory',
-            function($scope, $uibModalInstance, registrateUser, RegistrateFactory) {
-                $scope.registrateUser = registrateUser;
+            };
 
-                $scope.submitRegistrateUserForm = function() {
-                    RegistrateFactory.registrateUser($scope.registrateUser).then(function(succeeded) {
-                        if (succeeded) {
-                            $uibModalInstance.close('ok_user');
-                        }
-                    });
-                };
+            var modalInstance = $uibModal.open({
+                templateUrl : 'views/modals/registrate.html',
+                controller  : 'RegistrateModalCtrl',
+                scope       : $scope,
+                resolve     : {
+                    registrateUser : function() {
+                        return registrateUser;
+                    }
+                }
+            });
+        }
+    }
 
-                $scope.submitRegistrateClerkForm = function() {
-                    RegistrateFactory.registrateClerk($scope.registrateUser).then(function(succeeded) {
-                        if (succeeded) {
-                            $uibModalInstance.close('ok_clerk');
-                        }
-                    });
-                };
+    function RegistrateModalCtrl($scope, $uibModalInstance, registrateUser, RegistrateFactory){
+      $scope.registrateUser = registrateUser;
 
-                $scope.cancel = function() {
-                    $uibModalInstance.close('cancel');
-                };
-            }
-        ]);
+      $scope.submitRegistrateUserForm = function() {
+          RegistrateFactory.registrateUser($scope.registrateUser).then(function(succeeded) {
+              if (succeeded) {
+                  $uibModalInstance.close('ok_user');
+              }
+          });
+      };
+
+      $scope.submitRegistrateClerkForm = function() {
+          RegistrateFactory.registrateClerk($scope.registrateUser).then(function(succeeded) {
+              if (succeeded) {
+                  $uibModalInstance.close('ok_clerk');
+              }
+          });
+      };
+
+      $scope.cancel = function() {
+          $uibModalInstance.close('cancel');
+      };
+    }
 })(angular);

@@ -1,28 +1,31 @@
 (function (angular) {
 	'use strict';
 
-	angular.module('realEstateClientApp')
-		.controller('VerifierCtrl', ['$scope', '_', '$location', 'VerifierFactory',
-		   function($scope, _, $location, VerifierFactory) {
+	angular
+		.module('verifier', [])
+		.controller('VerifierCtrl', VerifierCtrl);
 
-			VerifierFactory.getVerifier().then(function(item) {
-				$scope.verifier = item;
-			});
+	VerifierCtrl.$inject = ['$scope', '_', '$location', 'VerifierFactory'];
 
-			VerifierFactory.getAllInappropriates().then(function(items) {
-			    $scope.inappropriates = items;
-			});
+	function VerifierCtrl($scope, _, $location, VerifierFactory){
+		VerifierFactory.getVerifier().then(function(item) {
+			$scope.verifier = item;
+		});
 
-			$scope.accept = function(id){
-				VerifierFactory.acceptInappropriate(id);
-			};
+		VerifierFactory.getAllInappropriates().then(function(items) {
+				$scope.inappropriates = items;
+		});
 
-			$scope.reject = function(id){
-				VerifierFactory.rejectInappropriate(id);
-			};
+		$scope.accept = function(id){
+			VerifierFactory.acceptInappropriate(id);
+		};
 
-			$scope.advertisementPage = function(id){
-				$location.path('/advertisement/' + id);
-			}
-	}]);
+		$scope.reject = function(id){
+			VerifierFactory.rejectInappropriate(id);
+		};
+
+		$scope.advertisementPage = function(id){
+			$location.path('/advertisement/' + id);
+		}
+	}
 })(angular);

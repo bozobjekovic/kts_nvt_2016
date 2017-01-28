@@ -1,7 +1,10 @@
-angular.module('realEstateClientApp')
-	.factory('AdminFactory', ['Restangular', '_', 'toastr', function(Restangular, _, toastr) {
-		'use strict';
+angular
+	.module('admin')
+	.factory('AdminFactory', AdminFactory);
 
+	AdminFactory.$inject = ['Restangular', '_', 'toastr'];
+
+	function AdminFactory(Restangular, _, toastr){
 		var retVal = {};
 		var unapprovedClerks = [];
 
@@ -47,4 +50,4 @@ angular.module('realEstateClientApp')
 		};
 
 		return retVal;
-	}]);
+	}

@@ -1,7 +1,10 @@
-angular.module('realEstateClientApp')
-	.factory('BuyFactory', ['Restangular', '_', function(Restangular, _) {
-		'use strict';
+angular
+	.module('buy')
+	.factory('BuyFactory', BuyFactory);
 
+	BuyFactory.$inject = ['Restangular'];
+
+	function BuyFactory(Restangular){
 		var advertisements = [];
 		var locations = [];
 		var retVal = {};
@@ -34,4 +37,4 @@ angular.module('realEstateClientApp')
 		};
 
 		return retVal;
-	}]);
+	}

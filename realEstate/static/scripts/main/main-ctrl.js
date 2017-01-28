@@ -1,14 +1,14 @@
 (function (angular) {
     'use strict';
 
-    angular.module('realEstateClientApp')
-        .controller('MainCtrl', ['$scope', '$rootScope', '$localStorage',
-            function($scope, $rootScope, $localStorage) {
+    angular.module('main', [])
+        .controller('MainCtrl', MainCtrl);
 
-                $rootScope.mainMenu = true;
+    MainCtrl.$inject = ['$scope', '$rootScope', '$localStorage'];
 
-                $rootScope.currentUser = ($localStorage.currentUser) ? true : false;
+    function MainCtrl($scope, $rootScope, $localStorage){
+      $rootScope.mainMenu = true;
 
-            }
-        ]);
+      $rootScope.currentUser = ($localStorage.currentUser) ? true : false;
+    }
 })(angular);
